@@ -9,7 +9,7 @@ public class Global
     /// Empty turns the app's self-update off (core and geo-file updates still work), so it can
     /// never replace this build with the upstream v2rayN release.
     /// </summary>
-    public const string AppReleaseRepo = "";
+    public const string AppReleaseRepo = "BlackkCore/v2rayN-Redesign";
 
     public const string GithubUrl = "https://github.com";
     public const string GithubApiUrl = "https://api.github.com/repos";

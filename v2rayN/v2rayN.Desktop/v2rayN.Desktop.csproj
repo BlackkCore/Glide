@@ -52,6 +52,11 @@
 		<None Update="v2rayN.icns">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Assets\Fonts\OFL.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\Manrope-OFL.txt</TargetPath>
+		</None>
 	</ItemGroup>
     
     <ItemGroup>

@@ -68,6 +68,7 @@ public sealed class AppManager
         }
 
         Logging.Setup();
+        ConfigImportHandler.ApplyPendingImport();
         var config = ConfigHandler.LoadConfig();
         if (config == null)
         {
@@ -155,6 +156,13 @@ public sealed class AppManager
     public async Task RebootAsAdmin()
     {
         ProcUtils.RebootAsAdmin();
+        await AppManager.Instance.AppExitAsync(true);
+    }
+
+    public async Task RestartApp()
+    {
+        // Same relaunch as RebootAsAdmin, but keeps the current elevation.
+        ProcUtils.RebootAsAdmin(false);
         await AppManager.Instance.AppExitAsync(true);
     }
 

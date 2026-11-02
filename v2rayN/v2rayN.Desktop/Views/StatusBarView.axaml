@@ -7,76 +7,165 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    d:DesignWidth="320"
     x:DataType="vms:StatusBarViewModel"
     Design.DataContext="{x:Static dd:DesignData.StatusBar}"
     mc:Ignorable="d">
-    <Grid>
-        <DockPanel Margin="{StaticResource Margin8}">
-            <StackPanel
-                Margin="{StaticResource MarginLr8}"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Right">
-                <TextBlock x:Name="txtSpeedProxyDisplay" HorizontalAlignment="Right" />
-                <Border Margin="1" />
-                <TextBlock x:Name="txtSpeedDirectDisplay" HorizontalAlignment="Right" />
-            </StackPanel>
 
-            <StackPanel
-                Margin="{StaticResource MarginLr8}"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left">
-                <TextBlock x:Name="txtInboundDisplay" />
-                <Border Margin="1" />
-                <TextBlock x:Name="txtInboundLanDisplay" />
-            </StackPanel>
+    <StackPanel Spacing="16">
 
-            <StackPanel
-                x:Name="spEnableTun"
-                Margin="{StaticResource MarginLr8}"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                Orientation="Horizontal">
-                <TextBlock
-                    Margin="{StaticResource MarginLr8}"
-                    VerticalAlignment="Center"
-                    Text="{x:Static resx:ResUI.TbEnableTunAs}" />
-                <ToggleSwitch
-                    x:Name="togEnableTun"
-                    Margin="{StaticResource Margin4}"
-                    HorizontalAlignment="Center"
-                    Theme="{DynamicResource SimpleToggleSwitch}" />
-            </StackPanel>
+        <!--  Connection  -->
+        <Border Padding="22,20,22,18" Classes="card">
+            <StackPanel Spacing="14">
+                <Border x:Name="bdPowerState" Classes="pill">
+                    <StackPanel Orientation="Horizontal" Spacing="7">
+                        <Ellipse
+                            Width="7"
+                            Height="7"
+                            VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtPowerState" Text="Proxy off" />
+                    </StackPanel>
+                </Border>
 
-            <StackPanel
-                Margin="{StaticResource MarginLr8}"
-                VerticalAlignment="Center"
-                DockPanel.Dock="Left"
-                Orientation="Horizontal">
-                <ComboBox
-                    x:Name="cmbSystemProxy"
-                    Width="160"
-                    Margin="{StaticResource MarginLr8}"
+                <Button
+                    x:Name="btnPower"
+                    Classes="power"
                     ToolTip.Tip="{x:Static resx:ResUI.menuSystemproxy}">
-                    <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyClear}" />
-                    <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxySet}" />
-                    <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyNothing}" />
-                    <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyPac}" />
-                </ComboBox>
+                    <PathIcon Data="{StaticResource IconPower}" />
+                </Button>
 
-                <ComboBox
-                    x:Name="cmbRoutings2"
-                    Width="160"
-                    Margin="{StaticResource MarginLr8}"
-                    DisplayMemberBinding="{Binding Remarks}"
-                    ItemsSource="{Binding RoutingItems}"
-                    ToolTip.Tip="{x:Static resx:ResUI.menuRouting}" />
-            </StackPanel>
+                <StackPanel
+                    x:Name="spRunningServer"
+                    HorizontalAlignment="Stretch"
+                    Background="Transparent"
+                    Cursor="Hand"
+                    Spacing="7">
+                    <TextBlock x:Name="txtServerName" Classes="serverName" />
+                    <StackPanel
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Border
+                            x:Name="bdServerType"
+                            Classes="badge accent"
+                            IsVisible="False">
+                            <TextBlock x:Name="txtServerType" />
+                        </Border>
+                        <TextBlock
+                            x:Name="txtServerAddress"
+                            MaxWidth="180"
+                            VerticalAlignment="Center"
+                            Classes="muted"
+                            FontSize="12"
+                            FontWeight="Medium"
+                            TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                    <TextBlock
+                        x:Name="txtRunningInfoDisplay"
+                        HorizontalAlignment="Center"
+                        Classes="faint num"
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                </StackPanel>
 
-            <StackPanel Margin="{StaticResource MarginLr8}" VerticalAlignment="Center">
-                <TextBlock x:Name="txtRunningServerDisplay" />
-                <Border Margin="1" />
-                <TextBlock x:Name="txtRunningInfoDisplay" />
+                <StackPanel x:Name="spSpeed" Spacing="8">
+                    <Grid ColumnDefinitions="*,8,*">
+                        <Border Classes="stat">
+                            <StackPanel Spacing="3">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <PathIcon Classes="up" Data="{StaticResource IconArrowUp}" />
+                                    <TextBlock Classes="statLabel" Text="Upload" />
+                                </StackPanel>
+                                <TextBlock x:Name="txtSpeedUp" Classes="statValue" />
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="2" Classes="stat">
+                            <StackPanel Spacing="3">
+                                <StackPanel Orientation="Horizontal" Spacing="5">
+                                    <PathIcon Classes="down" Data="{StaticResource IconArrowDown}" />
+                                    <TextBlock Classes="statLabel" Text="Download" />
+                                </StackPanel>
+                                <TextBlock x:Name="txtSpeedDown" Classes="statValue" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    <TextBlock
+                        x:Name="txtSpeedDirect"
+                        HorizontalAlignment="Center"
+                        Classes="faint num"
+                        FontSize="11"
+                        FontWeight="SemiBold" />
+                </StackPanel>
             </StackPanel>
-        </DockPanel>
-    </Grid>
+        </Border>
+
+        <!--  Proxy, routing, TUN  -->
+        <Border Classes="card">
+            <StackPanel Spacing="14">
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="label" Text="{x:Static resx:ResUI.menuSystemproxy}" />
+                    <ListBox x:Name="cmbSystemProxy" Theme="{StaticResource SegmentListBox}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="2" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBoxItem Content="Off" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxyClear}" />
+                        <ListBoxItem Content="On" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxySet}" />
+                        <ListBoxItem Content="Unchanged" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxyNothing}" />
+                        <ListBoxItem Content="PAC" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxyPac}" />
+                    </ListBox>
+                </StackPanel>
+
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="label" Text="{x:Static resx:ResUI.menuRouting}" />
+                    <ComboBox
+                        x:Name="cmbRoutings2"
+                        HorizontalAlignment="Stretch"
+                        CornerRadius="10"
+                        DisplayMemberBinding="{Binding Remarks}"
+                        ItemsSource="{Binding RoutingItems}"
+                        ToolTip.Tip="{x:Static resx:ResUI.menuRouting}" />
+                </StackPanel>
+
+                <DockPanel x:Name="spEnableTun">
+                    <ToggleSwitch
+                        x:Name="togEnableTun"
+                        VerticalAlignment="Center"
+                        DockPanel.Dock="Right"
+                        Theme="{DynamicResource SimpleToggleSwitch}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="13"
+                        FontWeight="SemiBold"
+                        Foreground="{DynamicResource AppTextBrush}"
+                        Text="{x:Static resx:ResUI.TbEnableTunAs}"
+                        TextWrapping="Wrap" />
+                </DockPanel>
+
+                <Border Classes="divider" />
+
+                <Grid
+                    ColumnDefinitions="Auto,*"
+                    RowDefinitions="Auto,6,Auto">
+                    <TextBlock x:Name="txtInboundKey" Classes="kvKey" />
+                    <TextBlock
+                        x:Name="txtInboundValue"
+                        Grid.Column="1"
+                        Classes="kvValue" />
+                    <TextBlock
+                        x:Name="txtInboundLanKey"
+                        Grid.Row="2"
+                        Classes="kvKey" />
+                    <TextBlock
+                        x:Name="txtInboundLanValue"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Classes="kvValue" />
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </UserControl>

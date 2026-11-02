@@ -1905,4 +1905,34 @@
   <data name="menuAddMasqueServer" xml:space="preserve">
     <value>Добавить сервер [MASQUE]</value>
   </data>
+  <data name="TipRestartRequired" xml:space="preserve">
+    <value>Изменение вступит в силу после перезапуска v2rayN. Перезапустить сейчас?</value>
+  </data>
+  <data name="TbRestartNow" xml:space="preserve">
+    <value>Перезапустить</value>
+  </data>
+  <data name="TbRestartLater" xml:space="preserve">
+    <value>Позже</value>
+  </data>
+  <data name="menuImportFromOriginal" xml:space="preserve">
+    <value>Импорт из оригинального v2rayN...</value>
+  </data>
+  <data name="TipImportFound" xml:space="preserve">
+    <value>Найден v2rayN:
+{0}
+
+Импортировать его серверы, подписки и настройки? v2rayN перезапустится, текущие настройки будут сохранены в резервную копию. Для самых свежих данных сначала закройте оригинальный v2rayN.</value>
+  </data>
+  <data name="TipImportNotFound" xml:space="preserve">
+    <value>Выберите папку v2rayN (ту, где лежит v2rayN.exe)</value>
+  </data>
+  <data name="TipImportInvalidFolder" xml:space="preserve">
+    <value>В этой папке нет настроек v2rayN (guiConfigs).</value>
+  </data>
+  <data name="TbImport" xml:space="preserve">
+    <value>Импорт</value>
+  </data>
+  <data name="TbNotNow" xml:space="preserve">
+    <value>Не сейчас</value>
+  </data>
 </root>

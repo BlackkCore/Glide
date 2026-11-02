@@ -1773,4 +1773,34 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="menuNewUpdate" xml:space="preserve">
     <value>New Update</value>
   </data>
+  <data name="TipRestartRequired" xml:space="preserve">
+    <value>این تغییر پس از راه‌اندازی مجدد v2rayN اعمال می‌شود. همین حالا راه‌اندازی مجدد شود؟</value>
+  </data>
+  <data name="TbRestartNow" xml:space="preserve">
+    <value>راه‌اندازی مجدد</value>
+  </data>
+  <data name="TbRestartLater" xml:space="preserve">
+    <value>بعداً</value>
+  </data>
+  <data name="menuImportFromOriginal" xml:space="preserve">
+    <value>وارد کردن از v2rayN اصلی...</value>
+  </data>
+  <data name="TipImportFound" xml:space="preserve">
+    <value>v2rayN در این مسیر پیدا شد:
+{0}
+
+سرورها، اشتراک‌ها و تنظیمات آن وارد شود؟ برنامه دوباره راه‌اندازی می‌شود و پیش از آن از تنظیمات فعلی شما نسخهٔ پشتیبان گرفته می‌شود. برای دریافت جدیدترین اطلاعات، ابتدا v2rayN اصلی را ببندید.</value>
+  </data>
+  <data name="TipImportNotFound" xml:space="preserve">
+    <value>پوشهٔ v2rayN خود را انتخاب کنید (پوشه‌ای که v2rayN.exe در آن است)</value>
+  </data>
+  <data name="TipImportInvalidFolder" xml:space="preserve">
+    <value>این پوشه تنظیمات v2rayN (پوشهٔ guiConfigs) را ندارد.</value>
+  </data>
+  <data name="TbImport" xml:space="preserve">
+    <value>وارد کردن</value>
+  </data>
+  <data name="TbNotNow" xml:space="preserve">
+    <value>فعلاً نه</value>
+  </data>
 </root>

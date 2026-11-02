@@ -18,8 +18,7 @@
     mc:Ignorable="d">
     <DockPanel Margin="{StaticResource Margin8}">
         <StackPanel
-            Margin="{StaticResource Margin4}"
-            HorizontalAlignment="Center"
+            Classes="dialogFooter"
             DockPanel.Dock="Bottom"
             Orientation="Horizontal">
             <Button

@@ -1906,4 +1906,34 @@
   <data name="LvPreResolve" xml:space="preserve">
     <value>预解析节点域名</value>
   </data>
+  <data name="TipRestartRequired" xml:space="preserve">
+    <value>此更改需要重启 v2rayN 后生效。是否立即重启？</value>
+  </data>
+  <data name="TbRestartNow" xml:space="preserve">
+    <value>立即重启</value>
+  </data>
+  <data name="TbRestartLater" xml:space="preserve">
+    <value>稍后</value>
+  </data>
+  <data name="menuImportFromOriginal" xml:space="preserve">
+    <value>从原版 v2rayN 导入...</value>
+  </data>
+  <data name="TipImportFound" xml:space="preserve">
+    <value>在以下位置找到 v2rayN：
+{0}
+
+是否导入其服务器、订阅和设置？v2rayN 将会重启，并会先备份当前设置。为获取最新数据，请先退出原版 v2rayN。</value>
+  </data>
+  <data name="TipImportNotFound" xml:space="preserve">
+    <value>选择 v2rayN 所在的文件夹（包含 v2rayN.exe 的文件夹）</value>
+  </data>
+  <data name="TipImportInvalidFolder" xml:space="preserve">
+    <value>该文件夹中没有 v2rayN 设置（guiConfigs）。</value>
+  </data>
+  <data name="TbImport" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="TbNotNow" xml:space="preserve">
+    <value>暂不</value>
+  </data>
 </root>

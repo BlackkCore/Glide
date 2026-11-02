@@ -11,95 +11,111 @@
     d:DesignWidth="800"
     Design.DataContext="{x:Static dd:DesignData.Msg}"
     mc:Ignorable="d">
-    <DockPanel Margin="2">
+    <DockPanel>
         <WrapPanel
-            Margin="{StaticResource Margin4}"
+            Margin="0,0,0,10"
             VerticalAlignment="Center"
             DockPanel.Dock="Top"
+            ItemSpacing="12"
+            LineSpacing="8"
             Orientation="Horizontal">
+
+            <TextBlock
+                VerticalAlignment="Center"
+                Classes="h2"
+                Text="{x:Static resx:ResUI.MsgInformationTitle}" />
 
             <TextBox
                 x:Name="cmbMsgFilter"
-                Width="200"
-                Margin="{StaticResource MarginLr8}"
-                VerticalContentAlignment="Center"
+                Width="180"
+                Classes="search"
                 PlaceholderText="{x:Static resx:ResUI.MsgFilterTitle}"
-                ToolTip.Tip="{x:Static resx:ResUI.MsgFilterTitle}" />
+                ToolTip.Tip="{x:Static resx:ResUI.MsgFilterTitle}">
+                <TextBox.InnerLeftContent>
+                    <PathIcon Classes="searchIcon" Data="{StaticResource IconSearch}" />
+                </TextBox.InnerLeftContent>
+            </TextBox>
 
-            <Button
-                x:Name="btnCopy"
-                Margin="{StaticResource MarginLr8}"
-                Classes="IconButton Success"
-                Click="menuMsgViewCopyAll_Click"
-                ToolTip.Tip="{x:Static resx:ResUI.menuMsgViewCopyAll}">
-                <Button.Content>
-                    <PathIcon Data="{StaticResource SemiIconCopy}" />
-                </Button.Content>
-            </Button>
-            <Button
-                x:Name="btnClear"
-                Margin="{StaticResource MarginLr8}"
-                Classes="IconButton Success"
-                Click="menuMsgViewClear_Click"
-                ToolTip.Tip="{x:Static resx:ResUI.menuMsgViewClear}">
-                <Button.Content>
-                    <PathIcon Data="{StaticResource SemiIconDelete}" />
-                </Button.Content>
-            </Button>
-            <TextBlock
-                Margin="{StaticResource MarginLr8}"
+            <Border VerticalAlignment="Center" Classes="toolbar">
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        x:Name="btnCopy"
+                        Classes="IconButton"
+                        Click="menuMsgViewCopyAll_Click"
+                        ToolTip.Tip="{x:Static resx:ResUI.menuMsgViewCopyAll}">
+                        <PathIcon Data="{StaticResource SemiIconCopy}" />
+                    </Button>
+                    <Button
+                        x:Name="btnClear"
+                        Classes="IconButton"
+                        Click="menuMsgViewClear_Click"
+                        ToolTip.Tip="{x:Static resx:ResUI.menuMsgViewClear}">
+                        <PathIcon Data="{StaticResource SemiIconDelete}" />
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <StackPanel
                 VerticalAlignment="Center"
-                Text="{x:Static resx:ResUI.TbAutoRefresh}" />
-            <ToggleSwitch
-                x:Name="togAutoRefresh"
-                Margin="{StaticResource MarginLr8}"
-                HorizontalAlignment="Left"
-                IsChecked="True"
-                Theme="{DynamicResource SimpleToggleSwitch}" />
-            <TextBlock
-                Margin="{StaticResource MarginLr8}"
+                Orientation="Horizontal"
+                Spacing="8">
+                <TextBlock Classes="toggleLabel" Text="{x:Static resx:ResUI.TbAutoRefresh}" />
+                <ToggleSwitch
+                    x:Name="togAutoRefresh"
+                    HorizontalAlignment="Left"
+                    IsChecked="True"
+                    Theme="{DynamicResource SimpleToggleSwitch}" />
+            </StackPanel>
+            <StackPanel
                 VerticalAlignment="Center"
-                Text="{x:Static resx:ResUI.TbAutoScrollToEnd}" />
-            <ToggleSwitch
-                x:Name="togScrollToEnd"
-                Margin="{StaticResource MarginLr8}"
-                HorizontalAlignment="Left"
-                IsChecked="True"
-                Theme="{DynamicResource SimpleToggleSwitch}" />
+                Orientation="Horizontal"
+                Spacing="8">
+                <TextBlock Classes="toggleLabel" Text="{x:Static resx:ResUI.TbAutoScrollToEnd}" />
+                <ToggleSwitch
+                    x:Name="togScrollToEnd"
+                    HorizontalAlignment="Left"
+                    IsChecked="True"
+                    Theme="{DynamicResource SimpleToggleSwitch}" />
+            </StackPanel>
         </WrapPanel>
 
-        <avaloniaEdit:TextEditor
-            Name="txtMsg"
-            Margin="{StaticResource Margin8}"
-            IsReadOnly="True"
-            VerticalScrollBarVisibility="Auto"
-            WordWrap="True">
-            <avaloniaEdit:TextEditor.Options>
-                <avaloniaEdit:TextEditorOptions AllowScrollBelowDocument="False" />
-            </avaloniaEdit:TextEditor.Options>
-            <avaloniaEdit:TextEditor.ContextFlyout>
-                <MenuFlyout>
-                    <MenuItem
-                        x:Name="menuMsgViewSelectAll"
-                        Click="menuMsgViewSelectAll_Click"
-                        Header="{x:Static resx:ResUI.menuMsgViewSelectAll}"
-                        InputGesture="Ctrl+A" />
-                    <MenuItem
-                        x:Name="menuMsgViewCopy"
-                        Click="menuMsgViewCopy_Click"
-                        Header="{x:Static resx:ResUI.menuMsgViewCopy}"
-                        InputGesture="Ctrl+C" />
-                    <MenuItem
-                        x:Name="menuMsgViewCopyAll"
-                        Click="menuMsgViewCopyAll_Click"
-                        Header="{x:Static resx:ResUI.menuMsgViewCopyAll}" />
-                    <MenuItem
-                        x:Name="menuMsgViewClear"
-                        Click="menuMsgViewClear_Click"
-                        Header="{x:Static resx:ResUI.menuMsgViewClear}" />
-                </MenuFlyout>
-            </avaloniaEdit:TextEditor.ContextFlyout>
-        </avaloniaEdit:TextEditor>
-
+        <Border Classes="logPanel">
+            <avaloniaEdit:TextEditor
+                Name="txtMsg"
+                Padding="10,8"
+                Background="Transparent"
+                FontFamily="{StaticResource AppMonoFont}"
+                FontSize="12"
+                Foreground="{DynamicResource AppMutedBrush}"
+                IsReadOnly="True"
+                VerticalScrollBarVisibility="Auto"
+                WordWrap="True">
+                <avaloniaEdit:TextEditor.Options>
+                    <avaloniaEdit:TextEditorOptions AllowScrollBelowDocument="False" />
+                </avaloniaEdit:TextEditor.Options>
+                <avaloniaEdit:TextEditor.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuItem
+                            x:Name="menuMsgViewSelectAll"
+                            Click="menuMsgViewSelectAll_Click"
+                            Header="{x:Static resx:ResUI.menuMsgViewSelectAll}"
+                            InputGesture="Ctrl+A" />
+                        <MenuItem
+                            x:Name="menuMsgViewCopy"
+                            Click="menuMsgViewCopy_Click"
+                            Header="{x:Static resx:ResUI.menuMsgViewCopy}"
+                            InputGesture="Ctrl+C" />
+                        <MenuItem
+                            x:Name="menuMsgViewCopyAll"
+                            Click="menuMsgViewCopyAll_Click"
+                            Header="{x:Static resx:ResUI.menuMsgViewCopyAll}" />
+                        <MenuItem
+                            x:Name="menuMsgViewClear"
+                            Click="menuMsgViewClear_Click"
+                            Header="{x:Static resx:ResUI.menuMsgViewClear}" />
+                    </MenuFlyout>
+                </avaloniaEdit:TextEditor.ContextFlyout>
+            </avaloniaEdit:TextEditor>
+        </Border>
     </DockPanel>
 </UserControl>

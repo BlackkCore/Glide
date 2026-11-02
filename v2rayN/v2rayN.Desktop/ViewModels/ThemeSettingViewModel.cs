@@ -1,5 +1,7 @@
 using Avalonia.Controls.Notifications;
 using Avalonia.Controls.Primitives;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Markup.Xaml.Styling;
 using AvaloniaEdit;
 using Semi.Avalonia;
 
@@ -90,13 +92,38 @@ public partial class ThemeSettingViewModel : MyReactiveObject
         }
     }
 
+    private const string UiFontSizeKey = "AppUiFontSize";
+    private const string UiRowHeightKey = "AppUiRowHeight";
+    private static bool _fontSizeStylesAdded;
+
     private void ModifyFontSize()
     {
+        var app = Application.Current;
+        if (app is null)
+        {
+            return;
+        }
+        // Runs first while the main window is being built. Adding styles to an open window
+        // re-templates its controls, which crashed the log tab, so later changes only update
+        // the resources these styles read.
+        EnsureFontSizeStyles(app);
+
         double size = CurrentFontSize;
         if (size < Global.MinFontSize)
         {
             return;
         }
+        app.Resources[UiFontSizeKey] = size;
+        app.Resources[UiRowHeightKey] = 26 + size;
+    }
+
+    private static void EnsureFontSizeStyles(Application app)
+    {
+        if (_fontSizeStylesAdded)
+        {
+            return;
+        }
+        _fontSizeStylesAdded = true;
 
         Style style = new(x => Selectors.Or(
             x.OfType<Button>(),
@@ -110,23 +137,26 @@ public partial class ThemeSettingViewModel : MyReactiveObject
             x.OfType<HeaderedContentControl>(),
             x.OfType<TextEditor>()
         ));
-        style.Add(new Setter()
-        {
-            Property = TemplatedControl.FontSizeProperty,
-            Value = size,
-        });
-        Application.Current?.Styles.Add(style);
+        style.Add(new Setter(TemplatedControl.FontSizeProperty, new DynamicResourceExtension(UiFontSizeKey)));
+        InsertBeforeAppStyles(app, style);
 
-        ModifyFontSizeEx(size);
+        //DataGrid (the server list keeps its own row height)
+        var rowStyle = new Style(x => x.OfType<DataGrid>().Not(y => y.Class("servers")));
+        rowStyle.Add(new Setter(DataGrid.RowHeightProperty, new DynamicResourceExtension(UiRowHeightKey)));
+        app.Styles.Add(rowStyle);
     }
 
-    private void ModifyFontSizeEx(double size)
+    // User font settings go before the app's own styles: plain text follows them,
+    // while text the design styles explicitly (headings, labels, the server list) keeps its size.
+    private static void InsertBeforeAppStyles(Application app, IStyle style)
     {
-        //DataGrid
-        var rowHeight = 20 + (size / 2);
-        var style = new Style(x => x.OfType<DataGrid>());
-        style.Add(new Setter(DataGrid.RowHeightProperty, rowHeight));
-        Application.Current?.Styles.Add(style);
+        var firstInclude = app.Styles.OfType<StyleInclude>().FirstOrDefault();
+        if (firstInclude is null)
+        {
+            app.Styles.Add(style);
+            return;
+        }
+        app.Styles.Insert(app.Styles.IndexOf(firstInclude), style);
     }
 
     private void ModifyFontFamily()
@@ -157,7 +187,10 @@ public partial class ThemeSettingViewModel : MyReactiveObject
                 Property = TemplatedControl.FontFamilyProperty,
                 Value = new FontFamily(currentFontFamily),
             });
-            Application.Current?.Styles.Add(style);
+            if (Application.Current is { } app)
+            {
+                InsertBeforeAppStyles(app, style);
+            }
         }
         catch (Exception ex)
         {

@@ -22,8 +22,7 @@
 
     <DockPanel Margin="{StaticResource Margin8}">
         <StackPanel
-            Margin="{StaticResource Margin4}"
-            HorizontalAlignment="Center"
+            Classes="dialogFooter"
             DockPanel.Dock="Bottom"
             Orientation="Horizontal">
             <Button
@@ -84,7 +83,7 @@
                     CanUserReorderColumns="True"
                     CanUserResizeColumns="True"
                     FrozenColumnCount="2"
-                    GridLinesVisibility="All"
+                    GridLinesVisibility="Horizontal"
                     HeadersVisibility="All"
                     IsReadOnly="True"
                     ItemsSource="{Binding ProfileItems}"

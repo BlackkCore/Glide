@@ -3,13 +3,16 @@ namespace v2rayN.Desktop.Common;
 public static class AppBuilderExtension
 {
     private static readonly string DefaultFontFamilyName =
+        Path.Combine(Global.AvaAssets, "Fonts#Manrope");
+
+    private static readonly string CjkFontFamilyName =
         Path.Combine(Global.AvaAssets, "Fonts#Noto Sans SC");
 
     public static AppBuilder WithFontByDefault(this AppBuilder appBuilder)
     {
         var fallbacks = new List<FontFallback>();
 
-        var notoSansSc = new FontFamily(DefaultFontFamilyName);
+        var notoSansSc = new FontFamily(CjkFontFamilyName);
 
         fallbacks.Add(new FontFallback
         {

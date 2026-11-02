@@ -1,0 +1,514 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20" Classes="card">
+            <TextBlock Classes="h2" Text="Preview" />
+        </Border>
+    </Design.PreviewWith>
+
+    <!--  Windows: dialogs sit on the surface color (the main window sets the gray canvas itself)  -->
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="Padding" Value="10" />
+    </Style>
+
+    <!--  ===== Dialogs =====  -->
+    <Style Selector="StackPanel.dialogFooter">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Margin" Value="4,14,4,2" />
+    </Style>
+    <Style Selector="Button#btnSave, Button#btnYes">
+        <Setter Property="Theme" Value="{DynamicResource SolidButton}" />
+    </Style>
+    <Style Selector="Button#btnSave, Button#btnYes, Button#btnCancel, Button#btnNo, Button#btnReset">
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="MinWidth" Value="96" />
+        <Setter Property="Padding" Value="18,0" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button#btnCancel, Button#btnNo, Button#btnReset">
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+
+    <!--  Tables everywhere: one line per cell, hairline row separators  -->
+    <Style Selector="DataGrid">
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource AppGridLineBrush}" />
+    </Style>
+    <Style Selector="DataGridCell :is(TextBlock)">
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <!--  Cards and tiles  -->
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="BoxShadow" Value="{DynamicResource AppCardShadow}" />
+    </Style>
+    <Style Selector="Border.tile">
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="12,10" />
+    </Style>
+    <Style Selector="Border.divider">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Background" Value="{DynamicResource AppBorderBrush}" />
+    </Style>
+
+    <!--  Text  -->
+    <Style Selector="TextBlock.h1">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="ExtraBold" />
+        <Setter Property="LetterSpacing" Value="-0.3" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+    <Style Selector="TextBlock.h2">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+    <Style Selector="TextBlock.label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="TextBlock.muted">
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="TextBlock.faint">
+        <Setter Property="Foreground" Value="{DynamicResource AppFaintBrush}" />
+    </Style>
+    <Style Selector="TextBlock.num">
+        <Setter Property="FontFeatures" Value="+tnum" />
+    </Style>
+
+    <!--  Small badges: protocol type, counts, "active"  -->
+    <Style Selector="Border.badge">
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="7,2" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.badge TextBlock">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="Border.badge.accent">
+        <Setter Property="Background" Value="{DynamicResource AppAccentSoftBrush}" />
+    </Style>
+    <Style Selector="Border.badge.accent TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppAccentSoftFgBrush}" />
+    </Style>
+    <Style Selector="Border.badge.solid">
+        <Setter Property="Background" Value="{DynamicResource AppAccentBrush}" />
+    </Style>
+    <Style Selector="Border.badge.solid TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppOnAccentBrush}" />
+    </Style>
+    <Style Selector="Border.badge.round">
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="Padding" Value="8,2" />
+    </Style>
+
+    <!--  ===== Sidebar =====  -->
+    <Style Selector="Border.sidebar">
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,1,0" />
+        <Setter Property="Padding" Value="14,20,14,16" />
+    </Style>
+    <Style Selector="Border.brandMark">
+        <Setter Property="Width" Value="34" />
+        <Setter Property="Height" Value="34" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Background" Value="{DynamicResource AppPowerOnFill}" />
+        <Setter Property="BoxShadow" Value="0 4 10 -4 #803157E6" />
+    </Style>
+    <Style Selector="Border.brandMark PathIcon">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Foreground" Value="{DynamicResource AppOnAccentBrush}" />
+    </Style>
+    <Style Selector="TextBlock.sectionLabel">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="LetterSpacing" Value="0.6" />
+        <Setter Property="Foreground" Value="{DynamicResource AppFaintBrush}" />
+        <Setter Property="Margin" Value="12,0,0,6" />
+    </Style>
+    <Style Selector="Menu.sidebar">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="ItemContainerTheme" Value="{StaticResource SidebarMenuItem}" />
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical" />
+            </ItemsPanelTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Menu.sidebar PathIcon.nav">
+        <Setter Property="Width" Value="18" />
+        <Setter Property="Height" Value="18" />
+        <Setter Property="Foreground" Value="{Binding $parent[MenuItem].Foreground}" />
+    </Style>
+    <Style Selector="Menu.sidebar TextBlock.nav">
+        <Setter Property="FontSize" Value="13.5" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="Foreground" Value="{Binding $parent[MenuItem].Foreground}" />
+    </Style>
+    <Style Selector="Menu.sidebar > Separator">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Margin" Value="12,10" />
+        <Setter Property="Background" Value="{DynamicResource AppBorderBrush}" />
+    </Style>
+
+    <!--  Theme switch (Light | Dark) at the bottom of the sidebar  -->
+    <Style Selector="Border.themeSwitch">
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="CornerRadius" Value="11" />
+        <Setter Property="Padding" Value="3" />
+    </Style>
+    <Style Selector="Button.themeOpt">
+        <Setter Property="Theme" Value="{DynamicResource BorderlessButton}" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.themeOpt PathIcon">
+        <Setter Property="Width" Value="15" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Foreground" Value="{Binding $parent[Button].Foreground}" />
+    </Style>
+    <Style Selector="Button.themeOpt TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{Binding $parent[Button].Foreground}" />
+    </Style>
+    <Style Selector="Button.themeOpt:pointerover">
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+    <Style Selector="Button.themeOpt.active /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppSegmentSelectedBrush}" />
+        <Setter Property="BoxShadow" Value="{DynamicResource AppRaisedShadow}" />
+    </Style>
+    <Style Selector="Button.themeOpt.active">
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+
+    <!--  Compact sidebar (narrow windows): icons only  -->
+    <Style Selector=":is(Control).compactOnly">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="Border.sidebar.compact">
+        <Setter Property="Padding" Value="10,20,10,16" />
+    </Style>
+    <Style Selector="Border.sidebar.compact :is(Control).wideOnly">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="Border.sidebar.compact :is(Control).compactOnly">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="Border.sidebar.compact StackPanel.brand">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,0,0,26" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Menu.sidebar TextBlock.nav">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Menu.sidebar > MenuItem">
+        <Setter Property="Padding" Value="19,0" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Menu.sidebar > MenuItem /template/ PathIcon#PART_Chevron">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Menu.sidebar > Separator">
+        <Setter Property="Margin" Value="8,10" />
+    </Style>
+
+    <!--  ===== Connection card =====  -->
+    <Style Selector="Button.power">
+        <Setter Property="Width" Value="156" />
+        <Setter Property="Height" Value="156" />
+        <Setter Property="Background" Value="{DynamicResource AppOffBgBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource AppOffFgBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Ellipse Name="PART_Halo" Fill="{DynamicResource AppOffRingBrush}">
+                        <Ellipse.Transitions>
+                            <Transitions>
+                                <DoubleTransition Property="Opacity" Duration="0:0:0.25" />
+                            </Transitions>
+                        </Ellipse.Transitions>
+                    </Ellipse>
+                    <Ellipse
+                        Name="PART_HaloInner"
+                        Margin="10"
+                        Fill="{DynamicResource AppOffRingBrush}"
+                        Opacity="0" />
+                    <Border
+                        Name="PART_Ring"
+                        Margin="20"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BoxShadow="{DynamicResource AppPowerOffShadow}"
+                        CornerRadius="58">
+                        <Border.Transitions>
+                            <Transitions>
+                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.12" />
+                            </Transitions>
+                        </Border.Transitions>
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Button.power PathIcon">
+        <Setter Property="Width" Value="40" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Foreground" Value="{Binding $parent[Button].Foreground}" />
+    </Style>
+    <Style Selector="Button.power:pointerover /template/ Border#PART_Ring">
+        <Setter Property="RenderTransform" Value="scale(1.02)" />
+    </Style>
+    <Style Selector="Button.power:pressed /template/ Border#PART_Ring">
+        <Setter Property="RenderTransform" Value="scale(0.97)" />
+    </Style>
+    <Style Selector="Button.power:focus-visible /template/ Border#PART_Ring">
+        <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <Style Selector="Button.power.on">
+        <Setter Property="Background" Value="{DynamicResource AppPowerOnFill}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppOnAccentBrush}" />
+    </Style>
+    <Style Selector="Button.power.on /template/ Border#PART_Ring">
+        <Setter Property="BoxShadow" Value="{DynamicResource AppPowerOnShadow}" />
+    </Style>
+    <Style Selector="Button.power.on /template/ Ellipse#PART_Halo">
+        <Setter Property="Fill" Value="{DynamicResource AppAccentRingBrush}" />
+        <Setter Property="Opacity" Value="0.55" />
+    </Style>
+    <Style Selector="Button.power.on /template/ Ellipse#PART_HaloInner">
+        <Setter Property="Fill" Value="{DynamicResource AppAccentRingBrush}" />
+        <Setter Property="Opacity" Value="1" />
+    </Style>
+
+    <!--  Status pill above the power button  -->
+    <Style Selector="Border.pill">
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="Padding" Value="12,5" />
+        <Setter Property="Background" Value="{DynamicResource AppPillOffBgBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.pill TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppOffFgBrush}" />
+    </Style>
+    <Style Selector="Border.pill Ellipse">
+        <Setter Property="Fill" Value="{DynamicResource AppFaintBrush}" />
+    </Style>
+    <Style Selector="Border.pill.on">
+        <Setter Property="Background" Value="{DynamicResource AppGoodBgBrush}" />
+    </Style>
+    <Style Selector="Border.pill.on TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppGoodFgBrush}" />
+    </Style>
+    <Style Selector="Border.pill.on Ellipse">
+        <Setter Property="Fill" Value="{DynamicResource AppGoodDotBrush}" />
+    </Style>
+
+    <!--  Server name under the power button  -->
+    <Style Selector="TextBlock.serverName">
+        <Setter Property="FontSize" Value="19" />
+        <Setter Property="FontWeight" Value="ExtraBold" />
+        <Setter Property="LetterSpacing" Value="-0.3" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <!--  Live speed tiles  -->
+    <Style Selector="Border.stat">
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Padding" Value="12,10" />
+    </Style>
+    <Style Selector="Border.stat PathIcon">
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Height" Value="12" />
+    </Style>
+    <Style Selector="Border.stat PathIcon.up">
+        <Setter Property="Foreground" Value="{DynamicResource AppAccentBrush}" />
+    </Style>
+    <Style Selector="Border.stat PathIcon.down">
+        <Setter Property="Foreground" Value="{DynamicResource AppGoodDotBrush}" />
+    </Style>
+    <Style Selector="TextBlock.statLabel">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.statValue">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="ExtraBold" />
+        <Setter Property="FontFeatures" Value="+tnum" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <!--  Key / value rows (inbound ports)  -->
+    <Style Selector="TextBlock.kvKey">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="TextBlock.kvValue">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontFamily" Value="{StaticResource AppMonoFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <!--  ===== Toolbars =====  -->
+    <Style Selector="Border.toolbar">
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="CornerRadius" Value="11" />
+        <Setter Property="Padding" Value="3" />
+    </Style>
+    <Style Selector="Border.toolbar Button.IconButton">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="MinWidth" Value="30" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="Border.toolbar PathIcon">
+        <Setter Property="Width" Value="15" />
+        <Setter Property="Height" Value="15" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="Border.toolbar Button.IconButton:pointerover PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+    <Style Selector="Border.toolbar Border.toolbarSep">
+        <Setter Property="Width" Value="1" />
+        <Setter Property="Margin" Value="4,7" />
+        <Setter Property="Background" Value="{DynamicResource AppBorderStrongBrush}" />
+    </Style>
+
+    <!--  Search / filter boxes  -->
+    <Style Selector="TextBox.search">
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="CornerRadius" Value="11" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="13" />
+    </Style>
+    <Style Selector="TextBox.search PathIcon.searchIcon">
+        <Setter Property="Width" Value="14" />
+        <Setter Property="Height" Value="14" />
+        <Setter Property="Margin" Value="10,0,0,0" />
+        <Setter Property="Foreground" Value="{DynamicResource AppFaintBrush}" />
+    </Style>
+
+    <!--  Primary/secondary buttons  -->
+    <Style Selector="Button.dark">
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Padding" Value="14,0" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Background" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppSurfaceBrush}" />
+    </Style>
+    <Style Selector="Button.dark PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource AppSurfaceBrush}" />
+    </Style>
+    <Style Selector="Button.dark:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppSurfaceBrush}" />
+    </Style>
+
+    <!--  ===== Server table =====  -->
+    <Style Selector="DataGrid.servers">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="RowHeight" Value="44" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource AppGridLineBrush}" />
+        <Setter Property="HeadersVisibility" Value="Column" />
+    </Style>
+    <Style Selector="DataGrid.servers DataGridColumnHeader">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinHeight" Value="38" />
+        <Setter Property="Padding" Value="16,0" />
+    </Style>
+    <Style Selector="DataGrid.servers DataGridCell">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+    <Style Selector="DataGrid.servers DataGridCell :is(TextBlock)">
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="DataGrid.servers DataGridColumnHeader TextBlock">
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+    <Style Selector="DataGrid.servers TextBlock.cellMuted">
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="DataGrid.servers TextBlock.cellNum">
+        <Setter Property="FontFeatures" Value="+tnum" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="DataGrid.servers Ellipse.delayDot">
+        <Setter Property="Width" Value="7" />
+        <Setter Property="Height" Value="7" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!--  ===== Log pane =====  -->
+    <Style Selector="Border.logPanel">
+        <Setter Property="Background" Value="{DynamicResource AppLogBgBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="4" />
+    </Style>
+    <Style Selector="TextBlock.toggleLabel">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+</Styles>

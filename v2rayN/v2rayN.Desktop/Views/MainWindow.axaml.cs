@@ -28,9 +28,18 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuCheckUpdate.Click += MenuCheckUpdate_Click;
         btnNewUpdate.Click += MenuCheckUpdate_Click;
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
+        menuImportFromOriginal.Click += async (_, _) => await ImportFromOriginalAsync(true);
         menuClose.Click += MenuClose_Click;
 
         conTheme.Content ??= new ThemeSettingView();
+        btnThemeLight.Click += (_, _) => SetTheme(ETheme.Light);
+        btnThemeDark.Click += (_, _) => SetTheme(ETheme.Dark);
+        btnThemeCompact.Click += (_, _) => SetTheme(IsDarkTheme() ? ETheme.Light : ETheme.Dark);
+        ActualThemeVariantChanged += (_, _) => UpdateThemeToggle();
+        UpdateThemeToggle();
+
+        txtVersion.Text = $"v{Utils.GetVersionInfo()}";
+        SizeChanged += (_, e) => UpdateResponsiveLayout(e.NewSize.Width);
 
         this.WhenActivated(disposables =>
         {
@@ -169,8 +178,69 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     private async Task DelegateSnackMsg(string content)
     {
+        if (TryGetRestartNoticeCulture(content, out var culture))
+        {
+            // Settings that only apply after a restart: offer to do it right away.
+            await PromptRestartAsync(culture);
+            return;
+        }
         _manager?.Show(new Avalonia.Controls.Notifications.Notification(null, content, NotificationType.Information));
-        await Task.CompletedTask;
+    }
+
+    private static bool TryGetRestartNoticeCulture(string content, out CultureInfo culture)
+    {
+        culture = CultureInfo.CurrentUICulture;
+        if (content == ResUI.NeedRebootTips)
+        {
+            return true;
+        }
+        // A language change switches the culture on a background thread, so this notice
+        // can arrive in the newly chosen language rather than the window's current one.
+        var language = _config.UiItem.CurrentLanguage;
+        if (language.IsNullOrEmpty())
+        {
+            return false;
+        }
+        try
+        {
+            culture = new CultureInfo(language);
+        }
+        catch (CultureNotFoundException)
+        {
+            return false;
+        }
+        return content == ResUI.ResourceManager.GetString(nameof(ResUI.NeedRebootTips), culture);
+    }
+
+    private bool _restartPromptOpen;
+
+    private async Task PromptRestartAsync(CultureInfo culture)
+    {
+        if (_restartPromptOpen)
+        {
+            return;
+        }
+        _restartPromptOpen = true;
+        try
+        {
+            var message = ResUI.ResourceManager.GetString(nameof(ResUI.TipRestartRequired), culture) ?? ResUI.TipRestartRequired;
+            var restartNow = ResUI.ResourceManager.GetString(nameof(ResUI.TbRestartNow), culture) ?? ResUI.TbRestartNow;
+            var later = ResUI.ResourceManager.GetString(nameof(ResUI.TbRestartLater), culture) ?? ResUI.TbRestartLater;
+            if (await UI.ShowYesNo(message, restartNow, later) == ButtonResult.Yes)
+            {
+                _blCloseByUser = true;
+                StorageUI();
+                await AppManager.Instance.RestartApp();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("PromptRestartAsync", ex);
+        }
+        finally
+        {
+            _restartPromptOpen = false;
+        }
     }
 
     private void OnHotkeyHandler(EGlobalHotkey e)
@@ -241,6 +311,57 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     private void MenuPromotion_Click(object? sender, RoutedEventArgs e)
     {
         ProcUtils.ProcessStart($"{Utils.Base64Decode(Global.PromotionUrl)}?t={DateTime.Now.Ticks}");
+    }
+
+    private bool IsDarkTheme()
+    {
+        var variant = ActualThemeVariant;
+        return variant == ThemeVariant.Dark || variant?.InheritVariant == ThemeVariant.Dark;
+    }
+
+    private void UpdateThemeToggle()
+    {
+        var isDark = IsDarkTheme();
+        btnThemeLight.Classes.Set("active", !isDark);
+        btnThemeDark.Classes.Set("active", isDark);
+        iconThemeCompactMoon.IsVisible = !isDark;
+        iconThemeCompactSun.IsVisible = isDark;
+    }
+
+    private void SetTheme(ETheme theme)
+    {
+        if (conTheme.Content is ThemeSettingView themeView && themeView.ViewModel != null)
+        {
+            // Goes through the existing theme setting, so the choice is saved to the config.
+            themeView.ViewModel.CurrentTheme = theme.ToString();
+        }
+        UpdateThemeToggle();
+    }
+
+    private bool? _isCompactLayout;
+
+    private void UpdateResponsiveLayout(double width)
+    {
+        // Narrow windows get an icon-only sidebar so the server list keeps its room.
+        var compact = width < 1180;
+        if (_isCompactLayout == compact)
+        {
+            return;
+        }
+        _isCompactLayout = compact;
+
+        bdSidebar.Classes.Set("compact", compact);
+        gridRoot.ColumnDefinitions[0].Width = new GridLength(compact ? 76 : 240);
+        gridContent.ColumnDefinitions[0].Width = new GridLength(compact ? 300 : 320);
+        gridContent.ColumnDefinitions[1].Width = new GridLength(compact ? 20 : 24);
+        gridContent.Margin = new Thickness(compact ? 20 : 24);
+        DockPanel.SetDock(conTheme, compact ? Dock.Bottom : Dock.Right);
+
+        foreach (var item in menuSidebar.Items.OfType<MenuItem>())
+        {
+            var label = (item.Header as Panel)?.Children.OfType<TextBlock>().FirstOrDefault()?.Text;
+            ToolTip.SetTip(item, compact ? label : null);
+        }
     }
 
     private void MenuSettingsSetUWP_Click(object? sender, RoutedEventArgs e)
@@ -368,6 +489,80 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             ShowHideWindow(false);
         }
         RestoreUI();
+        _ = OfferImportOnFirstRunAsync();
+    }
+
+    private async Task OfferImportOnFirstRunAsync()
+    {
+        // A fresh install with no servers: offer to bring them over from the original v2rayN.
+        try
+        {
+            if (Design.IsDesignMode || !IsVisible || ConfigImportHandler.IsOfferDismissed())
+            {
+                return;
+            }
+            var profiles = await AppManager.Instance.ProfileItems("");
+            if (profiles is { Count: > 0 })
+            {
+                return;
+            }
+            await ImportFromOriginalAsync(false);
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("OfferImportOnFirstRunAsync", ex);
+        }
+    }
+
+    private async Task ImportFromOriginalAsync(bool userInitiated)
+    {
+        try
+        {
+            var configDir = await Task.Run(ConfigImportHandler.FindOriginalConfigDir);
+            if (configDir is null)
+            {
+                if (!userInitiated)
+                {
+                    return;
+                }
+                var folder = await UI.OpenFolderDialog(ResUI.TipImportNotFound);
+                if (folder.IsNullOrEmpty())
+                {
+                    return;
+                }
+                configDir = ConfigImportHandler.GetConfigDirFromFolder(folder);
+                if (configDir is null)
+                {
+                    NoticeManager.Instance.Enqueue(ResUI.TipImportInvalidFolder);
+                    return;
+                }
+            }
+
+            var installDir = Path.GetDirectoryName(configDir) ?? configDir;
+            if (await UI.ShowYesNo(string.Format(ResUI.TipImportFound, installDir), ResUI.TbImport, ResUI.TbNotNow) != ButtonResult.Yes)
+            {
+                if (!userInitiated)
+                {
+                    ConfigImportHandler.DismissOffer();
+                }
+                return;
+            }
+
+            if (!await Task.Run(() => ConfigImportHandler.StageImport(configDir)))
+            {
+                NoticeManager.Instance.Enqueue(ResUI.OperationFailed);
+                return;
+            }
+
+            // The staged settings are swapped in when the app starts again.
+            _blCloseByUser = true;
+            StorageUI();
+            await AppManager.Instance.RestartApp();
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("ImportFromOriginalAsync", ex);
+        }
     }
 
     private void RestoreUI()

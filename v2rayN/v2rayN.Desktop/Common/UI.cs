@@ -10,8 +10,13 @@ internal class UI
 
     public static async Task<ButtonResult> ShowYesNo(string msg)
     {
+        return await ShowYesNo(msg, null, null);
+    }
+
+    public static async Task<ButtonResult> ShowYesNo(string msg, string? yesText, string? noText)
+    {
         var owner = WindowDialog.TryGetOwnerWindow();
-        var box = new MessageBoxDialog(caption, msg);
+        var box = new MessageBoxDialog(caption, msg, yesText, noText);
         var result = await box.ShowDialog<ButtonResult>(owner);
         return result == ButtonResult.Yes ? ButtonResult.Yes : ButtonResult.No;
     }
@@ -48,6 +53,23 @@ internal class UI
         });
 
         return files?.TryGetLocalPath();
+    }
+
+    public static async Task<string?> OpenFolderDialog(string? title)
+    {
+        var sp = GetStorageProvider();
+        if (sp is null)
+        {
+            return null;
+        }
+
+        var folders = await sp.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        {
+            AllowMultiple = false,
+            Title = title
+        });
+
+        return folders.FirstOrDefault()?.TryGetLocalPath();
     }
 
     private static IStorageProvider? GetStorageProvider()

@@ -1914,4 +1914,34 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="LvPreResolve" xml:space="preserve">
     <value>Pre-resolve server domains</value>
   </data>
+  <data name="TipRestartRequired" xml:space="preserve">
+    <value>This change takes effect after v2rayN restarts. Restart now?</value>
+  </data>
+  <data name="TbRestartNow" xml:space="preserve">
+    <value>Restart now</value>
+  </data>
+  <data name="TbRestartLater" xml:space="preserve">
+    <value>Later</value>
+  </data>
+  <data name="menuImportFromOriginal" xml:space="preserve">
+    <value>Import from original v2rayN...</value>
+  </data>
+  <data name="TipImportFound" xml:space="preserve">
+    <value>Found v2rayN at:
+{0}
+
+Import its servers, subscriptions and settings? v2rayN will restart, and your current settings are backed up first. For the newest data, exit the original v2rayN first.</value>
+  </data>
+  <data name="TipImportNotFound" xml:space="preserve">
+    <value>Select the folder of your v2rayN (the one that contains v2rayN.exe)</value>
+  </data>
+  <data name="TipImportInvalidFolder" xml:space="preserve">
+    <value>That folder doesn't contain v2rayN settings (guiConfigs).</value>
+  </data>
+  <data name="TbImport" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="TbNotNow" xml:space="preserve">
+    <value>Not now</value>
+  </data>
 </root>

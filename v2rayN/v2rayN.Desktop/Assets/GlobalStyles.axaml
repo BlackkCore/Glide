@@ -6,7 +6,7 @@
     </Design.PreviewWith>
 
     <Style Selector="DataGrid">
-        <Setter Property="RowHeight" Value="24" />
+        <Setter Property="RowHeight" Value="38" />
         <Setter Property="ScrollViewer.AllowAutoHide" Value="False" />
     </Style>
 

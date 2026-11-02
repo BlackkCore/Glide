@@ -76,7 +76,7 @@ public sealed class CoreInfoManager
     {
         return type switch
         {
-            ECoreType.v2rayN => !Utils.IsPackagedInstall(),
+            ECoreType.v2rayN => Global.AppReleaseRepo.IsNotEmpty() && !Utils.IsPackagedInstall(),
             ECoreType.Xray => true,
             ECoreType.mihomo => true,
             ECoreType.sing_box => true,
@@ -108,8 +108,9 @@ public sealed class CoreInfoManager
                     CoreType = ECoreType.v2rayN,
                     Url = GetCoreUrl(ECoreType.v2rayN),
                     ReleaseApiUrl = urlN.Replace(Global.GithubUrl, Global.GithubApiUrl),
-                    DownloadUrlWin64 = urlN + "/download/{0}/v2rayN-windows-64.zip",
-                    DownloadUrlWinArm64 = urlN + "/download/{0}/v2rayN-windows-arm64.zip",
+                    // This build is the Avalonia app; upstream's release workflow names that zip "-desktop".
+                    DownloadUrlWin64 = urlN + "/download/{0}/v2rayN-windows-64-desktop.zip",
+                    DownloadUrlWinArm64 = urlN + "/download/{0}/v2rayN-windows-arm64-desktop.zip",
                     DownloadUrlLinux64 = urlN + "/download/{0}/v2rayN-linux-64.zip",
                     DownloadUrlLinuxArm64 = urlN + "/download/{0}/v2rayN-linux-arm64.zip",
                     DownloadUrlLinuxRiscV64 = urlN + "/download/{0}/v2rayN-linux-riscv64.zip",

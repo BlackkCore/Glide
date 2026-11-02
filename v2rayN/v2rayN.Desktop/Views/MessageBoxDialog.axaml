@@ -8,6 +8,7 @@
     Width="420"
     MinWidth="350"
     MaxWidth="600"
+    Padding="0"
     CanResize="False"
     ShowInTaskbar="False"
     SizeToContent="Height"

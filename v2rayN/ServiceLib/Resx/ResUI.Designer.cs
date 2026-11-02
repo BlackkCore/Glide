@@ -5444,5 +5444,86 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("UpgradeAppNotExistTip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   This change takes effect after v2rayN restarts. Restart now?
+        /// </summary>
+        public static string TipRestartRequired {
+            get {
+                return ResourceManager.GetString("TipRestartRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Restart now
+        /// </summary>
+        public static string TbRestartNow {
+            get {
+                return ResourceManager.GetString("TbRestartNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Later
+        /// </summary>
+        public static string TbRestartLater {
+            get {
+                return ResourceManager.GetString("TbRestartLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Import from original v2rayN...
+        /// </summary>
+        public static string menuImportFromOriginal {
+            get {
+                return ResourceManager.GetString("menuImportFromOriginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Found v2rayN at:
+        /// </summary>
+        public static string TipImportFound {
+            get {
+                return ResourceManager.GetString("TipImportFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select the folder of your v2rayN (the one that contains v2rayN.exe)
+        /// </summary>
+        public static string TipImportNotFound {
+            get {
+                return ResourceManager.GetString("TipImportNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   That folder doesn't contain v2rayN settings (guiConfigs).
+        /// </summary>
+        public static string TipImportInvalidFolder {
+            get {
+                return ResourceManager.GetString("TipImportInvalidFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Import
+        /// </summary>
+        public static string TbImport {
+            get {
+                return ResourceManager.GetString("TbImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Not now
+        /// </summary>
+        public static string TbNotNow {
+            get {
+                return ResourceManager.GetString("TbNotNow", resourceCulture);
+            }
+        }
     }
 }

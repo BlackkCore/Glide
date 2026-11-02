@@ -3,6 +3,14 @@ namespace ServiceLib;
 public class Global
 {
     public const string AppName = "v2rayN";
+
+    /// <summary>
+    /// GitHub repository ("owner/name") whose releases this build updates itself from.
+    /// Empty turns the app's self-update off (core and geo-file updates still work), so it can
+    /// never replace this build with the upstream v2rayN release.
+    /// </summary>
+    public const string AppReleaseRepo = "";
+
     public const string GithubUrl = "https://github.com";
     public const string GithubApiUrl = "https://api.github.com/repos";
     public const string GeoUrl = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/{0}.dat";
@@ -680,7 +688,7 @@ public class Global
         { ECoreType.overtls, "ShadowsocksR-Live/overtls" },
         { ECoreType.shadowquic, "spongebob888/shadowquic" },
         { ECoreType.mieru, "enfein/mieru" },
-        { ECoreType.v2rayN, "2dust/v2rayN" },
+        { ECoreType.v2rayN, string.IsNullOrEmpty(AppReleaseRepo) ? "2dust/v2rayN" : AppReleaseRepo },
     };
 
     public static readonly List<string> OtherGeoUrls =

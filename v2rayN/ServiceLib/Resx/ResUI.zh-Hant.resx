@@ -1903,4 +1903,34 @@
   <data name="TbSortingProcess" xml:space="preserve">
     <value>行程</value>
   </data>
+  <data name="TipRestartRequired" xml:space="preserve">
+    <value>此變更需要重新啟動 v2rayN 後生效。是否立即重新啟動？</value>
+  </data>
+  <data name="TbRestartNow" xml:space="preserve">
+    <value>立即重新啟動</value>
+  </data>
+  <data name="TbRestartLater" xml:space="preserve">
+    <value>稍後</value>
+  </data>
+  <data name="menuImportFromOriginal" xml:space="preserve">
+    <value>從原版 v2rayN 匯入...</value>
+  </data>
+  <data name="TipImportFound" xml:space="preserve">
+    <value>在以下位置找到 v2rayN：
+{0}
+
+是否匯入其伺服器、訂閱和設定？v2rayN 將會重新啟動，並會先備份目前的設定。為取得最新資料，請先結束原版 v2rayN。</value>
+  </data>
+  <data name="TipImportNotFound" xml:space="preserve">
+    <value>選擇 v2rayN 所在的資料夾（包含 v2rayN.exe 的資料夾）</value>
+  </data>
+  <data name="TipImportInvalidFolder" xml:space="preserve">
+    <value>該資料夾中沒有 v2rayN 設定（guiConfigs）。</value>
+  </data>
+  <data name="TbImport" xml:space="preserve">
+    <value>匯入</value>
+  </data>
+  <data name="TbNotNow" xml:space="preserve">
+    <value>暫不</value>
+  </data>
 </root>

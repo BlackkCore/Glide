@@ -2271,4 +2271,10 @@
   <data name="TipDiagGroupSkip" xml:space="preserve">
     <value>گروهی از سرورها: در مرحله‌ی بعد با هم بررسی می‌شوند</value>
   </data>
+  <data name="TipValidatorWarnings" xml:space="preserve">
+    <value>{0} هشدار درباره‌ی تنظیمات سرورها. جزئیات در بخش گزارش‌ها است.</value>
+  </data>
+  <data name="TipAndMoreInLog" xml:space="preserve">
+    <value>…و {0} مورد دیگر در بخش گزارش‌ها</value>
+  </data>
 </root>

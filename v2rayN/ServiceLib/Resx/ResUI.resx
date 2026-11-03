@@ -2271,4 +2271,10 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipDiagGroupSkip" xml:space="preserve">
     <value>A group of servers: they're checked together in the next step</value>
   </data>
+  <data name="TipValidatorWarnings" xml:space="preserve">
+    <value>{0} server setting warnings. The details are in the log.</value>
+  </data>
+  <data name="TipAndMoreInLog" xml:space="preserve">
+    <value>…and {0} more in the log</value>
+  </data>
 </root>

@@ -52,11 +52,34 @@ public class NoticeManager
         {
             return false;
         }
+        // Every message goes to the log pane; the toast only summarizes.
         foreach (var msg in msgs)
         {
             SendMessage(msg);
         }
-        Enqueue(Utils.List2String(msgs.Take(10).ToList(), true));
+        Enqueue(SummarizeValidator(validatorResult.Errors, validatorResult.Warnings));
         return true;
+    }
+
+    /// <summary>
+    /// Glide: the toast text for a validation result. A group such as "Auto (fastest)" validates every
+    /// server in the subscription, so listing each warning made a wall of text. Warnings alone become one
+    /// line pointing to the log; errors show the first three distinct ones and how many more there are.
+    /// </summary>
+    public static string SummarizeValidator(IReadOnlyCollection<string> errors, IReadOnlyCollection<string> warnings)
+    {
+        var distinctErrors = errors.Where(e => e.IsNotEmpty()).Distinct().ToList();
+        var warningCount = warnings.Where(w => w.IsNotEmpty()).Distinct().Count();
+        if (distinctErrors.Count == 0)
+        {
+            return warningCount == 0 ? string.Empty : string.Format(ResUI.TipValidatorWarnings, warningCount);
+        }
+        var lines = distinctErrors.Take(3).ToList();
+        var more = distinctErrors.Count - lines.Count + warningCount;
+        if (more > 0)
+        {
+            lines.Add(string.Format(ResUI.TipAndMoreInLog, more));
+        }
+        return string.Join(Environment.NewLine, lines);
     }
 }

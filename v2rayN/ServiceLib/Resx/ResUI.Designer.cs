@@ -6497,5 +6497,23 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipDiagGroupSkip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   {0} server setting warnings. The details are in the log.
+        /// </summary>
+        public static string TipValidatorWarnings {
+            get {
+                return ResourceManager.GetString("TipValidatorWarnings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   …and {0} more in the log
+        /// </summary>
+        public static string TipAndMoreInLog {
+            get {
+                return ResourceManager.GetString("TipAndMoreInLog", resourceCulture);
+            }
+        }
     }
 }

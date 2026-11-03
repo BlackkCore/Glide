@@ -2103,4 +2103,10 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbHideLogs" xml:space="preserve">
     <value>Hide logs</value>
   </data>
+  <data name="TbSearchServers" xml:space="preserve">
+    <value>Search servers</value>
+  </data>
+  <data name="TbSearchLogs" xml:space="preserve">
+    <value>Search logs</value>
+  </data>
 </root>

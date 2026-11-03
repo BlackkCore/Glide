@@ -377,6 +377,19 @@
     <Style Selector="Border.pill.bad Ellipse">
         <Setter Property="Fill" Value="{DynamicResource AppBadDotBrush}" />
     </Style>
+    <!--  "Hide logs" / "Logs": a quiet text link in the server card's bottom corner.  -->
+    <Style Selector="Button.logsToggle">
+        <Setter Property="Padding" Value="8,3" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Button.logsToggle:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+    </Style>
     <!--  The single fix-it action under the connection status.  -->
     <Style Selector="Button.statusAction">
         <Setter Property="Padding" Value="14,6" />

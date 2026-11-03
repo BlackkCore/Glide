@@ -5993,5 +5993,23 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbHideLogs", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Search servers
+        /// </summary>
+        public static string TbSearchServers {
+            get {
+                return ResourceManager.GetString("TbSearchServers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Search logs
+        /// </summary>
+        public static string TbSearchLogs {
+            get {
+                return ResourceManager.GetString("TbSearchLogs", resourceCulture);
+            }
+        }
     }
 }

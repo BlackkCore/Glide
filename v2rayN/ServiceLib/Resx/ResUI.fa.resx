@@ -2097,4 +2097,10 @@
   <data name="TbHideLogs" xml:space="preserve">
     <value>پنهان کردن گزارش‌ها</value>
   </data>
+  <data name="TbSearchServers" xml:space="preserve">
+    <value>جستجوی سرورها</value>
+  </data>
+  <data name="TbSearchLogs" xml:space="preserve">
+    <value>جستجو در گزارش‌ها</value>
+  </data>
 </root>

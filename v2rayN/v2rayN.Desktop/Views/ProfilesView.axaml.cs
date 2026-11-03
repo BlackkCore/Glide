@@ -19,6 +19,17 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         menuSelectAll.Click += menuSelectAll_Click;
         btnAutofitColumnWidth.Click += BtnAutofitColumnWidth_Click;
         txtServerFilter.KeyDown += TxtServerFilter_KeyDown;
+        // Filter as you type (after a short pause), not only on Enter.
+        _filterTimer.Tick += (_, _) =>
+        {
+            _filterTimer.Stop();
+            ViewModel?.RefreshServers();
+        };
+        txtServerFilter.TextChanged += (_, _) =>
+        {
+            _filterTimer.Stop();
+            _filterTimer.Start();
+        };
         btnEmptyPaste.Click += (_, _) => AppEvents.AddServerViaClipboardRequested.Publish();
         lstProfiles.KeyDown += LstProfiles_KeyDown;
         lstProfiles.SelectionChanged += lstProfiles_SelectionChanged;
@@ -385,6 +396,8 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             Logging.SaveLog(_tag, ex);
         }
     }
+
+    private readonly DispatcherTimer _filterTimer = new() { Interval = TimeSpan.FromMilliseconds(300) };
 
     private void TxtServerFilter_KeyDown(object? sender, KeyEventArgs e)
     {

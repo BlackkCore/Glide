@@ -300,11 +300,20 @@
                         <Border Padding="16,18,16,8" Classes="card">
                             <ContentControl x:Name="tabProfiles1" />
                         </Border>
+                        <!--  Logs are for troubleshooting: they fold away to give the server list the room.  -->
+                        <Button
+                            x:Name="btnToggleLogs"
+                            Margin="0,0,14,6"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Classes="logsToggle" />
                         <GridSplitter
+                            x:Name="splitLogs"
                             Grid.Row="1"
                             HorizontalAlignment="Stretch"
                             Background="Transparent" />
                         <Border
+                            x:Name="bdLogs"
                             Grid.Row="2"
                             Padding="16"
                             Classes="card">

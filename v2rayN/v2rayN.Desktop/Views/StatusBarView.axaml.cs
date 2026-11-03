@@ -238,7 +238,8 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         {
             ConnState.NoServer => ResUI.TbNoServerSelected,
             ConnState.Checking => ResUI.TbStatusChecking,
-            ConnState.Connected => _monitor.DelayMs > 0 ? $"{ResUI.TbStatusConnected} · {_monitor.DelayMs} ms" : ResUI.TbStatusConnected,
+            // Left-to-right marks keep "234 ms" in order inside a right-to-left (Persian) label.
+            ConnState.Connected => _monitor.DelayMs > 0 ? $"{ResUI.TbStatusConnected} · ‎{_monitor.DelayMs} ms‎" : ResUI.TbStatusConnected,
             ConnState.NoInternet => ResUI.TbStatusNoInternet,
             ConnState.PortConflict => ResUI.TbStatusPortBusy,
             ConnState.EngineStopped => ResUI.TbStatusEngineStopped,
@@ -291,7 +292,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         }
         var elapsed = DateTime.Now - _sessionStart;
         var time = elapsed.TotalHours >= 1 ? elapsed.ToString(@"h\:mm\:ss") : elapsed.ToString(@"m\:ss");
-        txtPowerState.Text = $"{_powerStateLabel} · {time}";
+        txtPowerState.Text = $"{_powerStateLabel} · ‎{time}‎";
     }
 
     private void UpdateRunningServer(string? summary)

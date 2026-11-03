@@ -36,6 +36,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
         menuImportFromOriginal.Click += async (_, _) => await ImportFromOriginalAsync(true);
         menuClose.Click += MenuClose_Click;
+        btnToggleLogs.Click += (_, _) => SetLogsHidden(!_logsHidden);
 
         conTheme.Content ??= new ThemeSettingView();
         if (conTheme.Content is ThemeSettingView appearance)
@@ -648,7 +649,39 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             ShowHideWindow(false);
         }
         RestoreUI();
-        _ = OfferImportOnFirstRunAsync();
+        _ = FirstRunOffersAsync();
+    }
+
+    private async Task FirstRunOffersAsync()
+    {
+        await OfferImportOnFirstRunAsync();
+        await OfferIranPresetAsync();
+    }
+
+    // Persian users on the built-in (China-oriented) presets are asked once whether to switch to the
+    // Iran preset: Iranian sites then go direct and DNS is set up for Iran. Asked once, whatever the answer.
+    private async Task OfferIranPresetAsync()
+    {
+        try
+        {
+            var marker = Utils.GetConfigPath("glide-iran-offered");
+            if (Design.IsDesignMode || !IsVisible || File.Exists(marker)
+                || !(_config.UiItem.CurrentLanguage?.StartsWith("fa", StringComparison.OrdinalIgnoreCase) ?? false)
+                || _config.ConstItem.RouteRulesTemplateSourceUrl.IsNotEmpty())
+            {
+                return;
+            }
+            await File.WriteAllTextAsync(marker, "1");
+            if (await UI.ShowYesNo(ResUI.TipIranPresetOffer, ResUI.TbUseIranPreset, ResUI.TbNotNow) == ButtonResult.Yes
+                && menuRegionalPresetsIran.Command is { } command && command.CanExecute(null))
+            {
+                command.Execute(null);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("OfferIranPresetAsync", ex);
+        }
     }
 
     private async Task OfferImportOnFirstRunAsync()
@@ -739,6 +772,51 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
                 gridMain1.RowDefinitions[2].Height = new GridLength(_config.UiItem.MainGirdHeight2, GridUnitType.Star);
             }
         }
+        SetLogsHidden(File.Exists(LogsHiddenMarker));
+    }
+
+    // Glide-only preference, kept out of the shared v2rayN config: a marker file means "logs folded away".
+    private static string LogsHiddenMarker => Utils.GetConfigPath("glide-logs-hidden");
+
+    private bool _logsHidden;
+    private GridLength _logsRowHeight = new(1, GridUnitType.Star);
+
+    private void SetLogsHidden(bool hidden)
+    {
+        var row = gridMain1.RowDefinitions[2];
+        if (hidden)
+        {
+            // Remember the split (saved as star weights like 474:238) so showing restores it exactly.
+            if (row.Height.Value > 0)
+            {
+                _logsRowHeight = row.Height;
+            }
+            row.Height = new GridLength(0);
+        }
+        else if (_logsHidden)
+        {
+            row.Height = _logsRowHeight;
+        }
+        _logsHidden = hidden;
+        gridMain1.RowDefinitions[1].Height = new GridLength(hidden ? 0 : 16);
+        bdLogs.IsVisible = !hidden;
+        splitLogs.IsVisible = !hidden;
+        btnToggleLogs.Content = hidden ? ResUI.TbLogs : ResUI.TbHideLogs;
+        try
+        {
+            if (hidden)
+            {
+                File.WriteAllText(LogsHiddenMarker, "1");
+            }
+            else if (File.Exists(LogsHiddenMarker))
+            {
+                File.Delete(LogsHiddenMarker);
+            }
+        }
+        catch
+        {
+            // A read-only folder only means the choice isn't remembered.
+        }
     }
 
     private void StorageUI()
@@ -749,8 +827,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         {
             ConfigHandler.SaveMainGirdHeight(_config, gridMain.ColumnDefinitions[0].ActualWidth, gridMain.ColumnDefinitions[2].ActualWidth);
         }
-        else if (_config.UiItem.MainGirdOrientation == EGirdOrientation.Vertical)
+        else if (_config.UiItem.MainGirdOrientation == EGirdOrientation.Vertical && !_logsHidden)
         {
+            // While the logs are folded away their row is 0 high; keep the split saved before that.
             ConfigHandler.SaveMainGirdHeight(_config, gridMain1.RowDefinitions[0].ActualHeight, gridMain1.RowDefinitions[2].ActualHeight);
         }
     }

@@ -364,20 +364,28 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     // The new theme spreads out in a circle from the button that was clicked: a picture of the old
     // theme covers the window, the theme changes underneath, and a growing hole is cut into the picture.
+    private RenderTargetBitmap? _revealSnapshot;
+
     private void PlayThemeReveal(Action applyTheme, Control origin)
     {
         var bounds = gridRoot.Bounds;
-        if (!AppMotion.Enabled || !IsLoaded || bounds.Width < 1 || bounds.Height < 1 || _revealTimer is { IsEnabled: true })
+        if (!AppMotion.Enabled || !IsLoaded || bounds.Width < 1 || bounds.Height < 1)
         {
             applyTheme();
             return;
         }
 
+        // Clicked again mid-reveal: picture exactly what is on screen now (the overlay is inside gridRoot,
+        // so the half-grown circle is included) and start a fresh circle from the new click.
+        _revealTimer?.Stop();
+        var wasDark = IsDarkTheme();
         var scaling = RenderScaling;
         var snapshot = new RenderTargetBitmap(
             new PixelSize((int)Math.Ceiling(bounds.Width * scaling), (int)Math.Ceiling(bounds.Height * scaling)),
             new Vector(96 * scaling, 96 * scaling));
         snapshot.Render(gridRoot);
+        _revealSnapshot?.Dispose();
+        _revealSnapshot = snapshot;
         imgThemeSnapshot.Source = snapshot;
         // In right-to-left layouts the picture comes back mirrored; flipping it also moves the
         // hole to the side the theme button is really on.
@@ -387,6 +395,13 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
         Classes.Add("themeSwap");
         applyTheme();
+
+        // Same theme as before (e.g. Light clicked while already light): nothing to reveal.
+        if (IsDarkTheme() == wasDark)
+        {
+            EndThemeReveal();
+            return;
+        }
 
         var center = origin.TranslatePoint(new Point(origin.Bounds.Width / 2, origin.Bounds.Height / 2), gridRoot)
                      ?? new Point(0, bounds.Height);
@@ -407,15 +422,21 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
                 new EllipseGeometry(new Rect(center.X - r, center.Y - r, r * 2, r * 2)));
             if (t >= 1)
             {
-                _revealTimer!.Stop();
-                Classes.Remove("themeSwap");
-                imgThemeSnapshot.IsVisible = false;
-                imgThemeSnapshot.Source = null;
-                imgThemeSnapshot.Clip = null;
-                snapshot.Dispose();
+                EndThemeReveal();
             }
         };
         _revealTimer.Start();
+    }
+
+    private void EndThemeReveal()
+    {
+        _revealTimer?.Stop();
+        Classes.Remove("themeSwap");
+        imgThemeSnapshot.IsVisible = false;
+        imgThemeSnapshot.Source = null;
+        imgThemeSnapshot.Clip = null;
+        _revealSnapshot?.Dispose();
+        _revealSnapshot = null;
     }
 
     private DispatcherTimer? _sidebarTimer;

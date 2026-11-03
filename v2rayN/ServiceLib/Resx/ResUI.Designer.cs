@@ -6011,5 +6011,77 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbSearchLogs", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   {0} of {1} used
+        /// </summary>
+        public static string TbSubUsed {
+            get {
+                return ResourceManager.GetString("TbSubUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0} used
+        /// </summary>
+        public static string TbSubUsedNoLimit {
+            get {
+                return ResourceManager.GetString("TbSubUsedNoLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0} left
+        /// </summary>
+        public static string TbSubLeft {
+            get {
+                return ResourceManager.GetString("TbSubLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   expires in {0} days
+        /// </summary>
+        public static string TbSubDaysLeft {
+            get {
+                return ResourceManager.GetString("TbSubDaysLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   expires today
+        /// </summary>
+        public static string TbSubExpiresToday {
+            get {
+                return ResourceManager.GetString("TbSubExpiresToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   expired
+        /// </summary>
+        public static string TbSubExpired {
+            get {
+                return ResourceManager.GetString("TbSubExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   updated {0}
+        /// </summary>
+        public static string TbSubUpdated {
+            get {
+                return ResourceManager.GetString("TbSubUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reported by your subscription provider at the last update.
+        /// </summary>
+        public static string TipSubInfo {
+            get {
+                return ResourceManager.GetString("TipSubInfo", resourceCulture);
+            }
+        }
     }
 }

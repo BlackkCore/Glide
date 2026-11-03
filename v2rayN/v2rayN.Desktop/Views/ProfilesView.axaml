@@ -68,6 +68,13 @@
         <Style Selector="DataGrid.servers DataGridCell.num :is(TextBlock)">
             <Setter Property="FontFeatures" Value="+tnum" />
         </Style>
+        <Style Selector="TextBlock.subInfo">
+            <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+            <Setter Property="FontFeatures" Value="+tnum" />
+        </Style>
+        <Style Selector="TextBlock.subInfo.bad">
+            <Setter Property="Foreground" Value="{DynamicResource AppBadFgBrush}" />
+        </Style>
     </UserControl.Styles>
 
     <DockPanel>
@@ -181,6 +188,31 @@
                 </ListBox.ContextMenu>
             </ListBox>
         </DockPanel>
+
+        <!--  Data used / left and expiry the provider reported for the selected subscription  -->
+        <StackPanel
+            x:Name="pnlSubInfo"
+            Margin="8,-2,0,10"
+            Background="Transparent"
+            DockPanel.Dock="Top"
+            IsVisible="False"
+            Orientation="Horizontal"
+            Spacing="10"
+            ToolTip.Tip="{x:Static resx:ResUI.TipSubInfo}">
+            <ProgressBar
+                x:Name="barSubUsage"
+                Width="96"
+                Height="4"
+                MinWidth="0"
+                MinHeight="0"
+                VerticalAlignment="Center"
+                Maximum="1" />
+            <TextBlock
+                x:Name="txtSubInfo"
+                VerticalAlignment="Center"
+                Classes="subInfo"
+                FontSize="{DynamicResource AppFontSmall}" />
+        </StackPanel>
 
         <Panel>
         <DataGrid

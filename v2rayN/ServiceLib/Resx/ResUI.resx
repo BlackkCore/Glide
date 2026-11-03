@@ -2109,4 +2109,28 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbSearchLogs" xml:space="preserve">
     <value>Search logs</value>
   </data>
+  <data name="TbSubUsed" xml:space="preserve">
+    <value>{0} of {1} used</value>
+  </data>
+  <data name="TbSubUsedNoLimit" xml:space="preserve">
+    <value>{0} used</value>
+  </data>
+  <data name="TbSubLeft" xml:space="preserve">
+    <value>{0} left</value>
+  </data>
+  <data name="TbSubDaysLeft" xml:space="preserve">
+    <value>expires in {0} days</value>
+  </data>
+  <data name="TbSubExpiresToday" xml:space="preserve">
+    <value>expires today</value>
+  </data>
+  <data name="TbSubExpired" xml:space="preserve">
+    <value>expired</value>
+  </data>
+  <data name="TbSubUpdated" xml:space="preserve">
+    <value>updated {0}</value>
+  </data>
+  <data name="TipSubInfo" xml:space="preserve">
+    <value>Reported by your subscription provider at the last update.</value>
+  </data>
 </root>

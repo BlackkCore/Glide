@@ -2103,4 +2103,28 @@
   <data name="TbSearchLogs" xml:space="preserve">
     <value>جستجو در گزارش‌ها</value>
   </data>
+  <data name="TbSubUsed" xml:space="preserve">
+    <value>{0} از {1} مصرف شده</value>
+  </data>
+  <data name="TbSubUsedNoLimit" xml:space="preserve">
+    <value>{0} مصرف شده</value>
+  </data>
+  <data name="TbSubLeft" xml:space="preserve">
+    <value>{0} باقی‌مانده</value>
+  </data>
+  <data name="TbSubDaysLeft" xml:space="preserve">
+    <value>{0} روز تا انقضا</value>
+  </data>
+  <data name="TbSubExpiresToday" xml:space="preserve">
+    <value>امروز منقضی می‌شود</value>
+  </data>
+  <data name="TbSubExpired" xml:space="preserve">
+    <value>منقضی شده</value>
+  </data>
+  <data name="TbSubUpdated" xml:space="preserve">
+    <value>به‌روزرسانی {0}</value>
+  </data>
+  <data name="TipSubInfo" xml:space="preserve">
+    <value>گزارش ارائه‌دهنده‌ی اشتراک در آخرین به‌روزرسانی.</value>
+  </data>
 </root>

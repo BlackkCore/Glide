@@ -53,7 +53,13 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             {
                 _emptyStateHooked = true;
                 ViewModel.ProfileItems.CollectionChanged += (_, _) => Dispatcher.UIThread.Post(UpdateEmptyState);
+                // A subscription update reloads the list, so the provider's new numbers show up then.
+                ViewModel.ProfileItems.CollectionChanged += (_, _) => Dispatcher.UIThread.Post(UpdateSubInfo);
             }
+            this.WhenAnyValue(v => v.ViewModel.SelectedSub)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Subscribe(_ => UpdateSubInfo())
+                .DisposeWith(disposables);
             this.WhenAnyValue(v => v.ViewModel.ServerFilter)
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ => UpdateEmptyState())
@@ -189,6 +195,62 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
     }
 
     private bool _emptyStateHooked;
+
+    private void UpdateSubInfo()
+    {
+        var url = ViewModel?.SelectedSub?.Url;
+        // Same key the download used (SubscriptionHandler fetches the punycode form of the URL).
+        var info = url.IsNullOrEmpty() ? null : SubscriptionInfoStore.Get(Utils.GetPunycode(url.TrimEx()));
+        pnlSubInfo.IsVisible = info != null;
+        if (info == null)
+        {
+            return;
+        }
+
+        var parts = new List<string>();
+        if (info.Total > 0)
+        {
+            parts.Add(string.Format(ResUI.TbSubUsed, FormatBytes(info.Used), FormatBytes(info.Total)));
+            parts.Add(string.Format(ResUI.TbSubLeft, FormatBytes(info.Left)));
+        }
+        else if (info.Used > 0)
+        {
+            parts.Add(string.Format(ResUI.TbSubUsedNoLimit, FormatBytes(info.Used)));
+        }
+
+        var expired = false;
+        if (info.Expires is { } expires)
+        {
+            var remaining = expires - DateTimeOffset.UtcNow;
+            expired = remaining <= TimeSpan.Zero;
+            parts.Add(expired ? ResUI.TbSubExpired
+                : remaining.TotalHours < 24 ? ResUI.TbSubExpiresToday
+                : string.Format(ResUI.TbSubDaysLeft, (int)remaining.TotalDays));
+        }
+        parts.Add(string.Format(ResUI.TbSubUpdated,
+            $"‎{info.Updated.ToLocalTime().ToString("MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture)}‎"));
+
+        txtSubInfo.Text = string.Join("  ·  ", parts);
+        barSubUsage.IsVisible = info.Total > 0;
+        barSubUsage.Value = info.Total > 0 ? Math.Min(1, (double)info.Used / info.Total) : 0;
+        // Red when it's over or nearly used up, so it's noticed before the servers stop working.
+        txtSubInfo.Classes.Set("bad", expired || (info.Total > 0 && info.Left < info.Total / 10));
+    }
+
+    // Upstream's Utils.HumanFy starts at KB, so 500 bytes would read "500.0 KB"; and the LRM marks
+    // keep "1.5 GB" in order inside Persian text.
+    private static string FormatBytes(long bytes)
+    {
+        string[] units = ["B", "KB", "MB", "GB", "TB", "PB"];
+        double size = bytes;
+        var unit = 0;
+        while (size >= 1024 && unit < units.Length - 1)
+        {
+            size /= 1024;
+            unit++;
+        }
+        return $"‎{size.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture)} {units[unit]}‎";
+    }
 
     private void UpdateEmptyState()
     {

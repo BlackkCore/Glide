@@ -295,7 +295,15 @@ public class DownloadService
             timeoutCts.CancelAfter(webProxy is null ? Global.DirectFetch : Global.ProxyFetch);
             using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
 
-            return await client.GetStringAsync(url, linkedCts.Token);
+            // Same as GetStringAsync, but keeps the headers: providers report data used and
+            // expiry in "subscription-userinfo" (Glide shows it next to the subscription).
+            using var response = await client.GetAsync(url, linkedCts.Token);
+            response.EnsureSuccessStatusCode();
+            if (response.Headers.TryGetValues("subscription-userinfo", out var userInfo))
+            {
+                SubscriptionInfoStore.Record(url, string.Join(";", userInfo));
+            }
+            return await response.Content.ReadAsStringAsync(linkedCts.Token);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {

@@ -374,6 +374,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         imgThemeSnapshot.Clip = null;
         imgThemeSnapshot.IsVisible = true;
 
+        Classes.Add("themeSwap");
         applyTheme();
 
         var center = origin.TranslatePoint(new Point(origin.Bounds.Width / 2, origin.Bounds.Height / 2), gridRoot)
@@ -388,13 +389,15 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         _revealTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
         _revealTimer.Tick += (_, _) =>
         {
-            var t = Math.Clamp((DateTime.Now - start).TotalMilliseconds / 560, 0, 1);
-            var r = maxRadius * (1 - Math.Pow(1 - t, 3));
+            var t = Math.Clamp((DateTime.Now - start).TotalMilliseconds / 620, 0, 1);
+            var eased = t < 0.5 ? 4 * t * t * t : 1 - (Math.Pow((-2 * t) + 2, 3) / 2);
+            var r = maxRadius * eased;
             imgThemeSnapshot.Clip = new CombinedGeometry(GeometryCombineMode.Exclude, area,
                 new EllipseGeometry(new Rect(center.X - r, center.Y - r, r * 2, r * 2)));
             if (t >= 1)
             {
                 _revealTimer!.Stop();
+                Classes.Remove("themeSwap");
                 imgThemeSnapshot.IsVisible = false;
                 imgThemeSnapshot.Source = null;
                 imgThemeSnapshot.Clip = null;

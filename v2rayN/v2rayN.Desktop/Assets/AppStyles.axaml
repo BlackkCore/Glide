@@ -366,6 +366,8 @@
         <Setter Property="LetterSpacing" Value="-0.3" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
         <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="MaxLines" Value="2" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 
@@ -545,8 +547,13 @@
     <Style Selector="DataGrid /template/ ScrollBar">
         <Setter Property="AllowAutoHide" Value="True" />
     </Style>
-    <Style Selector="DataGrid /template/ ScrollBar /template/ RepeatButton">
+    <!--  No arrow buttons on any scrollbar; wheel and thumb do the job and the arrows read as clutter.  -->
+    <Style Selector="ScrollBar /template/ RepeatButton">
         <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!--  The track's own page buttons stay, so clicking beside the thumb still pages.  -->
+    <Style Selector="ScrollBar /template/ Track > RepeatButton">
+        <Setter Property="IsVisible" Value="True" />
     </Style>
 
     <!--  ===== Country chip in the server list =====  -->

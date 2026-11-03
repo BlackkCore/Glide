@@ -199,6 +199,10 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
                 AppMotion.PlayEntrance(spEmptyServers, 14, 380);
             }
             spEmptyServers.IsVisible = show;
+            // An empty table has nothing to scroll sideways to; hide the bar under the first-run card.
+            lstProfiles.HorizontalScrollBarVisibility = show
+                ? Avalonia.Controls.Primitives.ScrollBarVisibility.Hidden
+                : Avalonia.Controls.Primitives.ScrollBarVisibility.Auto;
         }
     }
 

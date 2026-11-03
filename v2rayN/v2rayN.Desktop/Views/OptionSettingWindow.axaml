@@ -967,55 +967,66 @@
                                 TextWrapping="Wrap" />
                         </DockPanel>
                     </StackPanel>
-                    <StackPanel
+                    <Grid
+                        ColumnDefinitions="Auto,*,Auto"
                         DockPanel.Dock="Bottom"
                         IsVisible="{Binding BlIsWindows}"
-                        Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock
-                                Margin="{StaticResource Margin4}"
-                                VerticalAlignment="Center"
-                                Text="{x:Static resx:ResUI.TbSettingsNotProxyLocalAddress}" />
-                            <ToggleSwitch
-                                x:Name="tognotProxyLocalAddress"
-                                Margin="{StaticResource Margin4}"
-                                HorizontalAlignment="Left" />
-                        </StackPanel>
+                        RowDefinitions="Auto,Auto,Auto">
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            MaxWidth="300"
+                            Margin="{StaticResource Margin4}"
+                            VerticalAlignment="Center"
+                            Text="{x:Static resx:ResUI.TbSettingsNotProxyLocalAddress}"
+                            TextWrapping="Wrap" />
+                        <ToggleSwitch
+                            x:Name="tognotProxyLocalAddress"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="{StaticResource Margin4}"
+                            HorizontalAlignment="Left" />
 
-                        <DockPanel>
-                            <TextBlock
-                                Margin="{StaticResource Margin4}"
-                                VerticalAlignment="Center"
-                                DockPanel.Dock="Left"
-                                Text="{x:Static resx:ResUI.TbSettingsAdvancedProtocol}" />
-                            <ComboBox
-                                x:Name="cmbsystemProxyAdvancedProtocol"
-                                MaxWidth="400"
-                                Margin="{StaticResource Margin4}"
-                                HorizontalAlignment="Stretch" />
-                        </DockPanel>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            MaxWidth="300"
+                            Margin="{StaticResource Margin4}"
+                            VerticalAlignment="Center"
+                            Text="{x:Static resx:ResUI.TbSettingsAdvancedProtocol}"
+                            TextWrapping="Wrap" />
+                        <ComboBox
+                            x:Name="cmbsystemProxyAdvancedProtocol"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            MaxWidth="400"
+                            Margin="{StaticResource Margin4}"
+                            HorizontalAlignment="Stretch" />
 
-                        <DockPanel>
-                            <TextBlock
-                                Margin="{StaticResource Margin4}"
-                                VerticalAlignment="Center"
-                                DockPanel.Dock="Left"
-                                Text="{x:Static resx:ResUI.TbSettingsCustomSystemProxyPacPath}" />
-                            <Button
-                                x:Name="btnBrowseCustomSystemProxyPacPath"
-                                Margin="{StaticResource Margin4}"
-                                DockPanel.Dock="Right"
-                                Content="{x:Static resx:ResUI.TbBrowse}" />
-                            <TextBox
-                                x:Name="txtCustomSystemProxyPacPath"
-                                MaxWidth="600"
-                                Margin="{StaticResource Margin4}"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                PlaceholderText="pac.txt"
-                                TextWrapping="Wrap" />
-                        </DockPanel>
-                    </StackPanel>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            MaxWidth="300"
+                            Margin="{StaticResource Margin4}"
+                            VerticalAlignment="Center"
+                            Text="{x:Static resx:ResUI.TbSettingsCustomSystemProxyPacPath}"
+                            TextWrapping="Wrap" />
+                        <TextBox
+                            x:Name="txtCustomSystemProxyPacPath"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="{StaticResource Margin4}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            PlaceholderText="pac.txt"
+                            TextWrapping="Wrap" />
+                        <Button
+                            x:Name="btnBrowseCustomSystemProxyPacPath"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Margin="{StaticResource Margin4}"
+                            Content="{x:Static resx:ResUI.TbBrowse}" />
+                    </Grid>
 
                     <TextBlock
                         Margin="{StaticResource Margin4}"

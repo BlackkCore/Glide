@@ -230,4 +230,10 @@
             </Animation>
         </Style.Animations>
     </Style>
+
+    <!--  While the theme reveal runs, colours snap straight to the new theme underneath the old-theme
+          picture; otherwise the circle would uncover half-faded, muddy surfaces. Keep this block last.  -->
+    <Style Selector="Window.themeSwap, Window.themeSwap Border, Window.themeSwap Ellipse, Window.themeSwap Button, Window.themeSwap Button /template/ Ellipse, Window.themeSwap Button /template/ Border, Window.themeSwap MenuItem /template/ Border, Window.themeSwap ListBoxItem /template/ Border">
+        <Setter Property="Transitions" Value="{x:Null}" />
+    </Style>
 </Styles>

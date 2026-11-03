@@ -9,7 +9,7 @@
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     Title="{x:Static resx:ResUI.menuSubSetting}"
-    Width="900"
+    Width="1000"
     Height="600"
     x:DataType="vms:SubSettingViewModel"
     Design.DataContext="{x:Static dd:DesignData.SubSetting}"
@@ -55,23 +55,23 @@
                         Binding="{Binding Remarks}"
                         Header="{x:Static resx:ResUI.LvRemarks}" />
                     <DataGridTextColumn
-                        Width="*"
+                        Width="3*"
                         Binding="{Binding Url}"
                         Header="{x:Static resx:ResUI.LvUrl}" />
                     <DataGridCheckBoxColumn
-                        Width="140"
+                        Width="SizeToHeader"
                         Binding="{Binding Enabled}"
                         Header="{x:Static resx:ResUI.LvEnabled}" />
                     <DataGridTextColumn
-                        Width="300"
+                        Width="150"
                         Binding="{Binding AutoUpdateInterval}"
                         Header="{x:Static resx:ResUI.LvAutoUpdateInterval}" />
                     <DataGridTextColumn
-                        Width="150"
+                        Width="120"
                         Binding="{Binding UserAgent}"
                         Header="{x:Static resx:ResUI.LvUserAgent}" />
                     <DataGridTextColumn
-                        Width="80"
+                        Width="SizeToHeader"
                         Binding="{Binding Sort}"
                         Header="{x:Static resx:ResUI.LvSort}" />
                 </DataGrid.Columns>

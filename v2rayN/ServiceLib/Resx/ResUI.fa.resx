@@ -2142,4 +2142,31 @@
   <data name="TipNoSettingsMatch" xml:space="preserve">
     <value>تنظیمی با «{0}» پیدا نشد.</value>
   </data>
+  <data name="TbAddServer" xml:space="preserve">
+    <value>افزودن سرور</value>
+  </data>
+  <data name="TipAddServerSheet" xml:space="preserve">
+    <value>چیزی را که ارائه‌دهنده به شما داده اینجا بگذارید: لینک سرور (⁦vless://, vmess://, trojan://⁩ و غیره) یا آدرس اشتراک (⁦https://…⁩).</value>
+  </data>
+  <data name="TbPaste" xml:space="preserve">
+    <value>جای‌گذاری</value>
+  </data>
+  <data name="TipImportServers" xml:space="preserve">
+    <value>{0} سرور: {1}</value>
+  </data>
+  <data name="TipImportSubs" xml:space="preserve">
+    <value>{0} آدرس اشتراک؛ سرورهایش بلافاصله پس از افزودن بارگیری می‌شوند</value>
+  </data>
+  <data name="TipImportUnknown" xml:space="preserve">
+    <value>لینکی شناخته نشد. Glide باز هم تلاش می‌کند آن را وارد کند (پیکربندی WireGuard یا JSON).</value>
+  </data>
+  <data name="TbAddServers" xml:space="preserve">
+    <value>افزودن {0} سرور</value>
+  </data>
+  <data name="TbEnterManually" xml:space="preserve">
+    <value>ورود دستی</value>
+  </data>
+  <data name="TbOtherWays" xml:space="preserve">
+    <value>روش‌های دیگر</value>
+  </data>
 </root>

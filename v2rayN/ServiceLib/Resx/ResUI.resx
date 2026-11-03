@@ -2148,4 +2148,31 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipNoSettingsMatch" xml:space="preserve">
     <value>No settings match "{0}".</value>
   </data>
+  <data name="TbAddServer" xml:space="preserve">
+    <value>Add server</value>
+  </data>
+  <data name="TipAddServerSheet" xml:space="preserve">
+    <value>Paste what your provider gave you: server links (vless://, vmess://, trojan://, …) or a subscription address (https://…).</value>
+  </data>
+  <data name="TbPaste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="TipImportServers" xml:space="preserve">
+    <value>{0} server(s): {1}</value>
+  </data>
+  <data name="TipImportSubs" xml:space="preserve">
+    <value>{0} subscription address(es); their servers load right after adding</value>
+  </data>
+  <data name="TipImportUnknown" xml:space="preserve">
+    <value>No links recognized. Glide will still try to import it (WireGuard or JSON configs).</value>
+  </data>
+  <data name="TbAddServers" xml:space="preserve">
+    <value>Add {0} server(s)</value>
+  </data>
+  <data name="TbEnterManually" xml:space="preserve">
+    <value>Enter manually</value>
+  </data>
+  <data name="TbOtherWays" xml:space="preserve">
+    <value>Other ways</value>
+  </data>
 </root>

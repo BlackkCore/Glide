@@ -125,6 +125,8 @@
                                     <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuServers}" />
                                 </DockPanel>
                             </MenuItem.Header>
+                            <MenuItem x:Name="menuAddServerSheet" Header="{x:Static resx:ResUI.TbAddServer}" />
+                            <Separator />
                             <MenuItem
                                 x:Name="menuAddServerViaClipboard"
                                 Header="{x:Static resx:ResUI.menuAddServerViaClipboard}"

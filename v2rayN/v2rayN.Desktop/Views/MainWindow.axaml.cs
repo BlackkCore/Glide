@@ -13,6 +13,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     private readonly WindowNotificationManager? _manager;
     private CheckUpdateView? _checkUpdateView;
     private BackupAndRestoreView? _backupAndRestoreView;
+    private AddServerSheet? _addServerSheet;
     private bool _blCloseByUser = false;
 
     public MainWindow()
@@ -34,6 +35,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuCheckUpdate.Click += MenuCheckUpdate_Click;
         btnNewUpdate.Click += MenuCheckUpdate_Click;
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
+        menuAddServerSheet.Click += (_, _) => ShowAddServerSheet();
         menuImportFromOriginal.Click += async (_, _) => await ImportFromOriginalAsync(true);
         menuClose.Click += MenuClose_Click;
         btnToggleLogs.Click += (_, _) => SetLogsHidden(!_logsHidden);
@@ -163,6 +165,12 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
               .AsObservable()
               .ObserveOn(RxSchedulers.MainThreadScheduler)
               .Subscribe(Shutdown)
+              .DisposeWith(disposables);
+
+            AppEvents.AddServerSheetRequested
+              .AsObservable()
+              .ObserveOn(RxSchedulers.MainThreadScheduler)
+              .Subscribe(_ => ShowAddServerSheet())
               .DisposeWith(disposables);
         });
 
@@ -557,6 +565,19 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         DialogHost.Show(_checkUpdateView);
 
         AppEvents.HasUpdateNotified.Publish(false);
+    }
+
+    private void ShowAddServerSheet()
+    {
+        // Only one sheet at a time (Show throws when the host already has one).
+        if (DialogHost.IsDialogOpen(null))
+        {
+            return;
+        }
+        _addServerSheet ??= new AddServerSheet();
+        _addServerSheet.Main = ViewModel;
+        _addServerSheet.Reset();
+        DialogHost.Show(_addServerSheet);
     }
 
     private void MenuBackupAndRestore_Click(object? sender, RoutedEventArgs e)

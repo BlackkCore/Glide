@@ -6128,5 +6128,86 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipNoSettingsMatch", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Add server
+        /// </summary>
+        public static string TbAddServer {
+            get {
+                return ResourceManager.GetString("TbAddServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Paste what your provider gave you: server links (vless://, vmess://, trojan://, …) or a subscription address (https://…).
+        /// </summary>
+        public static string TipAddServerSheet {
+            get {
+                return ResourceManager.GetString("TipAddServerSheet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Paste
+        /// </summary>
+        public static string TbPaste {
+            get {
+                return ResourceManager.GetString("TbPaste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0} server(s): {1}
+        /// </summary>
+        public static string TipImportServers {
+            get {
+                return ResourceManager.GetString("TipImportServers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0} subscription address(es); their servers load right after adding
+        /// </summary>
+        public static string TipImportSubs {
+            get {
+                return ResourceManager.GetString("TipImportSubs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No links recognized. Glide will still try to import it (WireGuard or JSON configs).
+        /// </summary>
+        public static string TipImportUnknown {
+            get {
+                return ResourceManager.GetString("TipImportUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add {0} server(s)
+        /// </summary>
+        public static string TbAddServers {
+            get {
+                return ResourceManager.GetString("TbAddServers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enter manually
+        /// </summary>
+        public static string TbEnterManually {
+            get {
+                return ResourceManager.GetString("TbEnterManually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Other ways
+        /// </summary>
+        public static string TbOtherWays {
+            get {
+                return ResourceManager.GetString("TbOtherWays", resourceCulture);
+            }
+        }
     }
 }

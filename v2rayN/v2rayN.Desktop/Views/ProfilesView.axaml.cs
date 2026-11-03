@@ -31,6 +31,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             _filterTimer.Start();
         };
         btnEmptyPaste.Click += (_, _) => AppEvents.AddServerViaClipboardRequested.Publish();
+        btnAddServer.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
         lstProfiles.KeyDown += LstProfiles_KeyDown;
         lstProfiles.SelectionChanged += lstProfiles_SelectionChanged;
         lstProfiles.DoubleTapped += LstProfiles_DoubleTapped;

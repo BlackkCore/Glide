@@ -1,0 +1,158 @@
+<!--
+    All of Glide's motion lives here. App.Initialize only loads this file when the Windows
+    "Animation effects" setting is on (see Common/AppMotion.cs); without it every state change
+    simply snaps. Nothing here loops: each animation runs once in response to a change.
+-->
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  ===== Theme switch: surfaces fade to their new color instead of flashing =====  -->
+    <Style Selector="Window">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.3" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Border.sidebar, Border.stat, Border.logPanel">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.3" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.3" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!--  ===== Cards: glide in when the main window opens =====  -->
+    <Style Selector="Border.card">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.28" Easing="CubicEaseOut" />
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.36" Easing="CubicEaseOut" />
+                <BrushTransition Property="Background" Duration="0:0:0.3" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.3" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <!--  The main window starts with this class and drops it once shown.  -->
+    <Style Selector=":is(Control).entering Border.card">
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="RenderTransform" Value="translateY(12px)" />
+    </Style>
+
+    <!--  ===== Hover backgrounds on sidebar items, chips and segments =====  -->
+    <Style Selector="MenuItem /template/ Border#PART_LayoutRoot, ListBoxItem /template/ Border#PART_Bg">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!--  ===== Menus, dropdowns and tooltips fade in =====  -->
+    <Style Selector="PopupRoot /template/ ContentPresenter#PART_ContentPresenter">
+        <Style.Animations>
+            <Animation Easing="CubicEaseOut" Duration="0:0:0.14">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <!--  ===== Status pill =====  -->
+    <Style Selector="Border.pill">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.25" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!--  ===== Latency dot fades from gray (testing) to its result color =====  -->
+    <Style Selector="Ellipse.delayDot">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Fill" Duration="0:0:0.35" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!--  ===== Power button: crossfade between off and on, ripple when it turns on =====  -->
+    <Style Selector="Button.power">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Foreground" Duration="0:0:0.3" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.power /template/ Ellipse#PART_Halo">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.35" Easing="CubicEaseOut" />
+                <BrushTransition Property="Fill" Duration="0:0:0.35" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.power /template/ Ellipse#PART_HaloInner">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.45" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.power /template/ Border#PART_Ring">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16" Easing="CubicEaseOut" />
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.35" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.power /template/ Border#PART_OnFill">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.3" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.power.pulse /template/ Ellipse#PART_Ripple">
+        <Style.Animations>
+            <Animation
+                Easing="CubicEaseOut"
+                FillMode="Forward"
+                Duration="0:0:0.8">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0.7" />
+                    <Setter Property="ScaleTransform.ScaleX" Value="0.92" />
+                    <Setter Property="ScaleTransform.ScaleY" Value="0.92" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="0" />
+                    <Setter Property="ScaleTransform.ScaleX" Value="1.3" />
+                    <Setter Property="ScaleTransform.ScaleY" Value="1.3" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+    <Style Selector="Button.power.pulse /template/ Panel#PART_Bounce">
+        <Style.Animations>
+            <Animation Easing="CubicEaseOut" Duration="0:0:0.45">
+                <KeyFrame Cue="0%">
+                    <Setter Property="ScaleTransform.ScaleX" Value="0.94" />
+                    <Setter Property="ScaleTransform.ScaleY" Value="0.94" />
+                </KeyFrame>
+                <KeyFrame Cue="55%">
+                    <Setter Property="ScaleTransform.ScaleX" Value="1.04" />
+                    <Setter Property="ScaleTransform.ScaleY" Value="1.04" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                    <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+</Styles>

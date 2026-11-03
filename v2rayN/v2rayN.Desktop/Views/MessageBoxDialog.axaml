@@ -27,7 +27,7 @@
             <TextBlock
                 x:Name="txtMessage"
                 VerticalAlignment="Center"
-                FontSize="14"
+                FontSize="{DynamicResource AppFontBody}"
                 LineHeight="22"
                 TextWrapping="Wrap" />
         </ScrollViewer>

@@ -9,6 +9,13 @@ public partial class App : Application
     {
         AvaloniaXamlLoader.Load(this);
 
+        // Transitions and animations only when Windows "Animation effects" is on. Added here, before any
+        // window exists, so nothing has to be re-templated.
+        if (AppMotion.Enabled)
+        {
+            Styles.Add(new Avalonia.Markup.Xaml.Styling.StyleInclude(new Uri("avares://v2rayN/")) { Source = new Uri("avares://v2rayN/Assets/AppMotion.axaml") });
+        }
+
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
     }

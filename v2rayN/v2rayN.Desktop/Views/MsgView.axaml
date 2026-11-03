@@ -85,7 +85,7 @@
                 Padding="10,8"
                 Background="Transparent"
                 FontFamily="{StaticResource AppMonoFont}"
-                FontSize="12"
+                FontSize="{DynamicResource AppFontSmall}"
                 Foreground="{DynamicResource AppMutedBrush}"
                 IsReadOnly="True"
                 VerticalScrollBarVisibility="Auto"

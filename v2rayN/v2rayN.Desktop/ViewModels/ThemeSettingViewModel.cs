@@ -115,7 +115,24 @@ public partial class ThemeSettingViewModel : MyReactiveObject
         }
         app.Resources[UiFontSizeKey] = size;
         app.Resources[UiRowHeightKey] = 26 + size;
+
+        // The design's type scale follows at half strength, so headings and labels keep their
+        // proportions while still getting smaller or larger with the user's choice.
+        var factor = 1 + ((size - 13) / 26);
+        foreach (var (key, baseSize) in TypeScale)
+        {
+            app.Resources[key] = Math.Round(baseSize * factor * 2) / 2;
+        }
     }
+
+    private static readonly (string Key, double Size)[] TypeScale =
+    [
+        ("AppFontCaption", 11),
+        ("AppFontSmall", 12),
+        ("AppFontBody", 13),
+        ("AppFontTitle", 15),
+        ("AppFontHeading", 20),
+    ];
 
     private static void EnsureFontSizeStyles(Application app)
     {

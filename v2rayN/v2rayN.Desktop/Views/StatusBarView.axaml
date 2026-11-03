@@ -2,6 +2,7 @@
     x:Class="v2rayN.Desktop.Views.StatusBarView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:v2rayN.Desktop.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -56,7 +57,7 @@
                             MaxWidth="180"
                             VerticalAlignment="Center"
                             Classes="muted"
-                            FontSize="12"
+                            FontSize="{DynamicResource AppFontSmall}"
                             FontWeight="Medium"
                             TextTrimming="CharacterEllipsis" />
                     </StackPanel>
@@ -64,7 +65,7 @@
                         x:Name="txtRunningInfoDisplay"
                         HorizontalAlignment="Center"
                         Classes="faint num"
-                        FontSize="12"
+                        FontSize="{DynamicResource AppFontSmall}"
                         FontWeight="SemiBold"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
@@ -91,11 +92,16 @@
                             </StackPanel>
                         </Border>
                     </Grid>
+                    <common:SpeedSparkline
+                        x:Name="sparkSpeed"
+                        Height="40"
+                        Margin="2,2,2,0"
+                        ToolTip.Tip="Last minute: download (blue) and upload (green)" />
                     <TextBlock
                         x:Name="txtSpeedDirect"
                         HorizontalAlignment="Center"
                         Classes="faint num"
-                        FontSize="11"
+                        FontSize="{DynamicResource AppFontCaption}"
                         FontWeight="SemiBold" />
                 </StackPanel>
             </StackPanel>
@@ -138,7 +144,7 @@
                         Theme="{DynamicResource SimpleToggleSwitch}" />
                     <TextBlock
                         VerticalAlignment="Center"
-                        FontSize="13"
+                        FontSize="{DynamicResource AppFontBody}"
                         FontWeight="SemiBold"
                         Foreground="{DynamicResource AppTextBrush}"
                         Text="{x:Static resx:ResUI.TbEnableTunAs}"

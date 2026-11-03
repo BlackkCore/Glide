@@ -316,7 +316,7 @@
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontWeight="Bold"
-                                    FontSize="13"
+                                    FontSize="{DynamicResource AppFontBody}"
                                     Text="{Binding Remarks}" />
                                 <Border Classes="badge solid round" IsVisible="{Binding IsActive}">
                                     <TextBlock Text="{x:Static resx:ResUI.TipActiveServer}" />
@@ -343,11 +343,12 @@
                                     Width="7"
                                     Height="7"
                                     VerticalAlignment="Center"
+                                    Classes="delayDot"
                                     Fill="{Binding DelayVal, Converter={StaticResource DelayColorConverter}}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontFeatures="+tnum"
-                                    FontSize="13"
+                                    FontSize="{DynamicResource AppFontBody}"
                                     FontWeight="SemiBold"
                                     Text="{Binding Path=DelayVal, Mode=OneWay, Converter={StaticResource DelayTextConverter}}" />
                             </StackPanel>
@@ -407,7 +408,7 @@
                             <SelectableTextBlock
                                 Margin="16,0"
                                 VerticalAlignment="Center"
-                                FontSize="13"
+                                FontSize="{DynamicResource AppFontBody}"
                                 Foreground="{DynamicResource AppMutedBrush}"
                                 Text="{Binding Path=IpInfo, Mode=OneWay}" />
                         </DataTemplate>
@@ -471,7 +472,7 @@
                     Text="{x:Static resx:ResUI.TipNoServersTitle}" />
                 <TextBlock
                     Classes="muted"
-                    FontSize="13"
+                    FontSize="{DynamicResource AppFontBody}"
                     Text="{x:Static resx:ResUI.TipNoServersBody}"
                     TextAlignment="Center"
                     TextWrapping="Wrap" />

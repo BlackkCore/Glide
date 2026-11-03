@@ -23,6 +23,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         spRunningServer.Tapped += TxtRunningServerDisplay_Tapped;
         btnPower.Click += BtnPower_Click;
         _sessionTimer.Tick += (_, _) => UpdateSessionTime();
+        _tickTimer.Tick += (_, _) => SpeedTick();
 
         this.WhenActivated(disposables =>
         {
@@ -130,6 +131,12 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
     private void UpdatePowerState(int selected)
     {
         var isOn = selected is (int)ESysProxyType.ForcedChange or (int)ESysProxyType.Pac;
+        if (isOn && !btnPower.Classes.Contains("on") && IsLoaded && AppMotion.Enabled)
+        {
+            // A ring spreads out once when the proxy comes on; removed again so the next switch replays it.
+            btnPower.Classes.Add("pulse");
+            DispatcherTimer.RunOnce(() => btnPower.Classes.Remove("pulse"), TimeSpan.FromMilliseconds(900));
+        }
         btnPower.Classes.Set("on", isOn);
         bdPowerState.Classes.Set("on", isOn);
         txtPowerState.Text = selected switch
@@ -197,10 +204,15 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         spSpeed.IsVisible = p.Success;
         if (!p.Success)
         {
+            _tickTimer.Stop();
+            _upShown = _downShown = 0;
+            sparkSpeed.Clear();
             return;
         }
-        txtSpeedUp.Text = p.Groups["up"].Value.Trim();
-        txtSpeedDown.Text = p.Groups["down"].Value.Trim();
+        var up = SpeedSparkline.ParseSize(p.Groups["up"].Value);
+        var down = SpeedSparkline.ParseSize(p.Groups["down"].Value);
+        sparkSpeed.Push(up, down);
+        StartSpeedTick(up, down);
 
         var d = SpeedRegex.Match(direct ?? string.Empty);
         txtSpeedDirect.IsVisible = d.Success;
@@ -208,6 +220,47 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         {
             txtSpeedDirect.Text = $"{d.Groups["tag"].Value}   ↑ {d.Groups["up"].Value.Trim()}   ↓ {d.Groups["down"].Value.Trim()}";
         }
+    }
+
+    // The speed numbers glide to each new value instead of jumping (skipped when Windows animations are off).
+    private const double TickMs = 450;
+
+    private readonly DispatcherTimer _tickTimer = new() { Interval = TimeSpan.FromMilliseconds(33) };
+    private DateTime _tickStart;
+    private double _upFrom, _upTo, _upShown, _downFrom, _downTo, _downShown;
+
+    private void StartSpeedTick(double up, double down)
+    {
+        _upFrom = _upShown;
+        _downFrom = _downShown;
+        _upTo = up;
+        _downTo = down;
+        if (!AppMotion.Enabled)
+        {
+            SetSpeedText(1);
+            return;
+        }
+        _tickStart = DateTime.Now;
+        _tickTimer.Start();
+        SetSpeedText(0);
+    }
+
+    private void SpeedTick()
+    {
+        var t = Math.Clamp((DateTime.Now - _tickStart).TotalMilliseconds / TickMs, 0, 1);
+        SetSpeedText(1 - Math.Pow(1 - t, 3));
+        if (t >= 1)
+        {
+            _tickTimer.Stop();
+        }
+    }
+
+    private void SetSpeedText(double progress)
+    {
+        _upShown = _upFrom + ((_upTo - _upFrom) * progress);
+        _downShown = _downFrom + ((_downTo - _downFrom) * progress);
+        txtSpeedUp.Text = $"{Utils.HumanFy((long)Math.Round(_upShown))}/s";
+        txtSpeedDown.Text = $"{Utils.HumanFy((long)Math.Round(_downShown))}/s";
     }
 
     private static void SetKeyValue(string? text, TextBlock key, TextBlock value)

@@ -53,7 +53,7 @@
                             Classes="wideOnly"
                             Spacing="1">
                             <TextBlock
-                                FontSize="16"
+                                FontSize="{DynamicResource AppFontTitle}"
                                 FontWeight="ExtraBold"
                                 Foreground="{DynamicResource AppTextBrush}"
                                 LetterSpacing="-0.2"
@@ -61,7 +61,7 @@
                             <TextBlock
                                 x:Name="txtVersion"
                                 Classes="faint"
-                                FontSize="11"
+                                FontSize="{DynamicResource AppFontCaption}"
                                 FontWeight="SemiBold" />
                         </StackPanel>
                     </StackPanel>

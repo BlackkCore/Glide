@@ -62,18 +62,18 @@
 
     <!--  Text  -->
     <Style Selector="TextBlock.h1">
-        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontHeading}" />
         <Setter Property="FontWeight" Value="ExtraBold" />
         <Setter Property="LetterSpacing" Value="-0.3" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
     </Style>
     <Style Selector="TextBlock.h2">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontTitle}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
     </Style>
     <Style Selector="TextBlock.label">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
     </Style>
@@ -95,7 +95,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
     <Style Selector="Border.badge TextBlock">
-        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontCaption}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
     </Style>
@@ -136,7 +136,7 @@
         <Setter Property="Foreground" Value="{DynamicResource AppOnAccentBrush}" />
     </Style>
     <Style Selector="TextBlock.sectionLabel">
-        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontCaption}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="LetterSpacing" Value="0.6" />
         <Setter Property="Foreground" Value="{DynamicResource AppFaintBrush}" />
@@ -157,7 +157,7 @@
         <Setter Property="Foreground" Value="{Binding $parent[MenuItem].Foreground}" />
     </Style>
     <Style Selector="Menu.sidebar TextBlock.nav">
-        <Setter Property="FontSize" Value="13.5" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
@@ -191,7 +191,7 @@
         <Setter Property="Foreground" Value="{Binding $parent[Button].Foreground}" />
     </Style>
     <Style Selector="Button.themeOpt TextBlock">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="{Binding $parent[Button].Foreground}" />
@@ -251,17 +251,29 @@
             <ControlTemplate>
                 <Panel>
                     <Ellipse Name="PART_Halo" Fill="{DynamicResource AppOffRingBrush}">
-                        <Ellipse.Transitions>
-                            <Transitions>
-                                <DoubleTransition Property="Opacity" Duration="0:0:0.25" />
-                            </Transitions>
-                        </Ellipse.Transitions>
                     </Ellipse>
                     <Ellipse
                         Name="PART_HaloInner"
                         Margin="10"
-                        Fill="{DynamicResource AppOffRingBrush}"
-                        Opacity="0" />
+                        Fill="{DynamicResource AppAccentRingBrush}"
+                        Opacity="0">
+                    </Ellipse>
+                    <!--  One-shot ring that spreads out when the proxy turns on (class "pulse", set from code).  -->
+                    <Ellipse
+                        Name="PART_Ripple"
+                        Margin="20"
+                        IsHitTestVisible="False"
+                        Opacity="0"
+                        Stroke="{DynamicResource AppAccentBrush}"
+                        StrokeThickness="2">
+                        <Ellipse.RenderTransform>
+                            <ScaleTransform />
+                        </Ellipse.RenderTransform>
+                    </Ellipse>
+                    <Panel Name="PART_Bounce">
+                    <Panel.RenderTransform>
+                        <ScaleTransform />
+                    </Panel.RenderTransform>
                     <Border
                         Name="PART_Ring"
                         Margin="20"
@@ -270,17 +282,22 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         BoxShadow="{DynamicResource AppPowerOffShadow}"
                         CornerRadius="58">
-                        <Border.Transitions>
-                            <Transitions>
-                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.12" />
-                            </Transitions>
-                        </Border.Transitions>
-                        <ContentPresenter
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Content="{TemplateBinding Content}"
-                            Foreground="{TemplateBinding Foreground}" />
+                        <Panel>
+                            <!--  The gradient fades in over the off surface, so on/off is a crossfade rather than a jump.  -->
+                            <Border
+                                Name="PART_OnFill"
+                                Background="{DynamicResource AppPowerOnFill}"
+                                CornerRadius="58"
+                                Opacity="0">
+                            </Border>
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}"
+                                Foreground="{TemplateBinding Foreground}" />
+                        </Panel>
                     </Border>
+                    </Panel>
                 </Panel>
             </ControlTemplate>
         </Setter>
@@ -291,19 +308,21 @@
         <Setter Property="Foreground" Value="{Binding $parent[Button].Foreground}" />
     </Style>
     <Style Selector="Button.power:pointerover /template/ Border#PART_Ring">
-        <Setter Property="RenderTransform" Value="scale(1.02)" />
+        <Setter Property="RenderTransform" Value="scale(1.03)" />
     </Style>
     <Style Selector="Button.power:pressed /template/ Border#PART_Ring">
-        <Setter Property="RenderTransform" Value="scale(0.97)" />
+        <Setter Property="RenderTransform" Value="scale(0.95)" />
     </Style>
     <Style Selector="Button.power:focus-visible /template/ Border#PART_Ring">
         <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
         <Setter Property="BorderThickness" Value="2" />
     </Style>
     <Style Selector="Button.power.on">
-        <Setter Property="Background" Value="{DynamicResource AppPowerOnFill}" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource AppOnAccentBrush}" />
+    </Style>
+    <Style Selector="Button.power.on /template/ Border#PART_OnFill">
+        <Setter Property="Opacity" Value="1" />
     </Style>
     <Style Selector="Button.power.on /template/ Border#PART_Ring">
         <Setter Property="BoxShadow" Value="{DynamicResource AppPowerOnShadow}" />
@@ -313,10 +332,8 @@
         <Setter Property="Opacity" Value="0.55" />
     </Style>
     <Style Selector="Button.power.on /template/ Ellipse#PART_HaloInner">
-        <Setter Property="Fill" Value="{DynamicResource AppAccentRingBrush}" />
         <Setter Property="Opacity" Value="1" />
     </Style>
-
     <!--  Status pill above the power button  -->
     <Style Selector="Border.pill">
         <Setter Property="CornerRadius" Value="999" />
@@ -325,7 +342,7 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
     <Style Selector="Border.pill TextBlock">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="{DynamicResource AppOffFgBrush}" />
     </Style>
@@ -344,7 +361,7 @@
 
     <!--  Server name under the power button  -->
     <Style Selector="TextBlock.serverName">
-        <Setter Property="FontSize" Value="19" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontHeading}" />
         <Setter Property="FontWeight" Value="ExtraBold" />
         <Setter Property="LetterSpacing" Value="-0.3" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
@@ -369,13 +386,13 @@
         <Setter Property="Foreground" Value="{DynamicResource AppGoodDotBrush}" />
     </Style>
     <Style Selector="TextBlock.statLabel">
-        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontCaption}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
     <Style Selector="TextBlock.statValue">
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontTitle}" />
         <Setter Property="FontWeight" Value="ExtraBold" />
         <Setter Property="FontFeatures" Value="+tnum" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
@@ -384,11 +401,11 @@
 
     <!--  Key / value rows (inbound ports)  -->
     <Style Selector="TextBlock.kvKey">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
     </Style>
     <Style Selector="TextBlock.kvValue">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
         <Setter Property="FontFamily" Value="{StaticResource AppMonoFont}" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
         <Setter Property="HorizontalAlignment" Value="Right" />
@@ -427,7 +444,7 @@
         <Setter Property="MinHeight" Value="36" />
         <Setter Property="CornerRadius" Value="11" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
     </Style>
     <Style Selector="TextBox.search PathIcon.searchIcon">
         <Setter Property="Width" Value="14" />
@@ -463,7 +480,7 @@
         <Setter Property="HeadersVisibility" Value="Column" />
     </Style>
     <Style Selector="DataGrid.servers DataGridColumnHeader">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
         <Setter Property="Background" Value="Transparent" />
@@ -471,7 +488,7 @@
         <Setter Property="Padding" Value="16,0" />
     </Style>
     <Style Selector="DataGrid.servers DataGridCell">
-        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
     </Style>
@@ -506,32 +523,10 @@
         <Setter Property="Padding" Value="4" />
     </Style>
     <Style Selector="TextBlock.toggleLabel">
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-
-    <!--  ===== Motion =====  -->
-    <Style Selector="Border.card">
-        <Setter Property="Transitions">
-            <Transitions>
-                <DoubleTransition Property="Opacity" Duration="0:0:0.28" Easing="CubicEaseOut" />
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.36" Easing="CubicEaseOut" />
-            </Transitions>
-        </Setter>
-    </Style>
-    <!--  The main window starts with this class and drops it once shown, so the cards glide in.  -->
-    <Style Selector=":is(Control).entering Border.card">
-        <Setter Property="Opacity" Value="0" />
-        <Setter Property="RenderTransform" Value="translateY(12px)" />
-    </Style>
-    <Style Selector="Border.pill">
-        <Setter Property="Transitions">
-            <Transitions>
-                <BrushTransition Property="Background" Duration="0:0:0.2" />
-            </Transitions>
-        </Setter>
     </Style>
 
     <!--  ===== Surfaces app-wide =====  -->
@@ -541,7 +536,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CornerRadius" Value="8" />
         <Setter Property="Padding" Value="10,6" />
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
     </Style>
     <Style Selector="TextBox, ComboBox, AutoCompleteBox">
         <Setter Property="CornerRadius" Value="10" />

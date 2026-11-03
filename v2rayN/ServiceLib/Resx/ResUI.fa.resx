@@ -1090,7 +1090,7 @@
     <value>(دامنه یا IP یا نام پردازه) و پورت و پروتکل و InboundTag =&gt; OutboundTag</value>
   </data>
   <data name="TbAutoScrollToEnd" xml:space="preserve">
-    <value>خودکار ScrollToEnd</value>
+    <value>پیمایش خودکار به انتها</value>
   </data>
   <data name="TbSettingsSpeedPingTestUrl" xml:space="preserve">
     <value>آدرس اینترنتی تست پینگ سرعت</value>

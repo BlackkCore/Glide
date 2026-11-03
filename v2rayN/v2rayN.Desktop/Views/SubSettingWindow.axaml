@@ -59,11 +59,11 @@
                         Binding="{Binding Url}"
                         Header="{x:Static resx:ResUI.LvUrl}" />
                     <DataGridCheckBoxColumn
-                        Width="100"
+                        Width="140"
                         Binding="{Binding Enabled}"
                         Header="{x:Static resx:ResUI.LvEnabled}" />
                     <DataGridTextColumn
-                        Width="150"
+                        Width="300"
                         Binding="{Binding AutoUpdateInterval}"
                         Header="{x:Static resx:ResUI.LvAutoUpdateInterval}" />
                     <DataGridTextColumn

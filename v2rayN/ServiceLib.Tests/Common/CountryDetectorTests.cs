@@ -31,6 +31,15 @@ public class CountryDetectorTests
     }
 
     [Test]
+    public async Task RemoveFlags_RemovesFlagsAnywhere()
+    {
+        await CountryDetector.RemoveFlags("Turkey 🇹🇷 | 6.92GB").Should().BeEqualTo("Turkey | 6.92GB");
+        await CountryDetector.RemoveFlags("🇩🇪 Germany 🇩🇪").Should().BeEqualTo("Germany");
+        await CountryDetector.RemoveFlags("Plain name").Should().BeEqualTo("Plain name");
+        await CountryDetector.RemoveFlags("🇩🇪").Should().BeEqualTo("🇩🇪");
+    }
+
+    [Test]
     public async Task StripLeadingFlag_RemovesOnlyALeadingFlag()
     {
         await CountryDetector.StripLeadingFlag("🇩🇪 Germany 01").Should().BeEqualTo("Germany 01");

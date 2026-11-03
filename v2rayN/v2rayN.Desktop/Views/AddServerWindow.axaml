@@ -38,7 +38,7 @@
 
                 <Grid
                     Grid.Row="0"
-                    ColumnDefinitions="300,Auto,Auto"
+                    ColumnDefinitions="200,Auto,Auto"
                     RowDefinitions="Auto,Auto,Auto,Auto">
 
                     <TextBlock
@@ -103,7 +103,7 @@
                 <Grid
                     x:Name="gridVMess"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto,Auto"
+                    ColumnDefinitions="200,Auto,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -169,7 +169,7 @@
                 <Grid
                     x:Name="gridSs"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -228,7 +228,7 @@
                 <Grid
                     x:Name="gridSocks"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto">
 
@@ -282,7 +282,7 @@
                 <Grid
                     x:Name="gridVLESS"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto,Auto"
+                    ColumnDefinitions="200,Auto,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -348,7 +348,7 @@
                 <Grid
                     x:Name="gridTrojan"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -394,7 +394,7 @@
                 <Grid
                     x:Name="gridHysteria2"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto,Auto"
+                    ColumnDefinitions="200,Auto,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -531,7 +531,7 @@
                 <Grid
                     x:Name="gridTuic"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto">
 
@@ -577,7 +577,7 @@
                 <Grid
                     x:Name="gridWireguard"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
@@ -683,7 +683,7 @@
                 <Grid
                     x:Name="gridAnytls"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto">
 
@@ -703,7 +703,7 @@
                 <Grid
                     x:Name="gridNaive"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
                     <TextBlock
@@ -786,7 +786,7 @@
                 <Grid
                     x:Name="gridMasque"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
                     <TextBlock
@@ -919,7 +919,7 @@
                         Margin="{StaticResource Margin4}"
                         Text="{x:Static resx:ResUI.GbTransport}" />
 
-                    <Grid Grid.Row="1" ColumnDefinitions="300,Auto,Auto">
+                    <Grid Grid.Row="1" ColumnDefinitions="200,Auto,Auto">
                         <TextBlock
                             Grid.Column="0"
                             Margin="{StaticResource Margin4}"
@@ -942,7 +942,7 @@
                             x:Name="gridTransportRaw"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto">
-                            <Grid Grid.Row="0" ColumnDefinitions="300,Auto">
+                            <Grid Grid.Row="0" ColumnDefinitions="200,Auto">
                                 <TextBlock
                                     Grid.Row="0"
                                     Grid.Column="0"
@@ -960,7 +960,7 @@
                             <Grid
                                 x:Name="gridTransportRawHttp"
                                 Grid.Row="1"
-                                ColumnDefinitions="300,Auto"
+                                ColumnDefinitions="200,Auto"
                                 IsVisible="False"
                                 RowDefinitions="Auto,Auto">
                                 <TextBlock
@@ -992,7 +992,7 @@
 
                         <Grid
                             x:Name="gridTransportXhttp"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="200,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto,Auto,Auto">
                             <TextBlock
@@ -1051,7 +1051,7 @@
 
                         <Grid
                             x:Name="gridTransportKcp"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="200,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto,Auto">
                             <TextBlock
@@ -1097,7 +1097,7 @@
 
                         <Grid
                             x:Name="gridTransportGrpc"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="200,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto,Auto">
                             <TextBlock
@@ -1140,7 +1140,7 @@
 
                         <Grid
                             x:Name="gridTransportWs"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="200,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto">
                             <TextBlock
@@ -1171,7 +1171,7 @@
 
                         <Grid
                             x:Name="gridTransportHttpupgrade"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="200,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto">
                             <TextBlock
@@ -1205,7 +1205,7 @@
                 <Grid
                     x:Name="gridFinalmask"
                     Grid.Row="5"
-                    ColumnDefinitions="300,Auto">
+                    ColumnDefinitions="200,Auto">
                     <TextBlock
                         Grid.Row="0"
                         Grid.Column="0"
@@ -1247,7 +1247,7 @@
                 <Grid
                     x:Name="gridTls"
                     Grid.Row="7"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
                     <TextBlock
@@ -1266,7 +1266,7 @@
                 <Grid
                     x:Name="gridTlsMore"
                     Grid.Row="8"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
@@ -1432,7 +1432,7 @@
                 <Grid
                     x:Name="gridRealityMore"
                     Grid.Row="8"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="200,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
 

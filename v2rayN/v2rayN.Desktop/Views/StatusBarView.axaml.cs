@@ -200,7 +200,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         var country = CountryDetector.Detect(name);
         bdServerCountry.IsVisible = country != null;
         txtServerCountry.Text = country;
-        name = CountryDetector.StripLeadingFlag(name);
+        name = CountryDetector.RemoveFlags(name);
         txtServerName.Text = name.IsNullOrEmpty() ? summary : name;
         txtServerType.Text = match.Groups["type"].Value;
         bdServerType.IsVisible = true;

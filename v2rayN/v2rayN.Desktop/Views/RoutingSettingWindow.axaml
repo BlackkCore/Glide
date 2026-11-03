@@ -107,11 +107,11 @@
                             Binding="{Binding Remarks}"
                             Header="{x:Static resx:ResUI.LvRemarks}" />
                         <DataGridTextColumn
-                            Width="60"
+                            Width="80"
                             Binding="{Binding RuleNum}"
                             Header="{x:Static resx:ResUI.LvCount}" />
                         <DataGridTextColumn
-                            Width="60"
+                            Width="80"
                             Binding="{Binding Sort}"
                             Header="{x:Static resx:ResUI.LvSort}" />
                         <DataGridTextColumn

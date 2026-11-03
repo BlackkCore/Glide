@@ -32,9 +32,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuClose.Click += MenuClose_Click;
 
         conTheme.Content ??= new ThemeSettingView();
-        btnThemeLight.Click += (_, _) => SetTheme(ETheme.Light);
-        btnThemeDark.Click += (_, _) => SetTheme(ETheme.Dark);
-        btnThemeCompact.Click += (_, _) => SetTheme(IsDarkTheme() ? ETheme.Light : ETheme.Dark);
+        btnThemeLight.Click += (_, _) => PlayThemeReveal(() => SetTheme(ETheme.Light), btnThemeLight);
+        btnThemeDark.Click += (_, _) => PlayThemeReveal(() => SetTheme(ETheme.Dark), btnThemeDark);
+        btnThemeCompact.Click += (_, _) => PlayThemeReveal(() => SetTheme(IsDarkTheme() ? ETheme.Light : ETheme.Dark), btnThemeCompact);
         ActualThemeVariantChanged += (_, _) => UpdateThemeToggle();
         UpdateThemeToggle();
 
@@ -352,6 +352,85 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     protected override bool AnimateContentOnOpen => false;
 
+    private DispatcherTimer? _revealTimer;
+
+    // The new theme spreads out in a circle from the button that was clicked: a picture of the old
+    // theme covers the window, the theme changes underneath, and a growing hole is cut into the picture.
+    private void PlayThemeReveal(Action applyTheme, Control origin)
+    {
+        var bounds = gridRoot.Bounds;
+        if (!AppMotion.Enabled || !IsLoaded || bounds.Width < 1 || bounds.Height < 1 || _revealTimer is { IsEnabled: true })
+        {
+            applyTheme();
+            return;
+        }
+
+        var scaling = RenderScaling;
+        var snapshot = new RenderTargetBitmap(
+            new PixelSize((int)Math.Ceiling(bounds.Width * scaling), (int)Math.Ceiling(bounds.Height * scaling)),
+            new Vector(96 * scaling, 96 * scaling));
+        snapshot.Render(gridRoot);
+        imgThemeSnapshot.Source = snapshot;
+        imgThemeSnapshot.Clip = null;
+        imgThemeSnapshot.IsVisible = true;
+
+        applyTheme();
+
+        var center = origin.TranslatePoint(new Point(origin.Bounds.Width / 2, origin.Bounds.Height / 2), gridRoot)
+                     ?? new Point(0, bounds.Height);
+        var maxRadius = new[]
+        {
+            new Point(0, 0), new Point(bounds.Width, 0), new Point(0, bounds.Height), new Point(bounds.Width, bounds.Height),
+        }.Max(p => Math.Sqrt(Math.Pow(p.X - center.X, 2) + Math.Pow(p.Y - center.Y, 2)));
+        var area = new RectangleGeometry(new Rect(bounds.Size));
+        var start = DateTime.Now;
+
+        _revealTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
+        _revealTimer.Tick += (_, _) =>
+        {
+            var t = Math.Clamp((DateTime.Now - start).TotalMilliseconds / 560, 0, 1);
+            var r = maxRadius * (1 - Math.Pow(1 - t, 3));
+            imgThemeSnapshot.Clip = new CombinedGeometry(GeometryCombineMode.Exclude, area,
+                new EllipseGeometry(new Rect(center.X - r, center.Y - r, r * 2, r * 2)));
+            if (t >= 1)
+            {
+                _revealTimer!.Stop();
+                imgThemeSnapshot.IsVisible = false;
+                imgThemeSnapshot.Source = null;
+                imgThemeSnapshot.Clip = null;
+                snapshot.Dispose();
+            }
+        };
+        _revealTimer.Start();
+    }
+
+    private DispatcherTimer? _sidebarTimer;
+
+    // The sidebar slides between full (240) and icon-only (76) width instead of jumping.
+    private void AnimateSidebarWidth(double target)
+    {
+        var column = gridRoot.ColumnDefinitions[0];
+        _sidebarTimer?.Stop();
+        var from = column.ActualWidth > 0 ? column.ActualWidth : column.Width.Value;
+        if (!AppMotion.Enabled || !IsLoaded || Math.Abs(from - target) < 1)
+        {
+            column.Width = new GridLength(target);
+            return;
+        }
+        var start = DateTime.Now;
+        _sidebarTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
+        _sidebarTimer.Tick += (_, _) =>
+        {
+            var t = Math.Clamp((DateTime.Now - start).TotalMilliseconds / 300, 0, 1);
+            column.Width = new GridLength(from + ((target - from) * (1 - Math.Pow(1 - t, 3))));
+            if (t >= 1)
+            {
+                _sidebarTimer!.Stop();
+            }
+        };
+        _sidebarTimer.Start();
+    }
+
     // The cards rise in one after another, left column first, top to bottom.
     private void PlayCardEntrance()
     {
@@ -386,8 +465,8 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         _isCompactLayout = compact;
 
         bdSidebar.Classes.Set("compact", compact);
-        gridRoot.ColumnDefinitions[0].Width = new GridLength(compact ? 76 : 240);
-        gridContent.ColumnDefinitions[0].Width = new GridLength(compact ? 300 : 320);
+        AnimateSidebarWidth(compact ? 76 : 240);
+        gridContent.ColumnDefinitions[0].Width = new GridLength(compact ? 280 : 320);
         gridContent.ColumnDefinitions[1].Width = new GridLength(compact ? 20 : 24);
         var gap = compact ? 20 : 24;
         gridContent.Margin = new Thickness(gap, gap + _titleBarInset, gap, gap);

@@ -636,13 +636,25 @@
         <Setter Property="Padding" Value="18,14" />
     </Style>
     <!--  Label column bold, explanation column muted.  -->
-    <Style Selector="Border.settingsCard Grid > TextBlock[(Grid.Column)=0]">
+    <!--  Labels wrap at 240px so long ones ("...drag-n-drop (requires restart)") can't squeeze the hint column away.  -->
+    <Style Selector="Border.settingsCard > Grid > TextBlock[(Grid.Column)=0]">
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="MaxWidth" Value="240" />
+        <Setter Property="TextWrapping" Value="Wrap" />
     </Style>
-    <Style Selector="Border.settingsCard Grid > TextBlock[(Grid.Column)=2]">
+    <!--  Controls sit on the label's line even when a long hint makes the row taller.  -->
+    <Style Selector="Border.settingsCard > Grid > :is(Control)[(Grid.Column)=1]">
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.settingsFill > DockPanel > TextBlock">
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="Border.settingsCard > Grid > TextBlock[(Grid.Column)=2]">
         <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="MinWidth" Value="140" />
     </Style>
 
     <!--  ===== Surfaces app-wide =====  -->

@@ -61,6 +61,38 @@
         <Setter Property="RenderTransform" Value="translateX(3px)" />
     </Style>
 
+    <!--  Sidebar accent bar: fades in and stretches to full height when a menu opens.  -->
+    <Style Selector="MenuItem /template/ Border#PART_Indicator">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.2" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="MenuItem:open /template/ Border#PART_Indicator">
+        <Style.Animations>
+            <Animation Easing="BackEaseOut" Duration="0:0:0.32" FillMode="Forward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="ScaleTransform.ScaleY" Value="0.3" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+    <!--  Sidebar icons and labels nudge right a touch on hover.  -->
+    <Style Selector="Menu.sidebar > MenuItem /template/ ContentPresenter#PART_HeaderPresenter">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.18" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Menu.sidebar > MenuItem:pointerover /template/ ContentPresenter#PART_HeaderPresenter, Menu.sidebar > MenuItem:open /template/ ContentPresenter#PART_HeaderPresenter">
+        <Setter Property="RenderTransform" Value="translateX(2px)" />
+    </Style>
+
     <!--  ===== Buttons: a short press-in so clicks feel physical =====  -->
     <Style Selector="Button.IconButton, Button#btnSave, Button#btnYes, Button#btnCancel, Button#btnNo, Button#btnReset, Button#btnEmptyPaste, Button#btnEmptyAddSub">
         <Setter Property="Transitions">

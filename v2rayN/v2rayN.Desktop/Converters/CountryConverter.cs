@@ -15,7 +15,7 @@ public class CountryConverter : IValueConverter
         return (parameter as string) switch
         {
             "has" => CountryDetector.Detect(remarks) != null,
-            "text" => CountryDetector.StripLeadingFlag(remarks),
+            "text" => CountryDetector.RemoveFlags(remarks),
             _ => CountryDetector.Detect(remarks),
         };
     }

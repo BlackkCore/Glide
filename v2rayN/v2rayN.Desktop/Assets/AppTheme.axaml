@@ -239,6 +239,21 @@
                     Background="{TemplateBinding Background}"
                     CornerRadius="{TemplateBinding CornerRadius}">
                     <Panel>
+                        <!--  Accent bar on the left edge; grows in while the item's menu is open.  -->
+                        <Border
+                            Name="PART_Indicator"
+                            Width="3"
+                            Height="18"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource AppAccentBrush}"
+                            CornerRadius="2"
+                            IsHitTestVisible="False"
+                            Opacity="0">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleY="0.3" />
+                            </Border.RenderTransform>
+                        </Border>
                         <Grid Margin="{TemplateBinding Padding}" ColumnDefinitions="*,Auto">
                             <ContentPresenter
                                 Name="PART_HeaderPresenter"
@@ -308,6 +323,9 @@
             <Setter Property="Foreground" Value="{DynamicResource AppNavActiveFgBrush}" />
         </Style>
         <Style Selector="^:open /template/ PathIcon#PART_Chevron">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:open /template/ Border#PART_Indicator">
             <Setter Property="Opacity" Value="1" />
         </Style>
         <Style Selector="^:disabled">

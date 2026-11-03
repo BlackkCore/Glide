@@ -37,6 +37,7 @@
             <Border
                 x:Name="bdSidebar"
                 Grid.Column="0"
+                ClipToBounds="True"
                 Classes="sidebar">
                 <DockPanel>
                     <StackPanel
@@ -340,6 +341,14 @@
                 VerticalAlignment="Top"
                 Background="Transparent"
                 IsVisible="False" />
+
+            <!--  Theme switch: a picture of the old theme that a growing circle wipes away (MainWindow.PlayThemeReveal).  -->
+            <Image
+                x:Name="imgThemeSnapshot"
+                Grid.ColumnSpan="2"
+                IsHitTestVisible="False"
+                IsVisible="False"
+                Stretch="Fill" />
         </Grid>
     </dialogHost:DialogHost>
 </Window>

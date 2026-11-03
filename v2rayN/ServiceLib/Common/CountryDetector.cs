@@ -156,6 +156,33 @@ public static class CountryDetector
         return remarks;
     }
 
+    /// <summary>
+    /// Removes every flag emoji from the text, wherever it is, and tidies the spaces left behind.
+    /// Windows draws flags as two small letters, and the country chip already shows the country.
+    /// </summary>
+    public static string RemoveFlags(string? remarks)
+    {
+        if (string.IsNullOrEmpty(remarks) || FromFlagEmoji(remarks) == null)
+        {
+            return remarks ?? string.Empty;
+        }
+        var sb = new StringBuilder(remarks.Length);
+        var runes = remarks.EnumerateRunes().ToList();
+        for (var i = 0; i < runes.Count; i++)
+        {
+            if (i + 1 < runes.Count && IsRegionalIndicator(runes[i]) && IsRegionalIndicator(runes[i + 1]))
+            {
+                i++;
+                continue;
+            }
+            sb.Append(runes[i].ToString());
+        }
+        var result = Regex.Replace(sb.ToString(), @"\s{2,}", " ").Trim();
+        return result.Length > 0 ? result : remarks;
+    }
+
+    private static bool IsRegionalIndicator(Rune rune) => rune.Value is >= 0x1F1E6 and <= 0x1F1FF;
+
     // Splits on anything that is not a letter, so "DE-Frankfurt_02" gives "DE", "Frankfurt".
     // Arabic yeh/kaf are folded to their Persian forms so both spellings match.
     private static List<string> Tokenize(string text)

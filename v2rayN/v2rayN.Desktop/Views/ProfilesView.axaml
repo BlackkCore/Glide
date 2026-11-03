@@ -303,29 +303,39 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn
-                    Width="240"
+                    Width="230"
                     Header="{x:Static resx:ResUI.LvRemarks}"
                     SortMemberPath="Remarks"
                     Tag="Remarks">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel
-                                Margin="16,0"
+                            <!--  Chip, name (trimmed with an ellipsis), then the Active badge.  -->
+                            <Grid
+                                Margin="16,0,10,0"
                                 VerticalAlignment="Center"
-                                Orientation="Horizontal"
-                                Spacing="8">
-                                <Border Classes="country" IsVisible="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=has}">
+                                ColumnDefinitions="Auto,*,Auto">
+                                <Border
+                                    Margin="0,0,8,0"
+                                    Classes="country"
+                                    IsVisible="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=has}">
                                     <TextBlock Text="{Binding Remarks, Converter={StaticResource CountryConverter}}" />
                                 </Border>
                                 <TextBlock
+                                    Grid.Column="1"
                                     VerticalAlignment="Center"
-                                    FontWeight="Bold"
                                     FontSize="{DynamicResource AppFontBody}"
-                                    Text="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=text}" />
-                                <Border Classes="badge solid round" IsVisible="{Binding IsActive}">
+                                    FontWeight="Bold"
+                                    Text="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=text}"
+                                    TextTrimming="CharacterEllipsis"
+                                    ToolTip.Tip="{Binding Remarks}" />
+                                <Border
+                                    Grid.Column="2"
+                                    Margin="8,0,0,0"
+                                    Classes="badge solid round"
+                                    IsVisible="{Binding IsActive}">
                                     <TextBlock Text="{x:Static resx:ResUI.TipActiveServer}" />
                                 </Border>
-                            </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

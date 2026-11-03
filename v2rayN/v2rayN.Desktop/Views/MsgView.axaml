@@ -81,19 +81,22 @@
                 </StackPanel>
             </Border>
 
-            <TextBox
-                x:Name="cmbMsgFilter"
-                MinWidth="120"
-                MaxWidth="240"
-                Margin="0,0,14,0"
-                HorizontalAlignment="Stretch"
-                Classes="search"
-                PlaceholderText="{x:Static resx:ResUI.MsgFilterTitle}"
-                ToolTip.Tip="{x:Static resx:ResUI.MsgFilterTitle}">
-                <TextBox.InnerLeftContent>
-                    <PathIcon Classes="searchIcon" Data="{StaticResource IconSearch}" />
-                </TextBox.InnerLeftContent>
-            </TextBox>
+            <!--  The search box grows up to 240px and stays next to the title; extra width stays empty.  -->
+            <Grid Margin="0,0,14,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="110" MaxWidth="240" />
+                    <ColumnDefinition Width="0.001*" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    x:Name="cmbMsgFilter"
+                    Classes="search"
+                    PlaceholderText="{x:Static resx:ResUI.MsgFilterTitle}"
+                    ToolTip.Tip="{x:Static resx:ResUI.MsgFilterTitle}">
+                    <TextBox.InnerLeftContent>
+                        <PathIcon Classes="searchIcon" Data="{StaticResource IconSearch}" />
+                    </TextBox.InnerLeftContent>
+                </TextBox>
+            </Grid>
         </DockPanel>
 
         <Border Classes="logPanel">

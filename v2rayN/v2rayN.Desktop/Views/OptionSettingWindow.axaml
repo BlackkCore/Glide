@@ -34,6 +34,28 @@
                 IsCancel="True" />
         </StackPanel>
 
+        <!--  Search: filters every section's rows by their label and hint text.  -->
+        <Grid
+            Margin="0,0,0,12"
+            ColumnDefinitions="200,*"
+            DockPanel.Dock="Top">
+            <TextBox
+                x:Name="txtSearchSettings"
+                Classes="search"
+                PlaceholderText="{x:Static resx:ResUI.TbSearchSettings}">
+                <TextBox.InnerLeftContent>
+                    <PathIcon Classes="searchIcon" Data="{StaticResource IconSearch}" />
+                </TextBox.InnerLeftContent>
+            </TextBox>
+            <TextBlock
+                x:Name="txtNoSettingsMatch"
+                Grid.Column="1"
+                Margin="16,0,0,0"
+                VerticalAlignment="Center"
+                Classes="muted"
+                IsVisible="False" />
+        </Grid>
+
         <TabControl
             x:Name="tabSettings"
             Classes="settingsNav"

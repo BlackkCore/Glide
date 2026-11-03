@@ -6110,5 +6110,23 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbMoreActions", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Search settings
+        /// </summary>
+        public static string TbSearchSettings {
+            get {
+                return ResourceManager.GetString("TbSearchSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No settings match "{0}".
+        /// </summary>
+        public static string TipNoSettingsMatch {
+            get {
+                return ResourceManager.GetString("TipNoSettingsMatch", resourceCulture);
+            }
+        }
     }
 }

@@ -2142,4 +2142,10 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbMoreActions" xml:space="preserve">
     <value>More actions</value>
   </data>
+  <data name="TbSearchSettings" xml:space="preserve">
+    <value>Search settings</value>
+  </data>
+  <data name="TipNoSettingsMatch" xml:space="preserve">
+    <value>No settings match "{0}".</value>
+  </data>
 </root>

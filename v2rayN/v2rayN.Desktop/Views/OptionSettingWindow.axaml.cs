@@ -1,3 +1,4 @@
+using Avalonia.LogicalTree;
 using v2rayN.Desktop.Base;
 using v2rayN.Desktop.Common;
 
@@ -23,6 +24,17 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
             }
         };
         _config = AppManager.Instance.Config;
+
+        txtSearchSettings.TextChanged += (_, _) => FilterSettings(txtSearchSettings.Text);
+        KeyDown += (_, e) =>
+        {
+            if (e.Key == Key.F && e.KeyModifiers == KeyModifiers.Control)
+            {
+                txtSearchSettings.Focus();
+                txtSearchSettings.SelectAll();
+                e.Handled = true;
+            }
+        };
 
         clbdestOverride.SelectionChanged += ClbdestOverride_SelectionChanged;
         btnBrowseCustomSystemProxyPacPath.Click += BtnBrowseCustomSystemProxyPacPath_Click;
@@ -240,4 +252,95 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
     {
         btnCancel.Focus();
     }
+
+    #region Search
+
+    // What the search hid, to show again. SetCurrentValue changes visibility without replacing the
+    // platform bindings some rows have (Windows / Linux / macOS only), and only visible rows are hidden.
+    private readonly HashSet<Control> _hiddenBySearch = [];
+
+    private void FilterSettings(string? text)
+    {
+        foreach (var control in _hiddenBySearch)
+        {
+            control.SetCurrentValue(IsVisibleProperty, true);
+        }
+        _hiddenBySearch.Clear();
+
+        var query = text?.Trim() ?? string.Empty;
+        txtNoSettingsMatch.IsVisible = false;
+        if (query.IsNullOrEmpty())
+        {
+            return;
+        }
+
+        TabItem? firstMatch = null;
+        foreach (var tab in tabSettings.Items.OfType<TabItem>())
+        {
+            // A section whose own name matches stays whole.
+            var matches = Contains(tab.Header as string, query) || FilterRows(tab, query);
+            if (!matches)
+            {
+                Hide(tab);
+            }
+            else
+            {
+                firstMatch ??= tab;
+            }
+        }
+
+        if (firstMatch == null)
+        {
+            txtNoSettingsMatch.Text = string.Format(ResUI.TipNoSettingsMatch, query);
+            txtNoSettingsMatch.IsVisible = true;
+        }
+        else if (tabSettings.SelectedItem is not TabItem selected || _hiddenBySearch.Contains(selected))
+        {
+            // The open section has no matches: go to the first one that has.
+            tabSettings.SelectedItem = firstMatch;
+        }
+    }
+
+    // Rows are a label in column 0 and the control (and a hint) in the next columns of the same Grid row.
+    private bool FilterRows(TabItem tab, string query)
+    {
+        var any = false;
+        foreach (var grid in tab.GetLogicalDescendants().OfType<Grid>().Where(g => g.RowDefinitions.Count > 1))
+        {
+            foreach (var row in grid.Children.GroupBy(Grid.GetRow))
+            {
+                var cells = row.ToList();
+                if (!cells.Any(c => c is TextBlock && Grid.GetColumn(c) == 0))
+                {
+                    continue;
+                }
+                var rowText = string.Join(" ", cells.SelectMany(c => c.GetLogicalDescendants().Prepend(c)).OfType<TextBlock>().Select(t => t.Text));
+                if (Contains(rowText, query))
+                {
+                    any = true;
+                }
+                else
+                {
+                    cells.ForEach(Hide);
+                }
+            }
+        }
+        return any;
+    }
+
+    private void Hide(Control control)
+    {
+        if (control.IsVisible)
+        {
+            control.SetCurrentValue(IsVisibleProperty, false);
+            _hiddenBySearch.Add(control);
+        }
+    }
+
+    private static bool Contains(string? text, string query)
+    {
+        return text?.Contains(query, StringComparison.CurrentCultureIgnoreCase) == true;
+    }
+
+    #endregion Search
 }

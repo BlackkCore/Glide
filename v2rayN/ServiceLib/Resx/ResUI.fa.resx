@@ -2136,4 +2136,10 @@
   <data name="TbMoreActions" xml:space="preserve">
     <value>کارهای بیشتر</value>
   </data>
+  <data name="TbSearchSettings" xml:space="preserve">
+    <value>جستجوی تنظیمات</value>
+  </data>
+  <data name="TipNoSettingsMatch" xml:space="preserve">
+    <value>تنظیمی با «{0}» پیدا نشد.</value>
+  </data>
 </root>

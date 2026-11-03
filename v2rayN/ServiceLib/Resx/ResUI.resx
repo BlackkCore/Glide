@@ -2334,4 +2334,59 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbQuickAction" xml:space="preserve">
     <value>Action</value>
   </data>
+  <data name="TbDataUsage" xml:space="preserve">
+    <value>Data usage</value>
+  </data>
+  <data name="TipDataUsageOff" xml:space="preserve">
+    <value>Data usage is off. Turn it on to count traffic per server (Glide restarts once).</value>
+  </data>
+  <data name="TbTurnOn" xml:space="preserve">
+    <value>Turn on</value>
+  </data>
+  <data name="TbUsageToday" xml:space="preserve">
+    <value>Today: ↑ {0}   ↓ {1}</value>
+  </data>
+  <data name="TbUsageTotal" xml:space="preserve">
+    <value>Since counting began: ↑ {0}   ↓ {1}</value>
+  </data>
+  <data name="TbUsageLimit" xml:space="preserve">
+    <value>Warn me above this many GB a day (0 = off)</value>
+  </data>
+  <data name="TipUsageLimitReached" xml:space="preserve">
+    <value>You've used {0} today, over your {1} GB daily limit.</value>
+  </data>
+  <data name="TbAppRouting" xml:space="preserve">
+    <value>Choose apps for routing</value>
+  </data>
+  <data name="TipAppRouting" xml:space="preserve">
+    <value>Tick apps that are running now, then choose where their traffic goes. This adds rules at the top of the current routing and applies at once.</value>
+  </data>
+  <data name="TbThroughProxy" xml:space="preserve">
+    <value>Through proxy</value>
+  </data>
+  <data name="TbDirect" xml:space="preserve">
+    <value>Direct</value>
+  </data>
+  <data name="TbRemoveAppRules" xml:space="preserve">
+    <value>Remove app rules</value>
+  </data>
+  <data name="TipAppRulesNow" xml:space="preserve">
+    <value>Through proxy: {0}
+Direct: {1}</value>
+  </data>
+  <data name="TbNone" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="TbCheckDnsLeak" xml:space="preserve">
+    <value>Check DNS leak (asks bash.ws)</value>
+  </data>
+  <data name="TipDnsLeakServers" xml:space="preserve">
+    <value>DNS lookups for your traffic were answered by:</value>
+  </data>
+  <data name="TipDnsLeakFailed" xml:space="preserve">
+    <value>The DNS leak check didn't work: bash.ws couldn't be reached through the proxy.</value>
+  </data>
+  <data name="TipAppRoutingTun" xml:space="preserve">
+    <value>App rules work while "Capture all apps (TUN)" is on. With only the system proxy, each app decides for itself whether to use it.</value>
+  </data>
 </root>

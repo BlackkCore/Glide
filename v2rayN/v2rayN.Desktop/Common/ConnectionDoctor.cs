@@ -109,6 +109,64 @@ public static class ConnectionDoctor
         return dns ? ResUI.TipDiagAllGood : ResUI.TipDiagDnsDown;
     }
 
+    public sealed record DnsLeakResult(bool Done, IReadOnlyList<string> Servers, string? Conclusion);
+
+    /// <summary>
+    /// DNS leak test with bash.ws, all through the proxy: get a test id, make ten unique names that
+    /// only the far side of the tunnel resolves, then ask bash.ws which DNS servers looked them up.
+    /// Contacts bash.ws (the button says so).
+    /// </summary>
+    public static async Task<DnsLeakResult> CheckDnsLeakAsync(CancellationToken token)
+    {
+        var port = AppManager.Instance.GetLocalPort(EInboundProtocol.socks);
+        using var handler = new SocketsHttpHandler { Proxy = new WebProxy($"socks5://{Global.Loopback}:{port}"), UseProxy = true };
+        using var client = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(10) };
+        try
+        {
+            var id = (await client.GetStringAsync("https://bash.ws/id", token)).Trim();
+            if (!id.All(char.IsDigit) || id.Length == 0)
+            {
+                return new(false, [], null);
+            }
+            // The requests themselves fail; looking the names up is what counts.
+            await Task.WhenAll(Enumerable.Range(1, 10).Select(async i =>
+            {
+                try
+                {
+                    using var _ = await client.GetAsync($"https://{i}.{id}.bash.ws", token);
+                }
+                catch (Exception) when (!token.IsCancellationRequested)
+                {
+                }
+            }));
+            var nodes = JsonUtils.ParseJson(await client.GetStringAsync($"https://bash.ws/dnsleak/test/{id}?json", token))?.AsArray();
+            var servers = new List<string>();
+            string? conclusion = null;
+            foreach (var node in nodes ?? [])
+            {
+                var type = node?["type"]?.ToString();
+                if (type == "dns")
+                {
+                    var asn = node?["asn"]?.ToString();
+                    servers.Add($"‎{node?["ip"]}‎ · {node?["country_name"]}{(asn.IsNotEmpty() ? $" · {asn}" : "")}");
+                }
+                else if (type == "conclusion")
+                {
+                    conclusion = node?["ip"]?.ToString();
+                }
+            }
+            return new(servers.Count > 0, servers, conclusion);
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+            throw;
+        }
+        catch
+        {
+            return new(false, [], null);
+        }
+    }
+
     private static async Task<bool> CanConnectAsync(string host, int port, CancellationToken token)
     {
         try

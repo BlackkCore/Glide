@@ -14,6 +14,48 @@ public partial class DiagnoseSheet : UserControl
         InitializeComponent();
         btnClose.Click += (_, _) => Close();
         btnRunAgain.Click += async (_, _) => await RunAsync();
+        btnDnsLeak.Click += async (_, _) => await CheckDnsLeakAsync();
+    }
+
+    private async Task CheckDnsLeakAsync()
+    {
+        _run?.Cancel();
+        _run = new CancellationTokenSource();
+        var token = _run.Token;
+        btnDnsLeak.IsEnabled = false;
+        btnRunAgain.IsEnabled = false;
+        spSteps.Children.Clear();
+        txtVerdict.Text = ResUI.TbStatusChecking;
+        try
+        {
+            var result = await ConnectionDoctor.CheckDnsLeakAsync(token);
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
+            if (!result.Done)
+            {
+                txtVerdict.Text = ResUI.TipDnsLeakFailed;
+                return;
+            }
+            AddRow(new(ResUI.TipDnsLeakServers, ConnectionDoctor.Outcome.Ok, string.Join(Environment.NewLine, result.Servers)));
+            txtVerdict.Text = result.Conclusion ?? string.Empty;
+        }
+        catch (OperationCanceledException)
+        {
+            // Closed while running.
+        }
+        catch (Exception ex)
+        {
+            // An exception escaping here would reach the dispatcher and close the app.
+            Logging.SaveLog(Tag, ex);
+            txtVerdict.Text = ResUI.TipDnsLeakFailed;
+        }
+        finally
+        {
+            btnDnsLeak.IsEnabled = true;
+            btnRunAgain.IsEnabled = true;
+        }
     }
 
     /// <summary>Shows the sheet and starts the check (nothing happens if another sheet is open).</summary>

@@ -39,6 +39,12 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         btnNewUpdate.Click += MenuCheckUpdate_Click;
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
         menuAddServerSheet.Click += (_, _) => ShowAddServerSheet();
+        menuAppRouting.Click += async (_, _) => await ShowAppRoutingAsync();
+        menuDataUsage.Click += async (_, _) => await ShowDataUsageAsync();
+        // Daily data limit (Data usage): one warning a day, checked every minute.
+        var usageTimer = new DispatcherTimer { Interval = TimeSpan.FromMinutes(1) };
+        usageTimer.Tick += (_, _) => CheckUsageLimit();
+        usageTimer.Start();
         menuImportFromOriginal.Click += async (_, _) => await ImportFromOriginalAsync(true);
         menuClose.Click += MenuClose_Click;
         btnToggleLogs.Click += (_, _) => SetLogsHidden(!_logsHidden);
@@ -584,6 +590,52 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         AppEvents.HasUpdateNotified.Publish(false);
     }
 
+    private DateTime _usageWarnedDay;
+
+    private void CheckUsageLimit()
+    {
+        try
+        {
+            var limitGb = DataUsageSheet.LimitGb;
+            if (limitGb <= 0 || !_config.GuiItem.EnableStatistics || _usageWarnedDay == DateTime.Today)
+            {
+                return;
+            }
+            var todayKb = DataUsageSheet.TodayKb;
+            if (todayKb > limitGb * 1024 * 1024)
+            {
+                _usageWarnedDay = DateTime.Today;
+                NoticeManager.Instance.Enqueue(string.Format(ResUI.TipUsageLimitReached, Utils.HumanFy(todayKb), limitGb));
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("CheckUsageLimit", ex);
+        }
+    }
+
+    private async Task ShowDataUsageAsync()
+    {
+        if (DialogHost.IsDialogOpen(null))
+        {
+            return;
+        }
+        var sheet = new DataUsageSheet();
+        await sheet.LoadAsync();
+        DialogHost.Show(sheet);
+    }
+
+    private async Task ShowAppRoutingAsync()
+    {
+        if (ViewModel is not { } vm || DialogHost.IsDialogOpen(null))
+        {
+            return;
+        }
+        var sheet = new AppRoutingSheet(vm);
+        await sheet.LoadAsync();
+        DialogHost.Show(sheet);
+    }
+
     private QuickSwitcherSheet? _quickSwitcher;
     private DiagnoseSheet? _diagnoseFromSwitcher;
 
@@ -609,6 +661,8 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             new(ResUI.menuSetting, action, () => Run(vm.OptionSettingCmd)),
             new(ResUI.menuRoutingSetting, action, () => Run(vm.RoutingSettingCmd)),
             new(ResUI.menuSubSetting, action, () => Run(vm.SubSettingCmd)),
+            new(ResUI.TbAppRouting, action, ShowAppRoutingAsync),
+            new(ResUI.TbDataUsage, action, ShowDataUsageAsync),
             new(ResUI.menuCheckUpdate, action, () => { MenuCheckUpdate_Click(null, new RoutedEventArgs()); return Task.CompletedTask; }),
         };
         _quickSwitcher ??= new QuickSwitcherSheet();

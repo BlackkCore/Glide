@@ -2334,4 +2334,59 @@
   <data name="TbQuickAction" xml:space="preserve">
     <value>فرمان</value>
   </data>
+  <data name="TbDataUsage" xml:space="preserve">
+    <value>مصرف داده</value>
+  </data>
+  <data name="TipDataUsageOff" xml:space="preserve">
+    <value>شمارش مصرف داده خاموش است. برای شمارش ترافیک هر سرور آن را روشن کنید (Glide یک بار دوباره راه‌اندازی می‌شود).</value>
+  </data>
+  <data name="TbTurnOn" xml:space="preserve">
+    <value>روشن کردن</value>
+  </data>
+  <data name="TbUsageToday" xml:space="preserve">
+    <value>امروز: ↑ {0}   ↓ {1}</value>
+  </data>
+  <data name="TbUsageTotal" xml:space="preserve">
+    <value>از زمان شروع شمارش: ↑ {0}   ↓ {1}</value>
+  </data>
+  <data name="TbUsageLimit" xml:space="preserve">
+    <value>هشدار وقتی مصرف روزانه از این مقدار (گیگابایت) بیشتر شود (۰ = خاموش)</value>
+  </data>
+  <data name="TipUsageLimitReached" xml:space="preserve">
+    <value>امروز {0} مصرف کرده‌اید؛ بیشتر از سقف روزانه‌ی {1} گیگابایت.</value>
+  </data>
+  <data name="TbAppRouting" xml:space="preserve">
+    <value>انتخاب برنامه‌ها برای مسیریابی</value>
+  </data>
+  <data name="TipAppRouting" xml:space="preserve">
+    <value>برنامه‌هایی را که اکنون در حال اجرا هستند انتخاب کنید و مشخص کنید ترافیکشان کجا برود. این کار قوانینی به بالای مسیریابی فعلی اضافه می‌کند و بلافاصله اعمال می‌شود.</value>
+  </data>
+  <data name="TbThroughProxy" xml:space="preserve">
+    <value>از طریق پراکسی</value>
+  </data>
+  <data name="TbDirect" xml:space="preserve">
+    <value>مستقیم</value>
+  </data>
+  <data name="TbRemoveAppRules" xml:space="preserve">
+    <value>حذف قوانین برنامه‌ها</value>
+  </data>
+  <data name="TipAppRulesNow" xml:space="preserve">
+    <value>از طریق پراکسی: {0}
+مستقیم: {1}</value>
+  </data>
+  <data name="TbNone" xml:space="preserve">
+    <value>هیچ</value>
+  </data>
+  <data name="TbCheckDnsLeak" xml:space="preserve">
+    <value>بررسی نشت DNS (از bash.ws)</value>
+  </data>
+  <data name="TipDnsLeakServers" xml:space="preserve">
+    <value>پاسخ جستجوهای DNS ترافیک شما از این سرورها آمد:</value>
+  </data>
+  <data name="TipDnsLeakFailed" xml:space="preserve">
+    <value>بررسی نشت DNS انجام نشد: bash.ws از طریق پراکسی در دسترس نبود.</value>
+  </data>
+  <data name="TipAppRoutingTun" xml:space="preserve">
+    <value>قوانین برنامه‌ها وقتی کار می‌کنند که «همهٔ برنامه‌ها (TUN)» روشن باشد. با پروکسی سیستم به‌تنهایی، هر برنامه خودش تصمیم می‌گیرد از آن استفاده کند یا نه.</value>
+  </data>
 </root>

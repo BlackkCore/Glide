@@ -6686,5 +6686,167 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbQuickAction", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Data usage
+        /// </summary>
+        public static string TbDataUsage {
+            get {
+                return ResourceManager.GetString("TbDataUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Data usage is off. Turn it on to count traffic per server (Glide restarts once).
+        /// </summary>
+        public static string TipDataUsageOff {
+            get {
+                return ResourceManager.GetString("TipDataUsageOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Turn on
+        /// </summary>
+        public static string TbTurnOn {
+            get {
+                return ResourceManager.GetString("TbTurnOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Today: ↑ {0}   ↓ {1}
+        /// </summary>
+        public static string TbUsageToday {
+            get {
+                return ResourceManager.GetString("TbUsageToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Since counting began: ↑ {0}   ↓ {1}
+        /// </summary>
+        public static string TbUsageTotal {
+            get {
+                return ResourceManager.GetString("TbUsageTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Warn me above this many GB a day (0 = off)
+        /// </summary>
+        public static string TbUsageLimit {
+            get {
+                return ResourceManager.GetString("TbUsageLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   You've used {0} today, over your {1} GB daily limit.
+        /// </summary>
+        public static string TipUsageLimitReached {
+            get {
+                return ResourceManager.GetString("TipUsageLimitReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Choose apps for routing
+        /// </summary>
+        public static string TbAppRouting {
+            get {
+                return ResourceManager.GetString("TbAppRouting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Tick apps that are running now, then choose where their traffic goes. This adds rules at the top of the current routing and applies at once.
+        /// </summary>
+        public static string TipAppRouting {
+            get {
+                return ResourceManager.GetString("TipAppRouting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Through proxy
+        /// </summary>
+        public static string TbThroughProxy {
+            get {
+                return ResourceManager.GetString("TbThroughProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Direct
+        /// </summary>
+        public static string TbDirect {
+            get {
+                return ResourceManager.GetString("TbDirect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remove app rules
+        /// </summary>
+        public static string TbRemoveAppRules {
+            get {
+                return ResourceManager.GetString("TbRemoveAppRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Through proxy: {0} Direct: {1}
+        /// </summary>
+        public static string TipAppRulesNow {
+            get {
+                return ResourceManager.GetString("TipAppRulesNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   none
+        /// </summary>
+        public static string TbNone {
+            get {
+                return ResourceManager.GetString("TbNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Check DNS leak (asks bash.ws)
+        /// </summary>
+        public static string TbCheckDnsLeak {
+            get {
+                return ResourceManager.GetString("TbCheckDnsLeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   DNS lookups for your traffic were answered by:
+        /// </summary>
+        public static string TipDnsLeakServers {
+            get {
+                return ResourceManager.GetString("TipDnsLeakServers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The DNS leak check didn't work: bash.ws couldn't be reached through the proxy.
+        /// </summary>
+        public static string TipDnsLeakFailed {
+            get {
+                return ResourceManager.GetString("TipDnsLeakFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   App rules work while "Capture all apps (TUN)" is on. With only the system proxy, each app decides for itself whether to use it.
+        /// </summary>
+        public static string TipAppRoutingTun {
+            get {
+                return ResourceManager.GetString("TipAppRoutingTun", resourceCulture);
+            }
+        }
     }
 }

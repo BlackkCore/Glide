@@ -2307,4 +2307,19 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbShowAdvancedFields" xml:space="preserve">
     <value>Show advanced fields</value>
   </data>
+  <data name="TbFontCompact" xml:space="preserve">
+    <value>Compact</value>
+  </data>
+  <data name="TbFontDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="TbFontLarge" xml:space="preserve">
+    <value>Large</value>
+  </data>
+  <data name="TbFontCustom" xml:space="preserve">
+    <value>Custom ({0})</value>
+  </data>
+  <data name="TipSparklineMoment" xml:space="preserve">
+    <value>{0} s ago · peak in the last minute {1}</value>
+  </data>
 </root>

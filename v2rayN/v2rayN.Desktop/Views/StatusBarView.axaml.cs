@@ -122,7 +122,10 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         {
             desktop.MainWindow.Icon = AvaUtils.GetAppIcon(_config.SystemProxyItem.SysProxyType);
             var iconslist = TrayIcon.GetIcons(Application.Current);
-            iconslist[0].Icon = desktop.MainWindow.Icon;
+            // The tray icon gets a red dot while the status card shows a problem.
+            iconslist[0].Icon = _iconProblem
+                ? AvaUtils.GetAppIcon(_config.SystemProxyItem.SysProxyType, Color.Parse("#E0464E"))
+                : desktop.MainWindow.Icon;
             TrayIcon.SetIcons(Application.Current, iconslist);
         }
     }
@@ -231,6 +234,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
 
     // Pill, detail line and action button for the current connection state.
     private bool _exitIpOffered;
+    private bool _iconProblem;
 
     // The exit IP needs an IP lookup service, which is off by default (a lookup contacts that site).
     // The first time the connection works, ask once instead of hiding it in advanced settings.
@@ -307,6 +311,14 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         {
             _ = OfferExitIpAsync();
         }
+        var problem = state is ConnState.NoInternet or ConnState.PortConflict or ConnState.EngineStopped;
+        if (problem != _iconProblem)
+        {
+            _iconProblem = problem;
+            RefreshIcon();
+        }
+        // The power button pulses while the connection is being checked.
+        btnPower.Classes.Set("checking", state == ConnState.Checking);
         btnDiagnose.IsVisible = state is ConnState.NotConnected or ConnState.NoInternet or ConnState.PortConflict or ConnState.EngineStopped;
 
         // The session clock runs only while the connection is verified.

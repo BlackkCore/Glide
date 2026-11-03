@@ -22,6 +22,28 @@ public class SpeedSparkline : Control
     public SpeedSparkline()
     {
         _slideTimer.Tick += (_, _) => Slide();
+        // Hover shows the speeds at that moment, with units, and the minute's peak (the chart has no axis).
+        PointerMoved += (_, e) => ShowValueAt(e.GetPosition(this).X);
+    }
+
+    private void ShowValueAt(double x)
+    {
+        var count = _samples.Count;
+        if (count == 0 || Bounds.Width <= 0)
+        {
+            ToolTip.SetTip(this, null);
+            return;
+        }
+        // Newest sample at the right edge, one slot per second back to the left.
+        var slotsFromRight = (int)Math.Round((Bounds.Width - x) / Bounds.Width * (Capacity - 1));
+        var index = Math.Clamp(count - 1 - slotsFromRight, 0, count - 1);
+        var (up, down) = _samples.ElementAt(index);
+        var peak = _samples.Max(t => Math.Max(t.Up, t.Down));
+        var secondsAgo = count - 1 - index;
+        // Samples are in KB/s, the unit Utils.HumanFy starts from.
+        ToolTip.SetTip(this,
+            $"‎↑ {Utils.HumanFy((long)up)}/s   ↓ {Utils.HumanFy((long)down)}/s‎" +
+            $"{Environment.NewLine}{string.Format(ResUI.TipSparklineMoment, secondsAgo, $"‎{Utils.HumanFy((long)peak)}/s‎")}");
     }
 
     public void Push(double up, double down)

@@ -16,6 +16,7 @@
     Design.DataContext="{x:Static dd:DesignData.RoutingSetting}"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
+    Classes="settings dialogCards"
     mc:Ignorable="d">
 
     <DockPanel>

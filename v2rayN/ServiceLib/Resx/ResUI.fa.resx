@@ -2307,4 +2307,19 @@
   <data name="TbShowAdvancedFields" xml:space="preserve">
     <value>نمایش فیلدهای پیشرفته</value>
   </data>
+  <data name="TbFontCompact" xml:space="preserve">
+    <value>فشرده</value>
+  </data>
+  <data name="TbFontDefault" xml:space="preserve">
+    <value>پیش‌فرض</value>
+  </data>
+  <data name="TbFontLarge" xml:space="preserve">
+    <value>بزرگ</value>
+  </data>
+  <data name="TbFontCustom" xml:space="preserve">
+    <value>سفارشی ({0})</value>
+  </data>
+  <data name="TipSparklineMoment" xml:space="preserve">
+    <value>{0} ثانیه پیش · بیشترین سرعت در یک دقیقه‌ی اخیر {1}</value>
+  </data>
 </root>

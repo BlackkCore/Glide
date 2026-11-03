@@ -6605,5 +6605,50 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbShowAdvancedFields", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Compact
+        /// </summary>
+        public static string TbFontCompact {
+            get {
+                return ResourceManager.GetString("TbFontCompact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Default
+        /// </summary>
+        public static string TbFontDefault {
+            get {
+                return ResourceManager.GetString("TbFontDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Large
+        /// </summary>
+        public static string TbFontLarge {
+            get {
+                return ResourceManager.GetString("TbFontLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Custom ({0})
+        /// </summary>
+        public static string TbFontCustom {
+            get {
+                return ResourceManager.GetString("TbFontCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0} s ago · peak in the last minute {1}
+        /// </summary>
+        public static string TipSparklineMoment {
+            get {
+                return ResourceManager.GetString("TipSparklineMoment", resourceCulture);
+            }
+        }
     }
 }

@@ -30,6 +30,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         };
 
         KeyDown += MainWindow_KeyDown;
+        // Bigger tap targets while the window is used with a finger, normal ones with a mouse.
+        AddHandler(PointerPressedEvent, (_, e) => Classes.Set("touch", e.Pointer.Type == PointerType.Touch),
+            RoutingStrategies.Tunnel, handledEventsToo: true);
         menuSettingsSetUWP.Click += MenuSettingsSetUWP_Click;
         menuPromotion.Click += MenuPromotion_Click;
         menuCheckUpdate.Click += MenuCheckUpdate_Click;

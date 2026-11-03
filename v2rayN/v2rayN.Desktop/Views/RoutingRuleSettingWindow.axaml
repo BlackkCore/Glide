@@ -14,6 +14,7 @@
     Design.DataContext="{x:Static dd:DesignData.RoutingRuleSetting}"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
+    Classes="settings dialogCards"
     mc:Ignorable="d">
     <DockPanel>
         <Menu Margin="{StaticResource Margin4}" DockPanel.Dock="Top">

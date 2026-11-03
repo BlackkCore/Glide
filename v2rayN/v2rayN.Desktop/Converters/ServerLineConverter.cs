@@ -8,6 +8,10 @@ namespace v2rayN.Desktop.Converters;
 /// </summary>
 public class ServerLineConverter : IValueConverter
 {
+    /// <summary>The delay text while a test runs ("testing…", not a number yet).</summary>
+    public static readonly FuncValueConverter<string?, bool> IsTesting =
+        new(value => value.IsNotEmpty() && !int.TryParse(value, out _));
+
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not ProfileItemModel item)

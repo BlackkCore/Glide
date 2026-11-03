@@ -81,6 +81,19 @@
             </Animation>
         </Style.Animations>
     </Style>
+    <!--  Connecting: the power button's halo breathes until the connection is confirmed.  -->
+    <Style Selector="Button.power.checking /template/ Ellipse#PART_Halo">
+        <Style.Animations>
+            <Animation IterationCount="Infinite" PlaybackDirection="Alternate" Duration="0:0:0.9" Easing="SineEaseInOut">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0.15" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="0.6" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
     <!--  Sidebar icons and labels nudge right a touch on hover.  -->
     <Style Selector="Menu.sidebar > MenuItem /template/ ContentPresenter#PART_HeaderPresenter">
         <Setter Property="Transitions">

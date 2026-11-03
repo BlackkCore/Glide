@@ -641,6 +641,38 @@
         <Setter Property="Background" Value="{DynamicResource AppBgBrush}" />
         <Setter Property="Padding" Value="16" />
     </Style>
+    <!--  Older dialogs (routing, rules, subscriptions): Settings' background, toolbar and tables as cards.  -->
+    <Style Selector="Window.dialogCards Menu">
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="Margin" Value="0,0,0,10" />
+    </Style>
+    <Style Selector="Window.dialogCards DataGrid">
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="ClipToBounds" Value="True" />
+    </Style>
+
+    <!--  Keyboard focus is always visible on icon buttons (the library's ring is faint).  -->
+    <Style Selector="Button.IconButton:focus-visible">
+        <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <!--  Touch: bigger targets once the window has been used with a finger (MainWindow sets .touch).  -->
+    <Style Selector="Window.touch Button.IconButton">
+        <Setter Property="MinWidth" Value="40" />
+        <Setter Property="MinHeight" Value="40" />
+    </Style>
+    <Style Selector="Window.touch ListBoxItem, Window.touch MenuItem">
+        <Setter Property="MinHeight" Value="40" />
+    </Style>
+    <!--  A delay test running: the pill dims instead of showing nothing.  -->
+    <Style Selector="Border.delayPill.testing">
+        <Setter Property="Opacity" Value="0.55" />
+    </Style>
     <Style Selector="TabControl.settingsNav">
         <Setter Property="Padding" Value="0" />
         <Setter Property="ItemsPanel">

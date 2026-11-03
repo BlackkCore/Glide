@@ -15,6 +15,7 @@
     Design.DataContext="{x:Static dd:DesignData.SubSetting}"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
+    Classes="settings dialogCards"
     mc:Ignorable="d">
     <dialogHost:DialogHost
         CloseOnClickAway="True"

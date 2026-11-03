@@ -26,6 +26,7 @@ public partial class MessageBoxDialog : Window
     {
         InitializeComponent();
         WindowCaptionColors.Attach(this);
+        Opened += (_, _) => AppMotion.PlayEntrance(Content as Visual, 8, 220);
 
         if (Design.IsDesignMode)
         {

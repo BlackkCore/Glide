@@ -22,21 +22,18 @@
         </Setter>
     </Style>
 
-    <!--  ===== Cards: glide in when the main window opens =====  -->
+    <!--  ===== Cards =====  -->
     <Style Selector="Border.card">
         <Setter Property="Transitions">
             <Transitions>
-                <DoubleTransition Property="Opacity" Duration="0:0:0.28" Easing="CubicEaseOut" />
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.36" Easing="CubicEaseOut" />
                 <BrushTransition Property="Background" Duration="0:0:0.3" />
                 <BrushTransition Property="BorderBrush" Duration="0:0:0.3" />
             </Transitions>
         </Setter>
     </Style>
-    <!--  The main window starts with this class and drops it once shown.  -->
+    <!--  Hidden until the main window has opened; MainWindow.PlayCardEntrance then raises them one by one.  -->
     <Style Selector=":is(Control).entering Border.card">
         <Setter Property="Opacity" Value="0" />
-        <Setter Property="RenderTransform" Value="translateY(12px)" />
     </Style>
 
     <!--  ===== Hover backgrounds on sidebar items, chips and segments =====  -->
@@ -44,8 +41,40 @@
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.15" />
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.12" Easing="CubicEaseOut" />
             </Transitions>
         </Setter>
+    </Style>
+    <!--  Chips and segments give a little under the pointer.  -->
+    <Style Selector="ListBoxItem:pressed /template/ Border#PART_Bg">
+        <Setter Property="RenderTransform" Value="scale(0.95)" />
+    </Style>
+    <!--  The sidebar chevron leans toward the submenu it opens.  -->
+    <Style Selector="MenuItem /template/ PathIcon#PART_Chevron">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.18" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="MenuItem:pointerover /template/ PathIcon#PART_Chevron, MenuItem:open /template/ PathIcon#PART_Chevron">
+        <Setter Property="RenderTransform" Value="translateX(3px)" />
+    </Style>
+
+    <!--  ===== Buttons: a short press-in so clicks feel physical =====  -->
+    <Style Selector="Button.IconButton, Button#btnSave, Button#btnYes, Button#btnCancel, Button#btnNo, Button#btnReset, Button#btnEmptyPaste, Button#btnEmptyAddSub">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.12" Easing="CubicEaseOut" />
+                <BrushTransition Property="Background" Duration="0:0:0.15" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.IconButton:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.88)" />
+    </Style>
+    <Style Selector="Button#btnSave:pressed, Button#btnYes:pressed, Button#btnCancel:pressed, Button#btnNo:pressed, Button#btnReset:pressed, Button#btnEmptyPaste:pressed, Button#btnEmptyAddSub:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.96)" />
     </Style>
 
     <!--  ===== Menus, dropdowns and tooltips fade in =====  -->
@@ -62,13 +91,27 @@
         </Style.Animations>
     </Style>
 
-    <!--  ===== Status pill =====  -->
+    <!--  ===== Status pill: recolors, and pops once when the proxy comes on =====  -->
     <Style Selector="Border.pill">
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.25" />
             </Transitions>
         </Setter>
+    </Style>
+    <Style Selector="Border.pill.on">
+        <Style.Animations>
+            <Animation Easing="BackEaseOut" Duration="0:0:0.42">
+                <KeyFrame Cue="0%">
+                    <Setter Property="ScaleTransform.ScaleX" Value="0.86" />
+                    <Setter Property="ScaleTransform.ScaleY" Value="0.86" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="ScaleTransform.ScaleX" Value="1" />
+                    <Setter Property="ScaleTransform.ScaleY" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
     </Style>
 
     <!--  ===== Latency dot fades from gray (testing) to its result color =====  -->

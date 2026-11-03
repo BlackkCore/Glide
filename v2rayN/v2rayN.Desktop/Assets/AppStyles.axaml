@@ -538,6 +538,17 @@
         <Setter Property="IsVisible" Value="False" />
     </Style>
 
+    <!--  Grid scrollbars stay thin until hovered instead of covering the last row and column.  -->
+    <Style Selector="DataGrid /template/ ScrollViewer">
+        <Setter Property="AllowAutoHide" Value="True" />
+    </Style>
+    <Style Selector="DataGrid /template/ ScrollBar">
+        <Setter Property="AllowAutoHide" Value="True" />
+    </Style>
+    <Style Selector="DataGrid /template/ ScrollBar /template/ RepeatButton">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
     <!--  ===== Country chip in the server list =====  -->
     <Style Selector="Border.country">
         <Setter Property="MinWidth" Value="26" />

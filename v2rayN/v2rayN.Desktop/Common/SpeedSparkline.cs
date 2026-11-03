@@ -9,6 +9,21 @@ public class SpeedSparkline : Control
     private const int Capacity = 60;
     private readonly Queue<(double Up, double Down)> _samples = new();
 
+    // With animations on, the chart slides left by one sample over ~0.6 s instead of jumping,
+    // and its vertical scale eases toward the new peak.
+    private const double SlideMs = 600;
+    private readonly DispatcherTimer _slideTimer = new() { Interval = TimeSpan.FromMilliseconds(16) };
+    private DateTime _slideStart;
+    private double _shift;
+    private double _shownMax;
+    private double _fromMax;
+    private double _targetMax;
+
+    public SpeedSparkline()
+    {
+        _slideTimer.Tick += (_, _) => Slide();
+    }
+
     public void Push(double up, double down)
     {
         _samples.Enqueue((Math.Max(0, up), Math.Max(0, down)));
@@ -16,12 +31,41 @@ public class SpeedSparkline : Control
         {
             _samples.Dequeue();
         }
+
+        _targetMax = Math.Max(16, _samples.Max(t => Math.Max(t.Up, t.Down))) * 1.15;
+        if (!AppMotion.Enabled || _shownMax <= 0 || !IsEffectivelyVisible)
+        {
+            _shownMax = _targetMax;
+            _shift = 0;
+            InvalidateVisual();
+            return;
+        }
+        _fromMax = _shownMax;
+        _slideStart = DateTime.Now;
+        _shift = 1;
+        _slideTimer.Start();
         InvalidateVisual();
     }
 
     public void Clear()
     {
+        _slideTimer.Stop();
         _samples.Clear();
+        _shownMax = 0;
+        _shift = 0;
+        InvalidateVisual();
+    }
+
+    private void Slide()
+    {
+        var t = Math.Clamp((DateTime.Now - _slideStart).TotalMilliseconds / SlideMs, 0, 1);
+        var eased = 1 - Math.Pow(1 - t, 3);
+        _shift = 1 - eased;
+        _shownMax = _fromMax + ((_targetMax - _fromMax) * eased);
+        if (t >= 1)
+        {
+            _slideTimer.Stop();
+        }
         InvalidateVisual();
     }
 
@@ -35,11 +79,14 @@ public class SpeedSparkline : Control
         }
 
         var samples = _samples.ToArray();
-        var max = Math.Max(16, samples.Max(t => Math.Max(t.Up, t.Down))) * 1.15;
+        var max = _shownMax > 0 ? _shownMax : _targetMax;
         var step = w / (Capacity - 1);
-        var x0 = w - ((samples.Length - 1) * step);
+        // While sliding, everything sits up to one step to the right and drifts into place.
+        var x0 = w - ((samples.Length - 1 - _shift) * step);
 
-        Point At(int i, double value) => new(x0 + (i * step), h - 1 - (value / max * (h - 2)));
+        Point At(int i, double value) => new(x0 + (i * step), h - 1 - (Math.Min(value, max) / max * (h - 2)));
+
+        using var clip = context.PushClip(new Rect(0, 0, w, h));
 
         var accent = Resource("AppAccentBrush", Brushes.RoyalBlue);
         var good = Resource("AppGoodDotBrush", Brushes.SeaGreen);
@@ -53,7 +100,7 @@ public class SpeedSparkline : Control
             {
                 ctx.LineTo(At(i, samples[i].Down));
             }
-            ctx.LineTo(new Point(w, h));
+            ctx.LineTo(new Point(x0 + ((samples.Length - 1) * step), h));
             ctx.EndFigure(true);
         }
         context.DrawGeometry(new SolidColorBrush(accent.Color, 0.14), null, area);

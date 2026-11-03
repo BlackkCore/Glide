@@ -12,31 +12,57 @@
     Design.DataContext="{x:Static dd:DesignData.Msg}"
     mc:Ignorable="d">
     <DockPanel>
-        <WrapPanel
-            Margin="0,0,0,10"
-            VerticalAlignment="Center"
-            DockPanel.Dock="Top"
-            ItemSpacing="12"
-            LineSpacing="8"
-            Orientation="Horizontal">
-
+        <!--  One row: title, search (flexes), actions and the two toggles. On narrow cards the toggle labels hide.  -->
+        <DockPanel Margin="0,0,0,10" DockPanel.Dock="Top">
             <TextBlock
+                Margin="0,0,12,0"
                 VerticalAlignment="Center"
                 Classes="h2"
+                DockPanel.Dock="Left"
                 Text="{x:Static resx:ResUI.MsgInformationTitle}" />
 
-            <TextBox
-                x:Name="cmbMsgFilter"
-                Width="180"
-                Classes="search"
-                PlaceholderText="{x:Static resx:ResUI.MsgFilterTitle}"
-                ToolTip.Tip="{x:Static resx:ResUI.MsgFilterTitle}">
-                <TextBox.InnerLeftContent>
-                    <PathIcon Classes="searchIcon" Data="{StaticResource IconSearch}" />
-                </TextBox.InnerLeftContent>
-            </TextBox>
+            <StackPanel
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                Orientation="Horizontal"
+                Spacing="14">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    ToolTip.Tip="{x:Static resx:ResUI.TbAutoRefresh}">
+                    <TextBlock
+                        x:Name="lblAutoRefresh"
+                        Classes="toggleLabel"
+                        Text="{x:Static resx:ResUI.TbAutoRefresh}" />
+                    <ToggleSwitch
+                        x:Name="togAutoRefresh"
+                        HorizontalAlignment="Left"
+                        IsChecked="True"
+                        Theme="{DynamicResource SimpleToggleSwitch}" />
+                </StackPanel>
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    ToolTip.Tip="{x:Static resx:ResUI.TbAutoScrollToEnd}">
+                    <TextBlock
+                        x:Name="lblScrollToEnd"
+                        Classes="toggleLabel"
+                        Text="{x:Static resx:ResUI.TbAutoScrollToEnd}" />
+                    <ToggleSwitch
+                        x:Name="togScrollToEnd"
+                        HorizontalAlignment="Left"
+                        IsChecked="True"
+                        Theme="{DynamicResource SimpleToggleSwitch}" />
+                </StackPanel>
+            </StackPanel>
 
-            <Border VerticalAlignment="Center" Classes="toolbar">
+            <Border
+                Margin="0,0,14,0"
+                VerticalAlignment="Center"
+                Classes="toolbar"
+                DockPanel.Dock="Right">
                 <StackPanel Orientation="Horizontal">
                     <Button
                         x:Name="btnCopy"
@@ -55,29 +81,20 @@
                 </StackPanel>
             </Border>
 
-            <StackPanel
-                VerticalAlignment="Center"
-                Orientation="Horizontal"
-                Spacing="8">
-                <TextBlock Classes="toggleLabel" Text="{x:Static resx:ResUI.TbAutoRefresh}" />
-                <ToggleSwitch
-                    x:Name="togAutoRefresh"
-                    HorizontalAlignment="Left"
-                    IsChecked="True"
-                    Theme="{DynamicResource SimpleToggleSwitch}" />
-            </StackPanel>
-            <StackPanel
-                VerticalAlignment="Center"
-                Orientation="Horizontal"
-                Spacing="8">
-                <TextBlock Classes="toggleLabel" Text="{x:Static resx:ResUI.TbAutoScrollToEnd}" />
-                <ToggleSwitch
-                    x:Name="togScrollToEnd"
-                    HorizontalAlignment="Left"
-                    IsChecked="True"
-                    Theme="{DynamicResource SimpleToggleSwitch}" />
-            </StackPanel>
-        </WrapPanel>
+            <TextBox
+                x:Name="cmbMsgFilter"
+                MinWidth="120"
+                MaxWidth="240"
+                Margin="0,0,14,0"
+                HorizontalAlignment="Stretch"
+                Classes="search"
+                PlaceholderText="{x:Static resx:ResUI.MsgFilterTitle}"
+                ToolTip.Tip="{x:Static resx:ResUI.MsgFilterTitle}">
+                <TextBox.InnerLeftContent>
+                    <PathIcon Classes="searchIcon" Data="{StaticResource IconSearch}" />
+                </TextBox.InnerLeftContent>
+            </TextBox>
+        </DockPanel>
 
         <Border Classes="logPanel">
             <avaloniaEdit:TextEditor

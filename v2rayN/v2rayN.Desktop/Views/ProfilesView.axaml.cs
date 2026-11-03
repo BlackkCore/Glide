@@ -193,7 +193,12 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
     {
         if (ViewModel is { } vm)
         {
-            spEmptyServers.IsVisible = vm.ProfileItems.Count == 0 && vm.ServerFilter.IsNullOrEmpty();
+            var show = vm.ProfileItems.Count == 0 && vm.ServerFilter.IsNullOrEmpty();
+            if (show && !spEmptyServers.IsVisible)
+            {
+                AppMotion.PlayEntrance(spEmptyServers, 14, 380);
+            }
+            spEmptyServers.IsVisible = show;
         }
     }
 

@@ -25,6 +25,10 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         _sessionTimer.Tick += (_, _) => UpdateSessionTime();
         _tickTimer.Tick += (_, _) => SpeedTick();
 
+        // Changing the proxy mode selects a segment, which asks to be scrolled into view and made the
+        // whole column jump; the segments are always visible next to the power button anyway.
+        cmbSystemProxy.AddHandler(RequestBringIntoViewEvent, (_, e) => e.Handled = true);
+
         this.WhenActivated(disposables =>
         {
             //status bar

@@ -13,6 +13,15 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
 
         Loaded += Window_Loaded;
         btnCancel.Click += (s, e) => Close();
+
+        // Each settings section slides in when picked from the list on the left.
+        tabSettings.SelectionChanged += (_, e) =>
+        {
+            if (e.Source == tabSettings && IsLoaded)
+            {
+                Dispatcher.UIThread.Post(() => AppMotion.PlayEntrance(tabSettings.SelectedContent as Visual, 10, 260), DispatcherPriority.Loaded);
+            }
+        };
         _config = AppManager.Instance.Config;
 
         clbdestOverride.SelectionChanged += ClbdestOverride_SelectionChanged;

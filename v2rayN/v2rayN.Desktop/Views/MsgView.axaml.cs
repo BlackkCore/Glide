@@ -11,6 +11,14 @@ public partial class MsgView : ReactiveUserControl<MsgViewModel>
         InitializeComponent();
         txtMsg.TextArea.TextView.Options.EnableHyperlinks = false;
 
+        // Narrow log card: the toggles keep their tooltips but drop the labels, so the header stays on one row.
+        SizeChanged += (_, e) =>
+        {
+            var wide = e.NewSize.Width >= 660;
+            lblAutoRefresh.IsVisible = wide;
+            lblScrollToEnd.IsVisible = wide;
+        };
+
         this.WhenActivated(disposables =>
         {
             this.Bind(ViewModel, vm => vm.MsgFilter, v => v.cmbMsgFilter.Text).DisposeWith(disposables);

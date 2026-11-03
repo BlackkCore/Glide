@@ -35,6 +35,7 @@
         </StackPanel>
 
         <TabControl
+            x:Name="tabSettings"
             Classes="settingsNav"
             HorizontalContentAlignment="Stretch"
             TabStripPlacement="Left">

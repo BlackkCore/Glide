@@ -8,6 +8,13 @@ public class WindowBase<TViewModel> : ReactiveWindow<TViewModel> where TViewMode
     {
         WindowCaptionColors.Attach(this);
         Loaded += OnLoaded;
+        Opened += (_, _) =>
+        {
+            if (AnimateContentOnOpen)
+            {
+                AppMotion.PlayEntrance(Content as Visual, 8, 240);
+            }
+        };
         Loaded += (s, e) =>
         {
             if (Owner != null && !ShowInTaskbar)
@@ -16,6 +23,9 @@ public class WindowBase<TViewModel> : ReactiveWindow<TViewModel> where TViewMode
             }
         };
     }
+
+    /// <summary>Dialogs fade and slide in when they open; the main window staggers its cards instead.</summary>
+    protected virtual bool AnimateContentOnOpen => true;
 
     private void ReactiveWindowBase_Closed(object? sender, EventArgs e)
     {

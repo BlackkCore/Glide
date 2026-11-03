@@ -50,7 +50,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         }
 
         txtVersion.Text = $"v{Utils.GetVersionInfo()}";
-        Opened += (_, _) => DispatcherTimer.RunOnce(() => gridContent.Classes.Remove("entering"), TimeSpan.FromMilliseconds(60));
+        Opened += (_, _) => PlayCardEntrance();
         SizeChanged += (_, e) => UpdateResponsiveLayout(e.NewSize.Width);
 
         this.WhenActivated(disposables =>
@@ -350,6 +350,26 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         UpdateThemeToggle();
     }
 
+    protected override bool AnimateContentOnOpen => false;
+
+    // The cards rise in one after another, left column first, top to bottom.
+    private void PlayCardEntrance()
+    {
+        var cards = Avalonia.VisualTree.VisualExtensions.GetVisualDescendants(gridContent)
+            .OfType<Border>()
+            .Where(b => b.Classes.Contains("card") && b.IsEffectivelyVisible)
+            .Select(b => (Card: b, Pos: b.TranslatePoint(default, gridContent) ?? default))
+            .OrderBy(t => Math.Round(t.Pos.X / 40))
+            .ThenBy(t => t.Pos.Y)
+            .Select(t => t.Card)
+            .ToList();
+        for (var i = 0; i < cards.Count; i++)
+        {
+            AppMotion.PlayEntrance(cards[i], 18, 520, 40 + (i * 70));
+        }
+        gridContent.Classes.Remove("entering");
+    }
+
     private bool? _isCompactLayout;
 
     // Extra top space for the cards when the caption buttons sit over the content.
@@ -358,7 +378,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     private void UpdateResponsiveLayout(double width)
     {
         // Narrow windows get an icon-only sidebar so the server list keeps its room.
-        var compact = width < 1180;
+        var compact = width < 1320;
         if (_isCompactLayout == compact)
         {
             return;

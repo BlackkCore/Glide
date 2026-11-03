@@ -13,7 +13,7 @@
     <PackageVersion Include="ReactiveUI.Avalonia" Version="12.1.6" />
     <PackageVersion Include="CliWrap" Version="3.10.5" />
     <PackageVersion Include="Downloader" Version="5.10.2" />
-    <PackageVersion Include="QRCoder" Version="1.8.0" />
+    <PackageVersion Include="QRCoder" Version="1.8.1" />
     <PackageVersion Include="ReactiveUI" Version="26.0.1" />
     <PackageVersion Include="Semi.Avalonia" Version="12.1.0.1" />
     <PackageVersion Include="Semi.Avalonia.AvaloniaEdit" Version="12.0.0" />

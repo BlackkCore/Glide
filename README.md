@@ -33,14 +33,40 @@ The same engine you already trust (Xray, sing-box and mihomo), with an interface
 
 v2rayN is powerful, but its window shows you everything at once. Glide keeps every feature and reorganizes the screen around what you actually do: pick a server, connect, and see that it's working.
 
-- **Connect with one button.** A large power button switches the system proxy. The current server, its protocol, a session timer and a live upload/download chart sit right below it.
-- **Read the server list at a glance.** Country badges, protocol tags, a clear *Active* label and colored latency dots: green is fast, amber is slow, red has timed out.
+### Connecting
+
+- **One button to connect.** The power button turns the system proxy on and off. Below it are the current server, its protocol, a session timer and a live upload/download chart.
+- **A status that tells the truth.** *Connected* only appears after Glide has checked that traffic really gets through, with the delay shown. Otherwise you see *Checking connection…*, *No internet*, *Port in use* (with the app that holds it) or *Engine stopped*, each with one button that fixes it.
+- **Notices when the connection drops,** and again when it's back.
+- **"Why can't I connect?"** One click checks, step by step: your own internet, DNS, Glide's engine, the server, real traffic through the server, and the exit IP with its country. Then it gives one plain answer, such as *"The server answers but carries no traffic: update the subscription or try another server."*
+- **Auto: fastest server.** One click per subscription. Glide keeps testing every server in the background, uses the fastest one that works, and switches when one fails.
+- **Never touches what isn't its own.** Glide won't change or clear a Windows proxy that another program set, and won't start on a port another app is using. If another app holds the port, it tells you which one and offers to close it.
+- **Routing in plain words:** *Bypass China sites*, *Only listed blocked sites* and *Everything through proxy*, each with a one-line explanation. On first start in Persian, Glide offers a ready-made Iran preset that sends Iranian sites direct.
+- **"Capture all apps (TUN)"**, with an explanation and an *Administrator* label instead of a bare "Enable Tun" switch.
+
+### Servers and subscriptions
+
+- **A list, not a spreadsheet.** One clear row per server: flag, name, protocol and transport, a colored delay pill, an ⋯ menu, and an accent bar on the active server. The full table is still one click away as the advanced view.
+- **Favourites.** Star a server to keep it at the top of the list and in the tray menu.
+- **Add server, the easy way.** One sheet for everything: paste links or a subscription address and see what was found before importing (*"2 servers: VLESS, Trojan"*). You can also scan a QR code on screen or in an image, or fill in a form for 12 protocols.
+- **Subscription status.** Data used and left, days until expiry, and the time of the last update, shown under the selected subscription. It turns red when the plan is nearly used up or has expired.
+- **Live search** as you type, plus a labelled **Test all** button.
+- **A tray menu for everyday use:** Connect / Disconnect first, a Servers submenu with your favourites, then the proxy modes.
+
+### Settings and updates
+
+- **Basic and advanced.** Settings open in Basic mode with just the everyday options. *Show advanced settings* reveals everything else.
+- **Search all settings.** Type a word and only the matching rows remain. Ctrl+F jumps to the search box.
+- **Update all.** One button updates the app, the proxy engines and the rule files, each with a plain name.
+
+### Look and feel
+
 - **Light, dark or follow Windows.** Switching themes spreads the new colors out in a circle from the button you clicked.
-- **Persian, done properly.** A complete Persian translation, with the whole window mirrored right-to-left.
-- **Fits any window size.** On narrow windows the sidebar collapses to icons, and tables and settings rearrange themselves instead of cutting text off.
-- **Settings you can find.** Options are grouped into sections and cards, and routing presets have plain names (Whitelist, Blacklist, Global).
-- **Move over in one click.** On first start Glide finds your existing v2rayN and offers to import your servers, subscriptions and settings. It backs up your current settings first.
+- **Persian, done properly.** A complete Persian translation, checked automatically on every build, with the whole window mirrored right-to-left.
+- **Fits any window size.** On narrow windows the sidebar collapses to icons and the layout rearranges itself instead of cutting text off. The log pane can be hidden.
+- **Accessible.** Icon buttons have names that screen readers announce.
 - **Feels native on Windows 11.** Rounded windows, a theme-aware title bar, and animations that follow Windows' *Animation effects* setting.
+- **Move over in one click.** On first start Glide finds your existing v2rayN and offers to import your servers, subscriptions and settings. It backs up your current settings first.
 
 <table>
   <tr>
@@ -66,7 +92,8 @@ v2rayN is powerful, but its window shows you everything at once. Glide keeps eve
 1. Download **`Glide-windows-x64.zip`** from the [latest release](https://github.com/BlackkCore/Glide/releases/latest), or **`Glide-windows-x86.zip`** for 32-bit Windows. The Xray, sing-box and mihomo cores are included.
 2. Extract it to a folder you can write to, for example `C:\Glide`. Avoid `Program Files`.
 3. If the original v2rayN is running, exit it first (right-click its tray icon → *Exit*).
-4. Run **`Glide.exe`**. Accept the import offer, or add servers from the *Configuration* menu: paste a share link, scan a QR code, or add a subscription.
+4. Run **`Glide.exe`**. Accept the import offer, or click **Add server** above the server list: paste a share link or subscription address, or scan a QR code.
+5. Press the power button. When the status says *Connected*, you're done. If it doesn't, click *Why can't I connect?*.
 
 **Requirements:** Windows 10 or 11, 64-bit or 32-bit.
 
@@ -75,8 +102,8 @@ v2rayN is powerful, but its window shows you everything at once. Glide keeps eve
 
 ## Updating
 
-- **Glide:** *Help → Check update*, or download the new zip and extract it over the old folder. Your servers live in `guiConfigs` and are kept.
-- **Cores and rule files:** also from *Check update*.
+- Open *Check update* in the sidebar and press **Update all**. It updates Glide, the proxy engines and the rule files together.
+- Or download the new zip and extract it over the old folder. Your servers live in `guiConfigs` and are kept.
 
 Glide follows [2dust/v2rayN](https://github.com/2dust/v2rayN): new upstream versions are merged in and released here with the redesign on top.
 

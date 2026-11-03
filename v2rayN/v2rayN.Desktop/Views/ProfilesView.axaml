@@ -419,12 +419,21 @@
                     Tag="IpInfo">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <SelectableTextBlock
+                            <TextBlock
                                 Margin="16,0"
                                 VerticalAlignment="Center"
                                 FontSize="{DynamicResource AppFontBody}"
                                 Foreground="{DynamicResource AppMutedBrush}"
-                                Text="{Binding Path=IpInfo, Mode=OneWay}" />
+                                Text="{Binding Path=IpInfo, Mode=OneWay}">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem
+                                            Click="CopyIpInfo_Click"
+                                            CommandParameter="{Binding IpInfo}"
+                                            Header="{x:Static resx:ResUI.menuEditCopy}" />
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                            </TextBlock>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

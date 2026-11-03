@@ -150,7 +150,7 @@ Found a bug or have an idea? [Open an issue](https://github.com/BlackkCore/v2ray
 
 ## فارسی
 
-**v2rayN Redesign** همان v2rayN است با ظاهری تازه، تمیز و مدرن. هسته‌ها (Xray، sing-box و mihomo)، کانفیگ‌ها و اشتراک‌ها همان قبلی‌ها هستند؛ فقط کار با برنامه بسیار راحت‌تر شده است.
+**Glide** همان v2rayN است با ظاهری تازه، تمیز و مدرن. هسته‌ها (Xray، sing-box و mihomo)، کانفیگ‌ها و اشتراک‌ها همان قبلی‌ها هستند؛ فقط کار با برنامه بسیار راحت‌تر شده است.
 
 ### امکانات
 

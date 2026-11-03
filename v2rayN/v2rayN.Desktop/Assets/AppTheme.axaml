@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  Redesign color tokens. Light and Dark; Semi's other variants inherit from one of these.  -->
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
@@ -23,6 +23,14 @@
             <SolidColorBrush x:Key="AppOnAccentBrush" Color="#FFFFFF" />
             <SolidColorBrush x:Key="AppAccentSoftBrush" Color="#EEF2FE" />
             <SolidColorBrush x:Key="AppAccentSoftFgBrush" Color="#2343B8" />
+            <!--  Dropdown lists: app surface, soft accent for the chosen item (Semi's own keys).  -->
+            <SolidColorBrush x:Key="ComboBoxPopupBackground" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="ComboBoxPopupBorderBrush" Color="#E4E6EB" />
+            <SolidColorBrush x:Key="ComboBoxItemPointeroverBackground" Color="#F3F4F6" />
+            <SolidColorBrush x:Key="ComboBoxItemPressedBackground" Color="#F3F4F6" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedBackground" Color="#EEF2FE" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedForeground" Color="#2343B8" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedPointeroverBackground" Color="#E3E9FD" />
             <SolidColorBrush x:Key="AppAccentRingBrush" Color="#E3E9FD" />
             <!--  Power button  -->
             <LinearGradientBrush x:Key="AppPowerOnFill" StartPoint="0%,0%" EndPoint="0%,100%">
@@ -46,6 +54,7 @@
             <!--  Elevation  -->
             <BoxShadows x:Key="AppCardShadow">0 1 2 0 #0A11141A, 0 8 24 -12 #1F11141A</BoxShadows>
             <BoxShadows x:Key="AppRaisedShadow">0 1 2 0 #1A11141A, 0 1 1 0 #0D11141A</BoxShadows>
+            <BoxShadows x:Key="AppToastShadow">0 12 32 -10 #3311141A, 0 2 6 0 #1411141A</BoxShadows>
 
             <!--  Semi's own palette, re-tinted to the app accent so every control matches  -->
             <SolidColorBrush x:Key="SemiColorPrimary" Color="#3157E6" />
@@ -118,6 +127,14 @@
             <SolidColorBrush x:Key="AppOnAccentBrush" Color="#FFFFFF" />
             <SolidColorBrush x:Key="AppAccentSoftBrush" Color="#1A2240" />
             <SolidColorBrush x:Key="AppAccentSoftFgBrush" Color="#B7C7FF" />
+            <!--  Dropdown lists: app surface, soft accent for the chosen item (Semi's own keys).  -->
+            <SolidColorBrush x:Key="ComboBoxPopupBackground" Color="#1A1E25" />
+            <SolidColorBrush x:Key="ComboBoxPopupBorderBrush" Color="#2A2F39" />
+            <SolidColorBrush x:Key="ComboBoxItemPointeroverBackground" Color="#232833" />
+            <SolidColorBrush x:Key="ComboBoxItemPressedBackground" Color="#232833" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedBackground" Color="#1F2A4D" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedForeground" Color="#C9D5FF" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedPointeroverBackground" Color="#243159" />
             <SolidColorBrush x:Key="AppAccentRingBrush" Color="#18203A" />
             <LinearGradientBrush x:Key="AppPowerOnFill" StartPoint="0%,0%" EndPoint="0%,100%">
                 <GradientStop Offset="0" Color="#6D8EFA" />
@@ -137,6 +154,7 @@
             <SolidColorBrush x:Key="AppGridLineBrush" Color="#1E2128" />
             <BoxShadows x:Key="AppCardShadow">0 1 2 0 #40000000</BoxShadows>
             <BoxShadows x:Key="AppRaisedShadow">0 1 2 0 #66000000, inset 0 1 0 0 #0DFFFFFF</BoxShadows>
+            <BoxShadows x:Key="AppToastShadow">0 12 32 -8 #A0000000, 0 1 2 0 #66000000</BoxShadows>
 
             <SolidColorBrush x:Key="SemiColorPrimary" Color="#5A7FF7" />
             <SolidColorBrush x:Key="SemiColorPrimaryPointerover" Color="#7393FA" />
@@ -191,6 +209,7 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+    <CornerRadius x:Key="ComboBoxPopupBoxCornerRadius">12</CornerRadius>
     <!--  Type scale. Everything in the app uses one of these five sizes; ThemeSettingViewModel
           nudges them up or down when the user picks a different font size.  -->
     <x:Double x:Key="AppFontCaption">11</x:Double>
@@ -446,5 +465,103 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+    </ControlTheme>
+    <!--  Toasts: a small card with an accent badge, sliding in from above and fading out.
+          Replaces Semi's grey pill so notices match the rest of the redesign.  -->
+    <ControlTheme x:Key="{x:Type NotificationCard}" TargetType="NotificationCard">
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="MinWidth" Value="260" />
+        <Setter Property="MaxWidth" Value="380" />
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="ContentTemplate">
+            <DataTemplate x:DataType="INotification">
+                <DockPanel>
+                    <Border
+                        Width="28"
+                        Height="28"
+                        Margin="0,0,12,0"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource AppAccentSoftBrush}"
+                        CornerRadius="9"
+                        DockPanel.Dock="Left">
+                        <PathIcon
+                            Width="14"
+                            Height="14"
+                            Data="{StaticResource SemiIconInfoCircle}"
+                            Foreground="{DynamicResource AppAccentBrush}" />
+                    </Border>
+                    <StackPanel VerticalAlignment="Center" Spacing="2">
+                        <TextBlock
+                            FontWeight="SemiBold"
+                            IsVisible="{Binding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                            Text="{Binding Title}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            FontWeight="Medium"
+                            Text="{Binding Message}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </DockPanel>
+            </DataTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Margin="8,4,8,10"
+                    Padding="12,10,16,10"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BoxShadow="{DynamicResource AppToastShadow}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <ContentPresenter
+                        Name="PART_ContentPresenter"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^">
+            <Style.Animations>
+                <Animation
+                    Easing="QuinticEaseOut"
+                    FillMode="Backward"
+                    Duration="0:0:0.32">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="TranslateTransform.Y" Value="-12" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="TranslateTransform.Y" Value="0" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <!--  The card is only removed once IsClosed is set, so the fade-out sets it on its last frame.  -->
+        <Style Selector="^[IsClosing=true]">
+            <Style.Animations>
+                <Animation
+                    Easing="CubicEaseIn"
+                    FillMode="Forward"
+                    Duration="0:0:0.2">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="TranslateTransform.Y" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0" />
+                        <Setter Property="TranslateTransform.Y" Value="-8" />
+                        <Setter Property="IsClosed" Value="True" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
     </ControlTheme>
 </ResourceDictionary>

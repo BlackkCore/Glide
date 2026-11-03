@@ -38,6 +38,10 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuClose.Click += MenuClose_Click;
 
         conTheme.Content ??= new ThemeSettingView();
+        if (conTheme.Content is ThemeSettingView appearance)
+        {
+            appearance.ThemeRequested += (theme, origin) => PlayThemeReveal(() => SetTheme(theme), origin);
+        }
         btnThemeLight.Click += (_, _) => PlayThemeReveal(() => SetTheme(ETheme.Light), btnThemeLight);
         btnThemeDark.Click += (_, _) => PlayThemeReveal(() => SetTheme(ETheme.Dark), btnThemeDark);
         btnThemeCompact.Click += (_, _) => PlayThemeReveal(() => SetTheme(IsDarkTheme() ? ETheme.Light : ETheme.Dark), btnThemeCompact);

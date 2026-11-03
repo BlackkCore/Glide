@@ -1986,4 +1986,7 @@ Import its servers, subscriptions and settings? Glide will restart, and your cur
   <data name="TbProxyModeUnchanged" xml:space="preserve">
     <value>Unchanged</value>
   </data>
+  <data name="TbThemeSystem" xml:space="preserve">
+    <value>System</value>
+  </data>
 </root>

@@ -2,9 +2,11 @@
     x:Class="v2rayN.Desktop.Views.RoutingSettingWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="using:v2rayN.Desktop.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dto="clr-namespace:ServiceLib.Models.Dto;assembly=ServiceLib"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     Title="{x:Static resx:ResUI.menuRoutingSetting}"
@@ -102,10 +104,18 @@
 
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Width="40" Binding="{Binding IsActive}" />
-                        <DataGridTextColumn
-                            Width="*"
-                            Binding="{Binding Remarks}"
-                            Header="{x:Static resx:ResUI.LvRemarks}" />
+                        <!--  Template column: the grid's text column drops the converter and shows nothing.  -->
+                        <DataGridTemplateColumn Width="*" Header="{x:Static resx:ResUI.LvRemarks}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate x:DataType="dto:RoutingItemModel">
+                                    <TextBlock
+                                        Margin="12,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding Remarks, Converter={x:Static conv:RoutingNameConverter.Instance}}"
+                                        TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn
                             Width="80"
                             Binding="{Binding RuleNum}"

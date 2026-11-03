@@ -10,16 +10,12 @@
     x:DataType="vms:ThemeSettingViewModel"
     Design.DataContext="{x:Static dd:DesignData.ThemeSetting}"
     mc:Ignorable="d">
-    <UserControl.Styles>
-        <Style Selector="TextBlock">
-            <Setter Property="Width" Value="100" />
-        </Style>
-        <Style Selector="ComboBox">
-            <Setter Property="Width" Value="130" />
-        </Style>
-    </UserControl.Styles>
 
-    <Button Margin="{StaticResource MarginLr8}" Classes="IconButton">
+    <Button
+        x:Name="btnAppearance"
+        Margin="{StaticResource MarginLr8}"
+        Classes="IconButton"
+        ToolTip.Tip="{x:Static resx:ResUI.TbSettingsTheme}">
         <Button.Content>
             <PathIcon Data="{StaticResource SemiIconMore}">
                 <PathIcon.RenderTransform>
@@ -28,37 +24,29 @@
             </PathIcon>
         </Button.Content>
         <Button.Flyout>
-            <Flyout>
-                <StackPanel Margin="{StaticResource MarginTb8}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="{StaticResource Margin4}"
-                            VerticalAlignment="Center"
-                            Text="{x:Static resx:ResUI.TbSettingsTheme}" />
-                        <ComboBox
-                            x:Name="cmbCurrentTheme"
-                            Margin="{StaticResource Margin4}"
-                            HorizontalAlignment="Center" />
+            <Flyout FlyoutPresenterClasses="appearance" Placement="TopEdgeAlignedLeft">
+                <!--  Labels sit above their controls, so long translations never get cut off.  -->
+                <StackPanel Width="264" Spacing="14">
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="label" Text="{x:Static resx:ResUI.TbSettingsTheme}" />
+                        <ListBox x:Name="lstTheme" Theme="{StaticResource SegmentListBox}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="3" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBoxItem Content="{x:Static resx:ResUI.TbThemeSystem}" Tag="FollowSystem" />
+                            <ListBoxItem Content="{x:Static resx:ResUI.TbThemeLight}" Tag="Light" />
+                            <ListBoxItem Content="{x:Static resx:ResUI.TbThemeDark}" Tag="Dark" />
+                        </ListBox>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="{StaticResource Margin4}"
-                            VerticalAlignment="Center"
-                            Text="{x:Static resx:ResUI.TbSettingsFontSize}" />
-                        <ComboBox
-                            x:Name="cmbCurrentFontSize"
-                            Margin="{StaticResource Margin4}"
-                            HorizontalAlignment="Center" />
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="label" Text="{x:Static resx:ResUI.TbSettingsFontSize}" />
+                        <ComboBox x:Name="cmbCurrentFontSize" HorizontalAlignment="Stretch" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="{StaticResource Margin4}"
-                            VerticalAlignment="Center"
-                            Text="{x:Static resx:ResUI.TbSettingsLanguage}" />
-                        <ComboBox
-                            x:Name="cmbCurrentLanguage"
-                            Margin="{StaticResource Margin4}"
-                            HorizontalAlignment="Center" />
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="label" Text="{x:Static resx:ResUI.TbSettingsLanguage}" />
+                        <ComboBox x:Name="cmbCurrentLanguage" HorizontalAlignment="Stretch" />
                     </StackPanel>
                 </StackPanel>
             </Flyout>

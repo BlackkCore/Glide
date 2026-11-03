@@ -1980,4 +1980,7 @@
   <data name="LvPreResolve" xml:space="preserve">
     <value>تفکیک پیشاپیش دامنه سرورها</value>
   </data>
+  <data name="TbThemeSystem" xml:space="preserve">
+    <value>سیستم</value>
+  </data>
 </root>

@@ -5651,5 +5651,14 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbProxyModeUnchanged", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   System
+        /// </summary>
+        public static string TbThemeSystem {
+            get {
+                return ResourceManager.GetString("TbThemeSystem", resourceCulture);
+            }
+        }
     }
 }

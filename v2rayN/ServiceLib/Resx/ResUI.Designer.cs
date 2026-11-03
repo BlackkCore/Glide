@@ -6470,5 +6470,14 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbShowAdvancedSettings", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Not checked: pick an IP lookup service in Settings (Show advanced settings) to see it.
+        /// </summary>
+        public static string TipDiagExitIpOff {
+            get {
+                return ResourceManager.GetString("TipDiagExitIpOff", resourceCulture);
+            }
+        }
     }
 }

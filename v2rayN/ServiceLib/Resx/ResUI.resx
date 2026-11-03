@@ -2262,4 +2262,7 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbShowAdvancedSettings" xml:space="preserve">
     <value>Show advanced settings</value>
   </data>
+  <data name="TipDiagExitIpOff" xml:space="preserve">
+    <value>Not checked: pick an IP lookup service in Settings (Show advanced settings) to see it.</value>
+  </data>
 </root>

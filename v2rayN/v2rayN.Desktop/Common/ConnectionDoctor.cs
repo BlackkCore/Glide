@@ -88,6 +88,19 @@ public static class ConnectionDoctor
         {
             return reachable == false ? ResUI.TipDiagServerDown : ResUI.TipDiagNoTraffic;
         }
+
+        // 6. The address sites see, with its country. Only with the IP lookup service the user chose
+        // in Settings (off by default): a lookup contacts that third-party site.
+        if (AppManager.Instance.Config.SpeedTestItem.IPAPIUrl.IsNullOrEmpty())
+        {
+            report(new(ResUI.TbExitIp, Outcome.Skipped, ResUI.TipDiagExitIpOff));
+        }
+        else
+        {
+            var exit = await ConnectionHandler.GetIPInfo(new WebProxy($"socks5://{Global.Loopback}:{localPort}"), token);
+            report(new(ResUI.TbExitIp, exit != null ? Outcome.Ok : Outcome.Failed,
+                exit != null ? $"‎{exit}‎" : string.Empty));
+        }
         return dns ? ResUI.TipDiagAllGood : ResUI.TipDiagDnsDown;
     }
 

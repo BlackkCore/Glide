@@ -2256,4 +2256,7 @@
   <data name="TbShowAdvancedSettings" xml:space="preserve">
     <value>نمایش تنظیمات پیشرفته</value>
   </data>
+  <data name="TipDiagExitIpOff" xml:space="preserve">
+    <value>بررسی نشد: برای دیدن آن، در تنظیمات (نمایش تنظیمات پیشرفته) یک سرویس بررسی IP انتخاب کنید.</value>
+  </data>
 </root>

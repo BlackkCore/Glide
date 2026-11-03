@@ -2133,4 +2133,13 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipSubInfo" xml:space="preserve">
     <value>Reported by your subscription provider at the last update.</value>
   </data>
+  <data name="TbListView" xml:space="preserve">
+    <value>List view</value>
+  </data>
+  <data name="TbTableView" xml:space="preserve">
+    <value>Table view</value>
+  </data>
+  <data name="TbMoreActions" xml:space="preserve">
+    <value>More actions</value>
+  </data>
 </root>

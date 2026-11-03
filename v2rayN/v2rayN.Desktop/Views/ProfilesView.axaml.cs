@@ -192,9 +192,102 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         });
 
         RestoreUI();
+        btnToggleView.Click += (_, _) =>
+        {
+            var list = !_listView;
+            ApplyViewMode(list, saveTableLayout: true);
+            try
+            {
+                if (list)
+                {
+                    File.Delete(TableViewMarker);
+                }
+                else
+                {
+                    File.WriteAllText(TableViewMarker, "");
+                }
+            }
+            catch
+            {
+                // Only a preference: if it can't be saved the default view comes back next time.
+            }
+        };
+        ApplyViewMode(!File.Exists(TableViewMarker), saveTableLayout: false);
     }
 
     private bool _emptyStateHooked;
+
+    #region List view
+
+    // The list view is the default; the old table stays one click away as the advanced view.
+    private static string TableViewMarker => Utils.GetConfigPath("glide-table-view");
+
+    private bool _listView;
+
+    // The list view's column is the only one without a Tag (Tags name the table's saved columns).
+    private DataGridColumn? ListColumn => lstProfiles.Columns.FirstOrDefault(c => c.Tag == null);
+
+    private void ApplyViewMode(bool list, bool saveTableLayout)
+    {
+        // Keep the table's widths and hidden columns before its columns are hidden. Not at startup:
+        // nothing is measured yet, so every width would be saved as 0.
+        if (list && !_listView && saveTableLayout)
+        {
+            StorageUI();
+        }
+        _listView = list;
+
+        var listColumn = ListColumn;
+        foreach (var column in lstProfiles.Columns)
+        {
+            column.IsVisible = column == listColumn ? list : !list;
+        }
+        if (listColumn != null)
+        {
+            listColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+        }
+        if (!list)
+        {
+            // Hides what the user had hidden (and the statistics columns when those are off).
+            RestoreUI();
+        }
+
+        lstProfiles.FrozenColumnCount = list ? 0 : 2;
+        lstProfiles.Classes.Set("list", list);
+        btnAutofitColumnWidth.IsVisible = !list;
+        colChooser.IsVisible = !list;
+        if (this.TryFindResource(list ? "IconViewTable" : "IconViewList", out var icon) && icon is Geometry geometry)
+        {
+            icoToggleView.Data = geometry;
+        }
+        ToolTip.SetTip(btnToggleView, list ? ResUI.TbTableView : ResUI.TbListView);
+    }
+
+    // The row's ⋯ button opens the same menu as a right-click, for that server.
+    private void BtnRowMenu_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not Control { DataContext: ProfileItemModel item } button)
+        {
+            return;
+        }
+        try
+        {
+            if (lstProfiles.SelectedItems?.Contains(item) != true)
+            {
+                lstProfiles.SelectedItem = item;
+            }
+            // A ContextMenu only opens on the control it belongs to; it appears at the pointer,
+            // which is on this button.
+            lstProfiles.ContextMenu?.Open(lstProfiles);
+        }
+        catch (Exception ex)
+        {
+            // An exception here would reach the dispatcher and close the app.
+            Logging.SaveLog(_tag, ex);
+        }
+    }
+
+    #endregion List view
 
     private void UpdateSubInfo()
     {
@@ -552,6 +645,11 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
 
     private void StorageUI()
     {
+        // In the list view the table's columns are all hidden; keep the layout saved before that.
+        if (_listView)
+        {
+            return;
+        }
         try
         {
             List<ColumnItem> lvColumnItem = [];

@@ -1297,7 +1297,7 @@
     <value>فیلتر هسته</value>
   </data>
   <data name="TipActiveServer" xml:space="preserve">
-    <value>فعال سازی</value>
+    <value>فعال</value>
   </data>
   <data name="TbSettingsGeoFilesSource" xml:space="preserve">
     <value>منبع فایل های جغرافیایی (اختیاری)</value>
@@ -2126,5 +2126,14 @@
   </data>
   <data name="TipSubInfo" xml:space="preserve">
     <value>گزارش ارائه‌دهنده‌ی اشتراک در آخرین به‌روزرسانی.</value>
+  </data>
+  <data name="TbListView" xml:space="preserve">
+    <value>نمای فهرست</value>
+  </data>
+  <data name="TbTableView" xml:space="preserve">
+    <value>نمای جدول</value>
+  </data>
+  <data name="TbMoreActions" xml:space="preserve">
+    <value>کارهای بیشتر</value>
   </data>
 </root>

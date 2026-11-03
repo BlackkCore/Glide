@@ -6083,5 +6083,32 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipSubInfo", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   List view
+        /// </summary>
+        public static string TbListView {
+            get {
+                return ResourceManager.GetString("TbListView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Table view
+        /// </summary>
+        public static string TbTableView {
+            get {
+                return ResourceManager.GetString("TbTableView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   More actions
+        /// </summary>
+        public static string TbMoreActions {
+            get {
+                return ResourceManager.GetString("TbMoreActions", resourceCulture);
+            }
+        }
     }
 }

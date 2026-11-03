@@ -18,6 +18,7 @@
         <conv:DelayColorConverter x:Key="DelayColorConverter" />
         <conv:DelayTextConverter x:Key="DelayTextConverter" />
         <conv:CountryConverter x:Key="CountryConverter" />
+        <conv:ServerLineConverter x:Key="ServerLineConverter" />
 
         <ControlTheme x:Key="{x:Type DataGridColumnChooser}" TargetType="DataGridColumnChooser">
             <Setter Property="ItemTemplate">
@@ -136,13 +137,20 @@
                         <PathIcon Data="{StaticResource building_ping}" />
                     </Button>
                     <Border Classes="toolbarSep" />
+                    <!--  List / table view switch; the icon shows the view it switches to.  -->
+                    <Button x:Name="btnToggleView" Classes="IconButton">
+                        <PathIcon x:Name="icoToggleView" Data="{StaticResource IconViewTable}" />
+                    </Button>
                     <Button
                         x:Name="btnAutofitColumnWidth"
                         Classes="IconButton"
                         ToolTip.Tip="{x:Static resx:ResUI.menuProfileAutofitColumnWidth}">
                         <PathIcon Data="{StaticResource SemiIconExpand}" />
                     </Button>
-                    <DataGridColumnChooser DataGrid="{Binding ElementName=lstProfiles}" ToolTip.Tip="{x:Static resx:ResUI.menuColumns}">
+                    <DataGridColumnChooser
+                        x:Name="colChooser"
+                        DataGrid="{Binding ElementName=lstProfiles}"
+                        ToolTip.Tip="{x:Static resx:ResUI.menuColumns}">
                         <DataGridColumnChooser.Header>
                             <PathIcon Data="{StaticResource SemiIconSetting}" />
                         </DataGridColumnChooser.Header>
@@ -507,6 +515,72 @@
                     Header="{x:Static resx:ResUI.LvTotalDownloadDataAmount}"
                     IsReadOnly="True"
                     Tag="TotalDown" />
+
+                <!--  List view: everything about a server in one row. No Tag, so the table's saved layout ignores it.  -->
+                <DataGridTemplateColumn
+                    Width="*"
+                    CanUserReorder="False"
+                    CanUserResize="False"
+                    CanUserSort="False"
+                    IsVisible="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto">
+                                <Border
+                                    Classes="activeBar"
+                                    IsVisible="{Binding IsActive}" />
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="14,0,10,0"
+                                    Classes="country"
+                                    IsVisible="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=has}">
+                                    <TextBlock Text="{Binding Remarks, Converter={StaticResource CountryConverter}}" />
+                                </Border>
+                                <StackPanel
+                                    Grid.Column="2"
+                                    Margin="14,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Spacing="2">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <TextBlock
+                                            MaxWidth="520"
+                                            FontSize="{DynamicResource AppFontBody}"
+                                            FontWeight="Bold"
+                                            Text="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=text}"
+                                            ToolTip.Tip="{Binding Remarks}" />
+                                        <Border Classes="badge solid round" IsVisible="{Binding IsActive}">
+                                            <TextBlock Text="{x:Static resx:ResUI.TipActiveServer}" />
+                                        </Border>
+                                    </StackPanel>
+                                    <TextBlock Classes="serverLine" Text="{Binding Converter={StaticResource ServerLineConverter}}" />
+                                </StackPanel>
+                                <Border
+                                    Grid.Column="3"
+                                    Margin="10,0"
+                                    Classes="delayPill"
+                                    IsVisible="{Binding Path=DelayVal, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <Ellipse Classes="delayDot" Fill="{Binding DelayVal, Converter={StaticResource DelayColorConverter}}" />
+                                        <TextBlock
+                                            FontFeatures="+tnum"
+                                            FontSize="{DynamicResource AppFontSmall}"
+                                            FontWeight="SemiBold"
+                                            Text="{Binding Path=DelayVal, Mode=OneWay, Converter={StaticResource DelayTextConverter}}" />
+                                    </StackPanel>
+                                </Border>
+                                <Button
+                                    Grid.Column="4"
+                                    Margin="0,0,8,0"
+                                    VerticalAlignment="Center"
+                                    Classes="IconButton"
+                                    Click="BtnRowMenu_Click"
+                                    ToolTip.Tip="{x:Static resx:ResUI.TbMoreActions}">
+                                    <PathIcon Data="{StaticResource SemiIconMore}" />
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 

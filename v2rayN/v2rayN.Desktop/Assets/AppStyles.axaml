@@ -556,6 +556,27 @@
         <Setter Property="Height" Value="7" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
+    <!--  List view: one taller row per server, no column headers  -->
+    <Style Selector="DataGrid.servers.list">
+        <Setter Property="RowHeight" Value="58" />
+        <Setter Property="HeadersVisibility" Value="None" />
+    </Style>
+    <Style Selector="Border.activeBar">
+        <Setter Property="Width" Value="3" />
+        <Setter Property="Margin" Value="0,10" />
+        <Setter Property="CornerRadius" Value="2" />
+        <Setter Property="Background" Value="{DynamicResource AppAccentBrush}" />
+    </Style>
+    <Style Selector="Border.delayPill">
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="Padding" Value="9,3" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+    </Style>
+    <Style Selector="TextBlock.serverLine">
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
 
     <!--  ===== Log pane =====  -->
     <Style Selector="Border.logPanel">

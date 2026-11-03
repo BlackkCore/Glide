@@ -153,7 +153,8 @@ public partial class CheckUpdateViewModel : MyReactiveObject
 
             if (item.IsGeoFile || item.CoreType == null)
             {
-                await UpdateView(item.CoreType, ResUI.menuCheckOnly + $" ({ResUI.MsgNotSupport})");
+                // Geo files carry no version number, so there is nothing to compare; "Check update" downloads them.
+                await UpdateView(item.CoreType, ResUI.TipGeoCheckOnly);
                 continue;
             }
 
@@ -167,7 +168,7 @@ public partial class CheckUpdateViewModel : MyReactiveObject
             var result = await updateService.CheckHasUpdateOnly(item.CoreType.Value, item.IsCheckPreRelease, EnableUpdateViaProxy);
             if (result.Success && result.Version != null)
             {
-                await UpdateView(item.CoreType, string.Format(ResUI.MsgCheckUpdateHasNewVersion, item.CoreType, result.Version));
+                await UpdateView(item.CoreType, string.Format(ResUI.MsgCheckUpdateHasNewVersion, Global.CoreDisplayName(item.CoreType.Value), result.Version));
             }
             else
             {

@@ -15,7 +15,7 @@ The same engine you already trust (Xray, sing-box and mihomo), with an interface
 
 [![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?logo=github&label=Release&color=3157E6)](https://github.com/BlackkCore/Glide/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?logo=github&label=Downloads&color=3157E6)](https://github.com/BlackkCore/Glide/releases)
-[![Windows 10/11 x64](https://img.shields.io/badge/Windows-10%20%7C%2011%20x64-0078D6?logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
+[![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue)](LICENSE)
 
 [**⬇ Download for Windows**](https://github.com/BlackkCore/Glide/releases/latest)
@@ -63,12 +63,12 @@ v2rayN is powerful, but its window shows you everything at once. Glide keeps eve
 
 ## Get started
 
-1. Download **`v2rayN-windows-64-desktop.zip`** from the [latest release](https://github.com/BlackkCore/Glide/releases/latest). The Xray, sing-box and mihomo cores are included.
+1. Download **`Glide-windows-x64.zip`** from the [latest release](https://github.com/BlackkCore/Glide/releases/latest), or **`Glide-windows-x86.zip`** for 32-bit Windows. The Xray, sing-box and mihomo cores are included.
 2. Extract it to a folder you can write to, for example `C:\Glide`. Avoid `Program Files`.
 3. If the original v2rayN is running, exit it first (right-click its tray icon → *Exit*).
-4. Run **`v2rayN.exe`**. Accept the import offer, or add servers from the *Configuration* menu: paste a share link, scan a QR code, or add a subscription.
+4. Run **`Glide.exe`**. Accept the import offer, or add servers from the *Configuration* menu: paste a share link, scan a QR code, or add a subscription.
 
-**Requirements:** Windows 10 or 11, 64-bit.
+**Requirements:** Windows 10 or 11, 64-bit or 32-bit.
 
 > [!TIP]
 > Glide and the original v2rayN can stay installed side by side, but don't run both at once. They use the same local port and would fight over the Windows proxy setting.
@@ -89,11 +89,11 @@ D62D C3BC D066 5F52 5BB6  7206 E862 9FD9 AF46 1E53
 ```
 
 ```bash
-gpg --import v2rayN-public-key.asc
-gpg --verify v2rayN-windows-64-desktop.zip.sig v2rayN-windows-64-desktop.zip
+gpg --import Glide-public-key.asc
+gpg --verify Glide-windows-x64.zip.sig Glide-windows-x64.zip
 ```
 
-`v2rayN-public-key.asc` is attached to every release. The output should say *Good signature from "BlackkCore Releases"*.
+`Glide-public-key.asc` is attached to every release. The output should say *Good signature from "BlackkCore Releases"*.
 
 ## Build from source
 
@@ -103,7 +103,7 @@ cd Glide/v2rayN/v2rayN.Desktop
 dotnet publish -c Release -r win-x64 --self-contained true -o ../../out
 ```
 
-You need the [.NET 10 SDK](https://dotnet.microsoft.com/download). Put a `bin` folder with the cores next to `v2rayN.exe`, or let *Check update* download them.
+You need the [.NET 10 SDK](https://dotnet.microsoft.com/download). Put a `bin` folder with the cores next to `Glide.exe`, or let *Check update* download them.
 
 ## Credits and license
 

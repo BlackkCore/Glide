@@ -5660,5 +5660,14 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbThemeSystem", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   No version number to compare. Press Check update to download the latest.
+        /// </summary>
+        public static string TipGeoCheckOnly {
+            get {
+                return ResourceManager.GetString("TipGeoCheckOnly", resourceCulture);
+            }
+        }
     }
 }

@@ -1983,4 +1983,7 @@
   <data name="TbThemeSystem" xml:space="preserve">
     <value>سیستم</value>
   </data>
+  <data name="TipGeoCheckOnly" xml:space="preserve">
+    <value>شماره نسخه‌ای برای مقایسه ندارد. «بررسی به‌روزرسانی» را بزنید تا آخرین نسخه دانلود شود.</value>
+  </data>
 </root>

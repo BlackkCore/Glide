@@ -10,6 +10,9 @@ public class Global
     /// </summary>
     public const string AppDisplayName = "Glide";
 
+    /// <summary>Name shown for an updatable component: the app itself is "Glide", cores keep their own names.</summary>
+    public static string CoreDisplayName(ECoreType coreType) => coreType == ECoreType.v2rayN ? AppDisplayName : coreType.ToString();
+
     /// <summary>
     /// GitHub repository ("owner/name") whose releases this build updates itself from.
     /// Empty turns the app's self-update off (core and geo-file updates still work), so it can
@@ -101,7 +104,8 @@ public class Global
     public const int MinFontSize = 8;
     public const int MinFontSizeCount = 13;
     public const string RebootAs = "rebootas";
-    public const string AvaAssets = "avares://v2rayN/Assets/";
+    // Avalonia resource paths start with the app's assembly name, which is Glide.
+    public const string AvaAssets = "avares://Glide/Assets/";
     public const string LocalAppData = "V2RAYN_LOCAL_APPLICATION_DATA_V2";
     public const string V2RayLocalAsset = "V2RAY_LOCATION_ASSET";
     public const string XrayLocalAsset = "XRAY_LOCATION_ASSET";

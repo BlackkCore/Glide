@@ -108,15 +108,9 @@ public sealed class CoreInfoManager
                     CoreType = ECoreType.v2rayN,
                     Url = GetCoreUrl(ECoreType.v2rayN),
                     ReleaseApiUrl = urlN.Replace(Global.GithubUrl, Global.GithubApiUrl),
-                    // This build is the Avalonia app; upstream's release workflow names that zip "-desktop".
-                    DownloadUrlWin64 = urlN + "/download/{0}/v2rayN-windows-64-desktop.zip",
-                    DownloadUrlWinArm64 = urlN + "/download/{0}/v2rayN-windows-arm64-desktop.zip",
-                    DownloadUrlLinux64 = urlN + "/download/{0}/v2rayN-linux-64.zip",
-                    DownloadUrlLinuxArm64 = urlN + "/download/{0}/v2rayN-linux-arm64.zip",
-                    DownloadUrlLinuxRiscV64 = urlN + "/download/{0}/v2rayN-linux-riscv64.zip",
-                    DownloadUrlLinuxLoong64 = urlN + "/download/{0}/v2rayN-linux-loong64.zip",
-                    DownloadUrlOSX64 = urlN + "/download/{0}/v2rayN-macos-64.zip",
-                    DownloadUrlOSXArm64 = urlN + "/download/{0}/v2rayN-macos-arm64.zip",
+                    // Glide ships for 64-bit and 32-bit Windows only.
+                    DownloadUrlWin64 = urlN + "/download/{0}/Glide-windows-x64.zip",
+                    DownloadUrlWin86 = urlN + "/download/{0}/Glide-windows-x86.zip",
                 },
 
                 new CoreInfo
@@ -156,6 +150,7 @@ public sealed class CoreInfoManager
                     ReleaseApiUrl = urlXray.Replace(Global.GithubUrl, Global.GithubApiUrl),
                     DownloadUrlWin64 = urlXray + "/download/{0}/Xray-windows-64.zip",
                     DownloadUrlWinArm64 = urlXray + "/download/{0}/Xray-windows-arm64-v8a.zip",
+                    DownloadUrlWin86 = urlXray + "/download/{0}/Xray-windows-32.zip",
                     DownloadUrlLinux64 = urlXray + "/download/{0}/Xray-linux-64.zip",
                     DownloadUrlLinuxArm64 = urlXray + "/download/{0}/Xray-linux-arm64-v8a.zip",
                     DownloadUrlLinuxRiscV64 = urlXray + "/download/{0}/Xray-linux-riscv64.zip",
@@ -180,6 +175,7 @@ public sealed class CoreInfoManager
                     ReleaseApiUrl = urlMihomo.Replace(Global.GithubUrl, Global.GithubApiUrl),
                     DownloadUrlWin64 = urlMihomo + "/download/{0}/mihomo-windows-amd64-v1-{0}.zip",
                     DownloadUrlWinArm64 = urlMihomo + "/download/{0}/mihomo-windows-arm64-{0}.zip",
+                    DownloadUrlWin86 = urlMihomo + "/download/{0}/mihomo-windows-386-{0}.zip",
                     DownloadUrlLinux64 = urlMihomo + "/download/{0}/mihomo-linux-amd64-v1-{0}.gz",
                     DownloadUrlLinuxArm64 = urlMihomo + "/download/{0}/mihomo-linux-arm64-{0}.gz",
                     DownloadUrlLinuxRiscV64 = urlMihomo + "/download/{0}/mihomo-linux-riscv64-{0}.gz",
@@ -224,6 +220,7 @@ public sealed class CoreInfoManager
                     ReleaseApiUrl = urlSingbox.Replace(Global.GithubUrl, Global.GithubApiUrl),
                     DownloadUrlWin64 = urlSingbox + "/download/{0}/sing-box-{1}-windows-amd64.zip",
                     DownloadUrlWinArm64 = urlSingbox + "/download/{0}/sing-box-{1}-windows-arm64.zip",
+                    DownloadUrlWin86 = urlSingbox + "/download/{0}/sing-box-{1}-windows-386.zip",
                     DownloadUrlLinux64 = urlSingbox + "/download/{0}/sing-box-{1}-linux-amd64.tar.gz",
                     DownloadUrlLinuxArm64 = urlSingbox + "/download/{0}/sing-box-{1}-linux-arm64.tar.gz",
                     DownloadUrlLinuxRiscV64 = urlSingbox + "/download/{0}/sing-box-{1}-linux-riscv64.tar.gz",
@@ -313,6 +310,7 @@ public sealed class CoreInfoManager
             names.Add("mihomo-windows-amd64-compatible");
             names.Add("mihomo-windows-amd64");
             names.Add("mihomo-windows-arm64");
+            names.Add("mihomo-windows-386");
         }
         else if (Utils.IsLinux())
         {

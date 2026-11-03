@@ -97,7 +97,7 @@
                                     Grid.Column="2"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Text="{Binding CoreTypeForStorage}" />
+                                    Text="{Binding DisplayName}" />
                                 <TextBlock
                                     Grid.Column="3"
                                     HorizontalAlignment="Left"

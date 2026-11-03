@@ -19,7 +19,7 @@
 
 [![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?logo=github&label=Release&color=3157E6)](https://github.com/BlackkCore/Glide/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?logo=github&label=Downloads&color=3157E6)](https://github.com/BlackkCore/Glide/releases)
-[![Windows 10/11 x64](https://img.shields.io/badge/Windows-10%20%7C%2011%20x64-0078D6?logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
+[![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue)](LICENSE)
 
 [**⬇ دانلود برای ویندوز**](https://github.com/BlackkCore/Glide/releases/latest)
@@ -73,12 +73,12 @@ v2rayN امکانات زیادی دارد، اما پیدا کردن گزینه�
 
 ## شروع کار
 
-۱. فایل **`v2rayN-windows-64-desktop.zip`** را از [صفحهٔ آخرین نسخه](https://github.com/BlackkCore/Glide/releases/latest) دانلود کنید. هسته‌های Xray، sing-box و mihomo در این بسته قرار دارند.<br>
+۱. فایل **`Glide-windows-x64.zip`** (یا برای ویندوز ۳۲ بیتی **`Glide-windows-x86.zip`**) را از [صفحهٔ آخرین نسخه](https://github.com/BlackkCore/Glide/releases/latest) دانلود کنید. هسته‌های Xray، sing-box و mihomo در این بسته قرار دارند.<br>
 ۲. فایل را در پوشه‌ای مثل `C:\Glide` از حالت فشرده خارج کنید. برنامه باید بتواند اطلاعاتش را در این پوشه ذخیره کند؛ به همین دلیل، از پوشهٔ `Program Files` استفاده نکنید.<br>
 ۳. اگر v2rayN در حال اجراست، ابتدا آن را ببندید. برای خروج کامل، روی آیکون برنامه کنار ساعت ویندوز راست‌کلیک کنید و گزینهٔ *خروج* را بزنید.<br>
-۴. فایل **`v2rayN.exe`** را اجرا کنید. می‌توانید پیشنهاد انتقال اطلاعات از v2rayN را بپذیرید یا از منوی *سرورها*، با وارد کردن لینک، اسکن کد QR یا افزودن اشتراک، سرورهای خود را اضافه کنید.
+۴. فایل **`Glide.exe`** را اجرا کنید. می‌توانید پیشنهاد انتقال اطلاعات از v2rayN را بپذیرید یا از منوی *سرورها*، با وارد کردن لینک، اسکن کد QR یا افزودن اشتراک، سرورهای خود را اضافه کنید.
 
-**سیستم موردنیاز:** ویندوز ۱۰ یا ۱۱، نسخهٔ ۶۴ بیتی.
+**سیستم موردنیاز:** ویندوز ۱۰ یا ۱۱، نسخهٔ ۶۴ یا ۳۲ بیتی.
 
 > [!TIP]
 > می‌توانید Glide و نسخهٔ اصلی v2rayN را در پوشه‌های جداگانه نگه دارید، اما آن‌ها را هم‌زمان اجرا نکنید. هر دو از یک پورت محلی استفاده می‌کنند و تنظیمات پروکسی ویندوز را تغییر می‌دهند؛ بنابراین اجرای هم‌زمانشان باعث تداخل می‌شود.
@@ -102,13 +102,13 @@ D62D C3BC D066 5F52 5BB6  7206 E862 9FD9 AF46 1E53
 
 <div dir="rtl">
 
-فایل کلید عمومی با نام `v2rayN-public-key.asc` به هر انتشار پیوست شده است. پس از دانلود کلید، فایل برنامه و امضای آن، دستورهای زیر را اجرا کنید:
+فایل کلید عمومی با نام `Glide-public-key.asc` به هر انتشار پیوست شده است. پس از دانلود کلید، فایل برنامه و امضای آن، دستورهای زیر را اجرا کنید:
 
 </div>
 
 ```bash
-gpg --import v2rayN-public-key.asc
-gpg --verify v2rayN-windows-64-desktop.zip.sig v2rayN-windows-64-desktop.zip
+gpg --import Glide-public-key.asc
+gpg --verify Glide-windows-x64.zip.sig Glide-windows-x64.zip
 ```
 
 <div dir="rtl">
@@ -129,7 +129,7 @@ dotnet publish -c Release -r win-x64 --self-contained true -o ../../out
 
 <div dir="rtl">
 
-برای اجرای نسخهٔ ساخته‌شده، پوشهٔ `bin` حاوی هسته‌ها را کنار فایل `v2rayN.exe` قرار دهید. همچنین می‌توانید از بخش *بررسی به‌روزرسانی* برای دانلود هسته‌ها استفاده کنید.
+برای اجرای نسخهٔ ساخته‌شده، پوشهٔ `bin` حاوی هسته‌ها را کنار فایل `Glide.exe` قرار دهید. همچنین می‌توانید از بخش *بررسی به‌روزرسانی* برای دانلود هسته‌ها استفاده کنید.
 
 ## قدردانی و مجوز
 

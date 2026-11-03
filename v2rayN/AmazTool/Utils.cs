@@ -46,7 +46,8 @@ internal class Utils
             : StringComparison.Ordinal;
     }
 
-    public static string V2rayN => "v2rayN";
+    // The app is shipped as Glide.exe; this is the process the updater closes and restarts.
+    public static string V2rayN => "Glide";
 
     public static void StartV2RayN()
     {

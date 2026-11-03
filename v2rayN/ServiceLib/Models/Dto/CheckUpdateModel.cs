@@ -11,4 +11,5 @@ public partial class CheckUpdateModel : ReactiveObject
     public bool? IsFinished { get; set; }
     public bool IsGeoFile { get; set; }
     public string CoreTypeForStorage => IsGeoFile ? "GeoFiles" : (CoreType?.ToString() ?? "");
+    public string DisplayName => IsGeoFile ? "GeoFiles" : (CoreType is { } coreType ? Global.CoreDisplayName(coreType) : "");
 }

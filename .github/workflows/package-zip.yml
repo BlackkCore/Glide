@@ -1,22 +1,18 @@
 name: package and release Zip
 
+# Packs each build with its proxy cores into Glide-windows-<arch>.zip.
+# Everything sits in a top-level "Glide" folder: the in-app updater strips that first folder.
+
 on:
   workflow_call:
     inputs:
       release_tag:
         required: true
         type: string
-      target: # windows linux macos windows-desktop
-        required: true
-        type: string
-      isAot:
-        required: false
-        type: boolean
-        default: false
-      arches: # JSON list of architectures to package
+      arches: # JSON list: x64 and/or x86
         required: false
         type: string
-        default: '["x64", "arm64"]'
+        default: '["x64", "x86"]'
     secrets:
       GPG_PRIVATE_KEY:
         required: true
@@ -33,80 +29,63 @@ jobs:
         arch: ${{ fromJSON(inputs.arches) }}
     runs-on: ubuntu-latest
     env:
-      Target: |- 
-        ${{
-          case(
-            inputs.target == 'windows-desktop', 'windows',
-            inputs.target
-          )
-        }}
-      Arch: |-
-        ${{
-          case(
-            matrix.arch == 'x64', '64',
-            matrix.arch
-          ) 
-        }}
+      GH_TOKEN: ${{ github.token }}
+      PACKAGE_DIR: Glide
+      ZIP_NAME: Glide-windows-${{ matrix.arch }}.zip
     steps:
-    - name: Checkout
-      uses: actions/checkout@v7
-
-    - name: Set package variables
-      id: package-vars
-      shell: bash
-      env:
-        INPUT_TARGET: ${{ inputs.target }}
-        INPUT_IS_AOT: ${{ inputs.isAot }}
-      run: |
-        set -euo pipefail
-        package_dir="v2rayN-${Target}-${Arch}"
-        package_file="${package_dir}.zip"
-        build_artifact_name="${{ matrix.arch }}"
-        rename_suffix=""
-        if [[ "$INPUT_IS_AOT" == "true" ]]; then
-          build_artifact_name="${build_artifact_name}-aot"
-          rename_suffix="-aot"
-        fi
-        if [[ "$INPUT_TARGET" == "windows-desktop" ]]; then
-          rename_suffix="-desktop${rename_suffix}"
-        fi
-        final_package_file="${package_dir}${rename_suffix}.zip"
-
-        {
-          echo "build_artifact_name=${build_artifact_name}"
-          echo "package_dir=${package_dir}"
-          echo "package_file=${package_file}"
-          echo "final_package_file=${final_package_file}"
-          echo "rename_suffix=${rename_suffix}"
-        } >> "$GITHUB_OUTPUT"
-
     - name: Restore build artifacts
       uses: actions/download-artifact@v8
       with:
-        name: ${{ steps.package-vars.outputs.build_artifact_name }}
-        path: ${{ steps.package-vars.outputs.package_dir }}
+        name: ${{ matrix.arch }}
+        path: Glide
 
-    - name: Get v2rayN-core-bin
+    - name: Add rule files and 64-bit cores
+      shell: bash
       run: |
-        wget -nv -O "${{ steps.package-vars.outputs.package_file }}" "https://github.com/2dust/v2rayN-core-bin/raw/refs/heads/master/v2rayN-$Target-$Arch.zip"
+        set -euo pipefail
+        # 2dust's bundle: cores, geo files and sing-box rule sets for 64-bit Windows.
+        wget -nv -O cores.zip "https://github.com/2dust/v2rayN-core-bin/raw/refs/heads/master/v2rayN-windows-64.zip"
+        mkdir -p cores && unzip -q cores.zip -d cores
+        cp -r cores/v2rayN-windows-64/. "$PACKAGE_DIR/"
+
+    - name: Swap in 32-bit cores
+      if: matrix.arch == 'x86'
+      shell: bash
+      run: |
+        set -euo pipefail
+        bin="$PACKAGE_DIR/bin"
+        rm -rf "$bin/xray" "$bin/sing_box" "$bin/mihomo"
+        mkdir -p "$bin/xray" "$bin/sing_box" x86
+
+        gh release download -R XTLS/Xray-core -p 'Xray-windows-32.zip' -D x86
+        unzip -q x86/Xray-windows-32.zip -d x86/xray
+        cp x86/xray/*.exe "$bin/xray/"
+
+        gh release download -R SagerNet/sing-box -p 'sing-box-*-windows-386.zip' -D x86
+        unzip -q x86/sing-box-*-windows-386.zip -d x86/sing-box
+        find x86/sing-box -name 'sing-box.exe' -exec cp {} "$bin/sing_box/" \;
+        find x86/sing-box -name 'libcronet*.dll' -exec cp {} "$bin/sing_box/" \;
+
+        # mihomo is optional: if there is no 32-bit build, x86 ships with Xray and sing-box only.
+        if gh release download -R MetaCubeX/mihomo -p 'mihomo-windows-386-v*.zip' -D x86; then
+          mkdir -p "$bin/mihomo"
+          unzip -q x86/mihomo-windows-386-v*.zip -d x86/mihomo
+          find x86/mihomo -name '*.exe' -exec cp {} "$bin/mihomo/" \;
+        else
+          echo "No 32-bit mihomo release found; skipping it."
+        fi
+
+        ls -R "$bin" | head -60
 
     - name: Package zip archive
       shell: bash
-      run: |
-        7z a -tZip "${{ steps.package-vars.outputs.package_file }}" "${{ steps.package-vars.outputs.package_dir }}" -mx1
-
-    - name: Rename package archive
-      if: steps.package-vars.outputs.rename_suffix != ''
-      shell: bash
-      run: |
-        mv "${{ steps.package-vars.outputs.package_file }}" \
-          "${{ steps.package-vars.outputs.package_dir }}${{ steps.package-vars.outputs.rename_suffix }}.zip"
+      run: 7z a -tZip "$ZIP_NAME" "$PACKAGE_DIR" -mx1
 
     - name: Upload zip artifact
       uses: actions/upload-artifact@v7
       with:
-        name: release-${{ inputs.target }}-${{ matrix.arch }}${{ inputs.isAot && '-aot' || '' }}
-        path: ${{ steps.package-vars.outputs.final_package_file }}
+        name: release-windows-${{ matrix.arch }}
+        path: ${{ env.ZIP_NAME }}
         if-no-files-found: error
 
   release:
@@ -118,7 +97,7 @@ jobs:
     uses: ./.github/workflows/upload-sign.yml
     with:
       release_tag: ${{ inputs.release_tag }}
-      artifact_name: release-${{ inputs.target }}-${{ matrix.arch }}${{ inputs.isAot && '-aot' || '' }}
+      artifact_name: release-windows-${{ matrix.arch }}
       file_pattern: '*.zip'
     secrets:
       GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}

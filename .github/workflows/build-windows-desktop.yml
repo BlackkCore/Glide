@@ -1,13 +1,13 @@
-name: release Windows desktop x64
+name: release Glide for Windows
 
-# The only release this fork publishes: the redesigned Avalonia app for 64-bit Windows.
-# Run it from the Actions tab with a release tag (e.g. 7.25.8) to build, sign and publish.
+# Builds Glide for 64-bit (x64) and 32-bit (x86) Windows.
+# Run it from the Actions tab with a release tag (e.g. 1.0.1) to build, sign and publish.
 
 on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'Release tag, e.g. 7.25.8 (empty = build only)'
+        description: 'Release tag, e.g. 1.0.1 (empty = build only)'
         required: false
         type: string
   push:
@@ -25,8 +25,7 @@ jobs:
   build:
     uses: ./.github/workflows/build.yml
     with:
-      target: windows
-      arches: '["x64"]'
+      arches: '["x64", "x86"]'
 
   public-key:
     if: inputs.release_tag != ''
@@ -41,7 +40,6 @@ jobs:
     needs: build
     uses: ./.github/workflows/package-zip.yml
     with:
-      target: windows-desktop
       release_tag: ${{ inputs.release_tag }}
-      arches: '["x64"]'
+      arches: '["x64", "x86"]'
     secrets: inherit

@@ -1989,4 +1989,7 @@ Import its servers, subscriptions and settings? Glide will restart, and your cur
   <data name="TbThemeSystem" xml:space="preserve">
     <value>System</value>
   </data>
+  <data name="TipGeoCheckOnly" xml:space="preserve">
+    <value>No version number to compare. Press Check update to download the latest.</value>
+  </data>
 </root>

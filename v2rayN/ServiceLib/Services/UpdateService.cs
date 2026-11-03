@@ -125,7 +125,7 @@ public partial class UpdateService(Config config, Func<bool, string, Task> updat
             var result = await CheckHasUpdateOnly(type, preRelease, blProxy, cancellationToken);
             if (result.Success && result.Version != null)
             {
-                var msg = string.Format(ResUI.MsgCheckUpdateHasNewVersion, type, result.Version);
+                var msg = string.Format(ResUI.MsgCheckUpdateHasNewVersion, Global.CoreDisplayName(type), result.Version);
                 msgs.Add(msg);
                 AppManager.Instance.SetLastCheckUpdateResult(type, msg);
             }
@@ -292,7 +292,7 @@ public partial class UpdateService(Config config, Func<bool, string, Task> updat
                 case ECoreType.v2rayN:
                     {
                         curVersion = new SemanticVersion(Utils.GetVersionInfo());
-                        message = string.Format(ResUI.IsLatestN, type, curVersion.ToStandardVersionString("v"));
+                        message = string.Format(ResUI.IsLatestN, Global.AppDisplayName, curVersion.ToStandardVersionString("v"));
                         url = string.Format(coreUrl, version);
                         break;
                     }
@@ -324,24 +324,11 @@ public partial class UpdateService(Config config, Func<bool, string, Task> updat
             {
                 Architecture.Arm64 => coreInfo?.DownloadUrlWinArm64,
                 Architecture.X64 => coreInfo?.DownloadUrlWin64,
+                Architecture.X86 => coreInfo?.DownloadUrlWin86,
                 _ => null,
             };
 
-            if (coreInfo?.CoreType != ECoreType.v2rayN)
-            {
-                return url;
-            }
-
-            //Check for avalonia desktop windows version
-            if (File.Exists(Path.Combine(Utils.GetBaseDirectory(), "libHarfBuzzSharp.dll")))
-            {
-                url = url?.Replace(".zip", "-desktop.zip");
-            }
-
-#if V2RAYN_IS_AOT
-            url = url?.Replace(".zip", "-aot.zip");
-#endif
-
+            // Glide's own download links already name the exact zip.
             return url;
         }
         else if (Utils.IsLinux())

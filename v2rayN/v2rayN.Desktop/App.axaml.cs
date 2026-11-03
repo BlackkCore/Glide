@@ -13,7 +13,7 @@ public partial class App : Application
         // window exists, so nothing has to be re-templated.
         if (AppMotion.Enabled)
         {
-            Styles.Add(new Avalonia.Markup.Xaml.Styling.StyleInclude(new Uri("avares://v2rayN/")) { Source = new Uri("avares://v2rayN/Assets/AppMotion.axaml") });
+            Styles.Add(new Avalonia.Markup.Xaml.Styling.StyleInclude(new Uri("avares://Glide/")) { Source = new Uri("avares://Glide/Assets/AppMotion.axaml") });
         }
 
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;

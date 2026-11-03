@@ -2322,4 +2322,16 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipSparklineMoment" xml:space="preserve">
     <value>{0} s ago · peak in the last minute {1}</value>
   </data>
+  <data name="TbSendToPhone" xml:space="preserve">
+    <value>Send to phone (QR code)</value>
+  </data>
+  <data name="TbSendSubToPhone" xml:space="preserve">
+    <value>Send subscription to phone (QR code)</value>
+  </data>
+  <data name="TbQuickSwitcherHint" xml:space="preserve">
+    <value>Type a server name or an action (Ctrl+K)</value>
+  </data>
+  <data name="TbQuickAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
 </root>

@@ -345,6 +345,10 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
                 case Key.S:
                     await ScanScreenTaskAsync();
                     break;
+
+                case Key.K:
+                    await ShowQuickSwitcherAsync();
+                    break;
             }
         }
         else
@@ -578,6 +582,38 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         DialogHost.Show(_checkUpdateView);
 
         AppEvents.HasUpdateNotified.Publish(false);
+    }
+
+    private QuickSwitcherSheet? _quickSwitcher;
+    private DiagnoseSheet? _diagnoseFromSwitcher;
+
+    // Ctrl+K: servers and the everyday actions, by typing a few letters.
+    private async Task ShowQuickSwitcherAsync()
+    {
+        if (ViewModel is not { } vm || DialogHost.IsDialogOpen(null))
+        {
+            return;
+        }
+        static Task Run(System.Windows.Input.ICommand command)
+        {
+            command.Execute(null);
+            return Task.CompletedTask;
+        }
+        var action = ResUI.TbQuickAction;
+        var actions = new List<QuickSwitcherSheet.Entry>
+        {
+            new(ResUI.TbConnect, action, () => Run(vm.StatusBarViewModel.SystemProxySetCmd)),
+            new(ResUI.TbDisconnect, action, () => Run(vm.StatusBarViewModel.SystemProxyClearCmd)),
+            new(ResUI.TbAddServer, action, () => { ShowAddServerSheet(); return Task.CompletedTask; }),
+            new(ResUI.TbDiagnose, action, () => { DiagnoseSheet.Open(ref _diagnoseFromSwitcher); return Task.CompletedTask; }),
+            new(ResUI.menuSetting, action, () => Run(vm.OptionSettingCmd)),
+            new(ResUI.menuRoutingSetting, action, () => Run(vm.RoutingSettingCmd)),
+            new(ResUI.menuSubSetting, action, () => Run(vm.SubSettingCmd)),
+            new(ResUI.menuCheckUpdate, action, () => { MenuCheckUpdate_Click(null, new RoutedEventArgs()); return Task.CompletedTask; }),
+        };
+        _quickSwitcher ??= new QuickSwitcherSheet();
+        await _quickSwitcher.ShowAsync(vm, actions);
+        DialogHost.Show(_quickSwitcher);
     }
 
     private void ShowAddServerSheet()

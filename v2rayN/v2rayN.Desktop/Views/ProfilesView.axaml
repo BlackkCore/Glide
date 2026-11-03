@@ -232,6 +232,8 @@
                         <MenuItem x:Name="menuSubEdit" Header="{x:Static resx:ResUI.menuSubEdit}" />
                         <MenuItem x:Name="menuSubAdd" Header="{x:Static resx:ResUI.menuSubAdd}" />
                         <MenuItem x:Name="menuSubDelete" Header="{x:Static resx:ResUI.menuSubDelete}" />
+                        <Separator />
+                        <MenuItem x:Name="menuSubSendToPhone" Header="{x:Static resx:ResUI.TbSendSubToPhone}" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>
@@ -357,7 +359,7 @@
                     <Separator />
                     <MenuItem
                         x:Name="menuShareServer"
-                        Header="{x:Static resx:ResUI.menuShareServer}"
+                        Header="{x:Static resx:ResUI.TbSendToPhone}"
                         InputGesture="Ctrl+F" />
                     <MenuItem Header="{x:Static resx:ResUI.menuExportConfig}">
                         <MenuItem x:Name="menuExport2ClientConfig" Header="{x:Static resx:ResUI.menuExport2ClientConfig}" />

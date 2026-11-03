@@ -2322,4 +2322,16 @@
   <data name="TipSparklineMoment" xml:space="preserve">
     <value>{0} ثانیه پیش · بیشترین سرعت در یک دقیقه‌ی اخیر {1}</value>
   </data>
+  <data name="TbSendToPhone" xml:space="preserve">
+    <value>ارسال به گوشی (کد QR)</value>
+  </data>
+  <data name="TbSendSubToPhone" xml:space="preserve">
+    <value>ارسال اشتراک به گوشی (کد QR)</value>
+  </data>
+  <data name="TbQuickSwitcherHint" xml:space="preserve">
+    <value>نام سرور یا یک فرمان را تایپ کنید (Ctrl+K)</value>
+  </data>
+  <data name="TbQuickAction" xml:space="preserve">
+    <value>فرمان</value>
+  </data>
 </root>

@@ -588,6 +588,8 @@ public partial class ProfilesViewModel : MyReactiveObject
 
         if (await ConfigHandler.SetDefaultServerIndex(_config, indexId) == 0)
         {
+            // Glide: remembered for the tray and the quick switcher.
+            RecentStore.Add(indexId);
             await RefreshServers();
             Reload();
         }

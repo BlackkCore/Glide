@@ -33,6 +33,18 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         btnEmptyPaste.Click += (_, _) => AppEvents.AddServerViaClipboardRequested.Publish();
         btnAddServer.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
         btnAutoFastest.Click += async (_, _) => await UseAutoFastestAsync();
+        // The whole subscription as a QR code, for v2rayNG / Hiddify on the phone.
+        menuSubSendToPhone.Click += async (_, _) =>
+        {
+            try
+            {
+                await ShareServer(ViewModel?.SelectedSub?.Url ?? string.Empty);
+            }
+            catch (Exception ex)
+            {
+                Logging.SaveLog(_tag, ex);
+            }
+        };
         menuFavorite.Click += (_, _) => ToggleFavorites(lstProfiles.SelectedItems?.OfType<ProfileItemModel>().ToList() ?? []);
         lstProfiles.KeyDown += LstProfiles_KeyDown;
         lstProfiles.SelectionChanged += lstProfiles_SelectionChanged;

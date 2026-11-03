@@ -90,6 +90,7 @@ public partial class App : Application
             // Upstream leaves Servers empty when the list is too long for the tray, so starring and
             // startup rebuild it too: favourites show either way.
             FavoriteStore.Changed += () => Dispatcher.UIThread.Post(async () => await RebuildTrayServersAsync(viewModel));
+            RecentStore.Changed += () => Dispatcher.UIThread.Post(async () => await RebuildTrayServersAsync(viewModel));
             Dispatcher.UIThread.Post(async () => await RebuildTrayServersAsync(viewModel));
             viewModel.WhenAnyValue(v => v.SelectedServer)
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
@@ -111,27 +112,41 @@ public partial class App : Application
             }
             var activeId = AppManager.Instance.Config.IndexId;
             var listed = viewModel.Servers.Where(s => s.ID.IsNotEmpty()).ToList();
-            var favourites = new List<ComboItem>();
-            foreach (var id in FavoriteStore.All())
+            async Task<List<ComboItem>> Resolve(IEnumerable<string> ids)
             {
-                var item = listed.FirstOrDefault(s => s.ID == id);
-                if (item == null && await AppManager.Instance.GetProfileItem(id) is { } profile)
+                var items = new List<ComboItem>();
+                foreach (var id in ids)
                 {
-                    item = new ComboItem { ID = profile.IndexId, Text = profile.GetSummary() };
+                    var item = listed.FirstOrDefault(s => s.ID == id);
+                    if (item == null && await AppManager.Instance.GetProfileItem(id) is { } profile)
+                    {
+                        item = new ComboItem { ID = profile.IndexId, Text = profile.GetSummary() };
+                    }
+                    if (item != null)
+                    {
+                        items.Add(item);
+                    }
                 }
-                if (item != null)
-                {
-                    favourites.Add(item);
-                }
+                return items;
             }
-            var others = listed.Where(s => favourites.All(f => f.ID != s.ID)).ToList();
+            var favourites = await Resolve(FavoriteStore.All());
+            var recent = await Resolve(RecentStore.All().Where(id => favourites.All(f => f.ID != id)));
+            var others = listed.Where(s => favourites.All(f => f.ID != s.ID) && recent.All(r => r.ID != s.ID)).ToList();
 
             submenu.Items.Clear();
             foreach (var item in favourites)
             {
                 submenu.Items.Add(TrayServerItem(viewModel, item, "★ ", activeId));
             }
-            if (favourites.Count > 0 && others.Count > 0)
+            if (favourites.Count > 0 && recent.Count > 0)
+            {
+                submenu.Items.Add(new NativeMenuItemSeparator());
+            }
+            foreach (var item in recent)
+            {
+                submenu.Items.Add(TrayServerItem(viewModel, item, "↻ ", activeId));
+            }
+            if (favourites.Count + recent.Count > 0 && others.Count > 0)
             {
                 submenu.Items.Add(new NativeMenuItemSeparator());
             }

@@ -6650,5 +6650,41 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipSparklineMoment", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Send to phone (QR code)
+        /// </summary>
+        public static string TbSendToPhone {
+            get {
+                return ResourceManager.GetString("TbSendToPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Send subscription to phone (QR code)
+        /// </summary>
+        public static string TbSendSubToPhone {
+            get {
+                return ResourceManager.GetString("TbSendSubToPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Type a server name or an action (Ctrl+K)
+        /// </summary>
+        public static string TbQuickSwitcherHint {
+            get {
+                return ResourceManager.GetString("TbQuickSwitcherHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Action
+        /// </summary>
+        public static string TbQuickAction {
+            get {
+                return ResourceManager.GetString("TbQuickAction", resourceCulture);
+            }
+        }
     }
 }

@@ -5,6 +5,12 @@ public class Global
     public const string AppName = "v2rayN";
 
     /// <summary>
+    /// Name shown to users (title bar, tray, dialogs). AppName stays "v2rayN" because it is part of
+    /// the User-Agent, backup folder and file names that subscriptions, updates and installs rely on.
+    /// </summary>
+    public const string AppDisplayName = "Glide";
+
+    /// <summary>
     /// GitHub repository ("owner/name") whose releases this build updates itself from.
     /// Empty turns the app's self-update off (core and geo-file updates still work), so it can
     /// never replace this build with the upstream v2rayN release.

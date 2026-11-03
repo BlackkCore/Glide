@@ -22,6 +22,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
 
         spRunningServer.Tapped += TxtRunningServerDisplay_Tapped;
         btnPower.Click += BtnPower_Click;
+        _sessionTimer.Tick += (_, _) => UpdateSessionTime();
 
         this.WhenActivated(disposables =>
         {
@@ -138,6 +139,35 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
             (int)ESysProxyType.Unchanged => "System proxy unchanged",
             _ => "Proxy off",
         };
+
+        // While the proxy is on, the pill also shows for how long; the timer only runs in that state.
+        _powerStateLabel = txtPowerState.Text;
+        if (isOn && !_sessionTimer.IsEnabled)
+        {
+            _sessionStart = DateTime.Now;
+            _sessionTimer.Start();
+        }
+        else if (!isOn)
+        {
+            _sessionTimer.Stop();
+        }
+        UpdateSessionTime();
+    }
+
+    private readonly DispatcherTimer _sessionTimer = new() { Interval = TimeSpan.FromSeconds(1) };
+    private DateTime _sessionStart;
+    private string _powerStateLabel = string.Empty;
+
+    private void UpdateSessionTime()
+    {
+        if (!_sessionTimer.IsEnabled)
+        {
+            txtPowerState.Text = _powerStateLabel;
+            return;
+        }
+        var elapsed = DateTime.Now - _sessionStart;
+        var time = elapsed.TotalHours >= 1 ? elapsed.ToString(@"h\:mm\:ss") : elapsed.ToString(@"m\:ss");
+        txtPowerState.Text = $"{_powerStateLabel} · {time}";
     }
 
     private void UpdateRunningServer(string? summary)

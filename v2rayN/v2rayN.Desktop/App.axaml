@@ -40,7 +40,7 @@
             <TrayIcon
                 Command="{Binding NotifyLeftClickCmd}"
                 Icon="/Assets/NotifyIcon1.ico"
-                ToolTipText="{Binding RunningServerToolTipText, FallbackValue={x:Static service:Global.AppName}}">
+                ToolTipText="{Binding RunningServerToolTipText, FallbackValue={x:Static service:Global.AppDisplayName}}">
                 <TrayIcon.Menu>
                     <NativeMenu>
                         <NativeMenuItem

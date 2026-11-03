@@ -5525,5 +5525,32 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbNotNow", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   No servers yet
+        /// </summary>
+        public static string TipNoServersTitle {
+            get {
+                return ResourceManager.GetString("TipNoServersTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Paste a share link you copied, or add a subscription from your provider to get started.
+        /// </summary>
+        public static string TipNoServersBody {
+            get {
+                return ResourceManager.GetString("TipNoServersBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add subscription
+        /// </summary>
+        public static string TbAddSubscription {
+            get {
+                return ResourceManager.GetString("TbAddSubscription", resourceCulture);
+            }
+        }
     }
 }

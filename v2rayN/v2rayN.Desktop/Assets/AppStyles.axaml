@@ -511,4 +511,52 @@
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
+
+    <!--  ===== Motion =====  -->
+    <Style Selector="Border.card">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.28" Easing="CubicEaseOut" />
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.36" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <!--  The main window starts with this class and drops it once shown, so the cards glide in.  -->
+    <Style Selector=":is(Control).entering Border.card">
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="RenderTransform" Value="translateY(12px)" />
+    </Style>
+    <Style Selector="Border.pill">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.2" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!--  ===== Surfaces app-wide =====  -->
+    <Style Selector="ToolTip">
+        <Setter Property="Background" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+    <Style Selector="TextBox, ComboBox, AutoCompleteBox">
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+    <Style Selector="ContextMenu">
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="6" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+    </Style>
+    <Style Selector="ContextMenu MenuItem, MenuFlyoutPresenter MenuItem">
+        <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="NotificationCard">
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+    </Style>
 </Styles>

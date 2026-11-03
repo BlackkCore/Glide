@@ -721,7 +721,7 @@
     <value>Включить мультиплексирование Mux</value>
   </data>
   <data name="TbSettingsN" xml:space="preserve">
-    <value>Настройки v2rayN</value>
+    <value>Настройки Glide</value>
   </data>
   <data name="TbSettingsPass" xml:space="preserve">
     <value>Пароль авторизации</value>
@@ -1906,7 +1906,7 @@
     <value>Добавить сервер [MASQUE]</value>
   </data>
   <data name="TipRestartRequired" xml:space="preserve">
-    <value>Изменение вступит в силу после перезапуска v2rayN. Перезапустить сейчас?</value>
+    <value>Изменение вступит в силу после перезапуска Glide. Перезапустить сейчас?</value>
   </data>
   <data name="TbRestartNow" xml:space="preserve">
     <value>Перезапустить</value>

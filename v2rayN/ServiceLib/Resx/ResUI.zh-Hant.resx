@@ -721,7 +721,7 @@
     <value>開啟 Mux 多路復用</value>
   </data>
   <data name="TbSettingsN" xml:space="preserve">
-    <value>v2rayN 設定</value>
+    <value>Glide 設定</value>
   </data>
   <data name="TbSettingsPass" xml:space="preserve">
     <value>認證密碼</value>
@@ -1904,7 +1904,7 @@
     <value>行程</value>
   </data>
   <data name="TipRestartRequired" xml:space="preserve">
-    <value>此變更需要重新啟動 v2rayN 後生效。是否立即重新啟動？</value>
+    <value>此變更需要重新啟動 Glide 後生效。是否立即重新啟動？</value>
   </data>
   <data name="TbRestartNow" xml:space="preserve">
     <value>立即重新啟動</value>

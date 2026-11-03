@@ -39,6 +39,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         UpdateThemeToggle();
 
         txtVersion.Text = $"v{Utils.GetVersionInfo()}";
+        Opened += (_, _) => DispatcherTimer.RunOnce(() => gridContent.Classes.Remove("entering"), TimeSpan.FromMilliseconds(60));
         SizeChanged += (_, e) => UpdateResponsiveLayout(e.NewSize.Width);
 
         this.WhenActivated(disposables =>

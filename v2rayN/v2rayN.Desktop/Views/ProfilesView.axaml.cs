@@ -19,6 +19,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         menuSelectAll.Click += menuSelectAll_Click;
         btnAutofitColumnWidth.Click += BtnAutofitColumnWidth_Click;
         txtServerFilter.KeyDown += TxtServerFilter_KeyDown;
+        btnEmptyPaste.Click += (_, _) => AppEvents.AddServerViaClipboardRequested.Publish();
         lstProfiles.KeyDown += LstProfiles_KeyDown;
         lstProfiles.SelectionChanged += lstProfiles_SelectionChanged;
         lstProfiles.DoubleTapped += LstProfiles_DoubleTapped;
@@ -43,6 +44,19 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             this.Bind(ViewModel, vm => vm.SelectedSub, v => v.lstGroup.SelectedItem).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ServerFilter, v => v.txtServerFilter.Text).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.btnAddSub).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.btnEmptyAddSub).DisposeWith(disposables);
+
+            // Empty list with no filter typed: show the first-run card instead of a blank table.
+            // This view and its view model live as long as the app, so the handler is added once.
+            if (!_emptyStateHooked)
+            {
+                _emptyStateHooked = true;
+                ViewModel.ProfileItems.CollectionChanged += (_, _) => Dispatcher.UIThread.Post(UpdateEmptyState);
+            }
+            this.WhenAnyValue(v => v.ViewModel.ServerFilter)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Subscribe(_ => UpdateEmptyState())
+                .DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.EditSubCmd, v => v.btnEditSub).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.EditSubCmd, v => v.menuSubEdit).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.menuSubAdd).DisposeWith(disposables);
@@ -171,6 +185,16 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         });
 
         RestoreUI();
+    }
+
+    private bool _emptyStateHooked;
+
+    private void UpdateEmptyState()
+    {
+        if (ViewModel is { } vm)
+        {
+            spEmptyServers.IsVisible = vm.ProfileItems.Count == 0 && vm.ServerFilter.IsNullOrEmpty();
+        }
     }
 
     private async void LstProfiles_Sorting(object? sender, DataGridColumnEventArgs e)

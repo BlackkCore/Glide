@@ -718,7 +718,7 @@
     <value>فعال کردن Mux Multiplexing</value>
   </data>
   <data name="TbSettingsN" xml:space="preserve">
-    <value>تنظیمات v2rayN</value>
+    <value>تنظیمات Glide</value>
   </data>
   <data name="TbSettingsPass" xml:space="preserve">
     <value>مجوز احراز هویت</value>
@@ -1774,7 +1774,7 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
     <value>New Update</value>
   </data>
   <data name="TipRestartRequired" xml:space="preserve">
-    <value>این تغییر پس از راه‌اندازی مجدد v2rayN اعمال می‌شود. همین حالا راه‌اندازی مجدد شود؟</value>
+    <value>این تغییر پس از راه‌اندازی مجدد Glide اعمال می‌شود. همین حالا راه‌اندازی مجدد شود؟</value>
   </data>
   <data name="TbRestartNow" xml:space="preserve">
     <value>راه‌اندازی مجدد</value>
@@ -1802,5 +1802,14 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   </data>
   <data name="TbNotNow" xml:space="preserve">
     <value>فعلاً نه</value>
+  </data>
+  <data name="TipNoServersTitle" xml:space="preserve">
+    <value>ÙÙÙØ² Ø³Ø±ÙØ±Û ÙØ¯Ø§Ø±ÛØ¯</value>
+  </data>
+  <data name="TipNoServersBody" xml:space="preserve">
+    <value>Ø¨Ø±Ø§Û Ø´Ø±ÙØ¹Ø ÙÛÙÚ© Ø§Ø´ØªØ±Ø§Ú©‌Ú¯Ø°Ø§Ø±Û Ú©Ù¾Û‌Ø´Ø¯Ù Ø±Ø§ ÙØ§Ø±Ø¯ Ú©ÙÛØ¯ ÛØ§ Ø§Ø´ØªØ±Ø§Ú© Ø§Ø±Ø§Ø¦Ù‌Ø¯ÙÙØ¯Ù‌ØªØ§Ù Ø±Ø§ Ø§Ø¶Ø§ÙÙ Ú©ÙÛØ¯.</value>
+  </data>
+  <data name="TbAddSubscription" xml:space="preserve">
+    <value>Ø§ÙØ²ÙØ¯Ù Ø§Ø´ØªØ±Ø§Ú©</value>
   </data>
 </root>

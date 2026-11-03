@@ -721,7 +721,7 @@
     <value>Turn on Mux Multiplexing</value>
   </data>
   <data name="TbSettingsN" xml:space="preserve">
-    <value>v2rayN settings</value>
+    <value>Glide settings</value>
   </data>
   <data name="TbSettingsPass" xml:space="preserve">
     <value>Auth pass</value>
@@ -1843,7 +1843,7 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
     <value>Root Certificate Provider</value>
   </data>
   <data name="TbRootCertificateProviderTip" xml:space="preserve">
-    <value>Only applies to the v2rayN GUI's downloads and network requests. Does not affect the core's certificate validation.</value>
+    <value>Only applies to Glide's own downloads and network requests. Does not affect the core's certificate validation.</value>
   </data>
   <data name="TbProxyDialResolveStrategy" xml:space="preserve">
     <value>Proxy Dial Resolution Strategy</value>
@@ -1915,7 +1915,7 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
     <value>Pre-resolve server domains</value>
   </data>
   <data name="TipRestartRequired" xml:space="preserve">
-    <value>This change takes effect after v2rayN restarts. Restart now?</value>
+    <value>This change takes effect after Glide restarts. Restart now?</value>
   </data>
   <data name="TbRestartNow" xml:space="preserve">
     <value>Restart now</value>
@@ -1930,7 +1930,7 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
     <value>Found v2rayN at:
 {0}
 
-Import its servers, subscriptions and settings? v2rayN will restart, and your current settings are backed up first. For the newest data, exit the original v2rayN first.</value>
+Import its servers, subscriptions and settings? Glide will restart, and your current settings are backed up first. For the newest data, exit the original v2rayN first.</value>
   </data>
   <data name="TipImportNotFound" xml:space="preserve">
     <value>Select the folder of your v2rayN (the one that contains v2rayN.exe)</value>
@@ -1943,5 +1943,14 @@ Import its servers, subscriptions and settings? v2rayN will restart, and your cu
   </data>
   <data name="TbNotNow" xml:space="preserve">
     <value>Not now</value>
+  </data>
+  <data name="TipNoServersTitle" xml:space="preserve">
+    <value>No servers yet</value>
+  </data>
+  <data name="TipNoServersBody" xml:space="preserve">
+    <value>Paste a share link you copied, or add a subscription from your provider to get started.</value>
+  </data>
+  <data name="TbAddSubscription" xml:space="preserve">
+    <value>Add subscription</value>
   </data>
 </root>

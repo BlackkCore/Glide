@@ -1,8 +1,11 @@
 <div align="center">
 
-# v2rayN Redesign
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/brand/glide-logo-dark.png">
+  <img alt="Glide" src="docs/brand/glide-logo-light.png" width="320">
+</picture>
 
-**The v2rayN you know, with a clean, modern interface.**
+**A redesigned v2rayN: the client you know, with a clean, modern interface.**
 Same engine (Xray, sing-box, mihomo), same configs and subscriptions, a much nicer app to live with.
 
 [![Release](https://img.shields.io/github/v/release/BlackkCore/v2rayN-Redesign?logo=github&label=Release&color=3157E6)](https://github.com/BlackkCore/v2rayN-Redesign/releases/latest)
@@ -17,7 +20,7 @@ Same engine (Xray, sing-box, mihomo), same configs and subscriptions, a much nic
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/main-dark.png">
-  <img alt="v2rayN Redesign main window" src="docs/screenshots/main-light.png" width="900">
+  <img alt="Glide main window" src="docs/screenshots/main-light.png" width="900">
 </picture>
 
 </div>
@@ -25,6 +28,12 @@ Same engine (Xray, sing-box, mihomo), same configs and subscriptions, a much nic
 ---
 
 ## Features
+
+**A first-run screen that helps you start**
+No servers yet? Glide shows how to paste a share link or add a subscription, right where the list will be.
+
+**See how long you have been connected**
+The status pill shows a live session timer while the proxy is on.
 
 **A connection screen you can read at a glance**
 One big power button turns the system proxy on and off. The current server, its protocol and live upload/download speeds sit right underneath.

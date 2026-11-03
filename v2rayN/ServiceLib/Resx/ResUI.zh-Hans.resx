@@ -721,7 +721,7 @@
     <value>开启 Mux 多路复用</value>
   </data>
   <data name="TbSettingsN" xml:space="preserve">
-    <value>v2rayN 设置</value>
+    <value>Glide 设置</value>
   </data>
   <data name="TbSettingsPass" xml:space="preserve">
     <value>认证密码</value>
@@ -1907,7 +1907,7 @@
     <value>预解析节点域名</value>
   </data>
   <data name="TipRestartRequired" xml:space="preserve">
-    <value>此更改需要重启 v2rayN 后生效。是否立即重启？</value>
+    <value>此更改需要重启 Glide 后生效。是否立即重启？</value>
   </data>
   <data name="TbRestartNow" xml:space="preserve">
     <value>立即重启</value>

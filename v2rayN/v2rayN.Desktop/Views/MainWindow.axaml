@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
-    Title="v2rayN"
+    Title="Glide"
     Width="1360"
     Height="820"
     MinWidth="960"
@@ -57,7 +57,7 @@
                                 FontWeight="ExtraBold"
                                 Foreground="{DynamicResource AppTextBrush}"
                                 LetterSpacing="-0.2"
-                                Text="v2rayN" />
+                                Text="Glide" />
                             <TextBlock
                                 x:Name="txtVersion"
                                 Classes="faint"
@@ -252,6 +252,7 @@
             <Grid
                 x:Name="gridContent"
                 Grid.Column="1"
+                Classes="entering"
                 Margin="24"
                 ColumnDefinitions="320,24,*">
 

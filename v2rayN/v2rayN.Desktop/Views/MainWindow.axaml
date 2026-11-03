@@ -331,6 +331,15 @@
                     </Grid>
                 </Grid>
             </Grid>
+
+            <!--  On Windows the app draws up to the top edge; this strip is the draggable title bar.  -->
+            <Border
+                x:Name="bdTitleBar"
+                Grid.ColumnSpan="2"
+                Height="40"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                IsVisible="False" />
         </Grid>
     </dialogHost:DialogHost>
 </Window>

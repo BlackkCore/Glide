@@ -529,6 +529,15 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
+    <!--  ===== Main window title bar (Windows) =====  -->
+    <!--  The window draws up to the top edge, with the brand in the sidebar: keep only minimize, maximize and close.  -->
+    <Style Selector="WindowDrawnDecorations /template/ Panel#PART_TitleTextPanel TextBlock">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="WindowDrawnDecorations /template/ Button#PART_FullScreenButton">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
     <!--  ===== Country chip in the server list =====  -->
     <Style Selector="Border.country">
         <Setter Property="MinWidth" Value="26" />

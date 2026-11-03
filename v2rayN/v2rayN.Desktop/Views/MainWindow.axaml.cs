@@ -38,6 +38,17 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         ActualThemeVariantChanged += (_, _) => UpdateThemeToggle();
         UpdateThemeToggle();
 
+        if (Utils.IsWindows())
+        {
+            // Windows 11 style: the sidebar and cards run up under the system caption buttons,
+            // and the empty strip along the top drags the window.
+            ExtendClientAreaToDecorationsHint = true;
+            ExtendClientAreaTitleBarHeightHint = bdTitleBar.Height;
+            bdTitleBar.IsVisible = true;
+            Avalonia.Controls.Chrome.WindowDecorationProperties.SetElementRole(bdTitleBar, WindowDecorationsElementRole.TitleBar);
+            _titleBarInset = 16;
+        }
+
         txtVersion.Text = $"v{Utils.GetVersionInfo()}";
         Opened += (_, _) => DispatcherTimer.RunOnce(() => gridContent.Classes.Remove("entering"), TimeSpan.FromMilliseconds(60));
         SizeChanged += (_, e) => UpdateResponsiveLayout(e.NewSize.Width);
@@ -341,6 +352,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     private bool? _isCompactLayout;
 
+    // Extra top space for the cards when the caption buttons sit over the content.
+    private double _titleBarInset;
+
     private void UpdateResponsiveLayout(double width)
     {
         // Narrow windows get an icon-only sidebar so the server list keeps its room.
@@ -355,7 +369,8 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         gridRoot.ColumnDefinitions[0].Width = new GridLength(compact ? 76 : 240);
         gridContent.ColumnDefinitions[0].Width = new GridLength(compact ? 300 : 320);
         gridContent.ColumnDefinitions[1].Width = new GridLength(compact ? 20 : 24);
-        gridContent.Margin = new Thickness(compact ? 20 : 24);
+        var gap = compact ? 20 : 24;
+        gridContent.Margin = new Thickness(gap, gap + _titleBarInset, gap, gap);
         DockPanel.SetDock(conTheme, compact ? Dock.Bottom : Dock.Right);
 
         foreach (var item in menuSidebar.Items.OfType<MenuItem>())

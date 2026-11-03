@@ -13,6 +13,10 @@ on:
         required: false
         type: boolean
         default: false
+      arches: # JSON list of architectures to package
+        required: false
+        type: string
+        default: '["x64", "arm64"]'
     secrets:
       GPG_PRIVATE_KEY:
         required: true
@@ -23,10 +27,10 @@ permissions:
 
 jobs:
   package:
-    name: package x64 arm64
+    name: package ${{ matrix.arch }}
     strategy:
       matrix:
-        arch: [ x64, arm64 ]
+        arch: ${{ fromJSON(inputs.arches) }}
     runs-on: ubuntu-latest
     env:
       Target: |- 
@@ -106,11 +110,11 @@ jobs:
         if-no-files-found: error
 
   release:
-    name: sign and upload zip x64 arm64
+    name: sign and upload zip ${{ matrix.arch }}
     needs: package
     strategy:
       matrix:
-        arch: [ x64, arm64 ]
+        arch: ${{ fromJSON(inputs.arches) }}
     uses: ./.github/workflows/upload-sign.yml
     with:
       release_tag: ${{ inputs.release_tag }}

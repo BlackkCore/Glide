@@ -1,14 +1,21 @@
-name: release Windows desktop (Avalonia UI)
+name: release Windows desktop x64
+
+# The only release this fork publishes: the redesigned Avalonia app for 64-bit Windows.
+# Run it from the Actions tab with a release tag (e.g. 7.25.8) to build, sign and publish.
 
 on:
   workflow_dispatch:
     inputs:
       release_tag:
+        description: 'Release tag, e.g. 7.25.8 (empty = build only)'
         required: false
         type: string
   push:
     branches:
       - master
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
 
 permissions:
   contents: write
@@ -19,6 +26,15 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       target: windows
+      arches: '["x64"]'
+
+  public-key:
+    if: inputs.release_tag != ''
+    uses: ./.github/workflows/pub-key.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
   release-zip:
     if: inputs.release_tag != ''
@@ -27,20 +43,5 @@ jobs:
     with:
       target: windows-desktop
       release_tag: ${{ inputs.release_tag }}
-    secrets: inherit
-
-  build-aot:
-    uses: ./.github/workflows/build.yml
-    with:
-      target: windows
-      isAot: true
-
-  release-aot-zip:
-    if: inputs.release_tag != ''
-    needs: build-aot
-    uses: ./.github/workflows/package-zip.yml
-    with:
-      target: windows-desktop
-      release_tag: ${{ inputs.release_tag }}
-      isAot: true
+      arches: '["x64"]'
     secrets: inherit

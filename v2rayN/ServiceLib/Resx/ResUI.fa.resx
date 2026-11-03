@@ -2265,4 +2265,7 @@
   <data name="TbWarp" xml:space="preserve">
     <value>Warp</value>
   </data>
+  <data name="TipNoServersMatch" xml:space="preserve">
+    <value>سروری با «{0}» پیدا نشد.</value>
+  </data>
 </root>

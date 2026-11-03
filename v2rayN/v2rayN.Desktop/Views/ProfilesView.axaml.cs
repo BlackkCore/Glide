@@ -425,6 +425,10 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
                 AppMotion.PlayEntrance(spEmptyServers, 14, 380);
             }
             spEmptyServers.IsVisible = show;
+            // A search with no results says so, instead of an empty list.
+            var noMatch = vm.ProfileItems.Count == 0 && vm.ServerFilter.IsNotEmpty();
+            txtNoServersMatch.Text = noMatch ? string.Format(ResUI.TipNoServersMatch, vm.ServerFilter) : string.Empty;
+            txtNoServersMatch.IsVisible = noMatch;
             // An empty table has nothing to scroll sideways to; hide the bar under the first-run card.
             lstProfiles.HorizontalScrollBarVisibility = show
                 ? Avalonia.Controls.Primitives.ScrollBarVisibility.Hidden

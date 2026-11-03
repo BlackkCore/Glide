@@ -6479,5 +6479,14 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipDiagExitIpOff", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   No servers match "{0}".
+        /// </summary>
+        public static string TipNoServersMatch {
+            get {
+                return ResourceManager.GetString("TipNoServersMatch", resourceCulture);
+            }
+        }
     }
 }

@@ -638,6 +638,17 @@
             </DataGrid.Columns>
         </DataGrid>
 
+            <!--  A search that found nothing  -->
+            <TextBlock
+                x:Name="txtNoServersMatch"
+                Margin="0,60,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Classes="muted"
+                FontSize="{DynamicResource AppFontBody}"
+                IsVisible="False"
+                TextWrapping="Wrap" />
+
             <!--  First run: nothing to list yet  -->
             <StackPanel
                 x:Name="spEmptyServers"

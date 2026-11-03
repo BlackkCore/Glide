@@ -2265,4 +2265,7 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipDiagExitIpOff" xml:space="preserve">
     <value>Not checked: pick an IP lookup service in Settings (Show advanced settings) to see it.</value>
   </data>
+  <data name="TipNoServersMatch" xml:space="preserve">
+    <value>No servers match "{0}".</value>
+  </data>
 </root>

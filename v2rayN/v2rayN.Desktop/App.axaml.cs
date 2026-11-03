@@ -17,6 +17,19 @@ public partial class App : Application
             Styles.Add(new Avalonia.Markup.Xaml.Styling.StyleInclude(new Uri("avares://Glide/")) { Source = new Uri("avares://Glide/Assets/AppMotion.axaml") });
         }
 
+        // Screen readers don't read tooltips: an icon-only button with just a tooltip had no name.
+        // Any control given a tooltip, and no accessible name of its own, takes the tooltip text, and
+        // follows it when the tooltip changes later (e.g. the list / table view switch).
+        ToolTip.TipProperty.Changed.AddClassHandler<Control>((control, e) =>
+        {
+            var name = Avalonia.Automation.AutomationProperties.GetName(control);
+            if (e.NewValue is string tip && tip.IsNotEmpty()
+                && (name.IsNullOrEmpty() || name == e.OldValue as string))
+            {
+                Avalonia.Automation.AutomationProperties.SetName(control, tip);
+            }
+        });
+
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
     }

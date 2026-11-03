@@ -2259,4 +2259,10 @@
   <data name="TipDiagExitIpOff" xml:space="preserve">
     <value>بررسی نشد: برای دیدن آن، در تنظیمات (نمایش تنظیمات پیشرفته) یک سرویس بررسی IP انتخاب کنید.</value>
   </data>
+  <data name="TbDNS" xml:space="preserve">
+    <value>DNS</value>
+  </data>
+  <data name="TbWarp" xml:space="preserve">
+    <value>Warp</value>
+  </data>
 </root>

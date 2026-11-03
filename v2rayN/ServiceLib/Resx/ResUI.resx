@@ -2277,4 +2277,10 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipAndMoreInLog" xml:space="preserve">
     <value>…and {0} more in the log</value>
   </data>
+  <data name="TbAutoBadge" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="TipValidatorHint" xml:space="preserve">
+    <value>These are notes about how your provider set up some servers. They usually still work; if one doesn't, ask the provider or pick another server.</value>
+  </data>
 </root>

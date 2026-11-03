@@ -14,9 +14,25 @@ public class ServerLineConverter : IValueConverter
         {
             return string.Empty;
         }
-        var parts = new[] { item.ConfigType.ToString(), item.Network, item.StreamSecurity, item.SubRemarks }
+        var parts = new[] { TypeName(item.ConfigType.ToString(), item.Remarks), item.Network, item.StreamSecurity, item.SubRemarks }
             .Where(p => p.IsNotEmpty());
         return string.Join("  ·  ", parts);
+    }
+
+    /// <summary>
+    /// The protocol label users see: "Auto" for Glide's Auto group, plain words for the other groups
+    /// ("PolicyGroup" -> "Policy Group"), the protocol name otherwise.
+    /// </summary>
+    public static string TypeName(string type, string? name)
+    {
+        return type switch
+        {
+            nameof(EConfigType.PolicyGroup) => name?.TrimStart().StartsWith(AutoServer.Prefix.Trim()) == true
+                ? ResUI.TbAutoBadge
+                : ResUI.TbConfigTypePolicyGroup,
+            nameof(EConfigType.ProxyChain) => ResUI.TbConfigTypeProxyChain,
+            _ => type,
+        };
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

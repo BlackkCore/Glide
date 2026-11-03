@@ -2277,4 +2277,10 @@
   <data name="TipAndMoreInLog" xml:space="preserve">
     <value>…و {0} مورد دیگر در بخش گزارش‌ها</value>
   </data>
+  <data name="TbAutoBadge" xml:space="preserve">
+    <value>خودکار</value>
+  </data>
+  <data name="TipValidatorHint" xml:space="preserve">
+    <value>این‌ها نکته‌هایی درباره‌ی تنظیمات برخی سرورها از طرف ارائه‌دهنده است. معمولاً همچنان کار می‌کنند؛ اگر سروری کار نکرد، از ارائه‌دهنده بپرسید یا سرور دیگری انتخاب کنید.</value>
+  </data>
 </root>

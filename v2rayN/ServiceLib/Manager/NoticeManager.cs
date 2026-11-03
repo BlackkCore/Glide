@@ -57,6 +57,11 @@ public class NoticeManager
         {
             SendMessage(msg);
         }
+        if (validatorResult.Warnings.Count > 0)
+        {
+            // What the warnings mean, in plain words, once after them.
+            SendMessage(ResUI.TipValidatorHint);
+        }
         Enqueue(SummarizeValidator(validatorResult.Errors, validatorResult.Warnings));
         return true;
     }

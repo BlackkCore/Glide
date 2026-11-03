@@ -323,7 +323,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         txtServerCountry.Text = country;
         name = CountryDetector.RemoveFlags(name);
         txtServerName.Text = name.IsNullOrEmpty() ? summary : name;
-        txtServerType.Text = match.Groups["type"].Value;
+        txtServerType.Text = Converters.ServerLineConverter.TypeName(match.Groups["type"].Value, match.Groups["name"].Value);
         bdServerType.IsVisible = true;
         txtServerAddress.Text = match.Groups["addr"].Value;
         UpdateMonitor();

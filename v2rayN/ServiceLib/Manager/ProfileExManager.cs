@@ -183,6 +183,12 @@ public class ProfileExManager
         return profileEx.Sort;
     }
 
+    /// <summary>Glide: the last measured delay in ms (0 or less when never tested or failed).</summary>
+    public int GetDelay(string indexId)
+    {
+        return _lstProfileEx.FirstOrDefault(t => t.IndexId == indexId)?.Delay ?? 0;
+    }
+
     public int GetMaxSort()
     {
         if (_lstProfileEx.Count <= 0)

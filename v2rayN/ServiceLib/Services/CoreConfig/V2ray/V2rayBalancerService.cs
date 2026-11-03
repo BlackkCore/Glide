@@ -109,8 +109,33 @@ public partial class CoreConfigV2rayService
                     : null,
             },
             tag = balancerTag,
+            fallbackTag = PickFallbackTag(selector),
         };
         _coreConfig.routing.balancers ??= [];
         _coreConfig.routing.balancers.Add(balancer);
+    }
+
+    // Glide: until the observatory has measured the servers, a balancer without a fallback drops
+    // connections ("balancing strategy returns empty tag"), so Auto failed for its first seconds.
+    // Start on the child that tested fastest last time (or the first one when none was tested).
+    private string? PickFallbackTag(string selector)
+    {
+        var prefix = $"{selector}-";
+        var candidates = _coreConfig.outbounds
+            .Select(o => o.tag)
+            .Where(t => t != null && t.StartsWith(prefix) && Regex.IsMatch(t[prefix.Length..], @"^\d+-"))
+            .Select(t => t!)
+            .ToList();
+        if (candidates.Count == 0)
+        {
+            return null;
+        }
+        var bestDelayByRemarks = context.AllProxiesMap.Values
+            .Where(p => p.Remarks != null)
+            .GroupBy(p => p.Remarks)
+            .ToDictionary(g => g.Key, g => g.Select(p => ProfileExManager.Instance.GetDelay(p.IndexId)).Where(d => d > 0).DefaultIfEmpty(int.MaxValue).Min());
+        return candidates
+            .OrderBy(t => bestDelayByRemarks.GetValueOrDefault(Regex.Replace(t[prefix.Length..], @"^\d+-", ""), int.MaxValue))
+            .First();
     }
 }

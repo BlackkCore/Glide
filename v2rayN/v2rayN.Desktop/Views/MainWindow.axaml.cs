@@ -219,8 +219,18 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             // No server yet: the connection card already says so and shows how to add one.
             return;
         }
+        // The engine announces the server as "[VLESS] name(host:port)" or "[PolicyGroup] [Xray]⚡ Auto":
+        // show "Active: name" instead of the technical summary.
+        var summary = ServerSummaryRegex.Match(content);
+        if (summary.Success && Enum.TryParse<EConfigType>(summary.Groups["type"].Value, out _))
+        {
+            content = $"{ResUI.TipActiveServer}: {summary.Groups["name"].Value.Trim()}";
+        }
         _manager?.Show(new Avalonia.Controls.Notifications.Notification(null, content, NotificationType.Information));
     }
+
+    private static readonly System.Text.RegularExpressions.Regex ServerSummaryRegex =
+        new(@"^\[(?<type>[A-Za-z0-9_]+)\]\s*(?:\[[^\]]+\])?\s*(?<name>[^\r\n]+?)(\([^()]*:\d+\))?$");
 
     private static bool TryGetRestartNoticeCulture(string content, out CultureInfo culture)
     {

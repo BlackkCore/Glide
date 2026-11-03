@@ -169,6 +169,9 @@ public class CoreConfigV2rayServiceTests
         await cfg.outbounds.Should().Contain(o => o.tag.StartsWith("proxy-2-", StringComparison.Ordinal));
         await cfg.routing.balancers.Should().NotBeNull();
         await cfg.routing.balancers!.Should().Contain(b => b.tag == Global.ProxyTag + Global.BalancerTagSuffix);
+        // Glide: a fallback so the first connections don't fail before the servers are measured
+        // (none measured here, so the first child).
+        await cfg.routing.balancers!.Should().Contain(b => b.fallbackTag == "proxy-1-node-1");
     }
 
     [Test]

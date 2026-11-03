@@ -6515,5 +6515,23 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipAndMoreInLog", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Auto
+        /// </summary>
+        public static string TbAutoBadge {
+            get {
+                return ResourceManager.GetString("TbAutoBadge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   These are notes about how your provider set up some servers. They usually still work; if one doesn't, ask the provider or pick another server.
+        /// </summary>
+        public static string TipValidatorHint {
+            get {
+                return ResourceManager.GetString("TipValidatorHint", resourceCulture);
+            }
+        }
     }
 }

@@ -8,13 +8,13 @@
 **A redesigned v2rayN: the client you know, with a clean, modern interface.**
 Same engine (Xray, sing-box, mihomo), same configs and subscriptions, a much nicer app to live with.
 
-[![Release](https://img.shields.io/github/v/release/BlackkCore/v2rayN-Redesign?logo=github&label=Release&color=3157E6)](https://github.com/BlackkCore/v2rayN-Redesign/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/BlackkCore/v2rayN-Redesign/total?logo=github&label=Downloads&color=3157E6)](https://github.com/BlackkCore/v2rayN-Redesign/releases)
-[![Windows x64](https://img.shields.io/badge/Windows-x64-0078D6?logo=windows)](https://github.com/BlackkCore/v2rayN-Redesign/releases/latest)
+[![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?logo=github&label=Release&color=3157E6)](https://github.com/BlackkCore/Glide/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?logo=github&label=Downloads&color=3157E6)](https://github.com/BlackkCore/Glide/releases)
+[![Windows x64](https://img.shields.io/badge/Windows-x64-0078D6?logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue)](LICENSE)
 [![GPG Signed](https://img.shields.io/badge/GPG-signed-4B32C3?logo=gnuprivacyguard)](#verify-your-download)
 
-[**Download for Windows**](https://github.com/BlackkCore/v2rayN-Redesign/releases/latest) · [Features](#features) · [Getting started](#getting-started) · [فارسی](#فارسی)
+[**Download for Windows**](https://github.com/BlackkCore/Glide/releases/latest) · [Features](#features) · [Getting started](#getting-started) · [فارسی](#فارسی)
 
 <br>
 
@@ -85,7 +85,7 @@ Persian dialogs are laid out right-to-left, and the new texts are translated int
 
 ## Getting started
 
-1. Download **`v2rayN-windows-64-desktop.zip`** from the [latest release](https://github.com/BlackkCore/v2rayN-Redesign/releases/latest). It already includes the Xray, sing-box and mihomo cores.
+1. Download **`v2rayN-windows-64-desktop.zip`** from the [latest release](https://github.com/BlackkCore/Glide/releases/latest). It already includes the Xray, sing-box and mihomo cores.
 2. Extract it to a folder you can write to, for example `C:\v2rayN`. Avoid `Program Files`.
 3. If you use the original v2rayN, exit it first (right-click its tray icon → Exit).
 4. Run **`v2rayN.exe`**. If it finds your old v2rayN it offers to import everything. Otherwise add servers from the *Configuration* menu: paste a share link, scan a QR code or add a subscription.
@@ -126,8 +126,8 @@ This project follows [2dust/v2rayN](https://github.com/2dust/v2rayN). New upstre
 ## Build from source
 
 ```bash
-git clone --recursive https://github.com/BlackkCore/v2rayN-Redesign.git
-cd v2rayN-Redesign/v2rayN/v2rayN.Desktop
+git clone --recursive https://github.com/BlackkCore/Glide.git
+cd Glide/v2rayN/v2rayN.Desktop
 dotnet publish -c Release -r win-x64 --self-contained true -o ../../out
 ```
 
@@ -142,7 +142,7 @@ Needs the [.NET 10 SDK](https://dotnet.microsoft.com/download). Copy a `bin` fol
 - UI: [Avalonia](https://avaloniaui.net/) with [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia). Font: [Manrope](https://github.com/sharanda/manrope), under the [SIL Open Font License](v2rayN/v2rayN.Desktop/Assets/Fonts/OFL.txt).
 - Licensed under [GPL-3.0](LICENSE), like the original.
 
-Found a bug or have an idea? [Open an issue](https://github.com/BlackkCore/v2rayN-Redesign/issues).
+Found a bug or have an idea? [Open an issue](https://github.com/BlackkCore/Glide/issues).
 
 ---
 
@@ -164,7 +164,7 @@ Found a bug or have an idea? [Open an issue](https://github.com/BlackkCore/v2ray
 
 ### شروع کار
 
-۱. فایل **`v2rayN-windows-64-desktop.zip`** را از [آخرین نسخه](https://github.com/BlackkCore/v2rayN-Redesign/releases/latest) دانلود کنید (هسته‌ها داخل آن هستند).<br>
+۱. فایل **`v2rayN-windows-64-desktop.zip`** را از [آخرین نسخه](https://github.com/BlackkCore/Glide/releases/latest) دانلود کنید (هسته‌ها داخل آن هستند).<br>
 ۲. آن را در پوشه‌ای مثل `C:\v2rayN` از حالت فشرده خارج کنید.<br>
 ۳. اگر v2rayN اصلی باز است، اول آن را ببندید (راست‌کلیک روی آیکون کنار ساعت ← خروج).<br>
 ۴. فایل **`v2rayN.exe`** را اجرا کنید و پیشنهاد انتقال تنظیمات را بپذیرید.

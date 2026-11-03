@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting! Please check you're on the [latest release](https://github.com/BlackkCore/v2rayN-Redesign/releases/latest) and that the server itself works.
+        Thanks for reporting! Please check you're on the [latest release](https://github.com/BlackkCore/Glide/releases/latest) and that the server itself works.
         Problems with the proxy cores themselves (Xray, sing-box, mihomo) usually belong upstream at [2dust/v2rayN](https://github.com/2dust/v2rayN/issues).
 
   - type: input

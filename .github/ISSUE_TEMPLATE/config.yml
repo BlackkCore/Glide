@@ -2,7 +2,7 @@ blank_issues_enabled: false
 
 contact_links:
   - name: Download the latest Glide
-    url: https://github.com/BlackkCore/v2rayN-Redesign/releases/latest
+    url: https://github.com/BlackkCore/Glide/releases/latest
     about: Most problems are already fixed in the newest release.
   - name: Core and protocol questions (upstream v2rayN)
     url: https://github.com/2dust/v2rayN/discussions

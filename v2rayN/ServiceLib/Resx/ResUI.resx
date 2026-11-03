@@ -2175,4 +2175,25 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbOtherWays" xml:space="preserve">
     <value>Other ways</value>
   </data>
+  <data name="TbUpdateAll" xml:space="preserve">
+    <value>Update all</value>
+  </data>
+  <data name="TbCheckForUpdates" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="TbUpdateKindApp" xml:space="preserve">
+    <value>The app itself</value>
+  </data>
+  <data name="TbUpdateKindEngine" xml:space="preserve">
+    <value>Proxy engine</value>
+  </data>
+  <data name="TbUpdateKindRules" xml:space="preserve">
+    <value>Rule files</value>
+  </data>
+  <data name="TipUpdateKindRules" xml:space="preserve">
+    <value>Country and site lists used by routing</value>
+  </data>
+  <data name="TipIncludeInUpdateAll" xml:space="preserve">
+    <value>Include in Update all</value>
+  </data>
 </root>

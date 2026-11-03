@@ -2169,4 +2169,25 @@
   <data name="TbOtherWays" xml:space="preserve">
     <value>روش‌های دیگر</value>
   </data>
+  <data name="TbUpdateAll" xml:space="preserve">
+    <value>به‌روزرسانی همه</value>
+  </data>
+  <data name="TbCheckForUpdates" xml:space="preserve">
+    <value>بررسی به‌روزرسانی</value>
+  </data>
+  <data name="TbUpdateKindApp" xml:space="preserve">
+    <value>خود برنامه</value>
+  </data>
+  <data name="TbUpdateKindEngine" xml:space="preserve">
+    <value>موتور پراکسی</value>
+  </data>
+  <data name="TbUpdateKindRules" xml:space="preserve">
+    <value>فایل‌های قوانین</value>
+  </data>
+  <data name="TipUpdateKindRules" xml:space="preserve">
+    <value>فهرست کشورها و سایت‌ها که مسیریابی از آن‌ها استفاده می‌کند</value>
+  </data>
+  <data name="TipIncludeInUpdateAll" xml:space="preserve">
+    <value>در «به‌روزرسانی همه» گنجانده شود</value>
+  </data>
 </root>

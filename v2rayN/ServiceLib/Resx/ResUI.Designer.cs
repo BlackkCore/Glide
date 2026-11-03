@@ -6209,5 +6209,68 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbOtherWays", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Update all
+        /// </summary>
+        public static string TbUpdateAll {
+            get {
+                return ResourceManager.GetString("TbUpdateAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Check for updates
+        /// </summary>
+        public static string TbCheckForUpdates {
+            get {
+                return ResourceManager.GetString("TbCheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The app itself
+        /// </summary>
+        public static string TbUpdateKindApp {
+            get {
+                return ResourceManager.GetString("TbUpdateKindApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Proxy engine
+        /// </summary>
+        public static string TbUpdateKindEngine {
+            get {
+                return ResourceManager.GetString("TbUpdateKindEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Rule files
+        /// </summary>
+        public static string TbUpdateKindRules {
+            get {
+                return ResourceManager.GetString("TbUpdateKindRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Country and site lists used by routing
+        /// </summary>
+        public static string TipUpdateKindRules {
+            get {
+                return ResourceManager.GetString("TipUpdateKindRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Include in Update all
+        /// </summary>
+        public static string TipIncludeInUpdateAll {
+            get {
+                return ResourceManager.GetString("TipIncludeInUpdateAll", resourceCulture);
+            }
+        }
     }
 }

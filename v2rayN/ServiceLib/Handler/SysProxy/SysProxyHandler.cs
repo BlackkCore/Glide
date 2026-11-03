@@ -21,6 +21,11 @@ public static class SysProxyHandler
             {
                 return false;
             }
+            var allowed = !Utils.IsWindows() || IsOursToChange(type, port);
+            if (!allowed)
+            {
+                type = ESysProxyType.Unchanged;
+            }
             switch (type)
             {
                 case ESysProxyType.ForcedChange when Utils.IsWindows():
@@ -59,10 +64,38 @@ public static class SysProxyHandler
             {
                 _pacManager.Value.Stop();
             }
+            return allowed;
         }
         catch (Exception ex)
         {
             Logging.SaveLog(_tag, ex);
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Proxy ownership (Glide): never point Windows at a port another program is listening on, and
+    /// only clear the Windows proxy when it currently points at this app's own port. This keeps a
+    /// second client (or another copy) from hijacking or wiping a working connection.
+    /// </summary>
+    [SupportedOSPlatform("windows")]
+    private static bool IsOursToChange(ESysProxyType type, int port)
+    {
+        if (type == ESysProxyType.Unchanged)
+        {
+            return true;
+        }
+        var owner = PortOwner.Find(port);
+        if (owner is { IsOurs: false })
+        {
+            Logging.SaveLog($"{_tag}: port {port} belongs to {owner.Name} (PID {owner.Pid}); leaving the Windows proxy unchanged");
+            return false;
+        }
+        if (type == ESysProxyType.ForcedClear
+            && !PortOwner.WindowsProxyPointsTo(port, AppManager.Instance.GetLocalPort(EInboundProtocol.pac)))
+        {
+            // Nothing of ours to clear: the Windows proxy is off or belongs to something else.
+            return false;
         }
         return true;
     }

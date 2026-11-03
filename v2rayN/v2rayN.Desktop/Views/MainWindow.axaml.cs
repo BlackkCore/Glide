@@ -167,7 +167,8 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
         if (Utils.IsWindows())
         {
-            Title = $"{Utils.GetVersion()} - {(Utils.IsAdministrator() ? ResUI.RunAsAdmin : ResUI.NotRunAsAdmin)}";
+            // Just the app's name; the version is under the logo, and admin mode is only worth a mention when on.
+            Title = Utils.IsAdministrator() ? $"{Global.AppDisplayName} ({ResUI.TbAdministrator})" : Global.AppDisplayName;
 
             if (!Design.IsDesignMode)
             {
@@ -177,7 +178,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         }
         else
         {
-            Title = $"{Utils.GetVersion()}";
+            Title = Global.AppDisplayName;
             menuAddServerViaScan.IsVisible = false;
         }
 
@@ -202,6 +203,11 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         {
             // Settings that only apply after a restart: offer to do it right away.
             await PromptRestartAsync(culture);
+            return;
+        }
+        if (content == ResUI.CheckServerSettings && _config.IndexId.IsNullOrEmpty())
+        {
+            // No server yet: the connection card already says so and shows how to add one.
             return;
         }
         _manager?.Show(new Avalonia.Controls.Notifications.Notification(null, content, NotificationType.Information));
@@ -563,7 +569,10 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     {
         try
         {
-            if (await UI.ShowYesNo(ResUI.menuExitTips) != ButtonResult.Yes)
+            // Only ask when quitting would cut a connection (Windows proxy or TUN going through Glide).
+            var routing = _config.SystemProxyItem.SysProxyType is ESysProxyType.ForcedChange or ESysProxyType.Pac
+                          || _config.TunModeItem.EnableTun;
+            if (routing && await UI.ShowYesNo(ResUI.menuExitTips) != ButtonResult.Yes)
             {
                 return;
             }

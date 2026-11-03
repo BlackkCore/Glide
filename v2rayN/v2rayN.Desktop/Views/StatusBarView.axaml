@@ -6,6 +6,7 @@
     xmlns:common="using:v2rayN.Desktop.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:ent="clr-namespace:ServiceLib.Models.Entities;assembly=ServiceLib"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
@@ -79,6 +80,12 @@
                         FontWeight="SemiBold"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
+                    <!--  The one thing to do about a problem: close the app holding the port, or check again.  -->
+                    <Button
+                        x:Name="btnStatusAction"
+                        HorizontalAlignment="Center"
+                        Classes="statusAction"
+                        IsVisible="False" />
                 </StackPanel>
 
                 <StackPanel x:Name="spSpeed" Spacing="8">
@@ -137,28 +144,55 @@
 
                 <StackPanel Spacing="8">
                     <TextBlock Classes="label" Text="{x:Static resx:ResUI.menuRouting}" />
+                    <!--  Dropdown rows explain each built-in mode; the closed box shows the name only.  -->
                     <ComboBox
                         x:Name="cmbRoutings2"
                         HorizontalAlignment="Stretch"
                         CornerRadius="10"
-                        DisplayMemberBinding="{Binding Remarks, Converter={x:Static conv:RoutingNameConverter.Instance}}"
                         ItemsSource="{Binding RoutingItems}"
-                        ToolTip.Tip="{x:Static resx:ResUI.menuRouting}" />
+                        ToolTip.Tip="{x:Static resx:ResUI.menuRouting}">
+                        <ComboBox.SelectionBoxItemTemplate>
+                            <DataTemplate x:DataType="ent:RoutingItem">
+                                <TextBlock Text="{Binding Remarks, Converter={x:Static conv:RoutingNameConverter.Instance}}" TextTrimming="CharacterEllipsis" />
+                            </DataTemplate>
+                        </ComboBox.SelectionBoxItemTemplate>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="ent:RoutingItem">
+                                <StackPanel MaxWidth="280" Margin="0,3" Spacing="2">
+                                    <TextBlock FontWeight="SemiBold" Text="{Binding Remarks, Converter={x:Static conv:RoutingNameConverter.Instance}}" />
+                                    <TextBlock
+                                        Classes="muted"
+                                        FontSize="{DynamicResource AppFontSmall}"
+                                        IsVisible="{Binding $self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                        Text="{Binding Remarks, Converter={x:Static conv:RoutingNameConverter.Instance}, ConverterParameter=desc}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
 
-                <DockPanel x:Name="spEnableTun">
+                <DockPanel
+                    x:Name="spEnableTun"
+                    Background="Transparent"
+                    ToolTip.Tip="{x:Static resx:ResUI.TipTunMode}">
                     <ToggleSwitch
                         x:Name="togEnableTun"
                         VerticalAlignment="Center"
                         DockPanel.Dock="Right"
                         Theme="{DynamicResource SimpleToggleSwitch}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontSize="{DynamicResource AppFontBody}"
-                        FontWeight="SemiBold"
-                        Foreground="{DynamicResource AppTextBrush}"
-                        Text="{x:Static resx:ResUI.TbEnableTunAs}"
-                        TextWrapping="Wrap" />
+                    <StackPanel VerticalAlignment="Center" Spacing="1">
+                        <TextBlock
+                            FontSize="{DynamicResource AppFontBody}"
+                            FontWeight="SemiBold"
+                            Foreground="{DynamicResource AppTextBrush}"
+                            Text="{x:Static resx:ResUI.TbCaptureAllApps}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Classes="muted"
+                            FontSize="{DynamicResource AppFontCaption}"
+                            Text="{x:Static resx:ResUI.TbAdministrator}" />
+                    </StackPanel>
                 </DockPanel>
 
                 <Border Classes="divider" />

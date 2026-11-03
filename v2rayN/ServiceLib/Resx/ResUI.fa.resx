@@ -1986,4 +1986,115 @@
   <data name="TipGeoCheckOnly" xml:space="preserve">
     <value>شماره نسخه‌ای برای مقایسه ندارد. «بررسی به‌روزرسانی» را بزنید تا آخرین نسخه دانلود شود.</value>
   </data>
+  <data name="TbStatusNotConnected" xml:space="preserve">
+    <value>متصل نیست</value>
+  </data>
+  <data name="TbStatusChecking" xml:space="preserve">
+    <value>در حال بررسی اتصال…</value>
+  </data>
+  <data name="TbStatusConnected" xml:space="preserve">
+    <value>متصل</value>
+  </data>
+  <data name="TbStatusNoInternet" xml:space="preserve">
+    <value>بدون اینترنت</value>
+  </data>
+  <data name="TbStatusPortBusy" xml:space="preserve">
+    <value>پورت اشغال است</value>
+  </data>
+  <data name="TbStatusEngineStopped" xml:space="preserve">
+    <value>موتور متوقف است</value>
+  </data>
+  <data name="TbNoServerSelected" xml:space="preserve">
+    <value>سروری انتخاب نشده</value>
+  </data>
+  <data name="TipAddServerToConnect" xml:space="preserve">
+    <value>برای اتصال، یک سرور اضافه کنید یا از فهرست انتخاب کنید.</value>
+  </data>
+  <data name="TipAddServerFirst" xml:space="preserve">
+    <value>اول یک سرور اضافه کنید، بعد وصل شوید.</value>
+  </data>
+  <data name="TipNotConnectedHint" xml:space="preserve">
+    <value>دکمه را بزنید تا ترافیک ویندوز از این سرور عبور کند.</value>
+  </data>
+  <data name="TipUnchangedHint" xml:space="preserve">
+    <value>Glide پروکسی ویندوز را مدیریت نمی‌کند. برای اتصال دکمه را بزنید.</value>
+  </data>
+  <data name="TipNoInternetThroughServer" xml:space="preserve">
+    <value>Glide در حال اجراست، اما هیچ سایتی از طریق این سرور پاسخ نداد. سرور دیگری را امتحان کنید یا دوباره بررسی کنید.</value>
+  </data>
+  <data name="TipPortBusy" xml:space="preserve">
+    <value>پورت {0} در اختیار {1} است و موتور پروکسی Glide اجرا نمی‌شود. برای ادامه آن را ببندید.</value>
+  </data>
+  <data name="TipEngineStoppedHint" xml:space="preserve">
+    <value>موتور پروکسی Glide اجرا نمی‌شود. دوباره بررسی کنید یا یک سرور انتخاب کنید تا دوباره اجرا شود.</value>
+  </data>
+  <data name="TipConfirmCloseApp" xml:space="preserve">
+    <value>{0} بسته شود؟
+{1}
+
+اتصال آن قطع می‌شود و Glide جایگزین آن می‌شود.</value>
+  </data>
+  <data name="TipConnectionLost" xml:space="preserve">
+    <value>اتصال قطع شد: از طریق {0} اینترنت در دسترس نیست.</value>
+  </data>
+  <data name="TipConnectionRestored" xml:space="preserve">
+    <value>اتصال برقرار شد.</value>
+  </data>
+  <data name="TbCloseApp" xml:space="preserve">
+    <value>بستن {0}</value>
+  </data>
+  <data name="TbCheckAgain" xml:space="preserve">
+    <value>بررسی دوباره</value>
+  </data>
+  <data name="TbExitIp" xml:space="preserve">
+    <value>IP خروجی</value>
+  </data>
+  <data name="TbConnect" xml:space="preserve">
+    <value>اتصال</value>
+  </data>
+  <data name="TbDisconnect" xml:space="preserve">
+    <value>قطع اتصال</value>
+  </data>
+  <data name="TbRoutingGlobal" xml:space="preserve">
+    <value>همهٔ ترافیک از پروکسی</value>
+  </data>
+  <data name="TbRoutingWhitelist" xml:space="preserve">
+    <value>عبور مستقیم سایت‌های چین</value>
+  </data>
+  <data name="TbRoutingBlacklist" xml:space="preserve">
+    <value>فقط سایت‌های مسدود فهرست‌شده</value>
+  </data>
+  <data name="TipRoutingGlobal" xml:space="preserve">
+    <value>همهٔ ترافیک به جز شبکهٔ محلی از سرور عبور می‌کند.</value>
+  </data>
+  <data name="TipRoutingWhitelist" xml:space="preserve">
+    <value>سایت‌های چینی و محلی مستقیم وصل می‌شوند و بقیه از سرور. در ایران به جای آن از تنظیمات › پیش‌تنظیم منطقه‌ای › ایران استفاده کنید.</value>
+  </data>
+  <data name="TipRoutingBlacklist" xml:space="preserve">
+    <value>فقط سایت‌های فهرست مسدود از سرور عبور می‌کنند و بقیه مستقیم وصل می‌شوند.</value>
+  </data>
+  <data name="TbCaptureAllApps" xml:space="preserve">
+    <value>همهٔ برنامه‌ها (TUN)</value>
+  </data>
+  <data name="TipTunMode" xml:space="preserve">
+    <value>همهٔ برنامه‌ها را از Glide عبور می‌دهد، نه فقط برنامه‌هایی که از پروکسی ویندوز استفاده می‌کنند. به دسترسی مدیر نیاز دارد.</value>
+  </data>
+  <data name="TbAdministrator" xml:space="preserve">
+    <value>مدیر</value>
+  </data>
+  <data name="TipIranPresetOffer" xml:space="preserve">
+    <value>از Glide به زبان فارسی استفاده می‌کنید. به پیش‌تنظیم مسیریابی ایران بروید؟ سایت‌های ایرانی مستقیم وصل می‌شوند (سریع‌تر و با مسدودی کمتر از سرویس‌های ایرانی) و DNS برای ایران تنظیم می‌شود.</value>
+  </data>
+  <data name="TbUseIranPreset" xml:space="preserve">
+    <value>استفاده از پیش‌تنظیم ایران</value>
+  </data>
+  <data name="TbTestAll" xml:space="preserve">
+    <value>آزمایش همه</value>
+  </data>
+  <data name="TbLogs" xml:space="preserve">
+    <value>گزارش‌ها</value>
+  </data>
+  <data name="TbHideLogs" xml:space="preserve">
+    <value>پنهان کردن گزارش‌ها</value>
+  </data>
 </root>

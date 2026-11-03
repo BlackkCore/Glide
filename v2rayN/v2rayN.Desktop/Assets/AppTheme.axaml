@@ -47,6 +47,12 @@
             <SolidColorBrush x:Key="AppGoodBgBrush" Color="#E7F6EE" />
             <SolidColorBrush x:Key="AppGoodFgBrush" Color="#12683A" />
             <SolidColorBrush x:Key="AppGoodDotBrush" Color="#1E9E58" />
+            <SolidColorBrush x:Key="AppWarnBgBrush" Color="#FFF4DE" />
+            <SolidColorBrush x:Key="AppWarnFgBrush" Color="#8A5300" />
+            <SolidColorBrush x:Key="AppWarnDotBrush" Color="#E39A12" />
+            <SolidColorBrush x:Key="AppBadBgBrush" Color="#FDECEC" />
+            <SolidColorBrush x:Key="AppBadFgBrush" Color="#A3262A" />
+            <SolidColorBrush x:Key="AppBadDotBrush" Color="#E5484D" />
             <!--  Tables  -->
             <SolidColorBrush x:Key="AppRowSelectedBrush" Color="#EEF2FE" />
             <SolidColorBrush x:Key="AppRowHoverBrush" Color="#F7F8FA" />
@@ -149,6 +155,12 @@
             <SolidColorBrush x:Key="AppGoodBgBrush" Color="#0F2E1D" />
             <SolidColorBrush x:Key="AppGoodFgBrush" Color="#84E2AC" />
             <SolidColorBrush x:Key="AppGoodDotBrush" Color="#3CC97C" />
+            <SolidColorBrush x:Key="AppWarnBgBrush" Color="#33270D" />
+            <SolidColorBrush x:Key="AppWarnFgBrush" Color="#F5C26B" />
+            <SolidColorBrush x:Key="AppWarnDotBrush" Color="#E8A33A" />
+            <SolidColorBrush x:Key="AppBadBgBrush" Color="#3A1517" />
+            <SolidColorBrush x:Key="AppBadFgBrush" Color="#FFA3A6" />
+            <SolidColorBrush x:Key="AppBadDotBrush" Color="#F0585E" />
             <SolidColorBrush x:Key="AppRowSelectedBrush" Color="#1A2240" />
             <SolidColorBrush x:Key="AppRowHoverBrush" Color="#1A1D23" />
             <SolidColorBrush x:Key="AppGridLineBrush" Color="#1E2128" />

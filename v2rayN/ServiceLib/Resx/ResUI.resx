@@ -1992,4 +1992,115 @@ Import its servers, subscriptions and settings? Glide will restart, and your cur
   <data name="TipGeoCheckOnly" xml:space="preserve">
     <value>No version number to compare. Press Check update to download the latest.</value>
   </data>
+  <data name="TbStatusNotConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="TbStatusChecking" xml:space="preserve">
+    <value>Checking connection…</value>
+  </data>
+  <data name="TbStatusConnected" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="TbStatusNoInternet" xml:space="preserve">
+    <value>No internet</value>
+  </data>
+  <data name="TbStatusPortBusy" xml:space="preserve">
+    <value>Port in use</value>
+  </data>
+  <data name="TbStatusEngineStopped" xml:space="preserve">
+    <value>Engine stopped</value>
+  </data>
+  <data name="TbNoServerSelected" xml:space="preserve">
+    <value>No server selected</value>
+  </data>
+  <data name="TipAddServerToConnect" xml:space="preserve">
+    <value>Add a server, or pick one from the list, to connect.</value>
+  </data>
+  <data name="TipAddServerFirst" xml:space="preserve">
+    <value>Add a server first, then connect.</value>
+  </data>
+  <data name="TipNotConnectedHint" xml:space="preserve">
+    <value>Press the button to send Windows traffic through this server.</value>
+  </data>
+  <data name="TipUnchangedHint" xml:space="preserve">
+    <value>Glide isn't managing the Windows proxy. Press the button to connect.</value>
+  </data>
+  <data name="TipNoInternetThroughServer" xml:space="preserve">
+    <value>Glide is running, but no website answered through this server. Try another server or check again.</value>
+  </data>
+  <data name="TipPortBusy" xml:space="preserve">
+    <value>Port {0} is used by {1}, so Glide's proxy engine can't start. Close it to continue.</value>
+  </data>
+  <data name="TipEngineStoppedHint" xml:space="preserve">
+    <value>Glide's proxy engine isn't running. Check again, or pick a server to restart it.</value>
+  </data>
+  <data name="TipConfirmCloseApp" xml:space="preserve">
+    <value>Close {0}?
+{1}
+
+Its connection will stop and Glide will take over.</value>
+  </data>
+  <data name="TipConnectionLost" xml:space="preserve">
+    <value>Connection lost: no internet through {0}.</value>
+  </data>
+  <data name="TipConnectionRestored" xml:space="preserve">
+    <value>Connection restored.</value>
+  </data>
+  <data name="TbCloseApp" xml:space="preserve">
+    <value>Close {0}</value>
+  </data>
+  <data name="TbCheckAgain" xml:space="preserve">
+    <value>Check again</value>
+  </data>
+  <data name="TbExitIp" xml:space="preserve">
+    <value>Exit IP</value>
+  </data>
+  <data name="TbConnect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="TbDisconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="TbRoutingGlobal" xml:space="preserve">
+    <value>Everything through proxy</value>
+  </data>
+  <data name="TbRoutingWhitelist" xml:space="preserve">
+    <value>Bypass China sites</value>
+  </data>
+  <data name="TbRoutingBlacklist" xml:space="preserve">
+    <value>Only listed blocked sites</value>
+  </data>
+  <data name="TipRoutingGlobal" xml:space="preserve">
+    <value>All traffic goes through the server, except your local network.</value>
+  </data>
+  <data name="TipRoutingWhitelist" xml:space="preserve">
+    <value>Chinese and local sites connect directly; everything else uses the server. In Iran, use Settings › Regional presets › Iran instead.</value>
+  </data>
+  <data name="TipRoutingBlacklist" xml:space="preserve">
+    <value>Only sites on the block list use the server; everything else connects directly.</value>
+  </data>
+  <data name="TbCaptureAllApps" xml:space="preserve">
+    <value>Capture all apps (TUN)</value>
+  </data>
+  <data name="TipTunMode" xml:space="preserve">
+    <value>Sends every app through Glide, not only apps that use the Windows proxy. Needs administrator rights.</value>
+  </data>
+  <data name="TbAdministrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="TipIranPresetOffer" xml:space="preserve">
+    <value>You're using Glide in Persian. Switch to the Iran routing preset? Iranian sites will connect directly (faster, and fewer blocks from Iranian services), and DNS is set up for Iran.</value>
+  </data>
+  <data name="TbUseIranPreset" xml:space="preserve">
+    <value>Use Iran preset</value>
+  </data>
+  <data name="TbTestAll" xml:space="preserve">
+    <value>Test all</value>
+  </data>
+  <data name="TbLogs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="TbHideLogs" xml:space="preserve">
+    <value>Hide logs</value>
+  </data>
 </root>

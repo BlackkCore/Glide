@@ -5669,5 +5669,329 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipGeoCheckOnly", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Not connected
+        /// </summary>
+        public static string TbStatusNotConnected {
+            get {
+                return ResourceManager.GetString("TbStatusNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Checking connection…
+        /// </summary>
+        public static string TbStatusChecking {
+            get {
+                return ResourceManager.GetString("TbStatusChecking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connected
+        /// </summary>
+        public static string TbStatusConnected {
+            get {
+                return ResourceManager.GetString("TbStatusConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No internet
+        /// </summary>
+        public static string TbStatusNoInternet {
+            get {
+                return ResourceManager.GetString("TbStatusNoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Port in use
+        /// </summary>
+        public static string TbStatusPortBusy {
+            get {
+                return ResourceManager.GetString("TbStatusPortBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Engine stopped
+        /// </summary>
+        public static string TbStatusEngineStopped {
+            get {
+                return ResourceManager.GetString("TbStatusEngineStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No server selected
+        /// </summary>
+        public static string TbNoServerSelected {
+            get {
+                return ResourceManager.GetString("TbNoServerSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add a server, or pick one from the list, to connect.
+        /// </summary>
+        public static string TipAddServerToConnect {
+            get {
+                return ResourceManager.GetString("TipAddServerToConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add a server first, then connect.
+        /// </summary>
+        public static string TipAddServerFirst {
+            get {
+                return ResourceManager.GetString("TipAddServerFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Press the button to send Windows traffic through this server.
+        /// </summary>
+        public static string TipNotConnectedHint {
+            get {
+                return ResourceManager.GetString("TipNotConnectedHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Glide isn't managing the Windows proxy. Press the button to connect.
+        /// </summary>
+        public static string TipUnchangedHint {
+            get {
+                return ResourceManager.GetString("TipUnchangedHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Glide is running, but no website answered through this server. Try another server or check again.
+        /// </summary>
+        public static string TipNoInternetThroughServer {
+            get {
+                return ResourceManager.GetString("TipNoInternetThroughServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Port {0} is used by {1}, so Glide's proxy engine can't start. Close it to continue.
+        /// </summary>
+        public static string TipPortBusy {
+            get {
+                return ResourceManager.GetString("TipPortBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Glide's proxy engine isn't running. Check again, or pick a server to restart it.
+        /// </summary>
+        public static string TipEngineStoppedHint {
+            get {
+                return ResourceManager.GetString("TipEngineStoppedHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Close {0}? {1}  Its connection will stop and Glide will take over.
+        /// </summary>
+        public static string TipConfirmCloseApp {
+            get {
+                return ResourceManager.GetString("TipConfirmCloseApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connection lost: no internet through {0}.
+        /// </summary>
+        public static string TipConnectionLost {
+            get {
+                return ResourceManager.GetString("TipConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connection restored.
+        /// </summary>
+        public static string TipConnectionRestored {
+            get {
+                return ResourceManager.GetString("TipConnectionRestored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Close {0}
+        /// </summary>
+        public static string TbCloseApp {
+            get {
+                return ResourceManager.GetString("TbCloseApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Check again
+        /// </summary>
+        public static string TbCheckAgain {
+            get {
+                return ResourceManager.GetString("TbCheckAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Exit IP
+        /// </summary>
+        public static string TbExitIp {
+            get {
+                return ResourceManager.GetString("TbExitIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connect
+        /// </summary>
+        public static string TbConnect {
+            get {
+                return ResourceManager.GetString("TbConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Disconnect
+        /// </summary>
+        public static string TbDisconnect {
+            get {
+                return ResourceManager.GetString("TbDisconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Everything through proxy
+        /// </summary>
+        public static string TbRoutingGlobal {
+            get {
+                return ResourceManager.GetString("TbRoutingGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Bypass China sites
+        /// </summary>
+        public static string TbRoutingWhitelist {
+            get {
+                return ResourceManager.GetString("TbRoutingWhitelist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Only listed blocked sites
+        /// </summary>
+        public static string TbRoutingBlacklist {
+            get {
+                return ResourceManager.GetString("TbRoutingBlacklist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   All traffic goes through the server, except your local network.
+        /// </summary>
+        public static string TipRoutingGlobal {
+            get {
+                return ResourceManager.GetString("TipRoutingGlobal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Chinese and local sites connect directly; everything else uses the server. In Iran, use Settings › Regional presets › Iran instead.
+        /// </summary>
+        public static string TipRoutingWhitelist {
+            get {
+                return ResourceManager.GetString("TipRoutingWhitelist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Only sites on the block list use the server; everything else connects directly.
+        /// </summary>
+        public static string TipRoutingBlacklist {
+            get {
+                return ResourceManager.GetString("TipRoutingBlacklist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Capture all apps (TUN)
+        /// </summary>
+        public static string TbCaptureAllApps {
+            get {
+                return ResourceManager.GetString("TbCaptureAllApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sends every app through Glide, not only apps that use the Windows proxy. Needs administrator rights.
+        /// </summary>
+        public static string TipTunMode {
+            get {
+                return ResourceManager.GetString("TipTunMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Administrator
+        /// </summary>
+        public static string TbAdministrator {
+            get {
+                return ResourceManager.GetString("TbAdministrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   You're using Glide in Persian. Switch to the Iran routing preset? Iranian sites will connect directly (faster, and fewer blocks from Iranian services), and DNS is set up for Iran.
+        /// </summary>
+        public static string TipIranPresetOffer {
+            get {
+                return ResourceManager.GetString("TipIranPresetOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Use Iran preset
+        /// </summary>
+        public static string TbUseIranPreset {
+            get {
+                return ResourceManager.GetString("TbUseIranPreset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Test all
+        /// </summary>
+        public static string TbTestAll {
+            get {
+                return ResourceManager.GetString("TbTestAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Logs
+        /// </summary>
+        public static string TbLogs {
+            get {
+                return ResourceManager.GetString("TbLogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hide logs
+        /// </summary>
+        public static string TbHideLogs {
+            get {
+                return ResourceManager.GetString("TbHideLogs", resourceCulture);
+            }
+        }
     }
 }

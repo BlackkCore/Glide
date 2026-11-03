@@ -358,6 +358,34 @@
     <Style Selector="Border.pill.on Ellipse">
         <Setter Property="Fill" Value="{DynamicResource AppGoodDotBrush}" />
     </Style>
+    <!--  Checking (amber) and a problem (red): no internet, port in use, engine stopped.  -->
+    <Style Selector="Border.pill.warn">
+        <Setter Property="Background" Value="{DynamicResource AppWarnBgBrush}" />
+    </Style>
+    <Style Selector="Border.pill.warn TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppWarnFgBrush}" />
+    </Style>
+    <Style Selector="Border.pill.warn Ellipse">
+        <Setter Property="Fill" Value="{DynamicResource AppWarnDotBrush}" />
+    </Style>
+    <Style Selector="Border.pill.bad">
+        <Setter Property="Background" Value="{DynamicResource AppBadBgBrush}" />
+    </Style>
+    <Style Selector="Border.pill.bad TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppBadFgBrush}" />
+    </Style>
+    <Style Selector="Border.pill.bad Ellipse">
+        <Setter Property="Fill" Value="{DynamicResource AppBadDotBrush}" />
+    </Style>
+    <!--  The single fix-it action under the connection status.  -->
+    <Style Selector="Button.statusAction">
+        <Setter Property="Padding" Value="14,6" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Background" Value="{DynamicResource AppAccentSoftBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppAccentSoftFgBrush}" />
+    </Style>
 
     <!--  Server name under the power button  -->
     <Style Selector="TextBlock.serverName">

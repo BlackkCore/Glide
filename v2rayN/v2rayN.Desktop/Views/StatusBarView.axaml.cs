@@ -22,6 +22,8 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
 
         spRunningServer.Tapped += TxtRunningServerDisplay_Tapped;
         btnPower.Click += BtnPower_Click;
+        btnStatusAction.Click += BtnStatusAction_Click;
+        _monitor.Changed += RenderStatus;
         _sessionTimer.Tick += (_, _) => UpdateSessionTime();
         _tickTimer.Tick += (_, _) => SpeedTick();
 
@@ -32,8 +34,25 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         this.WhenActivated(disposables =>
         {
             //status bar
-            this.OneWayBind(ViewModel, vm => vm.RunningInfoDisplay, v => v.txtRunningInfoDisplay.Text).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.EnableTun, v => v.togEnableTun.IsChecked).DisposeWith(disposables);
+
+            // The upstream delay test runs after every core (re)load; when its answer arrives the
+            // core is up, so that is the moment to verify the connection again.
+            this.WhenAnyValue(v => v.ViewModel.RunningInfoDisplay)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Subscribe(info =>
+                {
+                    if (info.IsNotEmpty() && info != ResUI.Speedtesting)
+                    {
+                        _monitor.CheckSoon(400);
+                    }
+                })
+                .DisposeWith(disposables);
+
+            this.WhenAnyValue(v => v.ViewModel.EnableTun)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Subscribe(_ => UpdateMonitor())
+                .DisposeWith(disposables);
 
             this.Bind(ViewModel, vm => vm.SystemProxySelected, v => v.cmbSystemProxy.SelectedIndex).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.SelectedRouting, v => v.cmbRoutings2.SelectedItem).DisposeWith(disposables);
@@ -121,20 +140,69 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         return password;
     }
 
+    private readonly ConnectionMonitor _monitor = new();
+    private bool _hasServer;
+
+    private static bool IsProxyOn(int selected) => selected is (int)ESysProxyType.ForcedChange or (int)ESysProxyType.Pac;
+
     private void BtnPower_Click(object? sender, RoutedEventArgs e)
     {
         if (ViewModel == null)
         {
             return;
         }
-        // The big button switches the system proxy on (set) or off (clear).
-        var isOn = ViewModel.SystemProxySelected is (int)ESysProxyType.ForcedChange or (int)ESysProxyType.Pac;
+        if (!_hasServer)
+        {
+            NoticeManager.Instance.Enqueue(ResUI.TipAddServerFirst);
+            return;
+        }
+        if (!IsProxyOn(ViewModel.SystemProxySelected) && _monitor.State == ConnState.PortConflict)
+        {
+            // Connecting can't work while another program holds the port: deal with that first.
+            BtnStatusAction_Click(sender, e);
+            return;
+        }
+        // Connect = send Windows traffic through Glide (and verify it); Disconnect = stop doing so.
+        var isOn = IsProxyOn(ViewModel.SystemProxySelected);
         ViewModel.SystemProxySelected = isOn ? (int)ESysProxyType.ForcedClear : (int)ESysProxyType.ForcedChange;
+    }
+
+    private async void BtnStatusAction_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            switch (_monitor.State)
+            {
+                case ConnState.PortConflict when _monitor.Conflict is { } owner && ConnectionMonitor.CanClose(owner):
+                    var message = string.Format(ResUI.TipConfirmCloseApp, owner.Name, owner.Path);
+                    if (await UI.ShowYesNo(message, string.Format(ResUI.TbCloseApp, owner.Name), ResUI.TbCancel) != ButtonResult.Yes)
+                    {
+                        return;
+                    }
+                    await Task.Run(() => ConnectionMonitor.CloseOwner(owner));
+                    ViewModel?.ReloadRequested.Publish();
+                    _monitor.CheckSoon(2500);
+                    break;
+
+                case ConnState.EngineStopped:
+                    ViewModel?.ReloadRequested.Publish();
+                    _monitor.CheckSoon(2500);
+                    break;
+
+                default:
+                    _monitor.CheckSoon(100);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("StatusBarView", ex);
+        }
     }
 
     private void UpdatePowerState(int selected)
     {
-        var isOn = selected is (int)ESysProxyType.ForcedChange or (int)ESysProxyType.Pac;
+        var isOn = IsProxyOn(selected);
         if (isOn && !btnPower.Classes.Contains("on") && IsLoaded && AppMotion.Enabled)
         {
             // A ring spreads out once when the proxy comes on; removed again so the next switch replays it.
@@ -142,23 +210,68 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
             DispatcherTimer.RunOnce(() => btnPower.Classes.Remove("pulse"), TimeSpan.FromMilliseconds(900));
         }
         btnPower.Classes.Set("on", isOn);
-        bdPowerState.Classes.Set("on", isOn);
-        txtPowerState.Text = selected switch
+        ToolTip.SetTip(btnPower, isOn ? ResUI.TbDisconnect : ResUI.TbConnect);
+        UpdateMonitor();
+    }
+
+    private void UpdateMonitor()
+    {
+        if (ViewModel == null)
         {
-            (int)ESysProxyType.ForcedChange => ResUI.TbProxyOn,
-            (int)ESysProxyType.Pac => ResUI.TbPacModeOn,
-            (int)ESysProxyType.Unchanged => ResUI.TbSysProxyUnchanged,
-            _ => ResUI.TbProxyOff,
+            return;
+        }
+        var inUse = IsProxyOn(ViewModel.SystemProxySelected) || ViewModel.EnableTun;
+        _monitor.Update(_hasServer, inUse, txtServerName.Text ?? string.Empty);
+        RenderStatus();
+    }
+
+    // Pill, detail line and action button for the current connection state.
+    private void RenderStatus()
+    {
+        var selected = ViewModel?.SystemProxySelected ?? (int)ESysProxyType.ForcedClear;
+        var state = _monitor.State;
+        bdPowerState.Classes.Set("on", state == ConnState.Connected);
+        bdPowerState.Classes.Set("warn", state == ConnState.Checking);
+        bdPowerState.Classes.Set("bad", state is ConnState.NoInternet or ConnState.PortConflict or ConnState.EngineStopped);
+
+        _powerStateLabel = state switch
+        {
+            ConnState.NoServer => ResUI.TbNoServerSelected,
+            ConnState.Checking => ResUI.TbStatusChecking,
+            ConnState.Connected => _monitor.DelayMs > 0 ? $"{ResUI.TbStatusConnected} · {_monitor.DelayMs} ms" : ResUI.TbStatusConnected,
+            ConnState.NoInternet => ResUI.TbStatusNoInternet,
+            ConnState.PortConflict => ResUI.TbStatusPortBusy,
+            ConnState.EngineStopped => ResUI.TbStatusEngineStopped,
+            _ => selected == (int)ESysProxyType.Unchanged ? ResUI.TbSysProxyUnchanged : ResUI.TbStatusNotConnected,
         };
 
-        // While the proxy is on, the pill also shows for how long; the timer only runs in that state.
-        _powerStateLabel = txtPowerState.Text;
-        if (isOn && !_sessionTimer.IsEnabled)
+        txtRunningInfoDisplay.Text = state switch
+        {
+            ConnState.NoServer => ResUI.TipAddServerToConnect,
+            ConnState.Connected => _monitor.ExitIp.IsNotEmpty() ? $"{ResUI.TbExitIp}: {_monitor.ExitIp}" : string.Empty,
+            ConnState.NoInternet => ResUI.TipNoInternetThroughServer,
+            ConnState.PortConflict => string.Format(ResUI.TipPortBusy, AppManager.Instance.GetLocalPort(EInboundProtocol.socks), _monitor.Conflict?.Name),
+            ConnState.EngineStopped => ResUI.TipEngineStoppedHint,
+            ConnState.NotConnected => selected == (int)ESysProxyType.Unchanged ? ResUI.TipUnchangedHint : ResUI.TipNotConnectedHint,
+            _ => string.Empty,
+        };
+        txtRunningInfoDisplay.IsVisible = txtRunningInfoDisplay.Text.IsNotEmpty();
+
+        btnStatusAction.Content = state switch
+        {
+            ConnState.PortConflict when _monitor.Conflict is { } owner && ConnectionMonitor.CanClose(owner) => string.Format(ResUI.TbCloseApp, owner.Name),
+            ConnState.NoInternet or ConnState.EngineStopped => ResUI.TbCheckAgain,
+            _ => null,
+        };
+        btnStatusAction.IsVisible = btnStatusAction.Content != null;
+
+        // The session clock runs only while the connection is verified.
+        if (state == ConnState.Connected && !_sessionTimer.IsEnabled)
         {
             _sessionStart = DateTime.Now;
             _sessionTimer.Start();
         }
-        else if (!isOn)
+        else if (state != ConnState.Connected && state != ConnState.NoInternet)
         {
             _sessionTimer.Stop();
         }
@@ -171,7 +284,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
 
     private void UpdateSessionTime()
     {
-        if (!_sessionTimer.IsEnabled)
+        if (!_sessionTimer.IsEnabled || _monitor.State != ConnState.Connected)
         {
             txtPowerState.Text = _powerStateLabel;
             return;
@@ -184,15 +297,17 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
     private void UpdateRunningServer(string? summary)
     {
         summary ??= string.Empty;
-        spRunningServer.SetValue(ToolTip.TipProperty, summary.IsNullOrEmpty() ? null : summary);
+        _hasServer = summary.IsNotEmpty() && summary != ResUI.CheckServerSettings;
+        spRunningServer.SetValue(ToolTip.TipProperty, _hasServer ? summary : null);
 
         var match = SummaryRegex.Match(summary);
         if (!match.Success)
         {
-            txtServerName.Text = summary;
+            txtServerName.Text = _hasServer ? summary : ResUI.TbNoServerSelected;
             bdServerType.IsVisible = false;
             bdServerCountry.IsVisible = false;
             txtServerAddress.Text = string.Empty;
+            UpdateMonitor();
             return;
         }
 
@@ -205,6 +320,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         txtServerType.Text = match.Groups["type"].Value;
         bdServerType.IsVisible = true;
         txtServerAddress.Text = match.Groups["addr"].Value;
+        UpdateMonitor();
     }
 
     private void UpdateSpeed(string? proxy, string? direct)

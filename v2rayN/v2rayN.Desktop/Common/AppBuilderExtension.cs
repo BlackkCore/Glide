@@ -8,9 +8,18 @@ public static class AppBuilderExtension
     private static readonly string CjkFontFamilyName =
         Path.Combine(Global.AvaAssets, "Fonts#Noto Sans SC");
 
+    private static readonly string PersianFontFamilyName =
+        Path.Combine(Global.AvaAssets, "Fonts#Vazirmatn");
+
     public static AppBuilder WithFontByDefault(this AppBuilder appBuilder)
     {
         var fallbacks = new List<FontFallback>();
+
+        // Manrope has no Persian/Arabic letters; Vazirmatn draws them in a matching style.
+        fallbacks.Add(new FontFallback
+        {
+            FontFamily = new FontFamily(PersianFontFamilyName)
+        });
 
         var notoSansSc = new FontFamily(CjkFontFamilyName);
 

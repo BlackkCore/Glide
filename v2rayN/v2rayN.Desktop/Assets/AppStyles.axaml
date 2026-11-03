@@ -1,4 +1,4 @@
-<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib">
     <Design.PreviewWith>
         <Border Padding="20" Classes="card">
             <TextBlock Classes="h2" Text="Preview" />
@@ -662,6 +662,17 @@
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="MinWidth" Value="140" />
+    </Style>
+
+    <!--  Switch captions in the app's language instead of the control library's English.  -->
+    <Style Selector="ToggleSwitch">
+        <Setter Property="OnContent" Value="{x:Static resx:ResUI.TbProxyModeOn}" />
+        <Setter Property="OffContent" Value="{x:Static resx:ResUI.TbProxyModeOff}" />
+    </Style>
+    <!--  The main window's compact switches have no caption room; their label sits beside them.  -->
+    <Style Selector="Grid#gridContent ToggleSwitch">
+        <Setter Property="OnContent" Value="{x:Null}" />
+        <Setter Property="OffContent" Value="{x:Null}" />
     </Style>
 
     <!--  ===== Surfaces app-wide =====  -->

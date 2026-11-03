@@ -464,6 +464,7 @@
             <StackPanel
                 x:Name="spEmptyServers"
                 MaxWidth="360"
+                Margin="0,40,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 IsVisible="False"

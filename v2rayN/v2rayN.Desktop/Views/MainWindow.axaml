@@ -97,7 +97,7 @@
                                     <Button x:Name="btnThemeLight" Classes="themeOpt">
                                         <StackPanel Orientation="Horizontal" Spacing="6">
                                             <PathIcon Data="{StaticResource IconSun}" />
-                                            <TextBlock Text="Light" />
+                                            <TextBlock Text="{x:Static resx:ResUI.TbThemeLight}" />
                                         </StackPanel>
                                     </Button>
                                     <Button
@@ -106,7 +106,7 @@
                                         Classes="themeOpt">
                                         <StackPanel Orientation="Horizontal" Spacing="6">
                                             <PathIcon Data="{StaticResource IconMoon}" />
-                                            <TextBlock Text="Dark" />
+                                            <TextBlock Text="{x:Static resx:ResUI.TbThemeDark}" />
                                         </StackPanel>
                                     </Button>
                                 </Grid>

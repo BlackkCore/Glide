@@ -444,10 +444,29 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
                     }
                 }
             }
+            EnsureHeaderWidths();
         }
         catch (Exception ex)
         {
             Logging.SaveLog(_tag, ex);
+        }
+    }
+
+    // Saved widths come from older layouts and can be narrower than the header text ("Delay (…"),
+    // so no column may shrink below its own header. Measured, so it holds for every language.
+    private void EnsureHeaderWidths()
+    {
+        var fontSize = this.TryFindResource("AppFontSmall", out var size) && size is double d ? d : 12;
+        foreach (var column in lstProfiles.Columns)
+        {
+            if (column.Header is not string header || header.IsNullOrEmpty())
+            {
+                continue;
+            }
+            var probe = new TextBlock { Text = header, FontSize = fontSize, FontWeight = FontWeight.SemiBold };
+            probe.Measure(Size.Infinity);
+            // 16px header padding on each side plus room for the sort arrow.
+            column.MinWidth = Math.Ceiling(probe.DesiredSize.Width) + 48;
         }
     }
 

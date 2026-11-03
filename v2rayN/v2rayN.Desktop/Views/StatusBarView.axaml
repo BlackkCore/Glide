@@ -27,7 +27,7 @@
                             Width="7"
                             Height="7"
                             VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtPowerState" Text="Proxy off" />
+                        <TextBlock x:Name="txtPowerState" Text="{x:Static resx:ResUI.TbProxyOff}" />
                     </StackPanel>
                 </Border>
 
@@ -86,7 +86,7 @@
                             <StackPanel Spacing="3">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
                                     <PathIcon Classes="up" Data="{StaticResource IconArrowUp}" />
-                                    <TextBlock Classes="statLabel" Text="Upload" />
+                                    <TextBlock Classes="statLabel" Text="{x:Static resx:ResUI.TbUpload}" />
                                 </StackPanel>
                                 <TextBlock x:Name="txtSpeedUp" Classes="statValue" />
                             </StackPanel>
@@ -95,7 +95,7 @@
                             <StackPanel Spacing="3">
                                 <StackPanel Orientation="Horizontal" Spacing="5">
                                     <PathIcon Classes="down" Data="{StaticResource IconArrowDown}" />
-                                    <TextBlock Classes="statLabel" Text="Download" />
+                                    <TextBlock Classes="statLabel" Text="{x:Static resx:ResUI.TbDownload}" />
                                 </StackPanel>
                                 <TextBlock x:Name="txtSpeedDown" Classes="statValue" />
                             </StackPanel>
@@ -127,9 +127,9 @@
                                 <UniformGrid Columns="2" />
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
-                        <ListBoxItem Content="Off" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxyClear}" />
-                        <ListBoxItem Content="On" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxySet}" />
-                        <ListBoxItem Content="Unchanged" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxyNothing}" />
+                        <ListBoxItem Content="{x:Static resx:ResUI.TbProxyModeOff}" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxyClear}" />
+                        <ListBoxItem Content="{x:Static resx:ResUI.TbProxyModeOn}" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxySet}" />
+                        <ListBoxItem Content="{x:Static resx:ResUI.TbProxyModeUnchanged}" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxyNothing}" />
                         <ListBoxItem Content="PAC" ToolTip.Tip="{x:Static resx:ResUI.menuSystemProxyPac}" />
                     </ListBox>
                 </StackPanel>

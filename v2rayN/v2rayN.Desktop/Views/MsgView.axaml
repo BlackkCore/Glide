@@ -101,6 +101,7 @@
 
         <Border Classes="logPanel">
             <avaloniaEdit:TextEditor
+                FlowDirection="LeftToRight"
                 Name="txtMsg"
                 Padding="10,8"
                 Background="Transparent"

@@ -7,6 +7,12 @@ public class WindowBase<TViewModel> : ReactiveWindow<TViewModel> where TViewMode
     public WindowBase()
     {
         WindowCaptionColors.Attach(this);
+        // Persian and other right-to-left languages get a mirrored layout: navigation on the right,
+        // labels before their controls reading right to left.
+        if (System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft)
+        {
+            FlowDirection = FlowDirection.RightToLeft;
+        }
         Loaded += OnLoaded;
         Opened += (_, _) =>
         {

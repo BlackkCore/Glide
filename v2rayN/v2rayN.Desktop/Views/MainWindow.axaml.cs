@@ -20,7 +20,13 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         InitializeComponent();
 
         _config = AppManager.Instance.Config;
-        _manager = new WindowNotificationManager(TopLevel.GetTopLevel(this)) { MaxItems = 3, Position = NotificationPosition.TopRight };
+        // Toasts start below the 40px title bar so they never cover the window buttons.
+        _manager = new WindowNotificationManager(TopLevel.GetTopLevel(this))
+        {
+            MaxItems = 3,
+            Position = NotificationPosition.TopRight,
+            Margin = new Thickness(16, 40, 16, 0),
+        };
 
         KeyDown += MainWindow_KeyDown;
         menuSettingsSetUWP.Click += MenuSettingsSetUWP_Click;
@@ -371,6 +377,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             new Vector(96 * scaling, 96 * scaling));
         snapshot.Render(gridRoot);
         imgThemeSnapshot.Source = snapshot;
+        // In right-to-left layouts the picture comes back mirrored; flipping it also moves the
+        // hole to the side the theme button is really on.
+        imgThemeSnapshot.RenderTransform = FlowDirection == FlowDirection.RightToLeft ? new ScaleTransform(-1, 1) : null;
         imgThemeSnapshot.Clip = null;
         imgThemeSnapshot.IsVisible = true;
 

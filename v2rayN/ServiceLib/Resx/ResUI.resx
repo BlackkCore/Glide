@@ -1953,4 +1953,37 @@ Import its servers, subscriptions and settings? Glide will restart, and your cur
   <data name="TbAddSubscription" xml:space="preserve">
     <value>Add subscription</value>
   </data>
+  <data name="TbProxyOn" xml:space="preserve">
+    <value>Proxy on</value>
+  </data>
+  <data name="TbPacModeOn" xml:space="preserve">
+    <value>PAC mode on</value>
+  </data>
+  <data name="TbSysProxyUnchanged" xml:space="preserve">
+    <value>System proxy unchanged</value>
+  </data>
+  <data name="TbProxyOff" xml:space="preserve">
+    <value>Proxy off</value>
+  </data>
+  <data name="TbThemeLight" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="TbThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="TbUpload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="TbDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="TbProxyModeOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="TbProxyModeOn" xml:space="preserve">
+    <value>On</value>
+  </data>
+  <data name="TbProxyModeUnchanged" xml:space="preserve">
+    <value>Unchanged</value>
+  </data>
 </root>

@@ -145,10 +145,10 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         bdPowerState.Classes.Set("on", isOn);
         txtPowerState.Text = selected switch
         {
-            (int)ESysProxyType.ForcedChange => "Proxy on",
-            (int)ESysProxyType.Pac => "PAC mode on",
-            (int)ESysProxyType.Unchanged => "System proxy unchanged",
-            _ => "Proxy off",
+            (int)ESysProxyType.ForcedChange => ResUI.TbProxyOn,
+            (int)ESysProxyType.Pac => ResUI.TbPacModeOn,
+            (int)ESysProxyType.Unchanged => ResUI.TbSysProxyUnchanged,
+            _ => ResUI.TbProxyOff,
         };
 
         // While the proxy is on, the pill also shows for how long; the timer only runs in that state.

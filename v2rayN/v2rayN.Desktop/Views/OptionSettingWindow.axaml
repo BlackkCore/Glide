@@ -1042,6 +1042,7 @@
                         Text="{x:Static resx:ResUI.TbSettingsExceptionTip2}" />
                     <TextBox
                         x:Name="txtsystemProxyExceptions"
+                        FlowDirection="LeftToRight"
                         Margin="{StaticResource Margin4}"
                         VerticalAlignment="Stretch"
                         BorderThickness="1"

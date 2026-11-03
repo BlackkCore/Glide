@@ -5552,5 +5552,104 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbAddSubscription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Proxy on
+        /// </summary>
+        public static string TbProxyOn {
+            get {
+                return ResourceManager.GetString("TbProxyOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   PAC mode on
+        /// </summary>
+        public static string TbPacModeOn {
+            get {
+                return ResourceManager.GetString("TbPacModeOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System proxy unchanged
+        /// </summary>
+        public static string TbSysProxyUnchanged {
+            get {
+                return ResourceManager.GetString("TbSysProxyUnchanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Proxy off
+        /// </summary>
+        public static string TbProxyOff {
+            get {
+                return ResourceManager.GetString("TbProxyOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Light
+        /// </summary>
+        public static string TbThemeLight {
+            get {
+                return ResourceManager.GetString("TbThemeLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Dark
+        /// </summary>
+        public static string TbThemeDark {
+            get {
+                return ResourceManager.GetString("TbThemeDark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Upload
+        /// </summary>
+        public static string TbUpload {
+            get {
+                return ResourceManager.GetString("TbUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Download
+        /// </summary>
+        public static string TbDownload {
+            get {
+                return ResourceManager.GetString("TbDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Off
+        /// </summary>
+        public static string TbProxyModeOff {
+            get {
+                return ResourceManager.GetString("TbProxyModeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   On
+        /// </summary>
+        public static string TbProxyModeOn {
+            get {
+                return ResourceManager.GetString("TbProxyModeOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unchanged
+        /// </summary>
+        public static string TbProxyModeUnchanged {
+            get {
+                return ResourceManager.GetString("TbProxyModeUnchanged", resourceCulture);
+            }
+        }
     }
 }

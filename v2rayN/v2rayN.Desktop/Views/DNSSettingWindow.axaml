@@ -387,7 +387,9 @@
                             Grid.Row="7"
                             Grid.Column="0"
                             Grid.ColumnSpan="3"
-                            Margin="{StaticResource Margin4}"
+                            MaxWidth="Infinity"
+                            Margin="4,12,4,4"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Text="{x:Static resx:ResUI.TbDNSHostsConfig}" />
 

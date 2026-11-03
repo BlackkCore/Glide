@@ -1819,7 +1819,7 @@
     <value>حالت PAC روشن</value>
   </data>
   <data name="TbSysProxyUnchanged" xml:space="preserve">
-    <value>پروکسی سیستم بدون تغییر</value>
+    <value>آماده به کار</value>
   </data>
   <data name="TbProxyOff" xml:space="preserve">
     <value>پروکسی خاموش</value>
@@ -2195,5 +2195,50 @@
   </data>
   <data name="TipFavorite" xml:space="preserve">
     <value>ستاره بزنید تا بالای فهرست بماند</value>
+  </data>
+  <data name="TbDiagnose" xml:space="preserve">
+    <value>چرا وصل نمی‌شوم؟</value>
+  </data>
+  <data name="TbDiagTitle" xml:space="preserve">
+    <value>بررسی اتصال</value>
+  </data>
+  <data name="TbDiagInternet" xml:space="preserve">
+    <value>اینترنت شما</value>
+  </data>
+  <data name="TbDiagDns" xml:space="preserve">
+    <value>جستجوی نام‌ها (DNS)</value>
+  </data>
+  <data name="TbDiagEngine" xml:space="preserve">
+    <value>موتور Glide</value>
+  </data>
+  <data name="TbDiagServer" xml:space="preserve">
+    <value>دسترسی به سرور</value>
+  </data>
+  <data name="TbDiagThrough" xml:space="preserve">
+    <value>عبور ترافیک از سرور</value>
+  </data>
+  <data name="TipDiagUdpSkip" xml:space="preserve">
+    <value>از UDP استفاده می‌کند و جداگانه آزمایش‌پذیر نیست</value>
+  </data>
+  <data name="TipDiagInternetDown" xml:space="preserve">
+    <value>خود اینترنت شما کار نمی‌کند (مشکل از Glide نیست). وای‌فای یا کابل را بررسی کنید و دوباره امتحان کنید.</value>
+  </data>
+  <data name="TipDiagServerDown" xml:space="preserve">
+    <value>سرور پاسخ نمی‌دهد: ممکن است خاموش یا مسدود باشد. همه سرورها را آزمایش کنید و یک سرور سریع انتخاب کنید.</value>
+  </data>
+  <data name="TipDiagNoTraffic" xml:space="preserve">
+    <value>سرور پاسخ می‌دهد اما ترافیک را عبور نمی‌دهد: شاید تنظیماتش قدیمی باشد. اشتراک را به‌روز کنید یا سرور دیگری را امتحان کنید.</value>
+  </data>
+  <data name="TipDiagDnsDown" xml:space="preserve">
+    <value>جستجوی نام‌ها بدون پراکسی کار نمی‌کند. سایت‌ها ممکن است از طریق Glide باز شوند؛ اگر نه، تنظیمات DNS را بررسی کنید.</value>
+  </data>
+  <data name="TipDiagAllGood" xml:space="preserve">
+    <value>همه چیز کار می‌کند. اگر سایتی هنوز باز نمی‌شود، شاید خودش در دسترس نباشد یا قوانین مسیریابی آن را مستقیم بفرستند.</value>
+  </data>
+  <data name="TbRunAgain" xml:space="preserve">
+    <value>اجرای دوباره</value>
+  </data>
+  <data name="TbClose" xml:space="preserve">
+    <value>بستن</value>
   </data>
 </root>

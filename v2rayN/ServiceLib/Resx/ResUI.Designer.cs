@@ -5572,7 +5572,7 @@ namespace ServiceLib.Resx {
         }
         
         /// <summary>
-        ///   System proxy unchanged
+        ///   Standby
         /// </summary>
         public static string TbSysProxyUnchanged {
             get {
@@ -6288,6 +6288,141 @@ namespace ServiceLib.Resx {
         public static string TipFavorite {
             get {
                 return ResourceManager.GetString("TipFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Why can't I connect?
+        /// </summary>
+        public static string TbDiagnose {
+            get {
+                return ResourceManager.GetString("TbDiagnose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connection check
+        /// </summary>
+        public static string TbDiagTitle {
+            get {
+                return ResourceManager.GetString("TbDiagTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Your internet
+        /// </summary>
+        public static string TbDiagInternet {
+            get {
+                return ResourceManager.GetString("TbDiagInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Name lookups (DNS)
+        /// </summary>
+        public static string TbDiagDns {
+            get {
+                return ResourceManager.GetString("TbDiagDns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Glide's engine
+        /// </summary>
+        public static string TbDiagEngine {
+            get {
+                return ResourceManager.GetString("TbDiagEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Server reachable
+        /// </summary>
+        public static string TbDiagServer {
+            get {
+                return ResourceManager.GetString("TbDiagServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Traffic through the server
+        /// </summary>
+        public static string TbDiagThrough {
+            get {
+                return ResourceManager.GetString("TbDiagThrough", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Uses UDP, so it can't be tested on its own
+        /// </summary>
+        public static string TipDiagUdpSkip {
+            get {
+                return ResourceManager.GetString("TipDiagUdpSkip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Your internet itself isn't working (this isn't Glide). Check Wi-Fi or the cable, then try again.
+        /// </summary>
+        public static string TipDiagInternetDown {
+            get {
+                return ResourceManager.GetString("TipDiagInternetDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The server doesn't answer: it may be down or blocked. Test all servers and pick a fast one.
+        /// </summary>
+        public static string TipDiagServerDown {
+            get {
+                return ResourceManager.GetString("TipDiagServerDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The server answers but carries no traffic: its settings may be out of date. Update the subscription or try another server.
+        /// </summary>
+        public static string TipDiagNoTraffic {
+            get {
+                return ResourceManager.GetString("TipDiagNoTraffic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Name lookups fail without the proxy. Sites may still open through Glide; if they don't, check the DNS settings.
+        /// </summary>
+        public static string TipDiagDnsDown {
+            get {
+                return ResourceManager.GetString("TipDiagDnsDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Everything works. If one site still won't open, it may be down itself or sent direct by your routing rules.
+        /// </summary>
+        public static string TipDiagAllGood {
+            get {
+                return ResourceManager.GetString("TipDiagAllGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Run again
+        /// </summary>
+        public static string TbRunAgain {
+            get {
+                return ResourceManager.GetString("TbRunAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Close
+        /// </summary>
+        public static string TbClose {
+            get {
+                return ResourceManager.GetString("TbClose", resourceCulture);
             }
         }
     }

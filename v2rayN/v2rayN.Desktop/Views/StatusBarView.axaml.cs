@@ -23,6 +23,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         spRunningServer.Tapped += TxtRunningServerDisplay_Tapped;
         btnPower.Click += BtnPower_Click;
         btnStatusAction.Click += BtnStatusAction_Click;
+        btnDiagnose.Click += (_, _) => DiagnoseSheet.Open(ref _diagnoseSheet);
         _monitor.Changed += RenderStatus;
         _sessionTimer.Tick += (_, _) => UpdateSessionTime();
         _tickTimer.Tick += (_, _) => SpeedTick();
@@ -141,6 +142,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
     }
 
     private readonly ConnectionMonitor _monitor = new();
+    private DiagnoseSheet? _diagnoseSheet;
     private bool _hasServer;
 
     private static bool IsProxyOn(int selected) => selected is (int)ESysProxyType.ForcedChange or (int)ESysProxyType.Pac;
@@ -265,6 +267,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
             _ => null,
         };
         btnStatusAction.IsVisible = btnStatusAction.Content != null;
+        btnDiagnose.IsVisible = state is ConnState.NotConnected or ConnState.NoInternet or ConnState.PortConflict or ConnState.EngineStopped;
 
         // The session clock runs only while the connection is verified.
         if (state == ConnState.Connected && !_sessionTimer.IsEnabled)

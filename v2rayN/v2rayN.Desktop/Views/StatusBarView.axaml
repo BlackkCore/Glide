@@ -86,6 +86,14 @@
                         HorizontalAlignment="Center"
                         Classes="statusAction"
                         IsVisible="False" />
+                    <!--  Step-by-step check with a plain answer; shown while not connected.  -->
+                    <Button
+                        x:Name="btnDiagnose"
+                        HorizontalAlignment="Center"
+                        Content="{x:Static resx:ResUI.TbDiagnose}"
+                        FontSize="{DynamicResource AppFontSmall}"
+                        IsVisible="False"
+                        Theme="{DynamicResource BorderlessButton}" />
                 </StackPanel>
 
                 <StackPanel x:Name="spSpeed" Spacing="8">

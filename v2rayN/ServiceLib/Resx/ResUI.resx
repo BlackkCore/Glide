@@ -1960,7 +1960,7 @@ Import its servers, subscriptions and settings? Glide will restart, and your cur
     <value>PAC mode on</value>
   </data>
   <data name="TbSysProxyUnchanged" xml:space="preserve">
-    <value>System proxy unchanged</value>
+    <value>Standby</value>
   </data>
   <data name="TbProxyOff" xml:space="preserve">
     <value>Proxy off</value>
@@ -2201,5 +2201,50 @@ Its connection will stop and Glide will take over.</value>
   </data>
   <data name="TipFavorite" xml:space="preserve">
     <value>Star it to keep it at the top of the list</value>
+  </data>
+  <data name="TbDiagnose" xml:space="preserve">
+    <value>Why can't I connect?</value>
+  </data>
+  <data name="TbDiagTitle" xml:space="preserve">
+    <value>Connection check</value>
+  </data>
+  <data name="TbDiagInternet" xml:space="preserve">
+    <value>Your internet</value>
+  </data>
+  <data name="TbDiagDns" xml:space="preserve">
+    <value>Name lookups (DNS)</value>
+  </data>
+  <data name="TbDiagEngine" xml:space="preserve">
+    <value>Glide's engine</value>
+  </data>
+  <data name="TbDiagServer" xml:space="preserve">
+    <value>Server reachable</value>
+  </data>
+  <data name="TbDiagThrough" xml:space="preserve">
+    <value>Traffic through the server</value>
+  </data>
+  <data name="TipDiagUdpSkip" xml:space="preserve">
+    <value>Uses UDP, so it can't be tested on its own</value>
+  </data>
+  <data name="TipDiagInternetDown" xml:space="preserve">
+    <value>Your internet itself isn't working (this isn't Glide). Check Wi-Fi or the cable, then try again.</value>
+  </data>
+  <data name="TipDiagServerDown" xml:space="preserve">
+    <value>The server doesn't answer: it may be down or blocked. Test all servers and pick a fast one.</value>
+  </data>
+  <data name="TipDiagNoTraffic" xml:space="preserve">
+    <value>The server answers but carries no traffic: its settings may be out of date. Update the subscription or try another server.</value>
+  </data>
+  <data name="TipDiagDnsDown" xml:space="preserve">
+    <value>Name lookups fail without the proxy. Sites may still open through Glide; if they don't, check the DNS settings.</value>
+  </data>
+  <data name="TipDiagAllGood" xml:space="preserve">
+    <value>Everything works. If one site still won't open, it may be down itself or sent direct by your routing rules.</value>
+  </data>
+  <data name="TbRunAgain" xml:space="preserve">
+    <value>Run again</value>
+  </data>
+  <data name="TbClose" xml:space="preserve">
+    <value>Close</value>
   </data>
 </root>

@@ -18,7 +18,16 @@ public static class SubscriptionInfoStore
     private static readonly object Gate = new();
     private static Dictionary<string, Info>? _cache;
 
-    private static string FilePath => Utils.GetConfigPath("glide-subinfo.json");
+    // Public only so tests can point it (and ResetCache) somewhere else.
+    public static string FilePath { get; set; } = Utils.GetConfigPath("glide-subinfo.json");
+
+    public static void ResetCache()
+    {
+        lock (Gate)
+        {
+            _cache = null;
+        }
+    }
 
     public static string KeyFor(string url)
     {
@@ -54,7 +63,8 @@ public static class SubscriptionInfoStore
             all[KeyFor(url)] = info;
             try
             {
-                File.WriteAllText(FilePath, JsonSerializer.Serialize(all));
+                // Through JsonUtils: this build only serializes the types listed in AppJsonContext.
+                File.WriteAllText(FilePath, JsonUtils.Serialize(all, false));
             }
             catch
             {
@@ -84,7 +94,7 @@ public static class SubscriptionInfoStore
         try
         {
             _cache = File.Exists(FilePath)
-                ? JsonSerializer.Deserialize<Dictionary<string, Info>>(File.ReadAllText(FilePath)) ?? []
+                ? JsonUtils.Deserialize<Dictionary<string, Info>>(File.ReadAllText(FilePath)) ?? []
                 : [];
         }
         catch

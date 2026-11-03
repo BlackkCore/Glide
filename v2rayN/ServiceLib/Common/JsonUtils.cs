@@ -271,6 +271,7 @@ public class JsonUtils
 [JsonSerializable(typeof(List<string>))]
 [JsonSerializable(typeof(List<int>))]
 [JsonSerializable(typeof(Dictionary<string, string>))]
+[JsonSerializable(typeof(Dictionary<string, SubscriptionInfoStore.Info>))]
 [JsonSerializable(typeof(Dictionary<string, object>))]
 [JsonSerializable(typeof(object))]
 [JsonSerializable(typeof(JsonElement))]

@@ -6533,5 +6533,68 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipValidatorHint", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   next update {0}
+        /// </summary>
+        public static string TbSubNextUpdate {
+            get {
+                return ResourceManager.GetString("TbSubNextUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}: the plan expires in {1} day(s).
+        /// </summary>
+        public static string TipSubExpiresSoonWarn {
+            get {
+                return ResourceManager.GetString("TipSubExpiresSoonWarn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}: the plan has expired.
+        /// </summary>
+        public static string TipSubExpiredWarn {
+            get {
+                return ResourceManager.GetString("TipSubExpiredWarn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}: only {1} of data left.
+        /// </summary>
+        public static string TipSubLowDataWarn {
+            get {
+                return ResourceManager.GetString("TipSubLowDataWarn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}: no data left.
+        /// </summary>
+        public static string TipSubNoDataWarn {
+            get {
+                return ResourceManager.GetString("TipSubNoDataWarn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show your exit IP when connected? Glide asks api.ip.sb, through the proxy, which address websites see. You can change this in Settings.
+        /// </summary>
+        public static string TipExitIpOffer {
+            get {
+                return ResourceManager.GetString("TipExitIpOffer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show exit IP
+        /// </summary>
+        public static string TbShowExitIp {
+            get {
+                return ResourceManager.GetString("TbShowExitIp", resourceCulture);
+            }
+        }
     }
 }

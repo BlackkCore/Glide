@@ -2283,4 +2283,25 @@
   <data name="TipValidatorHint" xml:space="preserve">
     <value>این‌ها نکته‌هایی درباره‌ی تنظیمات برخی سرورها از طرف ارائه‌دهنده است. معمولاً همچنان کار می‌کنند؛ اگر سروری کار نکرد، از ارائه‌دهنده بپرسید یا سرور دیگری انتخاب کنید.</value>
   </data>
+  <data name="TbSubNextUpdate" xml:space="preserve">
+    <value>به‌روزرسانی بعدی {0}</value>
+  </data>
+  <data name="TipSubExpiresSoonWarn" xml:space="preserve">
+    <value>{0}: اشتراک تا {1} روز دیگر منقضی می‌شود.</value>
+  </data>
+  <data name="TipSubExpiredWarn" xml:space="preserve">
+    <value>{0}: اشتراک منقضی شده است.</value>
+  </data>
+  <data name="TipSubLowDataWarn" xml:space="preserve">
+    <value>{0}: فقط {1} حجم باقی مانده است.</value>
+  </data>
+  <data name="TipSubNoDataWarn" xml:space="preserve">
+    <value>{0}: حجم اشتراک تمام شده است.</value>
+  </data>
+  <data name="TipExitIpOffer" xml:space="preserve">
+    <value>هنگام اتصال، IP خروجی نمایش داده شود؟ Glide از طریق پراکسی از api.ip.sb می‌پرسد که سایت‌ها چه آدرسی از شما می‌بینند. بعداً می‌توانید آن را در تنظیمات تغییر دهید.</value>
+  </data>
+  <data name="TbShowExitIp" xml:space="preserve">
+    <value>نمایش IP خروجی</value>
+  </data>
 </root>

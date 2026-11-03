@@ -50,6 +50,39 @@ public static class SubscriptionInfoStore
         return info.Total > 0 || info.Expire > 0 || info.Used > 0 ? info : null;
     }
 
+    public enum WarningKind { None, ExpiresSoon, Expired, LowData, NoDataLeft }
+
+    /// <summary>
+    /// Whether to warn about a plan: expired, expiring within 3 days, out of data, or under 10% left.
+    /// Expiry wins over data (the plan stops either way, and the date is the clearer reason).
+    /// </summary>
+    public static WarningKind Warning(Info info, DateTimeOffset now)
+    {
+        if (info.Expires is { } expires)
+        {
+            if (expires <= now)
+            {
+                return WarningKind.Expired;
+            }
+            if (expires - now <= TimeSpan.FromDays(3))
+            {
+                return WarningKind.ExpiresSoon;
+            }
+        }
+        if (info.Total > 0)
+        {
+            if (info.Left <= 0)
+            {
+                return WarningKind.NoDataLeft;
+            }
+            if (info.Left < info.Total / 10)
+            {
+                return WarningKind.LowData;
+            }
+        }
+        return WarningKind.None;
+    }
+
     public static void Record(string url, string? header)
     {
         var info = Parse(header, DateTimeOffset.UtcNow);

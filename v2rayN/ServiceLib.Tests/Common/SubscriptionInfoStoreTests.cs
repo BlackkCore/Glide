@@ -64,6 +64,20 @@ public class SubscriptionInfoStoreTests
     }
 
     [Test]
+    [Arguments(0L, 100L, -60L, SubscriptionInfoStore.WarningKind.Expired)]
+    [Arguments(0L, 100L, 2 * 86400L, SubscriptionInfoStore.WarningKind.ExpiresSoon)]
+    [Arguments(100L, 100L, 30 * 86400L, SubscriptionInfoStore.WarningKind.NoDataLeft)]
+    [Arguments(95L, 100L, 30 * 86400L, SubscriptionInfoStore.WarningKind.LowData)]
+    [Arguments(50L, 100L, 30 * 86400L, SubscriptionInfoStore.WarningKind.None)]
+    [Arguments(50L, 0L, 0L, SubscriptionInfoStore.WarningKind.None)]
+    public async Task Warning_PicksTheRightKind(long used, long total, long expiresIn, SubscriptionInfoStore.WarningKind expected)
+    {
+        var expire = expiresIn == 0 ? 0 : Now.ToUnixTimeSeconds() + expiresIn;
+        var info = new SubscriptionInfoStore.Info(0, used, total, expire, Now.ToUnixTimeSeconds());
+        await SubscriptionInfoStore.Warning(info, Now).Should().BeEqualTo(expected);
+    }
+
+    [Test]
     public async Task KeyFor_NeverContainsTheUrl()
     {
         var key = SubscriptionInfoStore.KeyFor("https://example.com/sub?token=SECRET123");

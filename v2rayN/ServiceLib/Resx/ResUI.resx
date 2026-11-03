@@ -2283,4 +2283,25 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipValidatorHint" xml:space="preserve">
     <value>These are notes about how your provider set up some servers. They usually still work; if one doesn't, ask the provider or pick another server.</value>
   </data>
+  <data name="TbSubNextUpdate" xml:space="preserve">
+    <value>next update {0}</value>
+  </data>
+  <data name="TipSubExpiresSoonWarn" xml:space="preserve">
+    <value>{0}: the plan expires in {1} day(s).</value>
+  </data>
+  <data name="TipSubExpiredWarn" xml:space="preserve">
+    <value>{0}: the plan has expired.</value>
+  </data>
+  <data name="TipSubLowDataWarn" xml:space="preserve">
+    <value>{0}: only {1} of data left.</value>
+  </data>
+  <data name="TipSubNoDataWarn" xml:space="preserve">
+    <value>{0}: no data left.</value>
+  </data>
+  <data name="TipExitIpOffer" xml:space="preserve">
+    <value>Show your exit IP when connected? Glide asks api.ip.sb, through the proxy, which address websites see. You can change this in Settings.</value>
+  </data>
+  <data name="TbShowExitIp" xml:space="preserve">
+    <value>Show exit IP</value>
+  </data>
 </root>

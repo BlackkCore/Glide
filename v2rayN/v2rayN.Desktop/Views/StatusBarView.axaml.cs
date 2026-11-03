@@ -230,6 +230,40 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
     }
 
     // Pill, detail line and action button for the current connection state.
+    private bool _exitIpOffered;
+
+    // The exit IP needs an IP lookup service, which is off by default (a lookup contacts that site).
+    // The first time the connection works, ask once instead of hiding it in advanced settings.
+    private async Task OfferExitIpAsync()
+    {
+        if (_exitIpOffered)
+        {
+            return;
+        }
+        _exitIpOffered = true;
+        try
+        {
+            var config = AppManager.Instance.Config;
+            var marker = Utils.GetConfigPath("glide-exitip-asked");
+            if (config.SpeedTestItem.IPAPIUrl.IsNotEmpty() || File.Exists(marker))
+            {
+                return;
+            }
+            File.WriteAllText(marker, "");
+            if (await UI.ShowYesNo(ResUI.TipExitIpOffer, ResUI.TbShowExitIp, ResUI.TbNotNow) != ButtonResult.Yes)
+            {
+                return;
+            }
+            config.SpeedTestItem.IPAPIUrl = Global.IPAPIUrls[0];
+            await ConfigHandler.SaveConfig(config);
+            _monitor.CheckSoon(100);
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("OfferExitIp", ex);
+        }
+    }
+
     private void RenderStatus()
     {
         var selected = ViewModel?.SystemProxySelected ?? (int)ESysProxyType.ForcedClear;
@@ -269,6 +303,10 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
             _ => null,
         };
         btnStatusAction.IsVisible = btnStatusAction.Content != null;
+        if (state == ConnState.Connected)
+        {
+            _ = OfferExitIpAsync();
+        }
         btnDiagnose.IsVisible = state is ConnState.NotConnected or ConnState.NoInternet or ConnState.PortConflict or ConnState.EngineStopped;
 
         // The session clock runs only while the connection is verified.

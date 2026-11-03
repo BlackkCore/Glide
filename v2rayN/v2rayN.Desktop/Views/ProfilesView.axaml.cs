@@ -57,7 +57,11 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
                 _emptyStateHooked = true;
                 ViewModel.ProfileItems.CollectionChanged += (_, _) => Dispatcher.UIThread.Post(UpdateEmptyState);
                 // A subscription update reloads the list, so the provider's new numbers show up then.
-                ViewModel.ProfileItems.CollectionChanged += (_, _) => Dispatcher.UIThread.Post(UpdateSubInfo);
+                ViewModel.ProfileItems.CollectionChanged += (_, _) => Dispatcher.UIThread.Post(() =>
+                {
+                    UpdateSubInfo();
+                    WarnAboutSubscriptions();
+                });
             }
             this.WhenAnyValue(v => v.ViewModel.SelectedSub)
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
@@ -360,44 +364,86 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
     private void UpdateSubInfo()
     {
         // Auto needs one subscription to choose from, so not on "All servers".
-        btnAutoFastest.IsVisible = ViewModel?.SelectedSub?.Id.IsNotEmpty() == true;
-        var url = ViewModel?.SelectedSub?.Url;
+        var sub = ViewModel?.SelectedSub;
+        btnAutoFastest.IsVisible = sub?.Id.IsNotEmpty() == true;
         // Same key the download used (SubscriptionHandler fetches the punycode form of the URL).
-        var info = url.IsNullOrEmpty() ? null : SubscriptionInfoStore.Get(Utils.GetPunycode(url.TrimEx()));
-        pnlSubInfo.IsVisible = info != null;
-        if (info == null)
+        var info = sub == null || sub.Url.IsNullOrEmpty() ? null : SubscriptionInfoStore.Get(Utils.GetPunycode(sub.Url.TrimEx()));
+        // Upstream refreshes a subscription every AutoUpdateInterval minutes (TaskManager): say when.
+        DateTimeOffset? nextUpdate = sub is { AutoUpdateInterval: > 0 }
+            ? DateTimeOffset.FromUnixTimeSeconds(sub.UpdateTime + sub.AutoUpdateInterval * 60L)
+            : null;
+        pnlSubInfo.IsVisible = info != null || nextUpdate != null;
+
+        var parts = new List<string>();
+        var expired = false;
+        if (info != null)
+        {
+            if (info.Total > 0)
+            {
+                parts.Add(string.Format(ResUI.TbSubUsed, FormatBytes(info.Used), FormatBytes(info.Total)));
+                parts.Add(string.Format(ResUI.TbSubLeft, FormatBytes(info.Left)));
+            }
+            else if (info.Used > 0)
+            {
+                parts.Add(string.Format(ResUI.TbSubUsedNoLimit, FormatBytes(info.Used)));
+            }
+            if (info.Expires is { } expires)
+            {
+                var remaining = expires - DateTimeOffset.UtcNow;
+                expired = remaining <= TimeSpan.Zero;
+                parts.Add(expired ? ResUI.TbSubExpired
+                    : remaining.TotalHours < 24 ? ResUI.TbSubExpiresToday
+                    : string.Format(ResUI.TbSubDaysLeft, (int)remaining.TotalDays));
+            }
+            parts.Add(string.Format(ResUI.TbSubUpdated, Stamp(info.Updated)));
+        }
+        if (nextUpdate is { } next)
+        {
+            parts.Add(string.Format(ResUI.TbSubNextUpdate, Stamp(next < DateTimeOffset.UtcNow ? DateTimeOffset.UtcNow : next)));
+        }
+
+        txtSubInfo.Text = string.Join("  ·  ", parts);
+        barSubUsage.IsVisible = info is { Total: > 0 };
+        barSubUsage.Value = info is { Total: > 0 } ? Math.Min(1, (double)info.Used / info.Total) : 0;
+        // Red when it's over or nearly used up, so it's noticed before the servers stop working.
+        txtSubInfo.Classes.Set("bad", expired || (info is { Total: > 0 } && info.Left < info.Total / 10));
+    }
+
+    private static string Stamp(DateTimeOffset time)
+    {
+        return $"‎{time.ToLocalTime().ToString("MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture)}‎";
+    }
+
+    private readonly HashSet<string> _subWarned = [];
+
+    // One toast per subscription and problem per run: before the plan or its data runs out.
+    private void WarnAboutSubscriptions()
+    {
+        if (ViewModel == null)
         {
             return;
         }
-
-        var parts = new List<string>();
-        if (info.Total > 0)
+        var now = DateTimeOffset.UtcNow;
+        foreach (var sub in ViewModel.SubItems.Where(s => s.Url.IsNotEmpty()).ToList())
         {
-            parts.Add(string.Format(ResUI.TbSubUsed, FormatBytes(info.Used), FormatBytes(info.Total)));
-            parts.Add(string.Format(ResUI.TbSubLeft, FormatBytes(info.Left)));
+            if (SubscriptionInfoStore.Get(Utils.GetPunycode(sub.Url.TrimEx())) is not { } info)
+            {
+                continue;
+            }
+            var kind = SubscriptionInfoStore.Warning(info, now);
+            if (kind == SubscriptionInfoStore.WarningKind.None || !_subWarned.Add($"{sub.Id}:{kind}"))
+            {
+                continue;
+            }
+            NoticeManager.Instance.Enqueue(kind switch
+            {
+                SubscriptionInfoStore.WarningKind.ExpiresSoon => string.Format(ResUI.TipSubExpiresSoonWarn, sub.Remarks,
+                    Math.Max(1, (int)Math.Ceiling((info.Expires!.Value - now).TotalDays))),
+                SubscriptionInfoStore.WarningKind.Expired => string.Format(ResUI.TipSubExpiredWarn, sub.Remarks),
+                SubscriptionInfoStore.WarningKind.LowData => string.Format(ResUI.TipSubLowDataWarn, sub.Remarks, FormatBytes(info.Left)),
+                _ => string.Format(ResUI.TipSubNoDataWarn, sub.Remarks),
+            });
         }
-        else if (info.Used > 0)
-        {
-            parts.Add(string.Format(ResUI.TbSubUsedNoLimit, FormatBytes(info.Used)));
-        }
-
-        var expired = false;
-        if (info.Expires is { } expires)
-        {
-            var remaining = expires - DateTimeOffset.UtcNow;
-            expired = remaining <= TimeSpan.Zero;
-            parts.Add(expired ? ResUI.TbSubExpired
-                : remaining.TotalHours < 24 ? ResUI.TbSubExpiresToday
-                : string.Format(ResUI.TbSubDaysLeft, (int)remaining.TotalDays));
-        }
-        parts.Add(string.Format(ResUI.TbSubUpdated,
-            $"‎{info.Updated.ToLocalTime().ToString("MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture)}‎"));
-
-        txtSubInfo.Text = string.Join("  ·  ", parts);
-        barSubUsage.IsVisible = info.Total > 0;
-        barSubUsage.Value = info.Total > 0 ? Math.Min(1, (double)info.Used / info.Total) : 0;
-        // Red when it's over or nearly used up, so it's noticed before the servers stop working.
-        txtSubInfo.Classes.Set("bad", expired || (info.Total > 0 && info.Left < info.Total / 10));
     }
 
     // Upstream's Utils.HumanFy starts at KB, so 500 bytes would read "500.0 KB"; and the LRM marks

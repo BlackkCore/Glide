@@ -32,6 +32,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         };
         btnEmptyPaste.Click += (_, _) => AppEvents.AddServerViaClipboardRequested.Publish();
         btnAddServer.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
+        btnAutoFastest.Click += async (_, _) => await UseAutoFastestAsync();
         menuFavorite.Click += (_, _) => ToggleFavorites(lstProfiles.SelectedItems?.OfType<ProfileItemModel>().ToList() ?? []);
         lstProfiles.KeyDown += LstProfiles_KeyDown;
         lstProfiles.SelectionChanged += lstProfiles_SelectionChanged;
@@ -322,8 +323,44 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
 
     #endregion List view
 
+    private async Task UseAutoFastestAsync()
+    {
+        try
+        {
+            var viewModel = ViewModel;
+            var id = viewModel == null ? null : await AutoServer.EnsureAsync(_config, viewModel.SelectedSub);
+            if (viewModel == null || id == null)
+            {
+                NoticeManager.Instance.Enqueue(ResUI.OperationFailed);
+                return;
+            }
+            // Starred, so it stays at the top of the list.
+            if (!FavoriteStore.IsFavorite(id))
+            {
+                FavoriteStore.Toggle(id);
+            }
+            if (_config.IndexId == id)
+            {
+                await viewModel.RefreshServers();
+            }
+            else
+            {
+                await viewModel.SetDefaultServer(id);
+            }
+            NoticeManager.Instance.Enqueue(ResUI.TipAutoFastestOn);
+        }
+        catch (Exception ex)
+        {
+            // An exception escaping a click handler would close the app.
+            Logging.SaveLog(_tag, ex);
+            NoticeManager.Instance.Enqueue(ResUI.OperationFailed);
+        }
+    }
+
     private void UpdateSubInfo()
     {
+        // Auto needs one subscription to choose from, so not on "All servers".
+        btnAutoFastest.IsVisible = ViewModel?.SelectedSub?.Id.IsNotEmpty() == true;
         var url = ViewModel?.SelectedSub?.Url;
         // Same key the download used (SubscriptionHandler fetches the punycode form of the URL).
         var info = url.IsNullOrEmpty() ? null : SubscriptionInfoStore.Get(Utils.GetPunycode(url.TrimEx()));

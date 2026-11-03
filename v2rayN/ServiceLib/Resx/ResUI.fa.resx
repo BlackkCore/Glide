@@ -2241,4 +2241,16 @@
   <data name="TbClose" xml:space="preserve">
     <value>بستن</value>
   </data>
+  <data name="TbAutoFastest" xml:space="preserve">
+    <value>خودکار (سریع‌ترین)</value>
+  </data>
+  <data name="TbUseAutoFastest" xml:space="preserve">
+    <value>خودکار: سریع‌ترین</value>
+  </data>
+  <data name="TipAutoFastest" xml:space="preserve">
+    <value>از سریع‌ترین سرورِ این اشتراک استفاده می‌کند. Glide در پس‌زمینه مدام آزمایش می‌کند و اگر سروری از کار بیفتد، به سرور دیگری می‌رود.</value>
+  </data>
+  <data name="TipAutoFastestOn" xml:space="preserve">
+    <value>حالت خودکار روشن است: Glide از سریع‌ترین سرور استفاده می‌کند و اگر سروری از کار بیفتد، عوض می‌کند.</value>
+  </data>
 </root>

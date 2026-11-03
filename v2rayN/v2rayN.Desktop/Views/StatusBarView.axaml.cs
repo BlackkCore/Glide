@@ -11,8 +11,10 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
     // "proxy : 1.2 KB/s↑ | 3.4 MB/s↓" (ResUI.SpeedDisplayText, same in every language)
     private static readonly Regex SpeedRegex = new(@"^\s*(?<tag>[^:]*?)\s*:\s*(?<up>.+?)↑\s*\|\s*(?<down>.+?)↓\s*$", RegexOptions.Compiled);
 
-    // "[VLESS] Frankfurt 02(fra2***net:443)" (ProfileItem.GetSummary)
-    private static readonly Regex SummaryRegex = new(@"^\[(?<type>[^\]]+)\]\s*(?<name>.*?)(\((?<addr>[^()]*)\))?$", RegexOptions.Compiled);
+    // "[VLESS] Frankfurt 02(fra2***net:443)", or for groups "[PolicyGroup] [Xray]⚡ Auto (fastest)"
+    // (ProfileItem.GetSummary). The core tag is skipped, and only a trailing "(…:port)" is the address,
+    // so names with their own parentheses stay whole.
+    private static readonly Regex SummaryRegex = new(@"^\[(?<type>[^\]]+)\]\s*(?:\[[^\]]+\])?\s*(?<name>.*?)(\((?<addr>[^()]*:\d+)\))?$", RegexOptions.Compiled);
 
     public StatusBarView()
     {

@@ -6425,5 +6425,41 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbClose", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Auto (fastest)
+        /// </summary>
+        public static string TbAutoFastest {
+            get {
+                return ResourceManager.GetString("TbAutoFastest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Auto: fastest
+        /// </summary>
+        public static string TbUseAutoFastest {
+            get {
+                return ResourceManager.GetString("TbUseAutoFastest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Use whichever server in this subscription is fastest. Glide keeps testing in the background and switches when one stops working.
+        /// </summary>
+        public static string TipAutoFastest {
+            get {
+                return ResourceManager.GetString("TipAutoFastest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Auto is on: Glide uses the fastest server and switches when one fails.
+        /// </summary>
+        public static string TipAutoFastestOn {
+            get {
+                return ResourceManager.GetString("TipAutoFastestOn", resourceCulture);
+            }
+        }
     }
 }

@@ -2247,4 +2247,16 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbClose" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="TbAutoFastest" xml:space="preserve">
+    <value>Auto (fastest)</value>
+  </data>
+  <data name="TbUseAutoFastest" xml:space="preserve">
+    <value>Auto: fastest</value>
+  </data>
+  <data name="TipAutoFastest" xml:space="preserve">
+    <value>Use whichever server in this subscription is fastest. Glide keeps testing in the background and switches when one stops working.</value>
+  </data>
+  <data name="TipAutoFastestOn" xml:space="preserve">
+    <value>Auto is on: Glide uses the fastest server and switches when one fails.</value>
+  </data>
 </root>

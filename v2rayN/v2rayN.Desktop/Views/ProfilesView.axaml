@@ -189,6 +189,23 @@
                 Classes="toolbar"
                 DockPanel.Dock="Right">
                 <StackPanel Orientation="Horizontal">
+                    <!--  Makes (or reuses) this subscription's Auto group and connects through it.  -->
+                    <Button
+                        x:Name="btnAutoFastest"
+                        Width="NaN"
+                        Padding="10,0,12,0"
+                        Classes="IconButton"
+                        IsVisible="False"
+                        ToolTip.Tip="{x:Static resx:ResUI.TipAutoFastest}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <PathIcon VerticalAlignment="Center" Data="{StaticResource SemiIconBolt}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource AppFontSmall}"
+                                FontWeight="SemiBold"
+                                Text="{x:Static resx:ResUI.TbUseAutoFastest}" />
+                        </StackPanel>
+                    </Button>
                     <Button
                         x:Name="btnEditSub"
                         Classes="IconButton"

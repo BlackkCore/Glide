@@ -185,8 +185,6 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         {
             WindowState = WindowState.Minimized;
         }
-
-        AddHelpMenuItem();
     }
 
     #region Event
@@ -791,31 +789,6 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         tabMsgView2.Content = null;
         tabClashProxies2.Content = null;
         tabClashConnections2.Content = null;
-    }
-
-    private void AddHelpMenuItem()
-    {
-        var coreInfo = CoreInfoManager.Instance.GetCoreInfo();
-        foreach (var it in coreInfo
-            .Where(t => t.CoreType is not ECoreType.v2fly
-                        and not ECoreType.hysteria))
-        {
-            var item = new MenuItem()
-            {
-                Tag = it.Url?.Replace(@"/releases", ""),
-                Header = string.Format(ResUI.menuWebsiteItem, Global.CoreDisplayName(it.CoreType).Replace("_", " ")).UpperFirstChar()
-            };
-            item.Click += MenuItem_Click;
-            menuHelp.Items.Add(item);
-        }
-    }
-
-    private void MenuItem_Click(object? sender, RoutedEventArgs e)
-    {
-        if (sender is MenuItem item)
-        {
-            ProcUtils.ProcessStart(item.Tag?.ToString());
-        }
     }
 
     #endregion UI

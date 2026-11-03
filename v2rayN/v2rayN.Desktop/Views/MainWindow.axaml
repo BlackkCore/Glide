@@ -206,15 +206,13 @@
                             <MenuItem x:Name="menuOpenTheFileLocation" Header="{x:Static resx:ResUI.menuOpenTheFileLocation}" />
                         </MenuItem>
 
-                        <MenuItem x:Name="menuHelp">
+                        <MenuItem x:Name="menuCheckUpdate">
                             <MenuItem.Header>
                                 <DockPanel>
-                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconHelp}" />
-                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuHelp}" />
+                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconUpdate}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuCheckUpdate}" />
                                 </DockPanel>
                             </MenuItem.Header>
-                            <MenuItem x:Name="menuCheckUpdate" Header="{x:Static resx:ResUI.menuCheckUpdate}" />
-                            <Separator />
                         </MenuItem>
 
                         <Separator />

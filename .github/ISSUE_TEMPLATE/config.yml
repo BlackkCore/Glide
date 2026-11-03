@@ -1,9 +1,9 @@
 blank_issues_enabled: false
 
 contact_links:
-  - name: Discussions / 讨论区
+  - name: Download the latest Glide
+    url: https://github.com/BlackkCore/v2rayN-Redesign/releases/latest
+    about: Most problems are already fixed in the newest release.
+  - name: Core and protocol questions (upstream v2rayN)
     url: https://github.com/2dust/v2rayN/discussions
-    about: 使用问题或需要帮助请前往 Discussions。
-  - name: Wiki / 使用说明
-    url: https://github.com/2dust/v2rayN/wiki
-    about: 查看常见问题和使用文档。
+    about: Questions about Xray, sing-box, mihomo or server setup.

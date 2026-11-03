@@ -2304,4 +2304,7 @@
   <data name="TbShowExitIp" xml:space="preserve">
     <value>نمایش IP خروجی</value>
   </data>
+  <data name="TbShowAdvancedFields" xml:space="preserve">
+    <value>نمایش فیلدهای پیشرفته</value>
+  </data>
 </root>

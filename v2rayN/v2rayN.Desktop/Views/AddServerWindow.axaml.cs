@@ -1,3 +1,4 @@
+using Avalonia.LogicalTree;
 using v2rayN.Desktop.Base;
 
 namespace v2rayN.Desktop.Views;
@@ -307,7 +308,80 @@ public partial class AddServerWindow : WindowBase<AddServerViewModel>
     private void Window_Loaded(object? sender, RoutedEventArgs e)
     {
         txtRemarks.Focus();
+        _showAdvanced = File.Exists(AdvancedMarker);
+        togShowAdvancedFields.IsChecked = _showAdvanced;
+        togShowAdvancedFields.IsCheckedChanged += (_, _) =>
+        {
+            _showAdvanced = togShowAdvancedFields.IsChecked == true;
+            try
+            {
+                if (_showAdvanced)
+                {
+                    File.WriteAllText(AdvancedMarker, "");
+                }
+                else
+                {
+                    File.Delete(AdvancedMarker);
+                }
+            }
+            catch
+            {
+                // Only a preference.
+            }
+            ApplyAdvancedFields();
+        };
+        ApplyAdvancedFields();
     }
+
+    #region Basic / advanced fields
+
+    // Fields a provider rarely hands out; hidden until "Show advanced fields". Rows not listed always
+    // show, and the form's own panel switching (TLS / REALITY, transports) is left alone.
+    private static readonly HashSet<string> AdvancedLabels =
+    [
+        ResUI.TbSettingsMuxEnabled, ResUI.TbXrayOnly, ResUI.TbUot, ResUI.TbHttpOutboundHeaders, ResUI.TbMtu,
+        ResUI.TransportExtra, ResUI.TbFinalmask, ResUI.TbEchConfigList, ResUI.TbMldsa65Verify, ResUI.TbCertPinning,
+        ResUI.TbVerifyPeerCertByName, ResUI.TbInsecureConcurrency, ResUI.TbGeckoPacketSize, ResUI.TbHopInt7,
+        ResUI.TbPorts7, ResUI.TbHy2RealmUrl, ResUI.TbDNS, ResUI.TbWarp, ResUI.TbSettingsHysteriaBandwidth,
+    ];
+
+    private static string AdvancedMarker => Utils.GetConfigPath("glide-server-advanced");
+
+    private bool _showAdvanced;
+    private readonly HashSet<Control> _hiddenAdvanced = [];
+
+    private void ApplyAdvancedFields()
+    {
+        // SetCurrentValue keeps any binding on a cell; only cells this hid are shown again.
+        foreach (var control in _hiddenAdvanced)
+        {
+            control.SetCurrentValue(IsVisibleProperty, true);
+        }
+        _hiddenAdvanced.Clear();
+        if (_showAdvanced)
+        {
+            return;
+        }
+        foreach (var grid in this.GetLogicalDescendants().OfType<Grid>().Where(g => g.RowDefinitions.Count > 0))
+        {
+            foreach (var row in grid.Children.GroupBy(Grid.GetRow))
+            {
+                var cells = row.ToList();
+                if (cells.FirstOrDefault(c => c is TextBlock && Grid.GetColumn(c) == 0) is not TextBlock label
+                    || !AdvancedLabels.Contains(label.Text ?? string.Empty))
+                {
+                    continue;
+                }
+                foreach (var cell in cells.Where(c => c.IsVisible))
+                {
+                    cell.SetCurrentValue(IsVisibleProperty, false);
+                    _hiddenAdvanced.Add(cell);
+                }
+            }
+        }
+    }
+
+    #endregion Basic / advanced fields
 
     private void CmbNetwork_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {

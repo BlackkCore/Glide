@@ -2304,4 +2304,7 @@ Its connection will stop and Glide will take over.</value>
   <data name="TbShowExitIp" xml:space="preserve">
     <value>Show exit IP</value>
   </data>
+  <data name="TbShowAdvancedFields" xml:space="preserve">
+    <value>Show advanced fields</value>
+  </data>
 </root>

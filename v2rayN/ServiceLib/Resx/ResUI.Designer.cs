@@ -6596,5 +6596,14 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbShowExitIp", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Show advanced fields
+        /// </summary>
+        public static string TbShowAdvancedFields {
+            get {
+                return ResourceManager.GetString("TbShowAdvancedFields", resourceCulture);
+            }
+        }
     }
 }

@@ -32,6 +32,17 @@
                 Margin="{StaticResource MarginLr8}"
                 Content="{x:Static resx:ResUI.TbCancel}"
                 IsCancel="True" />
+            <!--  Off: the rarely needed fields (mux, UoT, extra headers, ECH, pinning, port hopping…) are hidden.  -->
+            <TextBlock
+                Margin="16,0,8,0"
+                VerticalAlignment="Center"
+                Classes="muted"
+                Text="{x:Static resx:ResUI.TbShowAdvancedFields}" />
+            <ToggleSwitch
+                x:Name="togShowAdvancedFields"
+                VerticalAlignment="Center"
+                OffContent=""
+                OnContent="" />
         </StackPanel>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">

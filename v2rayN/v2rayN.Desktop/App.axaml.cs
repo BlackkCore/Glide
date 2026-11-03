@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using v2rayN.Desktop.Common;
 using v2rayN.Desktop.Views;
 
@@ -31,6 +32,7 @@ public partial class App : Application
             {
                 AppManager.Instance.InitComponents();
                 DataContext = StatusBarViewModel.Instance;
+                SetupTrayServers(StatusBarViewModel.Instance);
             }
 
             var mainWindowViewModel = new MainWindowViewModel();
@@ -46,6 +48,106 @@ public partial class App : Application
 
         base.OnFrameworkInitializationCompleted();
     }
+
+    #region Tray servers
+
+    // "[VLESS] Frankfurt(fra***net:443)" or "[PolicyGroup] [Xray]⚡ Auto" -> the name only.
+    private static readonly Regex TrayNameRegex = new(@"^\[[^\]]+\]\s*(?:\[[^\]]+\])?\s*(?<name>.*?)(\([^()]*:\d+\))?$", RegexOptions.Compiled);
+
+    private NativeMenuItem? _trayServers;
+
+    /// <summary>
+    /// A "Servers" submenu under Connect / Disconnect: favourites first (also when the subscription is
+    /// too long for upstream's tray list), then the rest. Picking one goes through upstream's
+    /// SelectedServer, which switches the active server.
+    /// </summary>
+    private void SetupTrayServers(StatusBarViewModel viewModel)
+    {
+        try
+        {
+            if (TrayIcon.GetIcons(this)?.FirstOrDefault()?.Menu is not { } menu)
+            {
+                return;
+            }
+            _trayServers = new NativeMenuItem(ResUI.menuServers) { Menu = new NativeMenu(), IsVisible = false };
+            var disconnect = menu.Items.OfType<NativeMenuItem>().FirstOrDefault(i => i.Header == ResUI.TbDisconnect);
+            menu.Items.Insert(disconnect == null ? 0 : menu.Items.IndexOf(disconnect) + 1, _trayServers);
+
+            viewModel.Servers.CollectionChanged += (_, _) => _ = RebuildTrayServersAsync(viewModel);
+            // Upstream leaves Servers empty when the list is too long for the tray, so starring and
+            // startup rebuild it too: favourites show either way.
+            FavoriteStore.Changed += () => Dispatcher.UIThread.Post(async () => await RebuildTrayServersAsync(viewModel));
+            Dispatcher.UIThread.Post(async () => await RebuildTrayServersAsync(viewModel));
+            viewModel.WhenAnyValue(v => v.SelectedServer)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Subscribe(async _ => await RebuildTrayServersAsync(viewModel));
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("SetupTrayServers", ex);
+        }
+    }
+
+    private async Task RebuildTrayServersAsync(StatusBarViewModel viewModel)
+    {
+        try
+        {
+            if (_trayServers?.Menu is not { } submenu)
+            {
+                return;
+            }
+            var activeId = AppManager.Instance.Config.IndexId;
+            var listed = viewModel.Servers.Where(s => s.ID.IsNotEmpty()).ToList();
+            var favourites = new List<ComboItem>();
+            foreach (var id in FavoriteStore.All())
+            {
+                var item = listed.FirstOrDefault(s => s.ID == id);
+                if (item == null && await AppManager.Instance.GetProfileItem(id) is { } profile)
+                {
+                    item = new ComboItem { ID = profile.IndexId, Text = profile.GetSummary() };
+                }
+                if (item != null)
+                {
+                    favourites.Add(item);
+                }
+            }
+            var others = listed.Where(s => favourites.All(f => f.ID != s.ID)).ToList();
+
+            submenu.Items.Clear();
+            foreach (var item in favourites)
+            {
+                submenu.Items.Add(TrayServerItem(viewModel, item, "★ ", activeId));
+            }
+            if (favourites.Count > 0 && others.Count > 0)
+            {
+                submenu.Items.Add(new NativeMenuItemSeparator());
+            }
+            foreach (var item in others)
+            {
+                submenu.Items.Add(TrayServerItem(viewModel, item, string.Empty, activeId));
+            }
+            _trayServers.IsVisible = submenu.Items.Count > 0;
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("RebuildTrayServers", ex);
+        }
+    }
+
+    private static NativeMenuItem TrayServerItem(StatusBarViewModel viewModel, ComboItem server, string prefix, string? activeId)
+    {
+        var match = TrayNameRegex.Match(server.Text ?? string.Empty);
+        var name = match.Success ? match.Groups["name"].Value.Trim() : server.Text;
+        var item = new NativeMenuItem($"{prefix}{name}")
+        {
+            ToggleType = MenuItemToggleType.Radio,
+            IsChecked = server.ID == activeId,
+        };
+        item.Click += (_, _) => viewModel.SelectedServer = viewModel.Servers.FirstOrDefault(s => s.ID == server.ID) ?? server;
+        return item;
+    }
+
+    #endregion Tray servers
 
     #region MacOS Activation
 

@@ -24,6 +24,18 @@ public static class FavoriteStore
         }
     }
 
+    /// <summary>Raised after a server is starred or unstarred (the tray menu listens).</summary>
+    public static event Action? Changed;
+
+    /// <summary>A copy of the starred server ids.</summary>
+    public static IReadOnlyList<string> All()
+    {
+        lock (Gate)
+        {
+            return LoadLocked().ToList();
+        }
+    }
+
     /// <summary>Stars or unstars a server; returns whether it is a favourite now.</summary>
     public static bool Toggle(string? indexId)
     {
@@ -31,21 +43,29 @@ public static class FavoriteStore
         {
             return false;
         }
+        bool now;
         lock (Gate)
         {
-            var all = LoadLocked();
-            var now = all.Add(indexId) || !all.Remove(indexId);
-            try
-            {
-                // Through JsonUtils: this build only serializes the types listed in AppJsonContext.
-                File.WriteAllText(FilePath, JsonUtils.Serialize(all.ToList(), false));
-            }
-            catch
-            {
-                // Only a convenience: a read-only folder means the star isn't remembered.
-            }
-            return now;
+            now = ToggleLocked(indexId);
         }
+        Changed?.Invoke();
+        return now;
+    }
+
+    private static bool ToggleLocked(string indexId)
+    {
+        var all = LoadLocked();
+        var now = all.Add(indexId) || !all.Remove(indexId);
+        try
+        {
+            // Through JsonUtils: this build only serializes the types listed in AppJsonContext.
+            File.WriteAllText(FilePath, JsonUtils.Serialize(all.ToList(), false));
+        }
+        catch
+        {
+            // Only a convenience: a read-only folder means the star isn't remembered.
+        }
+        return now;
     }
 
     public static void ResetCache()

@@ -26,6 +26,9 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
         _config = AppManager.Instance.Config;
 
         txtSearchSettings.TextChanged += (_, _) => FilterSettings(txtSearchSettings.Text);
+        _showAdvanced = File.Exists(AdvancedMarker);
+        togShowAdvanced.IsChecked = _showAdvanced;
+        togShowAdvanced.IsCheckedChanged += (_, _) => SetShowAdvanced(togShowAdvanced.IsChecked == true);
         KeyDown += (_, e) =>
         {
             if (e.Key == Key.F && e.KeyModifiers == KeyModifiers.Control)
@@ -251,6 +254,9 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
     private void Window_Loaded(object? sender, RoutedEventArgs e)
     {
         btnCancel.Focus();
+        // Not in the constructor: the platform-only rows (Windows / Linux / macOS) must have their
+        // bound visibility first, or Basic would treat a hidden Linux row as shown and later restore it.
+        FilterSettings(txtSearchSettings.Text);
     }
 
     #region Search
@@ -258,6 +264,41 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
     // What the search hid, to show again. SetCurrentValue changes visibility without replacing the
     // platform bindings some rows have (Windows / Linux / macOS only), and only visible rows are hidden.
     private readonly HashSet<Control> _hiddenBySearch = [];
+
+    // Basic shows only these everyday rows (by their label); the rest wait behind "Show advanced
+    // settings". A search always looks through everything.
+    private static readonly HashSet<string> BasicLabels =
+    [
+        ResUI.TbSettingsSocksPort, ResUI.TbSettingsUdpEnabled, ResUI.TbSettingsAllowLAN,
+        ResUI.TbSettingsStartBoot, ResUI.TbSettingsAutoHideStartup, ResUI.TbSettingsHide2TrayWhenClose,
+        ResUI.TbSettingsStatistics, ResUI.TbSettingsDisplayRealTimeSpeed, ResUI.TbSettingsAutoUpdateInterval,
+        ResUI.TbSettingsCurrentFontFamily, ResUI.TbSettingsDoubleClick2Activate, ResUI.TbSettingsNotProxyLocalAddress,
+    ];
+
+    private static string AdvancedMarker => Utils.GetConfigPath("glide-settings-advanced");
+
+    private bool _showAdvanced;
+
+    private void SetShowAdvanced(bool show)
+    {
+        _showAdvanced = show;
+        try
+        {
+            if (show)
+            {
+                File.WriteAllText(AdvancedMarker, "");
+            }
+            else
+            {
+                File.Delete(AdvancedMarker);
+            }
+        }
+        catch
+        {
+            // Only a preference: if it can't be saved, Basic comes back next time.
+        }
+        FilterSettings(txtSearchSettings.Text);
+    }
 
     private void FilterSettings(string? text)
     {
@@ -269,7 +310,8 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
 
         var query = text?.Trim() ?? string.Empty;
         txtNoSettingsMatch.IsVisible = false;
-        if (query.IsNullOrEmpty())
+        var basicOnly = query.IsNullOrEmpty() && !_showAdvanced;
+        if (query.IsNullOrEmpty() && !basicOnly)
         {
             return;
         }
@@ -278,7 +320,9 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
         foreach (var tab in tabSettings.Items.OfType<TabItem>())
         {
             // A section whose own name matches stays whole.
-            var matches = Contains(tab.Header as string, query) || FilterRows(tab, query);
+            var matches = basicOnly
+                ? FilterRows(tab, (label, _) => BasicLabels.Contains(label))
+                : Contains(tab.Header as string, query) || FilterRows(tab, (_, rowText) => Contains(rowText, query));
             if (!matches)
             {
                 Hide(tab);
@@ -302,7 +346,8 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
     }
 
     // Rows are a label in column 0 and the control (and a hint) in the next columns of the same Grid row.
-    private bool FilterRows(TabItem tab, string query)
+    // keep(label, all text in the row) decides which rows stay.
+    private bool FilterRows(TabItem tab, Func<string, string, bool> keep)
     {
         var any = false;
         foreach (var grid in tab.GetLogicalDescendants().OfType<Grid>().Where(g => g.RowDefinitions.Count > 1))
@@ -310,12 +355,12 @@ public partial class OptionSettingWindow : WindowBase<OptionSettingViewModel>
             foreach (var row in grid.Children.GroupBy(Grid.GetRow))
             {
                 var cells = row.ToList();
-                if (!cells.Any(c => c is TextBlock && Grid.GetColumn(c) == 0))
+                if (cells.FirstOrDefault(c => c is TextBlock && Grid.GetColumn(c) == 0) is not TextBlock label)
                 {
                     continue;
                 }
                 var rowText = string.Join(" ", cells.SelectMany(c => c.GetLogicalDescendants().Prepend(c)).OfType<TextBlock>().Select(t => t.Text));
-                if (Contains(rowText, query))
+                if (keep(label.Text ?? string.Empty, rowText))
                 {
                     any = true;
                 }

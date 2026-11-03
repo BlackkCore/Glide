@@ -2259,4 +2259,7 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipAutoFastestOn" xml:space="preserve">
     <value>Auto is on: Glide uses the fastest server and switches when one fails.</value>
   </data>
+  <data name="TbShowAdvancedSettings" xml:space="preserve">
+    <value>Show advanced settings</value>
+  </data>
 </root>

@@ -6461,5 +6461,14 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipAutoFastestOn", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Show advanced settings
+        /// </summary>
+        public static string TbShowAdvancedSettings {
+            get {
+                return ResourceManager.GetString("TbShowAdvancedSettings", resourceCulture);
+            }
+        }
     }
 }

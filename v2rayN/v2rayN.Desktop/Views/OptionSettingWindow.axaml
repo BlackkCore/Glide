@@ -54,6 +54,23 @@
                 VerticalAlignment="Center"
                 Classes="muted"
                 IsVisible="False" />
+            <!--  Off: only everyday settings. A search always looks through everything.  -->
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Classes="muted"
+                    Text="{x:Static resx:ResUI.TbShowAdvancedSettings}" />
+                <ToggleSwitch
+                    x:Name="togShowAdvanced"
+                    VerticalAlignment="Center"
+                    OffContent=""
+                    OnContent="" />
+            </StackPanel>
         </Grid>
 
         <TabControl

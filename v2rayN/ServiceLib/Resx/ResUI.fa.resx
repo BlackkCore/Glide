@@ -2253,4 +2253,7 @@
   <data name="TipAutoFastestOn" xml:space="preserve">
     <value>حالت خودکار روشن است: Glide از سریع‌ترین سرور استفاده می‌کند و اگر سروری از کار بیفتد، عوض می‌کند.</value>
   </data>
+  <data name="TbShowAdvancedSettings" xml:space="preserve">
+    <value>نمایش تنظیمات پیشرفته</value>
+  </data>
 </root>

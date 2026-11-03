@@ -2196,4 +2196,10 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipIncludeInUpdateAll" xml:space="preserve">
     <value>Include in Update all</value>
   </data>
+  <data name="TbFavorite" xml:space="preserve">
+    <value>Favourite</value>
+  </data>
+  <data name="TipFavorite" xml:space="preserve">
+    <value>Star it to keep it at the top of the list</value>
+  </data>
 </root>

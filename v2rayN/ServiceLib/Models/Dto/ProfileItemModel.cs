@@ -14,6 +14,10 @@ public partial class ProfileItemModel : ReactiveObject
     public string SubRemarks { get; set; }
     public int Sort { get; set; }
 
+    /// <summary>Glide: starred by the user (FavoriteStore); listed first.</summary>
+    [Reactive]
+    public partial bool IsFavorite { get; set; }
+
     [Reactive]
     public partial int Delay { get; set; }
 

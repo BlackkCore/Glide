@@ -6272,5 +6272,23 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipIncludeInUpdateAll", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Favourite
+        /// </summary>
+        public static string TbFavorite {
+            get {
+                return ResourceManager.GetString("TbFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Star it to keep it at the top of the list
+        /// </summary>
+        public static string TipFavorite {
+            get {
+                return ResourceManager.GetString("TipFavorite", resourceCulture);
+            }
+        }
     }
 }

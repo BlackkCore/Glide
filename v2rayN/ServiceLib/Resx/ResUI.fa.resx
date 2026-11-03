@@ -2190,4 +2190,10 @@
   <data name="TipIncludeInUpdateAll" xml:space="preserve">
     <value>در «به‌روزرسانی همه» گنجانده شود</value>
   </data>
+  <data name="TbFavorite" xml:space="preserve">
+    <value>علاقه‌مندی</value>
+  </data>
+  <data name="TipFavorite" xml:space="preserve">
+    <value>ستاره بزنید تا بالای فهرست بماند</value>
+  </data>
 </root>

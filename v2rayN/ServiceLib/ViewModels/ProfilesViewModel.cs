@@ -421,6 +421,7 @@ public partial class ProfilesViewModel : MyReactiveObject
                         Subid = t.Subid,
                         SubRemarks = t.SubRemarks,
                         IsActive = t.IndexId == _config.IndexId,
+                        IsFavorite = FavoriteStore.IsFavorite(t.IndexId),
                         Sort = t33?.Sort ?? 0,
                         Delay = t33?.Delay ?? 0,
                         Speed = t33?.Speed ?? 0,
@@ -431,7 +432,9 @@ public partial class ProfilesViewModel : MyReactiveObject
                         TodayUp = t22 == null ? "" : Utils.HumanFy(t22.TodayUp),
                         TotalDown = t22 == null ? "" : Utils.HumanFy(t22.TotalDown),
                         TotalUp = t22 == null ? "" : Utils.HumanFy(t22.TotalUp)
-                    }).OrderBy(t => t.Sort).ToList();
+                    })
+                    // Glide: starred servers first, each group in the user's own order.
+                    .OrderByDescending(t => t.IsFavorite).ThenBy(t => t.Sort).ToList();
 
         return lstModel;
     }

@@ -32,6 +32,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         };
         btnEmptyPaste.Click += (_, _) => AppEvents.AddServerViaClipboardRequested.Publish();
         btnAddServer.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
+        menuFavorite.Click += (_, _) => ToggleFavorites(lstProfiles.SelectedItems?.OfType<ProfileItemModel>().ToList() ?? []);
         lstProfiles.KeyDown += LstProfiles_KeyDown;
         lstProfiles.SelectionChanged += lstProfiles_SelectionChanged;
         lstProfiles.DoubleTapped += LstProfiles_DoubleTapped;
@@ -262,6 +263,37 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             icoToggleView.Data = geometry;
         }
         ToolTip.SetTip(btnToggleView, list ? ResUI.TbTableView : ResUI.TbListView);
+    }
+
+    private void BtnFavorite_Click(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Control { DataContext: ProfileItemModel item })
+        {
+            ToggleFavorites([item]);
+        }
+    }
+
+    // Stars them all, unless every one is starred already: then unstars them.
+    private void ToggleFavorites(IReadOnlyList<ProfileItemModel> items)
+    {
+        try
+        {
+            if (items.Count == 0)
+            {
+                return;
+            }
+            var star = items.Any(i => !i.IsFavorite);
+            foreach (var item in items.Where(i => i.IsFavorite != star))
+            {
+                item.IsFavorite = FavoriteStore.Toggle(item.IndexId);
+            }
+            // Re-sort so starred servers move to the top.
+            ViewModel?.RefreshServers();
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog(_tag, ex);
+        }
     }
 
     // The row's ⋯ button opens the same menu as a right-click, for that server.

@@ -76,6 +76,15 @@
         <Style Selector="TextBlock.subInfo.bad">
             <Setter Property="Foreground" Value="{DynamicResource AppBadFgBrush}" />
         </Style>
+        <!--  Favourite star: a faint outline, solid amber once starred.  -->
+        <Style Selector="Button.favStar PathIcon">
+            <Setter Property="Data" Value="{DynamicResource IconStar}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppFaintBrush}" />
+        </Style>
+        <Style Selector="Button.favStar.on PathIcon">
+            <Setter Property="Data" Value="{DynamicResource IconStarSolid}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppWarnDotBrush}" />
+        </Style>
     </UserControl.Styles>
 
     <DockPanel>
@@ -265,6 +274,11 @@
                         x:Name="menuEditServer"
                         Header="{x:Static resx:ResUI.menuEditServer}"
                         InputGesture="Ctrl+D" />
+                    <MenuItem x:Name="menuFavorite" Header="{x:Static resx:ResUI.TbFavorite}">
+                        <MenuItem.Icon>
+                            <PathIcon Data="{StaticResource IconStar}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem x:Name="menuCopyServer" Header="{x:Static resx:ResUI.menuCopyServer}" />
                     <MenuItem
                         x:Name="menuRemoveServer"
@@ -539,7 +553,7 @@
                     IsVisible="False">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto">
+                            <Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto">
                                 <Border
                                     Classes="activeBar"
                                     IsVisible="{Binding IsActive}" />
@@ -584,6 +598,15 @@
                                 </Border>
                                 <Button
                                     Grid.Column="4"
+                                    VerticalAlignment="Center"
+                                    Classes="IconButton favStar"
+                                    Classes.on="{Binding IsFavorite}"
+                                    Click="BtnFavorite_Click"
+                                    ToolTip.Tip="{x:Static resx:ResUI.TipFavorite}">
+                                    <PathIcon />
+                                </Button>
+                                <Button
+                                    Grid.Column="5"
                                     Margin="0,0,8,0"
                                     VerticalAlignment="Center"
                                     Classes="IconButton"

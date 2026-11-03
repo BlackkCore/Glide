@@ -17,6 +17,7 @@
     <UserControl.Resources>
         <conv:DelayColorConverter x:Key="DelayColorConverter" />
         <conv:DelayTextConverter x:Key="DelayTextConverter" />
+        <conv:CountryConverter x:Key="CountryConverter" />
 
         <ControlTheme x:Key="{x:Type DataGridColumnChooser}" TargetType="DataGridColumnChooser">
             <Setter Property="ItemTemplate">
@@ -302,7 +303,7 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn
-                    Width="210"
+                    Width="240"
                     Header="{x:Static resx:ResUI.LvRemarks}"
                     SortMemberPath="Remarks"
                     Tag="Remarks">
@@ -313,11 +314,14 @@
                                 VerticalAlignment="Center"
                                 Orientation="Horizontal"
                                 Spacing="8">
+                                <Border Classes="country" IsVisible="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=has}">
+                                    <TextBlock Text="{Binding Remarks, Converter={StaticResource CountryConverter}}" />
+                                </Border>
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     FontWeight="Bold"
                                     FontSize="{DynamicResource AppFontBody}"
-                                    Text="{Binding Remarks}" />
+                                    Text="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=text}" />
                                 <Border Classes="badge solid round" IsVisible="{Binding IsActive}">
                                     <TextBlock Text="{x:Static resx:ResUI.TipActiveServer}" />
                                 </Border>

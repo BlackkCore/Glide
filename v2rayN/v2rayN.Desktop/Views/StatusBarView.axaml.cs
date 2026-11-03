@@ -187,11 +187,16 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         {
             txtServerName.Text = summary;
             bdServerType.IsVisible = false;
+            bdServerCountry.IsVisible = false;
             txtServerAddress.Text = string.Empty;
             return;
         }
 
         var name = match.Groups["name"].Value.Trim();
+        var country = CountryDetector.Detect(name);
+        bdServerCountry.IsVisible = country != null;
+        txtServerCountry.Text = country;
+        name = CountryDetector.StripLeadingFlag(name);
         txtServerName.Text = name.IsNullOrEmpty() ? summary : name;
         txtServerType.Text = match.Groups["type"].Value;
         bdServerType.IsVisible = true;

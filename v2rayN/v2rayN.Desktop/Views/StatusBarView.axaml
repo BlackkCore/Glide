@@ -47,6 +47,12 @@
                         Orientation="Horizontal"
                         Spacing="8">
                         <Border
+                            x:Name="bdServerCountry"
+                            Classes="country"
+                            IsVisible="False">
+                            <TextBlock x:Name="txtServerCountry" />
+                        </Border>
+                        <Border
                             x:Name="bdServerType"
                             Classes="badge accent"
                             IsVisible="False">

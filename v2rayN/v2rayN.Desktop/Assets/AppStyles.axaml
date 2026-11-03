@@ -529,6 +529,102 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
+    <!--  ===== Country chip in the server list =====  -->
+    <Style Selector="Border.country">
+        <Setter Property="MinWidth" Value="26" />
+        <Setter Property="Padding" Value="4,1" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    <Style Selector="Border.country TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="{DynamicResource AppMonoFont}" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontCaption}" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+
+    <!--  ===== Settings window: section list on the left, each section in a card =====  -->
+    <Style Selector="Window.settings">
+        <Setter Property="Background" Value="{DynamicResource AppBgBrush}" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+    <Style Selector="TabControl.settingsNav">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <StackPanel Spacing="2" />
+            </ItemsPanelTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <ItemsPresenter
+                        Name="PART_ItemsPresenter"
+                        Width="200"
+                        Margin="0,2,16,0"
+                        DockPanel.Dock="Left"
+                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                    <ContentPresenter
+                        Name="PART_SelectedContentHost"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Content="{TemplateBinding SelectedContent}"
+                        ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="TabControl.settingsNav TabItem">
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="PART_Bg"
+                    Padding="14,10"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="10">
+                    <ContentPresenter
+                        Name="PART_ContentPresenter"
+                        Content="{TemplateBinding Header}"
+                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                        Foreground="{TemplateBinding Foreground}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="TabControl.settingsNav TabItem:pointerover">
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+    <Style Selector="TabControl.settingsNav TabItem:selected">
+        <Setter Property="Background" Value="{DynamicResource AppAccentSoftBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppAccentSoftFgBrush}" />
+    </Style>
+    <Style Selector="ScrollViewer.settingsPage">
+        <Setter Property="Padding" Value="0,0,10,0" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+    <Style Selector="Border.settingsCard">
+        <Setter Property="Padding" Value="18,14" />
+    </Style>
+    <!--  Label column bold, explanation column muted.  -->
+    <Style Selector="Border.settingsCard Grid > TextBlock[(Grid.Column)=0]">
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+    </Style>
+    <Style Selector="Border.settingsCard Grid > TextBlock[(Grid.Column)=2]">
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+
     <!--  ===== Surfaces app-wide =====  -->
     <Style Selector="ToolTip">
         <Setter Property="Background" Value="{DynamicResource AppTextBrush}" />

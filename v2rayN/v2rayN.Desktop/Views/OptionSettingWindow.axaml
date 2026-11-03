@@ -8,8 +8,9 @@
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     Title="{x:Static resx:ResUI.menuSetting}"
-    Width="1000"
-    Height="600"
+    Width="1080"
+    Height="680"
+    Classes="settings"
     x:DataType="vms:OptionSettingViewModel"
     Design.DataContext="{x:Static dd:DesignData.OptionSetting}"
     ShowInTaskbar="False"
@@ -33,9 +34,13 @@
                 IsCancel="True" />
         </StackPanel>
 
-        <TabControl HorizontalContentAlignment="Stretch">
+        <TabControl
+            Classes="settingsNav"
+            HorizontalContentAlignment="Stretch"
+            TabStripPlacement="Left">
             <TabItem Header="{x:Static resx:ResUI.TbSettingsCore}">
-                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ScrollViewer Classes="settingsPage">
+                    <Border Classes="card settingsCard">
                     <Grid
                         Margin="{StaticResource Margin4}"
                         ColumnDefinitions="Auto,Auto,*"
@@ -540,11 +545,13 @@
                             </Button.Flyout>
                         </Button>
                     </Grid>
+                    </Border>
                 </ScrollViewer>
             </TabItem>
 
             <TabItem Header="{x:Static resx:ResUI.TbSettingsN}">
-                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ScrollViewer Classes="settingsPage">
+                    <Border Classes="card settingsCard">
                     <Grid
                         Margin="{StaticResource Margin4}"
                         ColumnDefinitions="Auto,Auto,*"
@@ -927,11 +934,13 @@
                             Text="{x:Static resx:ResUI.TbSettingsChinaUserTip}"
                             TextWrapping="Wrap" />
                     </Grid>
+                    </Border>
                 </ScrollViewer>
             </TabItem>
 
             <TabItem Name="tabSystemproxy" Header="{x:Static resx:ResUI.TbSettingsSystemproxy}">
-                <DockPanel Margin="{StaticResource Margin8}">
+                <Border Classes="card settingsCard settingsFill">
+                <DockPanel>
                     <StackPanel
                         DockPanel.Dock="Bottom"
                         IsVisible="{Binding BlIsNonWindows}"
@@ -1021,10 +1030,12 @@
                         Classes="TextArea"
                         TextWrapping="Wrap" />
                 </DockPanel>
+                </Border>
             </TabItem>
 
             <TabItem Header="{x:Static resx:ResUI.TbSettingsTunMode}">
-                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ScrollViewer Classes="settingsPage">
+                    <Border Classes="card settingsCard">
                     <Grid
                         Margin="{StaticResource Margin4}"
                         ColumnDefinitions="Auto,Auto,Auto"
@@ -1184,10 +1195,13 @@
                             Margin="{StaticResource Margin4}"
                             HorizontalAlignment="Left" />
                     </Grid>
+                    </Border>
                 </ScrollViewer>
             </TabItem>
 
             <TabItem Header="{x:Static resx:ResUI.TbSettingsCoreType}">
+                <ScrollViewer Classes="settingsPage">
+                    <Border Classes="card settingsCard">
                 <Grid
                     Margin="{StaticResource Margin4}"
                     ColumnDefinitions="Auto,Auto"
@@ -1309,6 +1323,8 @@
                         Width="200"
                         Margin="{StaticResource Margin4}" />
                 </Grid>
+                    </Border>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
     </DockPanel>

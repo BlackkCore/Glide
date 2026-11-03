@@ -2268,4 +2268,7 @@
   <data name="TipNoServersMatch" xml:space="preserve">
     <value>سروری با «{0}» پیدا نشد.</value>
   </data>
+  <data name="TipDiagGroupSkip" xml:space="preserve">
+    <value>گروهی از سرورها: در مرحله‌ی بعد با هم بررسی می‌شوند</value>
+  </data>
 </root>

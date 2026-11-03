@@ -6488,5 +6488,14 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipNoServersMatch", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   A group of servers: they're checked together in the next step
+        /// </summary>
+        public static string TipDiagGroupSkip {
+            get {
+                return ResourceManager.GetString("TipDiagGroupSkip", resourceCulture);
+            }
+        }
     }
 }

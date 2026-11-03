@@ -2268,4 +2268,7 @@ Its connection will stop and Glide will take over.</value>
   <data name="TipNoServersMatch" xml:space="preserve">
     <value>No servers match "{0}".</value>
   </data>
+  <data name="TipDiagGroupSkip" xml:space="preserve">
+    <value>A group of servers: they're checked together in the next step</value>
+  </data>
 </root>

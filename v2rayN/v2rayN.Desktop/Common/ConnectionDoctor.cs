@@ -68,7 +68,12 @@ public static class ConnectionDoctor
             return ResUI.TipAddServerToConnect;
         }
         bool? reachable = null;
-        if (UdpTypes.Contains(server.ConfigType) || server.Address.IsNullOrEmpty() || server.Port <= 0)
+        if (server.ConfigType is EConfigType.PolicyGroup or EConfigType.ProxyChain)
+        {
+            // Auto and other groups have no single address; the traffic step tests them.
+            report(new(ResUI.TbDiagServer, Outcome.Skipped, ResUI.TipDiagGroupSkip));
+        }
+        else if (UdpTypes.Contains(server.ConfigType) || server.Address.IsNullOrEmpty() || server.Port <= 0)
         {
             report(new(ResUI.TbDiagServer, Outcome.Skipped, ResUI.TipDiagUdpSkip));
         }

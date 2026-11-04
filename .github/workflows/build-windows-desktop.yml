@@ -43,3 +43,13 @@ jobs:
       release_tag: ${{ inputs.release_tag }}
       arches: '["x64", "x86"]'
     secrets: inherit
+
+  # Glide-setup-<arch>.exe from the same zips (per-user install, Start menu, uninstaller).
+  release-installer:
+    if: inputs.release_tag != ''
+    needs: release-zip
+    uses: ./.github/workflows/package-installer.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+      arches: '["x64", "x86"]'
+    secrets: inherit

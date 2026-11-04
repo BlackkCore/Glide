@@ -786,6 +786,10 @@ public partial class MainWindowViewModel : MyReactiveObject
     {
         await ConfigHandler.ApplyRegionalPreset(_config, type);
         await ConfigHandler.InitRouting(_config);
+        if (type == EPresetType.Default)
+        {
+            await UseBuiltinRoutingAsync();
+        }
         RxSchedulers.MainThreadScheduler.Schedule(async () =>
         {
             await StatusBarViewModel.RefreshRoutingsMenu();
@@ -801,6 +805,36 @@ public partial class MainWindowViewModel : MyReactiveObject
             NoticeManager.Instance.Enqueue(string.Format(ResUI.TipSiteListsMissing, string.Join(", ", missing)));
         }
         await Reload();
+    }
+
+    /// <summary>
+    /// Glide: going back to the Default preset also leaves a regional routing (e.g. "IR-…", which needs
+    /// geosite:ir). The Default preset brings back the world site lists, so such a routing would stop
+    /// the engine; switch to the first built-in routing instead. The regional routings stay in the list.
+    /// </summary>
+    private async Task UseBuiltinRoutingAsync()
+    {
+        const string builtinPrefix = "V4-";
+        var active = await ConfigHandler.GetDefaultRouting(_config);
+        if (active?.Remarks?.StartsWith(builtinPrefix, StringComparison.Ordinal) == true)
+        {
+            return;
+        }
+        var items = await AppManager.Instance.RoutingItems();
+        if (!items.Any(t => t.Remarks?.StartsWith(builtinPrefix, StringComparison.Ordinal) == true))
+        {
+            // The built-in routings were deleted at some point: add them back.
+            await ConfigHandler.InitBuiltinRouting(_config, true);
+            items = await AppManager.Instance.RoutingItems();
+        }
+        var builtin = items
+            .Where(t => t.Remarks?.StartsWith(builtinPrefix, StringComparison.Ordinal) == true)
+            .OrderBy(t => t.Sort)
+            .FirstOrDefault();
+        if (builtin != null)
+        {
+            await ConfigHandler.SetDefaultRouting(_config, builtin);
+        }
     }
 
     #endregion Presets

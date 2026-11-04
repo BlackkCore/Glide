@@ -2,7 +2,7 @@
 # (PowerShell: (Get-FileHash .\Glide-setup-x64.exe).Hash) before submitting.
 # yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.6.0.schema.json
 PackageIdentifier: BlackkCore.Glide
-PackageVersion: 1.0.1
+PackageVersion: 1.0.0
 InstallerType: inno
 Scope: user
 InstallModes:
@@ -11,10 +11,10 @@ InstallModes:
 UpgradeBehavior: install
 Installers:
   - Architecture: x64
-    InstallerUrl: https://github.com/BlackkCore/Glide/releases/download/1.0.1/Glide-setup-x64.exe
-    InstallerSha256: 397960B68AA5465AC8B8581924A7F277346AD8980992D82AD16246E3A8ED375E
+    InstallerUrl: https://github.com/BlackkCore/Glide/releases/download/1.0.0/Glide-setup-x64.exe
+    InstallerSha256: DE3BA242BA754C3F6D07344479DE2A416EDA8918F499EF276936AB04CEBF99E3
   - Architecture: x86
-    InstallerUrl: https://github.com/BlackkCore/Glide/releases/download/1.0.1/Glide-setup-x86.exe
-    InstallerSha256: 6CDE734351E3A2574277745A6849F4F65B1491D85274B1ECEB3EFF6E8B05E2EB
+    InstallerUrl: https://github.com/BlackkCore/Glide/releases/download/1.0.0/Glide-setup-x86.exe
+    InstallerSha256: F7DD9B1676883B54A217ED421549A780B866A896DBC5CCC786011ED0C78396B8
 ManifestType: installer
 ManifestVersion: 1.6.0

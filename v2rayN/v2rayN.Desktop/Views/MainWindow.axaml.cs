@@ -42,6 +42,28 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuAppRouting.Click += async (_, _) => await ShowAppRoutingAsync();
         Activated += async (_, _) => await OfferClipboardAsync();
         menuDataUsage.Click += async (_, _) => await ShowDataUsageAsync();
+        menuExportDiagnostics.Click += async (_, _) =>
+        {
+            try
+            {
+                var path = await UI.SaveFileDialog("zip");
+                if (path.IsNullOrEmpty())
+                {
+                    return;
+                }
+                if (!path.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+                {
+                    path += ".zip";
+                }
+                await Task.Run(() => DiagnosticsExport.Create(path));
+                NoticeManager.Instance.Enqueue(string.Format(ResUI.TipDiagnosticsSaved, path));
+            }
+            catch (Exception ex)
+            {
+                Logging.SaveLog("ExportDiagnostics", ex);
+                NoticeManager.Instance.Enqueue(ResUI.OperationFailed);
+            }
+        };
         // Daily data limit (Data usage): one warning a day, checked every minute.
         var usageTimer = new DispatcherTimer { Interval = TimeSpan.FromMinutes(1) };
         usageTimer.Tick += (_, _) => CheckUsageLimit();
@@ -597,6 +619,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     {
         try
         {
+            DataUsageSheet.RecordToday();
             var limitGb = DataUsageSheet.LimitGb;
             if (limitGb <= 0 || !_config.GuiItem.EnableStatistics || _usageWarnedDay == DateTime.Today)
             {

@@ -2416,4 +2416,13 @@
   <data name="TbEveryHours" xml:space="preserve">
     <value>هر {0} ساعت</value>
   </data>
+  <data name="TbExportDiagnostics" xml:space="preserve">
+    <value>خروجی اطلاعات عیب‌یابی</value>
+  </data>
+  <data name="TipDiagnosticsSaved" xml:space="preserve">
+    <value>اطلاعات عیب‌یابی در {0} ذخیره شد. آدرس‌ها، گذرواژه‌ها و توکن‌ها حذف شدند و سرورها و اشتراک‌ها در آن نیستند.</value>
+  </data>
+  <data name="TbUsageMonth" xml:space="preserve">
+    <value>این ماه: {0}</value>
+  </data>
 </root>

@@ -34,6 +34,54 @@ public sealed class DataUsageSheet : UserControl
     /// <summary>Today's traffic over all servers, in KB (the unit of upstream's statistics).</summary>
     public static long TodayKb => StatisticsManager.Instance.ServerStat.Sum(s => s.TodayUp + s.TodayDown);
 
+    // Upstream keeps only today and the total, so each day's figure is kept here for the monthly sum:
+    // {"2026-11-04": "123456"} (KB), the last ~2 months.
+    private static string DaysFile => Utils.GetConfigPath("glide-usage-days.json");
+
+    /// <summary>Remembers today's traffic (called every minute while statistics are on).</summary>
+    public static void RecordToday()
+    {
+        try
+        {
+            if (!AppManager.Instance.Config.GuiItem.EnableStatistics)
+            {
+                return;
+            }
+            var days = LoadDays();
+            days[DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)] = TodayKb.ToString(CultureInfo.InvariantCulture);
+            foreach (var old in days.Keys.Where(k => string.CompareOrdinal(k, DateTime.Today.AddDays(-62).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)) < 0).ToList())
+            {
+                days.Remove(old);
+            }
+            File.WriteAllText(DaysFile, JsonUtils.Serialize(days, false));
+        }
+        catch
+        {
+            // Only a convenience.
+        }
+    }
+
+    /// <summary>This calendar month's traffic in KB.</summary>
+    public static long MonthKb()
+    {
+        var month = DateTime.Today.ToString("yyyy-MM", CultureInfo.InvariantCulture);
+        var days = LoadDays();
+        days[DateTime.Today.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)] = TodayKb.ToString(CultureInfo.InvariantCulture);
+        return days.Where(d => d.Key.StartsWith(month)).Sum(d => long.TryParse(d.Value, out var kb) ? kb : 0);
+    }
+
+    private static Dictionary<string, string> LoadDays()
+    {
+        try
+        {
+            return File.Exists(DaysFile) ? JsonUtils.Deserialize<Dictionary<string, string>>(File.ReadAllText(DaysFile)) ?? [] : [];
+        }
+        catch
+        {
+            return [];
+        }
+    }
+
     public DataUsageSheet()
     {
         Width = 540;
@@ -69,6 +117,7 @@ public sealed class DataUsageSheet : UserControl
                 FontWeight = FontWeight.SemiBold,
                 Text = $"‎{string.Format(ResUI.TbUsageToday, Utils.HumanFy(stats.Sum(s => s.TodayUp)), Utils.HumanFy(stats.Sum(s => s.TodayDown)))}",
             });
+            panel.Children.Add(new TextBlock { Text = $"‎{string.Format(ResUI.TbUsageMonth, Utils.HumanFy(MonthKb()))}" });
             panel.Children.Add(Muted(string.Format(ResUI.TbUsageTotal, Utils.HumanFy(stats.Sum(s => s.TotalUp)), Utils.HumanFy(stats.Sum(s => s.TotalDown)))));
 
             var names = (await AppManager.Instance.ProfileItems("") ?? []).GroupBy(p => p.IndexId).ToDictionary(g => g.Key, g => g.First().Remarks);

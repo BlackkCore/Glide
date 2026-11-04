@@ -2416,4 +2416,13 @@ Direct: {1}</value>
   <data name="TbEveryHours" xml:space="preserve">
     <value>Every {0} hours</value>
   </data>
+  <data name="TbExportDiagnostics" xml:space="preserve">
+    <value>Export diagnostics</value>
+  </data>
+  <data name="TipDiagnosticsSaved" xml:space="preserve">
+    <value>Diagnostics saved to {0}. Addresses, passwords and tokens were removed; servers and subscriptions aren't included.</value>
+  </data>
+  <data name="TbUsageMonth" xml:space="preserve">
+    <value>This month: {0}</value>
+  </data>
 </root>

@@ -6929,5 +6929,32 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbEveryHours", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Export diagnostics
+        /// </summary>
+        public static string TbExportDiagnostics {
+            get {
+                return ResourceManager.GetString("TbExportDiagnostics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Diagnostics saved to {0}. Addresses, passwords and tokens were removed; servers and subscriptions aren't included.
+        /// </summary>
+        public static string TipDiagnosticsSaved {
+            get {
+                return ResourceManager.GetString("TipDiagnosticsSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   This month: {0}
+        /// </summary>
+        public static string TbUsageMonth {
+            get {
+                return ResourceManager.GetString("TbUsageMonth", resourceCulture);
+            }
+        }
     }
 }

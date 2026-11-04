@@ -709,9 +709,14 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     private string? _clipboardOffered;
 
+    // A fingerprint of the last offered clipboard content, kept across restarts so the same copied
+    // link isn't offered again every time Glide starts.
+    private static string ClipboardOfferedFile => Utils.GetConfigPath("glide-clipboard-offered");
+
     // Copied a server link or a subscription address? Coming back to Glide offers it in the Add
-    // server sheet (with its preview; Cancel ignores it). Each clipboard content is offered once,
-    // and the clipboard is only read when this window is activated.
+    // server sheet (with its preview; Cancel ignores it). Each clipboard content is offered once
+    // (also across restarts), addresses already added are never offered, and the clipboard is
+    // only read when this window is activated.
     private async Task OfferClipboardAsync()
     {
         try
@@ -726,7 +731,20 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
                 return;
             }
             _clipboardOffered = text;
+            var fingerprint = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(text)));
+            if (File.Exists(ClipboardOfferedFile) && File.ReadAllText(ClipboardOfferedFile).Trim() == fingerprint)
+            {
+                return;
+            }
             if (ImportPreview.Analyze(text).IsEmpty)
+            {
+                return;
+            }
+            File.WriteAllText(ClipboardOfferedFile, fingerprint);
+            // Subscription addresses that are already added.
+            var subs = await AppManager.Instance.SubItems() ?? [];
+            var lines = text.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (lines.Length > 0 && lines.All(l => subs.Any(s => string.Equals(s.Url?.Trim(), l, StringComparison.OrdinalIgnoreCase))))
             {
                 return;
             }

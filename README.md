@@ -39,7 +39,10 @@ v2rayN is powerful, but its window shows you everything at once. Glide keeps eve
 - **A status that tells the truth.** *Connected* only appears after Glide has checked that traffic really gets through, with the delay shown. Otherwise you see *Checking connection…*, *No internet*, *Port in use* (with the app that holds it) or *Engine stopped*, each with one button that fixes it.
 - **Notices when the connection drops,** and again when it's back.
 - **"Why can't I connect?"** One click checks, step by step: your own internet, DNS, Glide's engine, the server, real traffic through the server, and the exit IP with its country. Then it gives one plain answer, such as *"The server answers but carries no traffic: update the subscription or try another server."*
-- **Auto: fastest server.** One click per subscription. Glide keeps testing every server in the background, uses the fastest one that works, and switches when one fails.
+- **DNS leak check** in the same window, run through the tunnel, with a plain answer.
+- **Exit IP and country** on the status card, after a one-time question (it asks api.ip.sb through the proxy).
+- **Auto: fastest server.** One click per subscription. Glide keeps testing every server in the background, uses the fastest one that works, switches when one fails, and starts on the best-known server so the first seconds don't fail.
+- **A tray icon that shows trouble:** a red dot while the connection has a problem.
 - **Never touches what isn't its own.** Glide won't change or clear a Windows proxy that another program set, and won't start on a port another app is using. If another app holds the port, it tells you which one and offers to close it.
 - **Routing in plain words:** *Bypass China sites*, *Only listed blocked sites* and *Everything through proxy*, each with a one-line explanation. On first start in Persian, Glide offers a ready-made Iran preset that sends Iranian sites direct.
 - **"Capture all apps (TUN)"**, with an explanation and an *Administrator* label instead of a bare "Enable Tun" switch.
@@ -50,14 +53,20 @@ v2rayN is powerful, but its window shows you everything at once. Glide keeps eve
 - **Favourites.** Star a server to keep it at the top of the list and in the tray menu.
 - **Add server, the easy way.** One sheet for everything: paste links or a subscription address and see what was found before importing (*"2 servers: VLESS, Trojan"*). You can also scan a QR code on screen or in an image, or fill in a form for 12 protocols.
 - **Subscription status.** Data used and left, days until expiry, and the time of the last update, shown under the selected subscription. It turns red when the plan is nearly used up or has expired.
+- **Warnings before a plan runs out:** a few days before expiry and when less than 10% of the data is left, plus when the next automatic update runs.
+- **Quick switcher (Ctrl+K):** type a few letters to jump to a server or run an action.
+- **Recent servers** and favourites in the tray, and **Send to phone**: a QR code for one server or a whole subscription.
 - **Live search** as you type, plus a labelled **Test all** button.
-- **A tray menu for everyday use:** Connect / Disconnect first, a Servers submenu with your favourites, then the proxy modes.
+- **A tray menu for everyday use:** Connect / Disconnect first, a Servers submenu with favourites and recent servers, then the proxy modes.
 
 ### Settings and updates
 
 - **Basic and advanced.** Settings open in Basic mode with just the everyday options. *Show advanced settings* reveals everything else.
 - **Search all settings.** Type a word and only the matching rows remain. Ctrl+F jumps to the search box.
 - **Update all.** One button updates the app, the proxy engines and the rule files, each with a plain name.
+- **Choose apps for routing:** tick running apps (Telegram through the proxy, banking direct) instead of typing rules. Applies with "Capture all apps (TUN)".
+- **Data usage:** today, in total and per server, with an optional daily limit warning.
+- **Simpler server form:** rarely needed fields wait behind *Show advanced fields*.
 
 ### Look and feel
 
@@ -89,8 +98,8 @@ v2rayN is powerful, but its window shows you everything at once. Glide keeps eve
 
 ## Get started
 
-1. Download **`Glide-windows-x64.zip`** from the [latest release](https://github.com/BlackkCore/Glide/releases/latest), or **`Glide-windows-x86.zip`** for 32-bit Windows. The Xray, sing-box and mihomo cores are included.
-2. Extract it to a folder you can write to, for example `C:\Glide`. Avoid `Program Files`.
+1. Download **`Glide-setup-x64.exe`** from the [latest release](https://github.com/BlackkCore/Glide/releases/latest) and run it: no admin rights needed, with a Start menu entry and an uninstaller. Prefer a portable copy? Take **`Glide-windows-x64.zip`** instead (or the `x86` files for 32-bit Windows). The Xray, sing-box and mihomo cores are included.
+2. Zip only: extract it to a folder you can write to, for example `C:\Glide`. Avoid `Program Files`.
 3. If the original v2rayN is running, exit it first (right-click its tray icon → *Exit*).
 4. Run **`Glide.exe`**. Accept the import offer, or click **Add server** above the server list: paste a share link or subscription address, or scan a QR code.
 5. Press the power button. When the status says *Connected*, you're done. If it doesn't, click *Why can't I connect?*.

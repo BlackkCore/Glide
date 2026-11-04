@@ -14,6 +14,8 @@
             <SolidColorBrush x:Key="AppSegmentSelectedBrush" Color="#FFFFFF" />
             <SolidColorBrush x:Key="AppLogBgBrush" Color="#F7F8FA" />
             <SolidColorBrush x:Key="AppNavHoverBrush" Color="#F2F3F5" />
+            <!--  Rest state of hoverable rows: the hover colour at zero opacity, so the fade never passes through white.  -->
+            <SolidColorBrush x:Key="AppNavIdleBrush" Color="#00F2F3F5" />
             <SolidColorBrush x:Key="AppNavActiveBgBrush" Color="#EEF2FE" />
             <SolidColorBrush x:Key="AppNavActiveFgBrush" Color="#2343B8" />
             <!--  Accent  -->
@@ -125,6 +127,7 @@
             <SolidColorBrush x:Key="AppSegmentSelectedBrush" Color="#2B303A" />
             <SolidColorBrush x:Key="AppLogBgBrush" Color="#111418" />
             <SolidColorBrush x:Key="AppNavHoverBrush" Color="#1C2027" />
+            <SolidColorBrush x:Key="AppNavIdleBrush" Color="#001C2027" />
             <SolidColorBrush x:Key="AppNavActiveBgBrush" Color="#1A2240" />
             <SolidColorBrush x:Key="AppNavActiveFgBrush" Color="#B7C7FF" />
             <SolidColorBrush x:Key="AppAccentBrush" Color="#5A7FF7" />
@@ -261,7 +264,7 @@
 
     <!--  Sidebar menu item: like Semi's TopLevelMenuItem, but the submenu opens to the right.  -->
     <ControlTheme x:Key="SidebarMenuItem" TargetType="MenuItem">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource AppNavIdleBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="CornerRadius" Value="10" />
@@ -378,8 +381,27 @@
           checkbox for toggles, and the shortcut on the far side in a quiet tone.  -->
     <StreamGeometry x:Key="IconCheck">M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6L20.1 8.4 18.7 7z</StreamGeometry>
     <conv:PlatformKeyGestureConverter x:Key="SidebarKeyGestureConverter" />
+    <!--  Icons for the rows inside the sidebar's popups (set from MainWindow).  -->
+    <StreamGeometry x:Key="IconPlus">M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z</StreamGeometry>
+    <StreamGeometry x:Key="IconClipboard">M9 2h6a1 1 0 0 1 1 1v1h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2V3a1 1 0 0 1 1-1zm1 2v2h4V4zM6 6v14h12V6h-2v2H8V6z</StreamGeometry>
+    <StreamGeometry x:Key="IconScan">M3 3h6v2H5v4H3zm12 0h6v6h-2V5h-4zM3 15h2v4h4v2H3zm16 0h2v6h-6v-2h4zM3 11h18v2H3z</StreamGeometry>
+    <StreamGeometry x:Key="IconImage">M3 4h18v16H3zm2 2v12h14V6zm1 10 4-5 3 3.5 2-2.5 3 4zm9-8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z</StreamGeometry>
+    <StreamGeometry x:Key="IconFileCode">M5 2h9l6 6v14H5zm2 2v16h11V9h-5V4zm3.6 8 1.4 1.4-1.6 1.6 1.6 1.6-1.4 1.4-3-3zm2.8 1.4 1.4-1.4 3 3-3 3-1.4-1.4 1.6-1.6z</StreamGeometry>
+    <StreamGeometry x:Key="IconLayers">M12 2 22 7l-10 5L2 7zm0 2.2L6.5 7 12 9.8 17.5 7zM4.2 11.1 12 15l7.8-3.9L22 12l-10 5-10-5zm0 5L12 20l7.8-3.9L22 17l-10 5-10-5z</StreamGeometry>
+    <StreamGeometry x:Key="IconChain">M5 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm7 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm7 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM7.5 11h2v2h-2zm7 0h2v2h-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconOutbound">M14 3h7v7h-2V6.4l-7.3 7.3-1.4-1.4L17.6 5H14zM5 5h6v2H6v11h11v-5h2v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z</StreamGeometry>
+    <StreamGeometry x:Key="IconSliders">M4 6h9v2H4zm13 0h3v2h-3zM15 4h2v6h-2zM4 16h3v2H4zm7 0h9v2h-9zM7 14h2v6H7z</StreamGeometry>
+    <StreamGeometry x:Key="IconApps">M4 4h6v6H4zm2 2v2h2V6zm8-2h6v6h-6zm2 2v2h2V6zM4 14h6v6H4zm2 2v2h2v-2zm10-2h2v3h3v2h-3v3h-2v-3h-3v-2h3z</StreamGeometry>
+    <StreamGeometry x:Key="IconArchive">M3 4h18v5h-1v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9H3zm2 2v1h14V6zm1 3v10h12V9zm4 2h4v2h-4z</StreamGeometry>
+    <StreamGeometry x:Key="IconDatabase">M12 3c4.4 0 8 1.3 8 3v12c0 1.7-3.6 3-8 3s-8-1.3-8-3V6c0-1.7 3.6-3 8-3zm0 2C8.3 5 6 6 6 6.5S8.3 8 12 8s6-1 6-1.5S15.7 5 12 5zM6 9v3c0 .5 2.3 1.5 6 1.5s6-1 6-1.5V9c-1.5.8-3.6 1-6 1s-4.5-.2-6-1zm0 6v3c0 .5 2.3 1.5 6 1.5s6-1 6-1.5v-3c-1.5.8-3.6 1-6 1s-4.5-.2-6-1z</StreamGeometry>
+    <StreamGeometry x:Key="IconImport">M11 3h2v9.6l3.3-3.3 1.4 1.4L12 16.4l-5.7-5.7 1.4-1.4 3.3 3.3zM4 15h2v4h12v-4h2v6H4z</StreamGeometry>
+    <StreamGeometry x:Key="IconFolder">M3 5a1 1 0 0 1 1-1h6l2 2h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm2 1v12h14V8h-7.8l-2-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconGlobe">M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1.9 2.2A8 8 0 0 0 4.1 11h3.4c.1-2.5.9-4.9 2.6-6.8zm3.8 0c1.7 1.9 2.5 4.3 2.6 6.8h3.4a8 8 0 0 0-6-6.8zM12 4.6c-1.5 1.7-2.4 4-2.5 6.4h5c-.1-2.4-1-4.7-2.5-6.4zM4.1 13a8 8 0 0 0 6 6.8c-1.7-1.9-2.5-4.3-2.6-6.8zm5.4 0c.1 2.4 1 4.7 2.5 6.4 1.5-1.7 2.4-4 2.5-6.4zm7 0c-.1 2.5-.9 4.9-2.6 6.8a8 8 0 0 0 6-6.8z</StreamGeometry>
+    <StreamGeometry x:Key="IconKeyboard">M3 6h18a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm1 2v8h16V8zm2 1h2v2H6zm3 0h2v2H9zm3 0h2v2h-2zm3 0h2v2h-2zM7 13h10v2H7z</StreamGeometry>
+    <StreamGeometry x:Key="IconPalette">M12 2a10 10 0 0 0 0 20c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.4A4.6 4.6 0 0 0 22 10.8C22 5.9 17.5 2 12 2zM6.5 11a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm3-4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm3 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z</StreamGeometry>
+    <StreamGeometry x:Key="IconTrash">M9 3h6l1 1h4v2H4V4h4zM6 8h12l-1 13H7zm2.1 2 .8 9h6.2l.8-9z</StreamGeometry>
     <ControlTheme x:Key="SidebarSubItem" TargetType="MenuItem">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource AppNavIdleBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
         <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
         <Setter Property="FontWeight" Value="Normal" />
@@ -399,23 +421,36 @@
                             Margin="{TemplateBinding Padding}"
                             VerticalAlignment="Center"
                             ColumnDefinitions="Auto,*,Auto,Auto">
-                            <Border
-                                Name="PART_ToggleBox"
-                                Width="16"
-                                Height="16"
-                                Margin="0,0,10,0"
-                                BorderBrush="{DynamicResource AppBorderStrongBrush}"
-                                BorderThickness="1.5"
-                                CornerRadius="4"
-                                IsVisible="False">
-                                <PathIcon
-                                    Name="PART_Check"
-                                    Width="11"
-                                    Height="11"
-                                    Data="{StaticResource IconCheck}"
-                                    Foreground="{DynamicResource AppOnAccentBrush}"
-                                    IsVisible="False" />
-                            </Border>
+                            <!--  Icon slot, always the same width so every label starts at the same place;
+                                  a toggle row shows its checkbox here instead.  -->
+                            <Panel
+                                Width="18"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Center">
+                                <ContentPresenter
+                                    Name="PART_IconPresenter"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Icon}"
+                                    Foreground="{DynamicResource AppMutedBrush}" />
+                                <Border
+                                    Name="PART_ToggleBox"
+                                    Width="16"
+                                    Height="16"
+                                    HorizontalAlignment="Center"
+                                    BorderBrush="{DynamicResource AppBorderStrongBrush}"
+                                    BorderThickness="1.5"
+                                    CornerRadius="4"
+                                    IsVisible="False">
+                                    <PathIcon
+                                        Name="PART_Check"
+                                        Width="11"
+                                        Height="11"
+                                        Data="{StaticResource IconCheck}"
+                                        Foreground="{DynamicResource AppOnAccentBrush}"
+                                        IsVisible="False" />
+                                </Border>
+                            </Panel>
                             <ContentPresenter
                                 Name="PART_HeaderPresenter"
                                 Grid.Column="1"
@@ -475,6 +510,9 @@
         </Style>
         <Style Selector="^:pointerover, ^:open">
             <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+        </Style>
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_IconPresenter, ^:open /template/ ContentPresenter#PART_IconPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
         </Style>
         <Style Selector="^:toggle /template/ Border#PART_ToggleBox">
             <Setter Property="IsVisible" Value="True" />

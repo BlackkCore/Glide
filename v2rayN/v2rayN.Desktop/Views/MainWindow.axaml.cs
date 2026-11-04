@@ -59,6 +59,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuSubUpdate.Click += (_, _) => (menuSubViaProxy.IsChecked ? ViewModel?.SubUpdateViaProxyCmd : ViewModel?.SubUpdateCmd)?.Execute().Subscribe();
         menuSubGroupUpdate.Click += (_, _) => (menuSubViaProxy.IsChecked ? ViewModel?.SubGroupUpdateViaProxyCmd : ViewModel?.SubGroupUpdateCmd)?.Execute().Subscribe();
         menuAppearance.Click += (_, _) => (conTheme.Content as ThemeSettingView)?.OpenAt(menuNavSettings);
+        SetSubmenuIcons();
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
         menuAddServerSheet.Click += (_, _) => ShowAddServerSheet();
         menuAppRouting.Click += async (_, _) => await ShowAppRoutingAsync();
@@ -734,6 +735,49 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         _addServerSheet.Main = ViewModel;
         _addServerSheet.Reset(text);
         DialogHost.Show(_addServerSheet);
+    }
+
+    // An icon at the start of each row in the sidebar's popups. Rows without one (the long list of
+    // "Add [protocol]" items) keep the empty slot, so every label still lines up.
+    private void SetSubmenuIcons()
+    {
+        var icons = new (MenuItem Item, string Key)[]
+        {
+            (menuAddServerSheet, "IconPlus"),
+            (menuAddServerViaClipboard, "IconClipboard"),
+            (menuAddServerViaScan, "IconScan"),
+            (menuAddServerViaImage, "IconImage"),
+            (menuAddCustomServer, "IconFileCode"),
+            (menuAddPolicyGroupServer, "IconLayers"),
+            (menuAddProxyChainServer, "IconChain"),
+            (menuAddCustomOutboundServer, "IconOutbound"),
+            (menuSubUpdate, "IconReload"),
+            (menuSubGroupUpdate, "IconRss"),
+            (menuSubSetting, "IconSliders"),
+            (menuAppRouting, "IconApps"),
+            (menuExportDiagnostics, "IconArchive"),
+            (menuBackupAndRestore, "IconDatabase"),
+            (menuImportFromOriginal, "IconImport"),
+            (menuOpenTheFileLocation, "IconFolder"),
+            (menuOptionSetting, "IconSliders"),
+            (menuDNSSetting, "IconGlobe"),
+            (menuFullConfigTemplate, "IconFileCode"),
+            (menuGlobalHotkeySetting, "IconKeyboard"),
+            (menuAppearance, "IconPalette"),
+            (menuRebootAsAdmin, "IconShield"),
+            (menuSettingsSetUWP, "IconReload"),
+            (menuClearServerStatistics, "IconTrash"),
+            (menuRegionalPresets, "IconGlobe"),
+        };
+        foreach (var (item, key) in icons)
+        {
+            if (this.TryFindResource(key, out var data) && data is Geometry geometry)
+            {
+                var icon = new PathIcon { Data = geometry };
+                icon.Classes.Add("sub");
+                item.Icon = icon;
+            }
+        }
     }
 
     private string? _clipboardOffered;

@@ -1,0 +1,8 @@
+# Prepared for a winget submission (github.com/microsoft/winget-pkgs). Not submitted: that publishes
+# Glide in Microsoft's public package list and needs the owner's go-ahead.
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.version.1.6.0.schema.json
+PackageIdentifier: BlackkCore.Glide
+PackageVersion: 1.0.1
+DefaultLocale: en-US
+ManifestType: version
+ManifestVersion: 1.6.0

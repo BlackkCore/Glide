@@ -7100,5 +7100,50 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbShowSpeedGraph", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Some files couldn't be downloaded and kept their old version: {0}
+        /// </summary>
+        public static string MsgGeoFilesSomeFailed {
+            get {
+                return ResourceManager.GetString("MsgGeoFilesSomeFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Your routing or DNS uses site lists that aren't downloaded ({0}), so the engine can't start.
+        /// </summary>
+        public static string TipSiteListsMissing {
+            get {
+                return ResourceManager.GetString("TipSiteListsMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Download site lists
+        /// </summary>
+        public static string TbDownloadSiteLists {
+            get {
+                return ResourceManager.GetString("TbDownloadSiteLists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Site lists downloaded. Starting the engine again.
+        /// </summary>
+        public static string TipSiteListsReady {
+            get {
+                return ResourceManager.GetString("TipSiteListsReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   These site lists are still missing: {0}. Check that the geo files source in Settings can be reached, or pick another regional preset.
+        /// </summary>
+        public static string TipSiteListsStillMissing {
+            get {
+                return ResourceManager.GetString("TipSiteListsStillMissing", resourceCulture);
+            }
+        }
     }
 }

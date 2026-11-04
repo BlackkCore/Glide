@@ -191,6 +191,10 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
                     _monitor.CheckSoon(2500);
                     break;
 
+                case ConnState.EngineStopped when _missingGeo.Count > 0:
+                    await DownloadSiteListsAsync();
+                    break;
+
                 case ConnState.EngineStopped:
                     ViewModel?.ReloadRequested.Publish();
                     _monitor.CheckSoon(2500);
@@ -236,6 +240,70 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
     private bool _exitIpOffered;
     private bool _iconProblem;
 
+    // Site lists ("geosite:ir") the routing or DNS needs but geosite.dat / geoip.dat lack. Xray won't
+    // start without them, so the card names them and offers to download the lists.
+    private List<string> _missingGeo = [];
+    private bool _geoChecked;
+    private bool _geoDownloading;
+
+    private async Task RefreshMissingGeoAsync()
+    {
+        try
+        {
+            var missing = await GeoDataCheck.FindMissingAsync(AppManager.Instance.Config);
+            if (_monitor.State == ConnState.EngineStopped)
+            {
+                _missingGeo = missing;
+                RenderStatus();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("RefreshMissingGeo", ex);
+        }
+    }
+
+    private async Task DownloadSiteListsAsync()
+    {
+        if (_geoDownloading)
+        {
+            return;
+        }
+        _geoDownloading = true;
+        btnStatusAction.IsEnabled = false;
+        btnStatusAction.Content = ResUI.Downloading;
+        try
+        {
+            // Downloads go straight to the source while Glide's own engine is down.
+            await new ServiceLib.Services.UpdateService(AppManager.Instance.Config, (_, msg) =>
+            {
+                Logging.SaveLog($"SiteLists: {msg}");
+                return Task.CompletedTask;
+            }).UpdateGeoFileAll();
+            var stillMissing = await GeoDataCheck.FindMissingAsync(AppManager.Instance.Config);
+            NoticeManager.Instance.Enqueue(stillMissing.Count == 0
+                ? ResUI.TipSiteListsReady
+                : string.Format(ResUI.TipSiteListsStillMissing, string.Join(", ", stillMissing)));
+            _missingGeo = stillMissing;
+            if (stillMissing.Count == 0)
+            {
+                ViewModel?.ReloadRequested.Publish();
+                _monitor.CheckSoon(2500);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("DownloadSiteLists", ex);
+            NoticeManager.Instance.Enqueue(ResUI.OperationFailed);
+        }
+        finally
+        {
+            _geoDownloading = false;
+            btnStatusAction.IsEnabled = true;
+            RenderStatus();
+        }
+    }
+
     // The exit IP needs an IP lookup service, which is off by default (a lookup contacts that site).
     // The first time the connection works, ask once instead of hiding it in advanced settings.
     private async Task OfferExitIpAsync()
@@ -272,6 +340,18 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
     {
         var selected = ViewModel?.SystemProxySelected ?? (int)ESysProxyType.ForcedClear;
         var state = _monitor.State;
+        // Each time the engine is found stopped, check once whether a missing site list is the reason.
+        if (state != ConnState.EngineStopped)
+        {
+            _geoChecked = false;
+            _missingGeo = [];
+        }
+        else if (!_geoChecked)
+        {
+            _geoChecked = true;
+            _ = RefreshMissingGeoAsync();
+        }
+        var geoMissing = state == ConnState.EngineStopped && _missingGeo.Count > 0;
         bdPowerState.Classes.Set("on", state == ConnState.Connected);
         bdPowerState.Classes.Set("warn", state == ConnState.Checking);
         bdPowerState.Classes.Set("bad", state is ConnState.NoInternet or ConnState.PortConflict or ConnState.EngineStopped);
@@ -294,6 +374,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
             ConnState.Connected => _monitor.ExitIp.IsNotEmpty() ? $"{ResUI.TbExitIp}: {_monitor.ExitIp}" : string.Empty,
             ConnState.NoInternet => ResUI.TipNoInternetThroughServer,
             ConnState.PortConflict => string.Format(ResUI.TipPortBusy, AppManager.Instance.GetLocalPort(EInboundProtocol.socks), _monitor.Conflict?.Name),
+            ConnState.EngineStopped when geoMissing => string.Format(ResUI.TipSiteListsMissing, string.Join(", ", _missingGeo)),
             ConnState.EngineStopped => ResUI.TipEngineStoppedHint,
             ConnState.NotConnected => selected == (int)ESysProxyType.Unchanged ? ResUI.TipUnchangedHint : ResUI.TipNotConnectedHint,
             _ => string.Empty,
@@ -302,6 +383,8 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
 
         btnStatusAction.Content = state switch
         {
+            _ when _geoDownloading => ResUI.Downloading,
+            ConnState.EngineStopped when geoMissing => ResUI.TbDownloadSiteLists,
             ConnState.PortConflict when _monitor.Conflict is { } owner && ConnectionMonitor.CanClose(owner) => string.Format(ResUI.TbCloseApp, owner.Name),
             ConnState.NoInternet or ConnState.EngineStopped => ResUI.TbCheckAgain,
             _ => null,

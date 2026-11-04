@@ -251,9 +251,21 @@ public class DownloaderHelper
             downloader.DownloadFileCompleted += (sender, value) =>
             {
                 var newState = states[index] with { Completed = true };
-                if (value.Error != null)
+                if (value.Error != null || value.Cancelled)
                 {
-                    newState = newState with { Error = value.Error };
+                    newState = newState with { Error = value.Error ?? new OperationCanceledException() };
+                    // Glide: never leave a half-written file behind; the caller installs only files that exist.
+                    try
+                    {
+                        if (File.Exists(request.FilePath))
+                        {
+                            File.Delete(request.FilePath);
+                        }
+                    }
+                    catch
+                    {
+                        // The caller still skips it: a failed request is not installed.
+                    }
                 }
                 states[index] = newState;
                 onProgress.Invoke(readOnlyStates);

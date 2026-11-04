@@ -2473,4 +2473,19 @@ Direct: {1}</value>
   <data name="TbShowSpeedGraph" xml:space="preserve">
     <value>Show the graph under the speeds</value>
   </data>
+  <data name="MsgGeoFilesSomeFailed" xml:space="preserve">
+    <value>Some files couldn't be downloaded and kept their old version: {0}</value>
+  </data>
+  <data name="TipSiteListsMissing" xml:space="preserve">
+    <value>Your routing or DNS uses site lists that aren't downloaded ({0}), so the engine can't start.</value>
+  </data>
+  <data name="TbDownloadSiteLists" xml:space="preserve">
+    <value>Download site lists</value>
+  </data>
+  <data name="TipSiteListsReady" xml:space="preserve">
+    <value>Site lists downloaded. Starting the engine again.</value>
+  </data>
+  <data name="TipSiteListsStillMissing" xml:space="preserve">
+    <value>These site lists are still missing: {0}. Check that the geo files source in Settings can be reached, or pick another regional preset.</value>
+  </data>
 </root>

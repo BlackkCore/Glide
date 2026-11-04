@@ -98,7 +98,9 @@ public static class ConfigImportHandler
                 return false;
             }
 
-            CopyCoresIfMissing(Path.GetDirectoryName(NormalizeDir(sourceConfigDir)));
+            var sourceInstallDir = Path.GetDirectoryName(NormalizeDir(sourceConfigDir));
+            CopyCoresIfMissing(sourceInstallDir);
+            CopyRegionalGeoLists(sourceInstallDir, staging);
             return true;
         }
         catch (Exception ex)
@@ -165,6 +167,46 @@ public static class ConfigImportHandler
     private static string StagingDir()
     {
         return Path.Combine(Utils.StartupPath(), StagingDirName);
+    }
+
+    /// <summary>
+    /// The imported settings may use a regional geo source (Iran, Russia) whose routing and DNS ask
+    /// for lists like "geosite:ir" that Glide's bundled world lists don't have; without them the
+    /// engine can't start. Bring the other installation's lists along in that case.
+    /// </summary>
+    private static void CopyRegionalGeoLists(string? sourceInstallDir, string stagedConfigDir)
+    {
+        try
+        {
+            if (sourceInstallDir.IsNullOrEmpty())
+            {
+                return;
+            }
+            var node = JsonUtils.ParseJson(File.ReadAllText(Path.Combine(stagedConfigDir, Global.ConfigFileName)));
+            var geoSource = node?["ConstItem"]?["GeoSourceUrl"]?.GetValue<string>();
+            if (geoSource.IsNullOrEmpty())
+            {
+                return;
+            }
+            var sourceBin = Path.Combine(sourceInstallDir, "bin");
+            foreach (var name in new[] { "geosite.dat", "geoip.dat" })
+            {
+                var from = Path.Combine(sourceBin, name);
+                if (File.Exists(from))
+                {
+                    File.Copy(from, Utils.GetBinPath(name), true);
+                }
+            }
+            var fromSrs = Path.Combine(sourceBin, "srss");
+            if (Directory.Exists(fromSrs))
+            {
+                FileUtils.CopyDirectory(fromSrs, Utils.GetBinPath("srss"), true, true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog(_tag, ex);
+        }
     }
 
     private static void CopyCoresIfMissing(string? sourceInstallDir)

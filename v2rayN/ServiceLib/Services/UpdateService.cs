@@ -539,35 +539,7 @@ public partial class UpdateService(Config config, Func<bool, string, Task> updat
         DownloadService downloadHandle = new();
         downloadHandle.UpdateCompleted += (sender2, args) =>
         {
-            if (args.Success)
-            {
-                //_ = UpdateFunc(false, string.Format(ResUI.MsgDownloadGeoFileSuccessfully, fileName));
-
-                foreach (var request in requests)
-                {
-                    try
-                    {
-                        //if (File.Exists(tmpFileName))
-                        //{
-                        //    File.Copy(tmpFileName, targetPath, true);
-
-                        //    File.Delete(tmpFileName);
-                        //    //await    UpdateFunc(true, "");
-                        //}
-                        var tmpFileName = tmpFilePathDict[request.FilePath];
-                        if (File.Exists(tmpFileName))
-                        {
-                            File.Copy(tmpFileName, request.FilePath, true);
-                            File.Delete(tmpFileName);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _ = UpdateFunc(false, ex.Message);
-                    }
-                }
-            }
-            else
+            if (!args.Success)
             {
                 _ = UpdateFunc(false, args.Msg);
             }
@@ -578,6 +550,61 @@ public partial class UpdateService(Config config, Func<bool, string, Task> updat
         };
 
         await downloadHandle.DownloadSmallFilesAsync(tmpFileRequests, blProxy, cancellationToken);
+
+        // Glide: install every file that arrived, even when another one failed. Upstream installed
+        // nothing if a single file failed, so one missing rule-set file (a 404 on the regional source)
+        // kept the new geosite.dat from being installed and the engine could not start.
+        var failed = InstallDownloadedFiles(requests.Select(r => (tmpFilePathDict[r.FilePath], r.FilePath)).ToList());
+        if (failed.Count > 0)
+        {
+            await UpdateFunc(false, string.Format(ResUI.MsgGeoFilesSomeFailed, string.Join(", ", failed)));
+        }
+    }
+
+    /// <summary>
+    /// Moves each downloaded temp file to its target. Returns the names of the files that weren't
+    /// downloaded (missing or empty temp file) or couldn't be installed; those keep their old copy.
+    /// </summary>
+    public static List<string> InstallDownloadedFiles(IReadOnlyList<(string TempPath, string TargetPath)> files)
+    {
+        List<string> failed = [];
+        foreach (var (tempPath, targetPath) in files)
+        {
+            try
+            {
+                if (!File.Exists(tempPath) || new FileInfo(tempPath).Length == 0)
+                {
+                    failed.Add(Path.GetFileName(targetPath));
+                    continue;
+                }
+                var dir = Path.GetDirectoryName(targetPath);
+                if (dir.IsNotEmpty() && !Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                File.Copy(tempPath, targetPath, true);
+            }
+            catch (Exception ex)
+            {
+                Logging.SaveLog("InstallDownloadedFiles", ex);
+                failed.Add(Path.GetFileName(targetPath));
+            }
+            finally
+            {
+                try
+                {
+                    if (File.Exists(tempPath))
+                    {
+                        File.Delete(tempPath);
+                    }
+                }
+                catch
+                {
+                    // A leftover temp file is harmless.
+                }
+            }
+        }
+        return failed;
     }
 
     #endregion Geo private

@@ -793,6 +793,13 @@ public partial class MainWindowViewModel : MyReactiveObject
 
         await ConfigHandler.SaveConfig(_config);
         await new UpdateService(_config, UpdateTaskHandler).UpdateGeoFileAll();
+        // Glide: the preset's routing and DNS need its own site lists (e.g. geosite:ir). Say so plainly
+        // when they didn't arrive, instead of leaving only an engine error in the log.
+        var missing = await GeoDataCheck.FindMissingAsync(_config);
+        if (missing.Count > 0)
+        {
+            NoticeManager.Instance.Enqueue(string.Format(ResUI.TipSiteListsMissing, string.Join(", ", missing)));
+        }
         await Reload();
     }
 

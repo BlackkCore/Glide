@@ -2473,4 +2473,19 @@
   <data name="TbShowSpeedGraph" xml:space="preserve">
     <value>نمایش نمودار زیر اعداد سرعت</value>
   </data>
+  <data name="MsgGeoFilesSomeFailed" xml:space="preserve">
+    <value>برخی فایل‌ها دانلود نشدند و نسخهٔ قبلی‌شان باقی ماند: {0}</value>
+  </data>
+  <data name="TipSiteListsMissing" xml:space="preserve">
+    <value>مسیریابی یا DNS شما از فهرست‌هایی استفاده می‌کند که دانلود نشده‌اند ({0})؛ به همین دلیل موتور اجرا نمی‌شود.</value>
+  </data>
+  <data name="TbDownloadSiteLists" xml:space="preserve">
+    <value>دانلود فهرست سایت‌ها</value>
+  </data>
+  <data name="TipSiteListsReady" xml:space="preserve">
+    <value>فهرست سایت‌ها دانلود شد. موتور دوباره اجرا می‌شود.</value>
+  </data>
+  <data name="TipSiteListsStillMissing" xml:space="preserve">
+    <value>این فهرست‌ها هنوز وجود ندارند: {0}. بررسی کنید منبع فایل‌های Geo در تنظیمات در دسترس باشد، یا پیش‌تنظیم منطقه‌ای دیگری انتخاب کنید.</value>
+  </data>
 </root>

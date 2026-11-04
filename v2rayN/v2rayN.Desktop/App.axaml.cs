@@ -224,7 +224,9 @@ public partial class App : Application
         }
     }
 
-    private const int TrayIconPx = 32; // drawn at 2x for a 16 px icon
+    // The tray menu shows an icon at its bitmap's pixel size, so each one is drawn at exactly 16×16
+    // pixels (96 dpi): a larger bitmap would be cut off to its top-left corner.
+    private const int TrayIconPx = 16;
 
     private Bitmap? RenderIcon(string key, Color color)
     {
@@ -232,21 +234,39 @@ public partial class App : Application
         {
             return null;
         }
-        var bitmap = new RenderTargetBitmap(new PixelSize(TrayIconPx, TrayIconPx), new Vector(192, 192));
-        using (var context = bitmap.CreateDrawingContext())
-        using (context.PushTransform(Matrix.CreateScale(16 / 24.0, 16 / 24.0)))
+        // Most icons sit on a 24-unit grid; a few (the Glide mark) use a bigger one and are fitted instead.
+        var bounds = geometry.Bounds;
+        var transform = Math.Max(bounds.Right, bounds.Bottom) <= 24.5
+            ? Matrix.CreateScale(TrayIconPx / 24.0, TrayIconPx / 24.0)
+            : FitInto(bounds, TrayIconPx - 2);
+        return Rasterize(context =>
         {
-            context.DrawGeometry(new SolidColorBrush(color), null, geometry);
-        }
-        return bitmap;
+            using (context.PushTransform(transform))
+            {
+                context.DrawGeometry(new SolidColorBrush(color), null, geometry);
+            }
+        });
+    }
+
+    private static Matrix FitInto(Rect bounds, double size)
+    {
+        var scale = size / Math.Max(bounds.Width, bounds.Height);
+        var dx = ((TrayIconPx - (bounds.Width * scale)) / 2) - (bounds.X * scale);
+        var dy = ((TrayIconPx - (bounds.Height * scale)) / 2) - (bounds.Y * scale);
+        return Matrix.CreateScale(scale, scale) * Matrix.CreateTranslation(dx, dy);
     }
 
     private static Bitmap RenderDot(Color color)
     {
-        var bitmap = new RenderTargetBitmap(new PixelSize(TrayIconPx, TrayIconPx), new Vector(192, 192));
+        return Rasterize(context => context.DrawEllipse(new SolidColorBrush(color), null, new Point(TrayIconPx / 2.0, TrayIconPx / 2.0), 4.5, 4.5));
+    }
+
+    private static Bitmap Rasterize(Action<DrawingContext> draw)
+    {
+        var bitmap = new RenderTargetBitmap(new PixelSize(TrayIconPx, TrayIconPx), new Vector(96, 96));
         using (var context = bitmap.CreateDrawingContext())
         {
-            context.DrawEllipse(new SolidColorBrush(color), null, new Point(8, 8), 4.5, 4.5);
+            draw(context);
         }
         return bitmap;
     }

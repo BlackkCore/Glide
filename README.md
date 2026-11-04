@@ -102,7 +102,7 @@ Natural, everyday Persian, a fully mirrored right-to-left window in Vazirmatn, a
 <table>
 <tr>
 <td width="50%"><img src="docs/screenshots/compact-light.png" alt="Compact layout on a narrow window"></td>
-<td width="50%"><img src="docs/screenshots/menu-dark.png" alt="Sidebar menu"></td>
+<td width="30%"><img src="docs/screenshots/menu-dark.png" alt="Sidebar menu"></td>
 </tr>
 <tr>
 <td align="center"><b>Compact and focused</b><br><sub>Everything at a glance, even in a narrow window</sub></td>

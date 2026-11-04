@@ -107,6 +107,7 @@ public partial class AddServerSheet : UserControl
             return;
         }
         await main.AddServerViaClipboardAsync(text);
+        MainWindow.RememberClipboardOffered(text);
         // A new subscription is empty until it's updated: fetch its servers right away.
         if (hasSubscription)
         {

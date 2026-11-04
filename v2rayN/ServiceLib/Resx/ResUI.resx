@@ -2488,4 +2488,7 @@ Direct: {1}</value>
   <data name="TipSiteListsStillMissing" xml:space="preserve">
     <value>These site lists are still missing: {0}. Check that the geo files source in Settings can be reached, or pick another regional preset.</value>
   </data>
+  <data name="TipEmptyPasteHint" xml:space="preserve">
+    <value>Or press Ctrl+V to paste links you copied.</value>
+  </data>
 </root>

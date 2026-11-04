@@ -160,7 +160,8 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         }
         if (!_hasServer)
         {
-            NoticeManager.Instance.Enqueue(ResUI.TipAddServerFirst);
+            // No server yet: go straight to adding one instead of a toast that says so.
+            AppEvents.AddServerSheetRequested.Publish();
             return;
         }
         if (!IsProxyOn(ViewModel.SystemProxySelected) && _monitor.State == ConnState.PortConflict)

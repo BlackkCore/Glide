@@ -7145,5 +7145,14 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipSiteListsStillMissing", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Or press Ctrl+V to paste links you copied.
+        /// </summary>
+        public static string TipEmptyPasteHint {
+            get {
+                return ResourceManager.GetString("TipEmptyPasteHint", resourceCulture);
+            }
+        }
     }
 }

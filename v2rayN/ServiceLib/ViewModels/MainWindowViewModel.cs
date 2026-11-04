@@ -478,11 +478,25 @@ public partial class MainWindowViewModel : MyReactiveObject
         }
         if (ret == true)
         {
+            var activeBefore = _config.IndexId;
             await RefreshServersDispatcherAsync();
-            if (item.IndexId == _config.IndexId)
+            if (item.IndexId == _config.IndexId || activeBefore != _config.IndexId)
             {
                 await Reload();
             }
+        }
+    }
+
+    /// <summary>
+    /// Glide: adding servers can make one of them the active server (the first servers on a fresh
+    /// install). Start the engine on it then, instead of leaving "Engine stopped" until the user
+    /// presses Check again.
+    /// </summary>
+    private async Task ReloadIfActiveChangedAsync(string? activeBefore)
+    {
+        if (activeBefore != _config.IndexId && _config.IndexId.IsNotEmpty())
+        {
+            await Reload();
         }
     }
 
@@ -499,12 +513,14 @@ public partial class MainWindowViewModel : MyReactiveObject
             }
             stringData = result;
         }
+        var activeBefore = _config.IndexId;
         var ret = await ConfigHandler.AddBatchServers(_config, stringData, _config.SubIndexId, false);
         if (ret > 0)
         {
             await RefreshSubscriptions();
             await RefreshServersDispatcherAsync();
             NoticeManager.Instance.Enqueue(string.Format(ResUI.SuccessfullyImportedServerViaClipboard, ret));
+            await ReloadIfActiveChangedAsync(activeBefore);
         }
         else
         {
@@ -549,12 +565,14 @@ public partial class MainWindowViewModel : MyReactiveObject
         }
         else
         {
+            var activeBefore = _config.IndexId;
             var ret = await ConfigHandler.AddBatchServers(_config, result, _config.SubIndexId, false);
             if (ret > 0)
             {
                 await RefreshSubscriptions();
                 await RefreshServersDispatcherAsync();
                 NoticeManager.Instance.Enqueue(ResUI.SuccessfullyImportedServerViaScan);
+                await ReloadIfActiveChangedAsync(activeBefore);
             }
             else
             {

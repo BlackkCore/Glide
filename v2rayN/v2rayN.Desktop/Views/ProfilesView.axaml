@@ -723,17 +723,19 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal"
                     Spacing="8">
+                    <!--  One way in: the Add server sheet takes links, subscriptions and QR codes.  -->
                     <Button
                         x:Name="btnEmptyPaste"
                         Classes="Primary"
-                        Content="{x:Static resx:ResUI.menuAddServerViaClipboard}"
+                        Content="{x:Static resx:ResUI.TbAddServer}"
                         CornerRadius="10"
                         Theme="{DynamicResource SolidButton}" />
-                    <Button
-                        x:Name="btnEmptyAddSub"
-                        Content="{x:Static resx:ResUI.TbAddSubscription}"
-                        CornerRadius="10" />
                 </StackPanel>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    Classes="faint"
+                    FontSize="{DynamicResource AppFontSmall}"
+                    Text="{x:Static resx:ResUI.TipEmptyPasteHint}" />
             </StackPanel>
         </Panel>
     </DockPanel>

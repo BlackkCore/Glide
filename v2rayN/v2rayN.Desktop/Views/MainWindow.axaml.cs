@@ -21,12 +21,13 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         InitializeComponent();
 
         _config = AppManager.Instance.Config;
-        // Toasts start below the 40px title bar so they never cover the window buttons.
+        // Toasts sit at the bottom right, over the log area, so they never cover the server toolbar
+        // (Add server, Test all) the way the top-right corner did.
         _manager = new WindowNotificationManager(TopLevel.GetTopLevel(this))
         {
             MaxItems = 3,
-            Position = NotificationPosition.TopRight,
-            Margin = new Thickness(16, 40, 16, 0),
+            Position = NotificationPosition.BottomRight,
+            Margin = new Thickness(16, 0, 24, 24),
         };
 
         KeyDown += MainWindow_KeyDown;
@@ -788,6 +789,27 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     // A fingerprint of the last offered clipboard content, kept across restarts so the same copied
     // link isn't offered again every time Glide starts.
     private static string ClipboardOfferedFile => Utils.GetConfigPath("glide-clipboard-offered");
+
+    /// <summary>
+    /// Text that was just imported (pasted into the Add server sheet) counts as offered, so coming back
+    /// to Glide, or restarting it, doesn't offer the same links again.
+    /// </summary>
+    public static void RememberClipboardOffered(string? text)
+    {
+        try
+        {
+            text = text?.Trim();
+            if (text.IsNullOrEmpty())
+            {
+                return;
+            }
+            File.WriteAllText(ClipboardOfferedFile, Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(text))));
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("RememberClipboardOffered", ex);
+        }
+    }
 
     // Copied a server link or a subscription address? Coming back to Glide offers it in the Add
     // server sheet (with its preview; Cancel ignores it). Each clipboard content is offered once

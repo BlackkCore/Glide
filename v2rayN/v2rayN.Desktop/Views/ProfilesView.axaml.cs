@@ -30,7 +30,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             _filterTimer.Stop();
             _filterTimer.Start();
         };
-        btnEmptyPaste.Click += (_, _) => AppEvents.AddServerViaClipboardRequested.Publish();
+        btnEmptyPaste.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
         btnAddServer.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
         btnAutoFastest.Click += async (_, _) => await UseAutoFastestAsync();
         // Sort without the table's column headers (upstream's own sorting, by column tag).
@@ -99,7 +99,6 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             this.Bind(ViewModel, vm => vm.SelectedSub, v => v.lstGroup.SelectedItem).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ServerFilter, v => v.txtServerFilter.Text).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.btnAddSub).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.btnEmptyAddSub).DisposeWith(disposables);
 
             // Empty list with no filter typed: show the first-run card instead of a blank table.
             // This view and its view model live as long as the app, so the handler is added once.
@@ -365,14 +364,47 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             {
                 lstProfiles.SelectedItem = item;
             }
-            // A ContextMenu only opens on the control it belongs to; it appears at the pointer,
-            // which is on this button.
-            lstProfiles.ContextMenu?.Open(lstProfiles);
+            // A ContextMenu only opens on the control it belongs to. Anchor it to this button and open
+            // it to the left, so it stays inside the window (at the pointer it ran past the right edge),
+            // and close the button's "More actions" tooltip, which otherwise covered the first item.
+            if (lstProfiles.ContextMenu is { } menu)
+            {
+                // No tooltip while the menu is open; it comes back when the menu closes.
+                _rowMenuButton = button;
+                _rowMenuTip = ToolTip.GetTip(button);
+                ToolTip.SetIsOpen(button, false);
+                ToolTip.SetTip(button, null);
+                menu.PlacementTarget = button;
+                menu.Placement = PlacementMode.LeftEdgeAlignedTop;
+                menu.Closed -= RowMenu_Closed;
+                menu.Closed += RowMenu_Closed;
+                menu.Open(lstProfiles);
+            }
         }
         catch (Exception ex)
         {
             // An exception here would reach the dispatcher and close the app.
             Logging.SaveLog(_tag, ex);
+        }
+    }
+
+    private Control? _rowMenuButton;
+    private object? _rowMenuTip;
+
+    // A right-click afterwards opens the menu at the pointer again, and the ⋯ button gets its tooltip back.
+    private void RowMenu_Closed(object? sender, RoutedEventArgs e)
+    {
+        if (sender is ContextMenu menu)
+        {
+            menu.Closed -= RowMenu_Closed;
+            menu.PlacementTarget = null;
+            menu.Placement = PlacementMode.Pointer;
+        }
+        if (_rowMenuButton != null)
+        {
+            ToolTip.SetTip(_rowMenuButton, _rowMenuTip);
+            _rowMenuButton = null;
+            _rowMenuTip = null;
         }
     }
 

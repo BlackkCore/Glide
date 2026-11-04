@@ -2488,4 +2488,7 @@
   <data name="TipSiteListsStillMissing" xml:space="preserve">
     <value>این فهرست‌ها هنوز وجود ندارند: {0}. بررسی کنید منبع فایل‌های Geo در تنظیمات در دسترس باشد، یا پیش‌تنظیم منطقه‌ای دیگری انتخاب کنید.</value>
   </data>
+  <data name="TipEmptyPasteHint" xml:space="preserve">
+    <value>یا با Ctrl+V لینک‌هایی را که کپی کرده‌اید جای‌گذاری کنید.</value>
+  </data>
 </root>

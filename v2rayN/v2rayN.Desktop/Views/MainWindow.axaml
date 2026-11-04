@@ -369,7 +369,8 @@
                         x:Name="gridMain1"
                         IsVisible="False"
                         RowDefinitions="2*,16,1*">
-                        <Border Padding="16,18,16,8" Classes="card">
+                        <!--  The bottom padding leaves a strip for the Logs toggle, so it never covers the last server row.  -->
+                        <Border Padding="16,18,16,34" Classes="card">
                             <ContentControl x:Name="tabProfiles1" />
                         </Border>
                         <!--  Logs are for troubleshooting: they fold away to give the server list the room.  -->

@@ -115,6 +115,16 @@
         <Setter Property="CornerRadius" Value="999" />
         <Setter Property="Padding" Value="8,2" />
     </Style>
+    <!--  The server in use: the "live" (cyan) tint, the same as the Connected pill.  -->
+    <!--  The chosen server: brand (indigo) tint, since it's chosen whether or not traffic flows.  -->
+    <Style Selector="Border.badge.inUse">
+        <Setter Property="Background" Value="{DynamicResource AppAccentSoftBrush}" />
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="Padding" Value="8,2" />
+    </Style>
+    <Style Selector="Border.badge.inUse TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppAccentSoftFgBrush}" />
+    </Style>
 
     <!--  ===== Sidebar =====  -->
     <Style Selector="Border.sidebar">
@@ -128,7 +138,7 @@
         <Setter Property="Height" Value="34" />
         <Setter Property="CornerRadius" Value="10" />
         <Setter Property="Background" Value="{DynamicResource AppPowerOnFill}" />
-        <Setter Property="BoxShadow" Value="0 4 10 -4 #803157E6" />
+        <Setter Property="BoxShadow" Value="0 4 10 -4 #804F46E5" />
     </Style>
     <Style Selector="Border.brandMark PathIcon">
         <Setter Property="Width" Value="20" />
@@ -418,9 +428,10 @@
     <Style Selector="Button.power.on /template/ Border#PART_Ring">
         <Setter Property="BoxShadow" Value="{DynamicResource AppPowerOnShadow}" />
     </Style>
+    <!--  Connected: a cyan "protected" halo around the indigo button.  -->
     <Style Selector="Button.power.on /template/ Ellipse#PART_Halo">
-        <Setter Property="Fill" Value="{DynamicResource AppAccentRingBrush}" />
-        <Setter Property="Opacity" Value="0.55" />
+        <Setter Property="Fill" Value="{DynamicResource AppGoodBgBrush}" />
+        <Setter Property="Opacity" Value="0.8" />
     </Style>
     <Style Selector="Button.power.on /template/ Ellipse#PART_HaloInner">
         <Setter Property="Opacity" Value="1" />
@@ -513,11 +524,39 @@
         <Setter Property="Width" Value="12" />
         <Setter Property="Height" Value="12" />
     </Style>
-    <Style Selector="Border.stat PathIcon.up">
+    <!--  Same colours as the speed graph: download indigo (filled), upload cyan (line).  -->
+    <Style Selector="Border.stat PathIcon.down">
         <Setter Property="Foreground" Value="{DynamicResource AppAccentBrush}" />
     </Style>
-    <Style Selector="Border.stat PathIcon.down">
+    <Style Selector="Border.stat PathIcon.up">
         <Setter Property="Foreground" Value="{DynamicResource AppGoodDotBrush}" />
+    </Style>
+
+    <!--  "Advanced" row in the Connection card: a full-width row that opens in place.  -->
+    <Style Selector="Button.disclosure">
+        <Setter Property="Theme" Value="{DynamicResource BorderlessButton}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="8,6" />
+        <Setter Property="Margin" Value="-8,-6" />
+        <Setter Property="MinHeight" Value="0" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.disclosure:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+    </Style>
+    <Style Selector="PathIcon.disclosureChevron">
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Height" Value="12" />
+        <Setter Property="Margin" Value="8,0,0,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource AppFaintBrush}" />
+        <Setter Property="RenderTransform" Value="rotate(90deg)" />
+    </Style>
+    <Style Selector="Button.disclosure.open PathIcon.disclosureChevron">
+        <Setter Property="RenderTransform" Value="rotate(-90deg)" />
     </Style>
     <Style Selector="TextBlock.statLabel">
         <Setter Property="FontSize" Value="{DynamicResource AppFontCaption}" />
@@ -719,6 +758,30 @@
         <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
         <Setter Property="BorderThickness" Value="1" />
     </Style>
+    <!--  Round flag (FlagImages), with a hairline so white flags don't melt into the card.  -->
+    <Style Selector="Panel.flagWrap">
+        <Setter Property="Width" Value="26" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Panel.flagWrap.small">
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="20" />
+    </Style>
+    <Style Selector="Panel.flagWrap > Border.flag">
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="ClipToBounds" Value="True" />
+    </Style>
+    <Style Selector="Panel.flagWrap Image">
+        <Setter Property="Stretch" Value="UniformToFill" />
+    </Style>
+    <!--  Thin ring on top of the clipped flag, so white bands don't melt into a white card.  -->
+    <Style Selector="Panel.flagWrap > Ellipse.flagRing">
+        <Setter Property="Stroke" Value="{DynamicResource AppFlagRingBrush}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+    </Style>
     <Style Selector="Border.country TextBlock">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="{DynamicResource AppMonoFont}" />
@@ -763,6 +826,36 @@
     <!--  A delay test running: the pill dims instead of showing nothing.  -->
     <Style Selector="Border.delayPill.testing">
         <Setter Property="Opacity" Value="0.55" />
+    </Style>
+    <!--  List view: the pill itself is tinted by speed (cyan fast, amber slow, red failed).  -->
+    <Style Selector="Border.delayPill.tinted">
+        <Setter Property="MinWidth" Value="58" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="8,4" />
+    </Style>
+    <Style Selector="Border.delayPill.tinted StackPanel">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.delayPill.tinted TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="Border.delayPill.tinted.fast">
+        <Setter Property="Background" Value="{DynamicResource AppGoodBgBrush}" />
+    </Style>
+    <Style Selector="Border.delayPill.tinted.fast TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppGoodFgBrush}" />
+    </Style>
+    <Style Selector="Border.delayPill.tinted.slow">
+        <Setter Property="Background" Value="{DynamicResource AppWarnBgBrush}" />
+    </Style>
+    <Style Selector="Border.delayPill.tinted.slow TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppWarnFgBrush}" />
+    </Style>
+    <Style Selector="Border.delayPill.tinted.bad">
+        <Setter Property="Background" Value="{DynamicResource AppBadBgBrush}" />
+    </Style>
+    <Style Selector="Border.delayPill.tinted.bad TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource AppBadFgBrush}" />
     </Style>
     <Style Selector="TabControl.settingsNav">
         <Setter Property="Padding" Value="0" />

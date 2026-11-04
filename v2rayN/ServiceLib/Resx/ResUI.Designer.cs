@@ -7244,5 +7244,32 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipNoActivity", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Advanced
+        /// </summary>
+        public static string TbAdvancedConnection {
+            get {
+                return ResourceManager.GetString("TbAdvancedConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Windows proxy mode, local ports and LAN sharing
+        /// </summary>
+        public static string TipAdvancedConnection {
+            get {
+                return ResourceManager.GetString("TipAdvancedConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Last minute: download (filled) and upload (line). Point at the graph to see the speed at that moment.
+        /// </summary>
+        public static string TipSpeedGraph {
+            get {
+                return ResourceManager.GetString("TipSpeedGraph", resourceCulture);
+            }
+        }
     }
 }

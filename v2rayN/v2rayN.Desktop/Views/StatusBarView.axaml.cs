@@ -26,6 +26,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         btnPower.Click += BtnPower_Click;
         btnStatusAction.Click += BtnStatusAction_Click;
         btnDiagnose.Click += (_, _) => DiagnoseSheet.Open(ref _diagnoseSheet);
+        btnAdvanced.Click += (_, _) => SetAdvancedOpen(!spAdvanced.IsVisible);
         _monitor.Changed += RenderStatus;
         _sessionTimer.Tick += (_, _) => UpdateSessionTime();
         _tickTimer.Tick += (_, _) => SpeedTick();
@@ -77,7 +78,11 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
 
             this.WhenAnyValue(v => v.ViewModel.InboundDisplay)
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
-                .Subscribe(s => SetKeyValue(s, txtInboundKey, txtInboundValue))
+                .Subscribe(s =>
+                {
+                    SetKeyValue(s, txtInboundKey, txtInboundValue);
+                    UpdateAdvancedSummary();
+                })
                 .DisposeWith(disposables);
 
             this.WhenAnyValue(v => v.ViewModel.InboundLanDisplay)
@@ -212,8 +217,42 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
         }
     }
 
+    private bool _advancedAutoOpened;
+
+    private void SetAdvancedOpen(bool open)
+    {
+        spAdvanced.IsVisible = open;
+        btnAdvanced.Classes.Set("open", open);
+    }
+
+    // The closed Advanced row still says what's set: "Windows proxy: On · mixed:10808".
+    private void UpdateAdvancedSummary()
+    {
+        var mode = (cmbSystemProxy.SelectedItem as ListBoxItem)?.Content as string;
+        var port = txtInboundValue.Text;
+        var parts = new List<string>();
+        if (mode.IsNotEmpty())
+        {
+            parts.Add($"{ResUI.menuSystemproxy}: {mode}");
+        }
+        if (port.IsNotEmpty())
+        {
+            // Left-to-right marks keep "mixed:10808" in order inside Persian text.
+            parts.Add($"‎{port}‎");
+        }
+        txtAdvancedSummary.Text = string.Join(" · ", parts);
+        txtAdvancedSummary.IsVisible = parts.Count > 0;
+    }
+
     private void UpdatePowerState(int selected)
     {
+        // Unchanged and PAC are set from Advanced: show it open so the choice isn't hidden.
+        if (!_advancedAutoOpened && selected is (int)ESysProxyType.Unchanged or (int)ESysProxyType.Pac)
+        {
+            _advancedAutoOpened = true;
+            SetAdvancedOpen(true);
+        }
+        UpdateAdvancedSummary();
         var isOn = IsProxyOn(selected);
         if (isOn && !btnPower.Classes.Contains("on") && IsLoaded && AppMotion.Enabled)
         {
@@ -446,6 +485,7 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
             txtServerName.Text = _hasServer ? summary : ResUI.TbNoServerSelected;
             bdServerType.IsVisible = false;
             bdServerCountry.IsVisible = false;
+            bdServerFlag.IsVisible = false;
             txtServerAddress.Text = string.Empty;
             UpdateMonitor();
             return;
@@ -453,7 +493,12 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
 
         var name = match.Groups["name"].Value.Trim();
         var country = CountryDetector.Detect(name);
-        bdServerCountry.IsVisible = country != null;
+        // A round flag when there is one drawn for the country, else the two-letter code.
+        var flag = FlagImages.Get(country);
+        imgServerFlag.Source = flag;
+        bdServerFlag.IsVisible = flag != null;
+        ToolTip.SetTip(bdServerFlag, country);
+        bdServerCountry.IsVisible = country != null && flag == null;
         txtServerCountry.Text = country;
         name = CountryDetector.RemoveFlags(name);
         txtServerName.Text = name.IsNullOrEmpty() ? summary : name;

@@ -18,6 +18,7 @@
         <conv:DelayColorConverter x:Key="DelayColorConverter" />
         <conv:DelayTextConverter x:Key="DelayTextConverter" />
         <conv:CountryConverter x:Key="CountryConverter" />
+        <conv:FlagConverter x:Key="FlagConverter" />
         <conv:ServerLineConverter x:Key="ServerLineConverter" />
 
         <ControlTheme x:Key="{x:Type DataGridColumnChooser}" TargetType="DataGridColumnChooser">
@@ -620,13 +621,21 @@
                                 <Border
                                     Classes="activeBar"
                                     IsVisible="{Binding IsActive}" />
-                                <Border
-                                    Grid.Column="1"
-                                    Margin="14,0,10,0"
-                                    Classes="country"
-                                    IsVisible="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=has}">
-                                    <TextBlock Text="{Binding Remarks, Converter={StaticResource CountryConverter}}" />
-                                </Border>
+                                <!--  Round flag; a country without a drawn flag keeps its code chip.  -->
+                                <Panel Grid.Column="1" Margin="14,0,0,0">
+                                    <Panel
+                                        Classes="flagWrap"
+                                        IsVisible="{Binding Remarks, Converter={StaticResource FlagConverter}, ConverterParameter=has}"
+                                        ToolTip.Tip="{Binding Remarks, Converter={StaticResource CountryConverter}}">
+                                        <Border Classes="flag">
+                                            <Image Source="{Binding Remarks, Converter={StaticResource FlagConverter}}" />
+                                        </Border>
+                                        <Ellipse Classes="flagRing" />
+                                    </Panel>
+                                    <Border Classes="country" IsVisible="{Binding Remarks, Converter={StaticResource FlagConverter}, ConverterParameter=chip}">
+                                        <TextBlock Text="{Binding Remarks, Converter={StaticResource CountryConverter}}" />
+                                    </Border>
+                                </Panel>
                                 <StackPanel
                                     Grid.Column="2"
                                     Margin="14,0,0,0"
@@ -639,7 +648,7 @@
                                             FontWeight="Bold"
                                             Text="{Binding Remarks, Converter={StaticResource CountryConverter}, ConverterParameter=text}"
                                             ToolTip.Tip="{Binding Remarks}" />
-                                        <Border Classes="badge solid round" IsVisible="{Binding IsActive}">
+                                        <Border Classes="badge inUse" IsVisible="{Binding IsActive}">
                                             <TextBlock Text="{x:Static resx:ResUI.TipActiveServer}" />
                                         </Border>
                                     </StackPanel>
@@ -648,11 +657,13 @@
                                 <Border
                                     Grid.Column="3"
                                     Margin="10,0"
-                                    Classes="delayPill"
+                                    Classes="delayPill tinted"
                                     Classes.testing="{Binding DelayVal, Converter={x:Static conv:ServerLineConverter.IsTesting}}"
+                                    Classes.fast="{Binding DelayVal, Converter={x:Static conv:DelayColorConverter.IsFast}}"
+                                    Classes.slow="{Binding DelayVal, Converter={x:Static conv:DelayColorConverter.IsSlow}}"
+                                    Classes.bad="{Binding DelayVal, Converter={x:Static conv:DelayColorConverter.IsBad}}"
                                     IsVisible="{Binding Path=DelayVal, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
                                     <StackPanel Orientation="Horizontal" Spacing="6">
-                                        <Ellipse Classes="delayDot" Fill="{Binding DelayVal, Converter={StaticResource DelayColorConverter}}" />
                                         <TextBlock
                                             FontFeatures="+tnum"
                                             FontSize="{DynamicResource AppFontSmall}"

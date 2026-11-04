@@ -2521,4 +2521,13 @@
   <data name="TipNoActivity" xml:space="preserve">
     <value>هنوز خبری نیست. وصل شدن، عوض شدن سرور، افزودن سرور و به‌روزرسانی‌ها اینجا نشان داده می‌شوند.</value>
   </data>
+  <data name="TbAdvancedConnection" xml:space="preserve">
+    <value>پیشرفته</value>
+  </data>
+  <data name="TipAdvancedConnection" xml:space="preserve">
+    <value>حالت پروکسی ویندوز، پورت‌های محلی و اشتراک در شبکهٔ محلی</value>
+  </data>
+  <data name="TipSpeedGraph" xml:space="preserve">
+    <value>یک دقیقهٔ اخیر: دانلود (پررنگ) و آپلود (خط). نشانگر را روی نمودار ببرید تا سرعت همان لحظه را ببینید.</value>
+  </data>
 </root>

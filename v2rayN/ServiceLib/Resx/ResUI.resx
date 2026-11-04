@@ -2521,4 +2521,13 @@ Direct: {1}</value>
   <data name="TipNoActivity" xml:space="preserve">
     <value>Nothing yet. Connections, server changes, imports and updates will show up here.</value>
   </data>
+  <data name="TbAdvancedConnection" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="TipAdvancedConnection" xml:space="preserve">
+    <value>Windows proxy mode, local ports and LAN sharing</value>
+  </data>
+  <data name="TipSpeedGraph" xml:space="preserve">
+    <value>Last minute: download (filled) and upload (line). Point at the graph to see the speed at that moment.</value>
+  </data>
 </root>

@@ -29,7 +29,15 @@ public sealed class AppRoutingSheet : UserControl
         title.Classes.Add("h2");
         panel.Children.Add(title);
         panel.Children.Add(Muted(ResUI.TipAppRouting));
-        panel.Children.Add(Muted(ResUI.TipAppRoutingTun));
+        var tunNote = Muted(ResUI.TipAppRoutingTun);
+        // Red while TUN is off: the rules are saved but nothing applies them yet.
+        if (!AppManager.Instance.Config.TunModeItem.EnableTun)
+        {
+            tunNote.Classes.Remove("muted");
+            tunNote.Bind(TextBlock.ForegroundProperty, tunNote.GetResourceObservable("AppBadFgBrush"));
+            tunNote.FontWeight = FontWeight.SemiBold;
+        }
+        panel.Children.Add(tunNote);
         panel.Children.Add(_apps);
         _status.Classes.Add("muted");
         panel.Children.Add(_status);

@@ -5,6 +5,13 @@ public partial class CheckUpdateView : ReactiveUserControl<CheckUpdateViewModel>
     public CheckUpdateView()
     {
         InitializeComponent();
+        btnCloseUpdates.Click += (_, _) =>
+        {
+            if (DialogHostAvalonia.DialogHost.IsDialogOpen(null))
+            {
+                DialogHostAvalonia.DialogHost.Close(null);
+            }
+        };
 
         this.WhenActivated(disposables =>
         {

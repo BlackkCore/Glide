@@ -7154,5 +7154,77 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipEmptyPasteHint", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   List actions
+        /// </summary>
+        public static string TbListActions {
+            get {
+                return ResourceManager.GetString("TbListActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Updates
+        /// </summary>
+        public static string TbUpdatesTitle {
+            get {
+                return ResourceManager.GetString("TbUpdatesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Switch on what Update all should include. Check for updates only looks; Update all also installs.
+        /// </summary>
+        public static string TipUpdatesIntro {
+            get {
+                return ResourceManager.GetString("TipUpdatesIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Installed: {0}
+        /// </summary>
+        public static string TipInstalledVersion {
+            get {
+                return ResourceManager.GetString("TipInstalledVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Not checked yet
+        /// </summary>
+        public static string TipNotCheckedYet {
+            get {
+                return ResourceManager.GetString("TipNotCheckedYet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Search apps
+        /// </summary>
+        public static string TbSearchApps {
+            get {
+                return ResourceManager.GetString("TbSearchApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Browse for app…
+        /// </summary>
+        public static string TbBrowseForApp {
+            get {
+                return ResourceManager.GetString("TbBrowseForApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Programs
+        /// </summary>
+        public static string TbPrograms {
+            get {
+                return ResourceManager.GetString("TbPrograms", resourceCulture);
+            }
+        }
     }
 }

@@ -85,7 +85,10 @@ public partial class CheckUpdateViewModel : MyReactiveObject
             ShowCheckPreRelease = CoreInfoManager.Instance.GetCheckPreRelease(coreType, true),
             CoreType = coreType,
             IsGeoFile = false,
-            Remarks = lastResult ?? ResUI.menuCheckUpdate,
+            // Glide: say what's there instead of repeating "Check update" on every row.
+            Remarks = lastResult ?? (coreType == ECoreType.v2rayN
+                ? string.Format(ResUI.TipInstalledVersion, Utils.GetVersionInfo())
+                : ResUI.TipNotCheckedYet),
         };
     }
 
@@ -98,7 +101,7 @@ public partial class CheckUpdateViewModel : MyReactiveObject
             ShowCheckPreRelease = false,
             CoreType = null,
             IsGeoFile = true,
-            Remarks = ResUI.menuCheckUpdate,
+            Remarks = ResUI.TipNotCheckedYet,
         };
     }
 

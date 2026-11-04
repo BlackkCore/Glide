@@ -18,6 +18,28 @@
     </UserControl.Resources>
 
     <DockPanel Margin="{StaticResource Margin8}">
+        <!--  Title, what the switches mean, and a visible way out.  -->
+        <Grid
+            Margin="12,8,4,4"
+            ColumnDefinitions="*,Auto"
+            DockPanel.Dock="Top">
+            <StackPanel Spacing="2">
+                <TextBlock Classes="h2" Text="{x:Static resx:ResUI.TbUpdatesTitle}" />
+                <TextBlock
+                    Classes="muted"
+                    FontSize="{DynamicResource AppFontSmall}"
+                    Text="{x:Static resx:ResUI.TipUpdatesIntro}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <Button
+                x:Name="btnCloseUpdates"
+                Grid.Column="1"
+                VerticalAlignment="Top"
+                Classes="IconButton"
+                ToolTip.Tip="{x:Static resx:ResUI.TbClose}">
+                <PathIcon Data="{StaticResource SemiIconClose}" />
+            </Button>
+        </Grid>
         <Border
             Margin="{StaticResource Margin4}"
             VerticalAlignment="Center"

@@ -16,8 +16,20 @@ public sealed class AppRoutingSheet : UserControl
     private const string ProxyRemarks = "Glide: apps through proxy";
     private const string DirectRemarks = "Glide: apps direct";
 
+    // Windows' own processes: never what people mean by "apps", and routing them only causes trouble.
+    private static readonly HashSet<string> SystemProcesses = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "explorer", "svchost", "dwm", "TextInputHost", "ApplicationFrameHost", "ShellExperienceHost",
+        "StartMenuExperienceHost", "SearchHost", "SearchApp", "SystemSettings", "LockApp", "RuntimeBroker",
+        "ShellHost", "Widgets", "WidgetService", "ctfmon", "sihost", "taskhostw", "CrossDeviceResume",
+    };
+
+    private sealed record AppEntry(string Exe, string Name, CheckBox Box);
+
     private readonly MainWindowViewModel _main;
-    private readonly ListBox _apps = new() { SelectionMode = SelectionMode.Multiple | SelectionMode.Toggle, MaxHeight = 300 };
+    private readonly List<AppEntry> _entries = [];
+    private readonly StackPanel _list = new() { Spacing = 2 };
+    private readonly TextBox _search = new() { Watermark = ResUI.TbSearchApps };
     private readonly TextBlock _status = new() { TextWrapping = TextWrapping.Wrap };
 
     public AppRoutingSheet(MainWindowViewModel main)
@@ -38,7 +50,23 @@ public sealed class AppRoutingSheet : UserControl
             tunNote.FontWeight = FontWeight.SemiBold;
         }
         panel.Children.Add(tunNote);
-        panel.Children.Add(_apps);
+
+        // Search, then a list of real checkboxes, then a way to add an app that isn't running.
+        _search.TextChanged += (_, _) => Filter();
+        panel.Children.Add(_search);
+        var listBorder = new Border
+        {
+            Child = new ScrollViewer { Content = _list, MaxHeight = 280 },
+            BorderThickness = new Thickness(1),
+            CornerRadius = new CornerRadius(10),
+            Padding = new Thickness(8, 6),
+        };
+        listBorder.Bind(Border.BorderBrushProperty, listBorder.GetResourceObservable("AppBorderBrush"));
+        panel.Children.Add(listBorder);
+        var browse = MakeButton(ResUI.TbBrowseForApp, BrowseAsync);
+        browse.HorizontalAlignment = HAlign.Left;
+        panel.Children.Add(browse);
+
         _status.Classes.Add("muted");
         panel.Children.Add(_status);
 
@@ -53,24 +81,92 @@ public sealed class AppRoutingSheet : UserControl
 
     public async Task LoadAsync()
     {
-        // Apps with a window, one entry per program, Glide and its engines left out.
+        // Apps with a window, one entry per program, by program name (never window titles, which can
+        // be private, like a browser tab). Glide, its engines and Windows' own processes left out.
         var self = Process.GetCurrentProcess().ProcessName;
-        _apps.ItemsSource = Process.GetProcesses()
-            .Where(p => { try { return p.MainWindowHandle != IntPtr.Zero && p.ProcessName != self; } catch { return false; } })
+        var running = Process.GetProcesses()
+            .Where(p => { try { return p.MainWindowHandle != IntPtr.Zero && p.ProcessName != self && !SystemProcesses.Contains(p.ProcessName); } catch { return false; } })
             .GroupBy(p => p.ProcessName, StringComparer.OrdinalIgnoreCase)
-            .Select(g => new ListBoxItem
-            {
-                Tag = $"{g.Key}.exe",
-                Content = $"{Shorten(SafeTitle(g.First()))}  ({g.Key}.exe)",
-            })
-            .OrderBy(i => i.Content?.ToString(), StringComparer.CurrentCultureIgnoreCase)
+            .Select(g => ($"{g.Key}.exe", ProgramName(g.First())))
             .ToList();
+        // Apps that already have a rule stay in the list even when they aren't running.
+        var routing = await ConfigHandler.GetDefaultRouting(AppManager.Instance.Config);
+        var rules = JsonUtils.Deserialize<List<RulesItem>>(routing.RuleSet) ?? [];
+        var ruled = rules.Where(r => r.Remarks is ProxyRemarks or DirectRemarks).SelectMany(r => r.Process ?? []);
+        foreach (var exe in ruled.Where(e => running.All(r => !r.Item1.Equals(e, StringComparison.OrdinalIgnoreCase))))
+        {
+            running.Add((exe, Path.GetFileNameWithoutExtension(exe)));
+        }
+        _entries.Clear();
+        foreach (var (exe, name) in running.OrderBy(r => r.Item2, StringComparer.CurrentCultureIgnoreCase))
+        {
+            AddEntry(exe, name, false);
+        }
         await ShowStatusAsync();
+    }
+
+    private void AddEntry(string exe, string name, bool isChecked)
+    {
+        if (_entries.FirstOrDefault(e => e.Exe.Equals(exe, StringComparison.OrdinalIgnoreCase)) is { } existing)
+        {
+            existing.Box.IsChecked = isChecked || existing.Box.IsChecked == true;
+            return;
+        }
+        var label = new StackPanel { Spacing = 0 };
+        label.Children.Add(new TextBlock { Text = name, TextTrimming = TextTrimming.CharacterEllipsis });
+        var exeLine = new TextBlock { Text = exe, FontSize = 11 };
+        exeLine.Classes.Add("faint");
+        label.Children.Add(exeLine);
+        var box = new CheckBox { Content = label, IsChecked = isChecked, Margin = new Thickness(2, 1) };
+        _entries.Add(new AppEntry(exe, name, box));
+        _list.Children.Add(box);
+        Filter();
+    }
+
+    private void Filter()
+    {
+        var term = _search.Text?.Trim() ?? "";
+        foreach (var entry in _entries)
+        {
+            entry.Box.IsVisible = term.Length == 0
+                || entry.Name.Contains(term, StringComparison.CurrentCultureIgnoreCase)
+                || entry.Exe.Contains(term, StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    // "Browse for app…": pick any program, running or not.
+    private async Task BrowseAsync()
+    {
+        var top = TopLevel.GetTopLevel(this);
+        if (top == null)
+        {
+            return;
+        }
+        var files = await top.StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions
+        {
+            AllowMultiple = false,
+            FileTypeFilter = [new Avalonia.Platform.Storage.FilePickerFileType(ResUI.TbPrograms) { Patterns = ["*.exe"] }],
+        });
+        var path = files.FirstOrDefault()?.Path is { IsFile: true } uri ? uri.LocalPath : null;
+        if (path.IsNullOrEmpty())
+        {
+            return;
+        }
+        string name;
+        try
+        {
+            name = FileVersionInfo.GetVersionInfo(path).FileDescription is { Length: > 0 } d ? d : Path.GetFileNameWithoutExtension(path);
+        }
+        catch
+        {
+            name = Path.GetFileNameWithoutExtension(path);
+        }
+        AddEntry(Path.GetFileName(path), name, true);
     }
 
     private async Task ApplyAsync(string outboundTag, string remarks, string otherRemarks)
     {
-        var picked = _apps.SelectedItems?.OfType<ListBoxItem>().Select(i => (string)i.Tag!).ToList() ?? [];
+        var picked = _entries.Where(e => e.Box.IsChecked == true).Select(e => e.Exe).ToList();
         if (picked.Count == 0)
         {
             return;
@@ -94,7 +190,10 @@ public sealed class AppRoutingSheet : UserControl
                 }
             }
         });
-        _apps.SelectedItems?.Clear();
+        foreach (var entry in _entries)
+        {
+            entry.Box.IsChecked = false;
+        }
     }
 
     private Task RemoveAsync()
@@ -136,21 +235,18 @@ public sealed class AppRoutingSheet : UserControl
         _status.Text = string.Format(ResUI.TipAppRulesNow, List(ProxyRemarks), List(DirectRemarks));
     }
 
-    private static string SafeTitle(Process process)
+    // The program's own name ("Telegram Desktop", "Google Chrome") from its file, else the process name.
+    private static string ProgramName(Process process)
     {
         try
         {
-            return process.MainWindowTitle.IsNotEmpty() ? process.MainWindowTitle : process.ProcessName;
+            var description = process.MainModule?.FileVersionInfo.FileDescription;
+            return description is { Length: > 0 } ? description : process.ProcessName;
         }
         catch
         {
             return process.ProcessName;
         }
-    }
-
-    private static string Shorten(string text)
-    {
-        return text.Length > 40 ? $"{text[..39]}…" : text;
     }
 
     private static TextBlock Muted(string text)

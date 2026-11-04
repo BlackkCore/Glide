@@ -10,6 +10,19 @@ public partial class App : Application
     {
         AvaloniaXamlLoader.Load(this);
 
+        // Screen readers: an icon-only button (sort, star, ⋯, theme…) has no text of its own, so give it
+        // its tooltip as its accessible name. Buttons with text keep reading their text.
+        Control.LoadedEvent.AddClassHandler<Button>((button, _) =>
+        {
+            if (string.IsNullOrEmpty(Avalonia.Automation.AutomationProperties.GetName(button))
+                && button.Content is not string
+                && ToolTip.GetTip(button) is string tip
+                && tip.Length > 0)
+            {
+                Avalonia.Automation.AutomationProperties.SetName(button, tip);
+            }
+        });
+
         // Transitions and animations only when Windows "Animation effects" is on. Added here, before any
         // window exists, so nothing has to be re-templated.
         if (AppMotion.Enabled)

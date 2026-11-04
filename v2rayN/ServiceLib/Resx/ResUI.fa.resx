@@ -265,10 +265,10 @@
     <value>لطفا یک پروتکل انتخاب کنید</value>
   </data>
   <data name="PleaseSelectServer" xml:space="preserve">
-    <value>لطفا ابتدا سرور را انتخاب کنید</value>
+    <value>ابتدا یک سرور انتخاب کنید</value>
   </data>
   <data name="RemoveDuplicateServerResult" xml:space="preserve">
-    <value>حذف مجدد سرورها تکمیل شد. قدیمی: {0}، جدید: {1}.</value>
+    <value>سرورهای تکراری حذف شدند. قبل: {0}، اکنون: {1}.</value>
   </data>
   <data name="RemoveServer" xml:space="preserve">
     <value>آیا مطمئن هستید که می خواهید سرور را حذف کنید؟</value>
@@ -286,10 +286,10 @@
     <value>سرور پیکربندی سفارشی با موفقیت وارد شد.</value>
   </data>
   <data name="SuccessfullyImportedServerViaClipboard" xml:space="preserve">
-    <value>{0} سرورها از کلیپ بورد وارد شده اند.</value>
+    <value>{0} سرور اضافه شد</value>
   </data>
   <data name="SuccessfullyImportedServerViaScan" xml:space="preserve">
-    <value>آدرس اینترنتی با موفقیت اسکن و وارد شد</value>
+    <value>سرور از کد QR اضافه شد</value>
   </data>
   <data name="TestMeOutput" xml:space="preserve">
     <value>پینگ سرویس فعلی: {0} ms, {1}</value>
@@ -400,7 +400,7 @@
     <value>فیلتر سرورها</value>
   </data>
   <data name="menuCheckUpdate" xml:space="preserve">
-    <value>بررسی بروزرسانی</value>
+    <value>بررسی به‌روزرسانی</value>
   </data>
   <data name="menuClose" xml:space="preserve">
     <value>بستن</value>
@@ -409,13 +409,13 @@
     <value>خروج</value>
   </data>
   <data name="menuGlobalHotkeySetting" xml:space="preserve">
-    <value>تنظیم کلید میانبر کلی</value>
+    <value>میان‌برهای صفحه‌کلید</value>
   </data>
   <data name="menuHelp" xml:space="preserve">
     <value>کمک</value>
   </data>
   <data name="menuOptionSetting" xml:space="preserve">
-    <value>تنظیمات پارامتر</value>
+    <value>تنظیمات عمومی</value>
   </data>
   <data name="menuPromotion" xml:space="preserve">
     <value>ترفیع</value>
@@ -442,7 +442,7 @@
     <value>گروه اشتراک</value>
   </data>
   <data name="menuSubSetting" xml:space="preserve">
-    <value>تنظیم گروه اشتراک</value>
+    <value>مدیریت اشتراک‌ها</value>
   </data>
   <data name="menuSubUpdate" xml:space="preserve">
     <value>اشتراک را بدون پروکسی به روز شود</value>
@@ -472,46 +472,46 @@
     <value>زبان</value>
   </data>
   <data name="menuAddServerViaClipboard" xml:space="preserve">
-    <value>وارد کردن URL انبوه از کلیپ بورد</value>
+    <value>جای‌گذاری لینک‌ها از کلیپ‌بورد</value>
   </data>
   <data name="menuAddServerViaScan" xml:space="preserve">
     <value>اسکن کد QR روی صفحه</value>
   </data>
   <data name="menuCopyServer" xml:space="preserve">
-    <value>سرور انتخاب شده را شبیه سازی کنید</value>
+    <value>ایجاد نسخهٔ مشابه</value>
   </data>
   <data name="menuRemoveDuplicateServer" xml:space="preserve">
-    <value>سرورهای تکراری را حذف کنید</value>
+    <value>حذف سرورهای تکراری</value>
   </data>
   <data name="menuRemoveServer" xml:space="preserve">
-    <value>حذف سرورهای انتخابی</value>
+    <value>حذف</value>
   </data>
   <data name="menuSetDefaultServer" xml:space="preserve">
-    <value>به عنوان سرور فعال تنظیم کنید</value>
+    <value>استفاده از این سرور</value>
   </data>
   <data name="menuClearServerStatistics" xml:space="preserve">
-    <value>تمام آمار خدمات را پاک کنید</value>
+    <value>پاک کردن آمار مصرف</value>
   </data>
   <data name="menuRealPingServer" xml:space="preserve">
-    <value>آزمایش سرورها با تاخیر واقعی</value>
+    <value>آزمایش تأخیر</value>
   </data>
   <data name="menuSortServerResult" xml:space="preserve">
-    <value>مرتب سازی بر اساس نتیجه تست</value>
+    <value>مرتب‌سازی بر اساس نتیجهٔ آزمایش</value>
   </data>
   <data name="menuSpeedServer" xml:space="preserve">
-    <value>تست سرعت دانلود سرورها</value>
+    <value>آزمایش سرعت دانلود</value>
   </data>
   <data name="menuTcpingServer" xml:space="preserve">
-    <value>تست سرورها با tcping</value>
+    <value>آزمایش پینگ TCP</value>
   </data>
   <data name="menuExport2ClientConfig" xml:space="preserve">
-    <value>سرور انتخابی را برای پیکربندی کلاینت صادر کنید</value>
+    <value>ذخیرهٔ فایل کامل پیکربندی…</value>
   </data>
   <data name="menuExport2ShareUrl" xml:space="preserve">
-    <value>URL های اشتراک گذاری را به کلیپ بورد صادر کنید</value>
+    <value>کپی لینک‌های اشتراک‌گذاری</value>
   </data>
   <data name="menuAddCustomServer" xml:space="preserve">
-    <value>یک سرور پیکربندی سفارشی اضافه شود</value>
+    <value>افزودن پیکربندی سفارشی</value>
   </data>
   <data name="menuAddShadowsocksServer" xml:space="preserve">
     <value>سرور [شادوساکس] را اضافه کنید</value>
@@ -724,7 +724,7 @@
     <value>مجوز احراز هویت</value>
   </data>
   <data name="TbSettingsSetUWP" xml:space="preserve">
-    <value>تنظیم کردن Win10 UWP Loopback</value>
+    <value>اجازه به برنامه‌های Store برای استفاده از پروکسی</value>
   </data>
   <data name="TbSettingsSniffingEnabled" xml:space="preserve">
     <value>فعال کردن Sniffing</value>
@@ -760,7 +760,7 @@
     <value>نمایش رابط کاربری گرافیکی</value>
   </data>
   <data name="TbGlobalHotkeySetting" xml:space="preserve">
-    <value>تنظیم کلید میانبر جهانی</value>
+    <value>میان‌برهای صفحه‌کلید</value>
   </data>
   <data name="TbGlobalHotkeySettingTip" xml:space="preserve">
     <value>مستقیماً با فشار دادن صفحه کلید تنظیم کنید. پس از راه اندازی مجدد اعمال می شود</value>
@@ -919,10 +919,10 @@
     <value>رد شدن از آزمون</value>
   </data>
   <data name="menuEditServer" xml:space="preserve">
-    <value>ویرایش سرور</value>
+    <value>ویرایش</value>
   </data>
   <data name="TbSettingsDoubleClick2Activate" xml:space="preserve">
-    <value>دوبار کلیک کردن سرور باعث فعال شدن آن می شود</value>
+    <value>با دوبار کلیک روی سرور، از آن استفاده شود</value>
   </data>
   <data name="SpeedtestingCompleted" xml:space="preserve">
     <value>تست تکمیل شد</value>
@@ -958,7 +958,7 @@
     <value>/آدرس اینترنتی SpeedTest</value>
   </data>
   <data name="menuMoveTo" xml:space="preserve">
-    <value>بالا و پایین حرکت کنید</value>
+    <value>جابه‌جایی</value>
   </data>
   <data name="TbPublicKey" xml:space="preserve">
     <value>PublicKey</value>
@@ -985,7 +985,7 @@
     <value>به روز رسانی ها فعال نیستند، از این اشتراک رد شوید</value>
   </data>
   <data name="menuRebootAsAdmin" xml:space="preserve">
-    <value>به عنوان مدیر راه اندازی مجدد</value>
+    <value>اجرای دوباره با دسترسی مدیر</value>
   </data>
   <data name="LvMoreUrl" xml:space="preserve">
     <value>نشانی‌های وب بیشتر که با کاما از هم جدا شده‌اند. تبدیل اشتراک نامعتبر خواهد بود</value>
@@ -1243,10 +1243,10 @@
     <value>تنظیم خودکار عرض ستون</value>
   </data>
   <data name="menuExport2ShareUrlBase64" xml:space="preserve">
-    <value>صادر کردن پیوندهای اشتراک گذاری کدگذاری شده با Base64 به کلیپ بورد</value>
+    <value>کپی لینک‌های اشتراک‌گذاری (Base64)</value>
   </data>
   <data name="menuExport2ClientConfigClipboard" xml:space="preserve">
-    <value>صادر کردن سرور انتخاب شده برای پیکربندی کامل به کلیپ بورد</value>
+    <value>کپی پیکربندی کامل</value>
   </data>
   <data name="menuShowOrHideMainWindow" xml:space="preserve">
     <value>نمایش یا پنهان کردن پنجره اصلی</value>
@@ -1312,7 +1312,7 @@
     <value>منبع قوانین مسیریابی (اختیاری)</value>
   </data>
   <data name="menuRegionalPresets" xml:space="preserve">
-    <value>تنظیمات از پیش تعیین شده منطقه ای</value>
+    <value>پیش‌تنظیم‌های منطقه‌ای</value>
   </data>
   <data name="menuRegionalPresetsDefault" xml:space="preserve">
     <value>پیش فرض</value>
@@ -1387,7 +1387,7 @@
     <value>با نتیجه آزمایش</value>
   </data>
   <data name="menuRemoveInvalidServerResult" xml:space="preserve">
-    <value>حذف نامعتبر با نتایج آزمایش</value>
+    <value>حذف سرورهایی که در آزمایش رد شدند</value>
   </data>
   <data name="RemoveInvalidServerResultTip" xml:space="preserve">
     <value>{0} نتایج آزمایش نامعتبر حذف شد.</value>
@@ -1399,7 +1399,7 @@
     <value>مخفی و پورت می شود، با کاما (،) جدا می شود</value>
   </data>
   <data name="menuExportConfig" xml:space="preserve">
-    <value>صادر کردن سرور</value>
+    <value>خروجی گرفتن</value>
   </data>
   <data name="TbSettingsIPAPIUrl" xml:space="preserve">
     <value>URL آزمایش اطلاعات اتصال فعلی</value>
@@ -1465,7 +1465,7 @@
     <value>لطفاً قالب پیکربندی درست را وارد کنید</value>
   </data>
   <data name="menuFullConfigTemplate" xml:space="preserve">
-    <value>تنظیم قالب کامل پیکربندی</value>
+    <value>قالب پیکربندی پیشرفته</value>
   </data>
   <data name="TbFullConfigTemplateEnable" xml:space="preserve">
     <value>فعال کردن قالب کامل پیکربندی</value>
@@ -1501,7 +1501,7 @@
     <value>به‌طور پیش‌فرض همه‌جا اعمال می‌شود و فیلتر داخلی FakeIP فقط در sing-box وجود دارد.</value>
   </data>
   <data name="PleaseAddAtLeastOneServer" xml:space="preserve">
-    <value>لطفاً دست‌کم یک پیکربندی اضافه کنید</value>
+    <value>دست‌کم یک سرور اضافه کنید</value>
   </data>
   <data name="TbConfigTypePolicyGroup" xml:space="preserve">
     <value>گروه سیاست</value>
@@ -1525,7 +1525,7 @@
     <value>نوع گروه سیاست</value>
   </data>
   <data name="menuAddPolicyGroupServer" xml:space="preserve">
-    <value>افزودن پیکربندی گروه سیاست</value>
+    <value>افزودن گروه سیاست</value>
   </data>
   <data name="menuAddProxyChainServer" xml:space="preserve">
     <value>افزودن پیکربندی زنجیره پروکسی</value>
@@ -1735,7 +1735,7 @@
     <value>XHTTP Extra</value>
   </data>
   <data name="menuUdpTestServer" xml:space="preserve">
-    <value>آزمایش تأخیر UDP پیکربندی‌ها</value>
+    <value>آزمایش تأخیر UDP</value>
   </data>
   <data name="TbSettingsUdpTestUrl" xml:space="preserve">
     <value>آدرس آزمایش UDP</value>
@@ -1756,7 +1756,7 @@
     <value>PreSharedKey</value>
   </data>
   <data name="menuExport2InnerUri" xml:space="preserve">
-    <value>خروجی گرفتن لینک اشتراک داخلی v2rayN در کلیپ‌بورد</value>
+    <value>کپی لینک‌های داخلی v2rayN</value>
   </data>
   <data name="MsgCheckUpdateHasNewVersion" xml:space="preserve">
     <value>نسخه جدید {0} در دسترس است: {1}</value>
@@ -2490,5 +2490,29 @@
   </data>
   <data name="TipEmptyPasteHint" xml:space="preserve">
     <value>یا با Ctrl+V لینک‌هایی را که کپی کرده‌اید جای‌گذاری کنید.</value>
+  </data>
+  <data name="TbListActions" xml:space="preserve">
+    <value>کارهای فهرست</value>
+  </data>
+  <data name="TbUpdatesTitle" xml:space="preserve">
+    <value>به‌روزرسانی‌ها</value>
+  </data>
+  <data name="TipUpdatesIntro" xml:space="preserve">
+    <value>مشخص کنید «به‌روزرسانی همه» شامل چه چیزهایی باشد. «بررسی به‌روزرسانی» فقط بررسی می‌کند؛ «به‌روزرسانی همه» نصب هم می‌کند.</value>
+  </data>
+  <data name="TipInstalledVersion" xml:space="preserve">
+    <value>نسخهٔ نصب‌شده: {0}</value>
+  </data>
+  <data name="TipNotCheckedYet" xml:space="preserve">
+    <value>هنوز بررسی نشده</value>
+  </data>
+  <data name="TbSearchApps" xml:space="preserve">
+    <value>جستجوی برنامه‌ها</value>
+  </data>
+  <data name="TbBrowseForApp" xml:space="preserve">
+    <value>انتخاب برنامه…</value>
+  </data>
+  <data name="TbPrograms" xml:space="preserve">
+    <value>برنامه‌ها</value>
   </data>
 </root>

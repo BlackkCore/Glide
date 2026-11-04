@@ -31,6 +31,8 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             _filterTimer.Start();
         };
         btnEmptyPaste.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
+        SetMenuIcons();
+        SizeChanged += (_, e) => FitToolbar(e.NewSize.Width);
         btnAddServer.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
         btnAutoFastest.Click += async (_, _) => await UseAutoFastestAsync();
         // Sort without the table's column headers (upstream's own sorting, by column tag).
@@ -313,6 +315,10 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         lstProfiles.Classes.Set("list", list);
         btnAutofitColumnWidth.IsVisible = !list;
         colChooser.IsVisible = !list;
+        if (Bounds.Width > 0)
+        {
+            FitToolbar(Bounds.Width);
+        }
         if (this.TryFindResource(list ? "IconViewTable" : "IconViewList", out var icon) && icon is Geometry geometry)
         {
             icoToggleView.Data = geometry;
@@ -385,6 +391,49 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         {
             // An exception here would reach the dispatcher and close the app.
             Logging.SaveLog(_tag, ex);
+        }
+    }
+
+    // Narrow windows: drop the least-needed toolbar buttons one by one instead of letting the row run
+    // off the edge. Their actions stay reachable (speed test in the row menu, view switch when wider).
+    private void FitToolbar(double width)
+    {
+        menuMixedTestServer.IsVisible = width >= 640;
+        btnAutofitColumnWidth.IsVisible = width >= 600 && !lstProfiles.Classes.Contains("list");
+        btnToggleView.IsVisible = width >= 560;
+    }
+
+    // An icon at the start of each row of the server menu and the list menu, like the sidebar popups.
+    private void SetMenuIcons()
+    {
+        var icons = new (MenuItem Item, string Key)[]
+        {
+            (menuSetDefaultServer, "IconPower"),
+            (menuEditServer, "SemiIconEdit"),
+            (menuFavorite, "IconStar"),
+            (menuCopyServer, "SemiIconCopy"),
+            (menuTcpingServer, "IconChain"),
+            (menuRealPingServer, "building_ping"),
+            (menuSpeedServer, "IconArrowDown"),
+            (menuUdpTestServer, "SemiIconBolt"),
+            (menuMoveToGroup, "IconFolder"),
+            (menuShareServer, "IconScan"),
+            (menuRemoveServer, "IconTrash"),
+            (menuSortServerResult, "IconArrowDown"),
+            (menuSelectAll, "IconApps"),
+            (menuRemoveDuplicateServer, "IconLayers"),
+            (menuRemoveInvalidServerResult, "IconTrash"),
+            (menuGenGroup, "IconLayers"),
+        };
+        foreach (var (item, key) in icons)
+        {
+            // From the app's resources: this runs before the view is attached to the window.
+            if (Application.Current?.TryFindResource(key, out var data) == true && data is Geometry geometry)
+            {
+                var icon = new PathIcon { Data = geometry };
+                icon.Classes.Add("sub");
+                item.Icon = icon;
+            }
         }
     }
 

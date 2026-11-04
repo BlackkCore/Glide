@@ -265,10 +265,10 @@
     <value>Please select a protocol</value>
   </data>
   <data name="PleaseSelectServer" xml:space="preserve">
-    <value>Please select the Configuration first</value>
+    <value>Select a server first</value>
   </data>
   <data name="RemoveDuplicateServerResult" xml:space="preserve">
-    <value>Configurations deduplication completed. Old: {0}, New: {1}.</value>
+    <value>Duplicates removed. Before: {0}, now: {1}.</value>
   </data>
   <data name="RemoveServer" xml:space="preserve">
     <value>Are you sure you want to remove?</value>
@@ -286,10 +286,10 @@
     <value>Custom configuration imported successfully</value>
   </data>
   <data name="SuccessfullyImportedServerViaClipboard" xml:space="preserve">
-    <value>{0} Configurations have been imported from clipboard</value>
+    <value>{0} servers added</value>
   </data>
   <data name="SuccessfullyImportedServerViaScan" xml:space="preserve">
-    <value>Successfully scanned and imported the shared link</value>
+    <value>Server added from the QR code</value>
   </data>
   <data name="TestMeOutput" xml:space="preserve">
     <value>The delay: {0} ms, {1}</value>
@@ -403,7 +403,7 @@
     <value>Check and Update</value>
   </data>
   <data name="menuCheckUpdate" xml:space="preserve">
-    <value>Check Update</value>
+    <value>Check update</value>
   </data>
   <data name="menuClose" xml:space="preserve">
     <value>Close</value>
@@ -412,13 +412,13 @@
     <value>Exit</value>
   </data>
   <data name="menuGlobalHotkeySetting" xml:space="preserve">
-    <value>Global Hotkey Setting</value>
+    <value>Keyboard shortcuts</value>
   </data>
   <data name="menuHelp" xml:space="preserve">
     <value>Help</value>
   </data>
   <data name="menuOptionSetting" xml:space="preserve">
-    <value>Option Setting</value>
+    <value>General settings</value>
   </data>
   <data name="menuPromotion" xml:space="preserve">
     <value>Promotion</value>
@@ -430,7 +430,7 @@
     <value>Routing Setting</value>
   </data>
   <data name="menuServers" xml:space="preserve">
-    <value>Configuration</value>
+    <value>Servers</value>
   </data>
   <data name="menuSetting" xml:space="preserve">
     <value>Settings</value>
@@ -445,7 +445,7 @@
     <value>Subscription Group</value>
   </data>
   <data name="menuSubSetting" xml:space="preserve">
-    <value>Subscription group settings</value>
+    <value>Manage subscriptions</value>
   </data>
   <data name="menuSubUpdate" xml:space="preserve">
     <value>Update subscriptions without proxy</value>
@@ -475,46 +475,46 @@
     <value>Language (Restart)</value>
   </data>
   <data name="menuAddServerViaClipboard" xml:space="preserve">
-    <value>Import Share Links from clipboard</value>
+    <value>Paste links from clipboard</value>
   </data>
   <data name="menuAddServerViaScan" xml:space="preserve">
     <value>Scan QR code on the screen</value>
   </data>
   <data name="menuCopyServer" xml:space="preserve">
-    <value>Clone selected</value>
+    <value>Duplicate</value>
   </data>
   <data name="menuRemoveDuplicateServer" xml:space="preserve">
-    <value>Remove duplicate</value>
+    <value>Remove duplicates</value>
   </data>
   <data name="menuRemoveServer" xml:space="preserve">
-    <value>Remove selected</value>
+    <value>Delete</value>
   </data>
   <data name="menuSetDefaultServer" xml:space="preserve">
-    <value>Set as active</value>
+    <value>Use this server</value>
   </data>
   <data name="menuClearServerStatistics" xml:space="preserve">
-    <value>Clear all service statistics</value>
+    <value>Clear usage statistics</value>
   </data>
   <data name="menuRealPingServer" xml:space="preserve">
-    <value>Test real delay</value>
+    <value>Test delay</value>
   </data>
   <data name="menuSortServerResult" xml:space="preserve">
-    <value>Sort by test result</value>
+    <value>Sort by test results</value>
   </data>
   <data name="menuSpeedServer" xml:space="preserve">
     <value>Test download speed</value>
   </data>
   <data name="menuTcpingServer" xml:space="preserve">
-    <value>Test tcping</value>
+    <value>Test TCP ping</value>
   </data>
   <data name="menuExport2ClientConfig" xml:space="preserve">
-    <value>Export selected for complete configuration</value>
+    <value>Save full config file…</value>
   </data>
   <data name="menuExport2ShareUrl" xml:space="preserve">
-    <value>Export Share Link to Clipboard</value>
+    <value>Copy share links</value>
   </data>
   <data name="menuAddCustomServer" xml:space="preserve">
-    <value>Add a custom configuration</value>
+    <value>Add custom config</value>
   </data>
   <data name="menuAddShadowsocksServer" xml:space="preserve">
     <value>Add [Shadowsocks]</value>
@@ -727,7 +727,7 @@
     <value>Auth pass</value>
   </data>
   <data name="TbSettingsSetUWP" xml:space="preserve">
-    <value>Set Win10 UWP Loopback</value>
+    <value>Allow Store apps to use the proxy</value>
   </data>
   <data name="TbSettingsSniffingEnabled" xml:space="preserve">
     <value>Turn on Sniffing</value>
@@ -763,7 +763,7 @@
     <value>Display GUI</value>
   </data>
   <data name="TbGlobalHotkeySetting" xml:space="preserve">
-    <value>Global Hotkey Settings</value>
+    <value>Keyboard shortcuts</value>
   </data>
   <data name="TbGlobalHotkeySettingTip" xml:space="preserve">
     <value>Set directly by pressing the keyboard; takes effect after restart</value>
@@ -922,10 +922,10 @@
     <value>Skip test</value>
   </data>
   <data name="menuEditServer" xml:space="preserve">
-    <value>Edit </value>
+    <value>Edit</value>
   </data>
   <data name="TbSettingsDoubleClick2Activate" xml:space="preserve">
-    <value>Double-clicking Configuration makes it active</value>
+    <value>Double-click a server to use it</value>
   </data>
   <data name="SpeedtestingCompleted" xml:space="preserve">
     <value>Test completed</value>
@@ -961,7 +961,7 @@
     <value>Speed Test URL</value>
   </data>
   <data name="menuMoveTo" xml:space="preserve">
-    <value>Move up and down</value>
+    <value>Move</value>
   </data>
   <data name="TbPublicKey" xml:space="preserve">
     <value>Public Key</value>
@@ -988,7 +988,7 @@
     <value>Updates are not enabled, skip this subscription</value>
   </data>
   <data name="menuRebootAsAdmin" xml:space="preserve">
-    <value>Restart as Administrator</value>
+    <value>Restart as administrator</value>
   </data>
   <data name="LvMoreUrl" xml:space="preserve">
     <value>More URLs, separated by commas; Subscription conversion will be invalid</value>
@@ -1009,7 +1009,7 @@
     <value>Please leave blank if no conversion is required</value>
   </data>
   <data name="menuDNSSetting" xml:space="preserve">
-    <value>DNS Settings</value>
+    <value>DNS settings</value>
   </data>
   <data name="TbCustomDnsSingbox" xml:space="preserve">
     <value>sing-box Custom DNS</value>
@@ -1261,10 +1261,10 @@
     <value>Auto column width adjustment</value>
   </data>
   <data name="menuExport2ShareUrlBase64" xml:space="preserve">
-    <value>Export Base64-encoded Share Links to Clipboard</value>
+    <value>Copy share links (Base64)</value>
   </data>
   <data name="menuExport2ClientConfigClipboard" xml:space="preserve">
-    <value>Export selected for complete configuration to clipboard</value>
+    <value>Copy full config</value>
   </data>
   <data name="menuShowOrHideMainWindow" xml:space="preserve">
     <value>Show or hide the main window</value>
@@ -1330,7 +1330,7 @@
     <value>Routing rules source (optional)</value>
   </data>
   <data name="menuRegionalPresets" xml:space="preserve">
-    <value>Regional presets setting</value>
+    <value>Regional presets</value>
   </data>
   <data name="menuRegionalPresetsDefault" xml:space="preserve">
     <value>Default</value>
@@ -1405,7 +1405,7 @@
     <value>By test result</value>
   </data>
   <data name="menuRemoveInvalidServerResult" xml:space="preserve">
-    <value>Remove invalid by test results</value>
+    <value>Remove servers that failed the test</value>
   </data>
   <data name="RemoveInvalidServerResultTip" xml:space="preserve">
     <value>Removed {0} invalid test results.</value>
@@ -1483,7 +1483,7 @@
     <value>Please fill in the correct config template</value>
   </data>
   <data name="menuFullConfigTemplate" xml:space="preserve">
-    <value>Full Config Template Setting</value>
+    <value>Advanced config template</value>
   </data>
   <data name="TbFullConfigTemplateEnable" xml:space="preserve">
     <value>Enable Full Config Template</value>
@@ -1519,7 +1519,7 @@
     <value>Applies globally by default, and built-in FakeIP filtering is only built into sing-box.</value>
   </data>
   <data name="PleaseAddAtLeastOneServer" xml:space="preserve">
-    <value>Please Add At Least One Configuration</value>
+    <value>Add at least one server</value>
   </data>
   <data name="TbConfigTypePolicyGroup" xml:space="preserve">
     <value>Policy Group</value>
@@ -1543,7 +1543,7 @@
     <value>Policy Group Type</value>
   </data>
   <data name="menuAddPolicyGroupServer" xml:space="preserve">
-    <value>Add Policy Group</value>
+    <value>Add policy group</value>
   </data>
   <data name="menuAddProxyChainServer" xml:space="preserve">
     <value>Add Proxy Chain</value>
@@ -1708,7 +1708,7 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
     <value>Subscription next proxy {0} not found. Skipping.</value>
   </data>
   <data name="menuGenGroupServer" xml:space="preserve">
-    <value>Generate Policy Group</value>
+    <value>Create a policy group</value>
   </data>
   <data name="menuAllServers" xml:space="preserve">
     <value>All configurations</value>
@@ -1756,7 +1756,7 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
     <value>XHTTP Extra</value>
   </data>
   <data name="menuUdpTestServer" xml:space="preserve">
-    <value>Test Configurations UDP Delay</value>
+    <value>Test UDP delay</value>
   </data>
   <data name="TbSettingsUdpTestUrl" xml:space="preserve">
     <value>UDP Test Url</value>
@@ -1777,7 +1777,7 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
     <value>PreSharedKey</value>
   </data>
   <data name="menuExport2InnerUri" xml:space="preserve">
-    <value>Export v2rayN Internal Share Link to Clipboard</value>
+    <value>Copy v2rayN internal links</value>
   </data>
   <data name="MsgCheckUpdateHasNewVersion" xml:space="preserve">
     <value>{0} has a new version available: {1}</value>
@@ -2490,5 +2490,29 @@ Direct: {1}</value>
   </data>
   <data name="TipEmptyPasteHint" xml:space="preserve">
     <value>Or press Ctrl+V to paste links you copied.</value>
+  </data>
+  <data name="TbListActions" xml:space="preserve">
+    <value>List actions</value>
+  </data>
+  <data name="TbUpdatesTitle" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="TipUpdatesIntro" xml:space="preserve">
+    <value>Switch on what Update all should include. Check for updates only looks; Update all also installs.</value>
+  </data>
+  <data name="TipInstalledVersion" xml:space="preserve">
+    <value>Installed: {0}</value>
+  </data>
+  <data name="TipNotCheckedYet" xml:space="preserve">
+    <value>Not checked yet</value>
+  </data>
+  <data name="TbSearchApps" xml:space="preserve">
+    <value>Search apps</value>
+  </data>
+  <data name="TbBrowseForApp" xml:space="preserve">
+    <value>Browse for app…</value>
+  </data>
+  <data name="TbPrograms" xml:space="preserve">
+    <value>Programs</value>
   </data>
 </root>

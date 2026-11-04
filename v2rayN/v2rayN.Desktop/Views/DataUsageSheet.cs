@@ -138,7 +138,8 @@ public sealed class DataUsageSheet : UserControl
         // Daily limit (also checked by MainWindow every minute).
         var limitRow = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 10 };
         limitRow.Children.Add(new TextBlock { Text = ResUI.TbUsageLimit, VerticalAlignment = VAlign.Center, TextWrapping = TextWrapping.Wrap, MaxWidth = 360 });
-        var limit = new TextBox { Width = 80, Text = LimitGb > 0 ? LimitGb.ToString(CultureInfo.InvariantCulture) : "0", FlowDirection = FlowDirection.LeftToRight };
+        // The limit can only be checked while usage is counted, so it waits until counting is on.
+        var limit = new TextBox { Width = 80, Text = LimitGb > 0 ? LimitGb.ToString(CultureInfo.InvariantCulture) : "0", FlowDirection = FlowDirection.LeftToRight, IsEnabled = config.GuiItem.EnableStatistics };
         limit.TextChanged += (_, _) =>
         {
             try

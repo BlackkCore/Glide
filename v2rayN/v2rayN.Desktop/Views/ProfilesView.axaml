@@ -171,6 +171,30 @@
                         ToolTip.Tip="{x:Static resx:ResUI.menuMixedTestServer}">
                         <PathIcon Data="{StaticResource building_ping}" />
                     </Button>
+                    <!--  Actions on the whole list live here; the row menu keeps actions on the chosen servers.  -->
+                    <Button
+                        x:Name="btnListActions"
+                        Classes="IconButton"
+                        ToolTip.Tip="{x:Static resx:ResUI.TbListActions}">
+                        <PathIcon Data="{StaticResource SemiIconMore}" />
+                        <Button.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                <MenuItem x:Name="menuSortServerResult" Header="{x:Static resx:ResUI.menuSortServerResult}" />
+                                <MenuItem
+                                    x:Name="menuSelectAll"
+                                    Header="{x:Static resx:ResUI.menuSelectAll}"
+                                    InputGesture="Ctrl+A" />
+                                <Separator />
+                                <MenuItem x:Name="menuRemoveDuplicateServer" Header="{x:Static resx:ResUI.menuRemoveDuplicateServer}" />
+                                <MenuItem x:Name="menuRemoveInvalidServerResult" Header="{x:Static resx:ResUI.menuRemoveInvalidServerResult}" />
+                                <Separator />
+                                <MenuItem x:Name="menuGenGroup" Header="{x:Static resx:ResUI.menuGenGroupServer}">
+                                    <MenuItem x:Name="menuGenGroupAllServer" Header="{x:Static resx:ResUI.menuAllServers}" />
+                                    <MenuItem x:Name="menuGenGroupRegionServer" Header="{x:Static resx:ResUI.menuGenRegionGroup}" />
+                                </MenuItem>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
                     <Border Classes="toolbarSep" />
                     <!--  List / table view switch; the icon shows the view it switches to.  -->
                     <Button x:Name="btnToggleView" Classes="IconButton">
@@ -308,18 +332,8 @@
                         x:Name="menuEditServer"
                         Header="{x:Static resx:ResUI.menuEditServer}"
                         InputGesture="Ctrl+D" />
-                    <MenuItem x:Name="menuFavorite" Header="{x:Static resx:ResUI.TbFavorite}">
-                        <MenuItem.Icon>
-                            <PathIcon Data="{StaticResource IconStar}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
+                    <MenuItem x:Name="menuFavorite" Header="{x:Static resx:ResUI.TbFavorite}" />
                     <MenuItem x:Name="menuCopyServer" Header="{x:Static resx:ResUI.menuCopyServer}" />
-                    <MenuItem
-                        x:Name="menuRemoveServer"
-                        Header="{x:Static resx:ResUI.menuRemoveServer}"
-                        InputGesture="Back" />
-                    <MenuItem x:Name="menuRemoveDuplicateServer" Header="{x:Static resx:ResUI.menuRemoveDuplicateServer}" />
-                    <MenuItem x:Name="menuRemoveInvalidServerResult" Header="{x:Static resx:ResUI.menuRemoveInvalidServerResult}" />
                     <Separator />
                     <MenuItem
                         x:Name="menuTcpingServer"
@@ -334,7 +348,6 @@
                         Header="{x:Static resx:ResUI.menuSpeedServer}"
                         InputGesture="Ctrl+T" />
                     <MenuItem x:Name="menuUdpTestServer" Header="{x:Static resx:ResUI.menuUdpTestServer}" />
-                    <MenuItem x:Name="menuSortServerResult" Header="{x:Static resx:ResUI.menuSortServerResult}" />
                     <Separator />
                     <MenuItem
                         x:Name="menuMoveToGroup"
@@ -367,10 +380,6 @@
                             Header="{x:Static resx:ResUI.menuMoveBottom}"
                             InputGesture="B" />
                     </MenuItem>
-                    <MenuItem
-                        x:Name="menuSelectAll"
-                        Header="{x:Static resx:ResUI.menuSelectAll}"
-                        InputGesture="Ctrl+A" />
                     <Separator />
                     <MenuItem
                         x:Name="menuShareServer"
@@ -388,10 +397,10 @@
                         <MenuItem x:Name="menuExport2InnerUri" Header="{x:Static resx:ResUI.menuExport2InnerUri}" />
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="{x:Static resx:ResUI.menuGenGroupServer}">
-                        <MenuItem x:Name="menuGenGroupAllServer" Header="{x:Static resx:ResUI.menuAllServers}" />
-                        <MenuItem x:Name="menuGenGroupRegionServer" Header="{x:Static resx:ResUI.menuGenRegionGroup}" />
-                    </MenuItem>
+                    <MenuItem
+                        x:Name="menuRemoveServer"
+                        Header="{x:Static resx:ResUI.menuRemoveServer}"
+                        InputGesture="Back" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
 

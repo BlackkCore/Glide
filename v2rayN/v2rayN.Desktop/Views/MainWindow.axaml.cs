@@ -1067,11 +1067,12 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
                 gridMain1.RowDefinitions[2].Height = new GridLength(_config.UiItem.MainGirdHeight2, GridUnitType.Star);
             }
         }
-        SetLogsHidden(File.Exists(LogsHiddenMarker));
+        SetLogsHidden(!File.Exists(LogsShownMarker));
     }
 
-    // Glide-only preference, kept out of the shared v2rayN config: a marker file means "logs folded away".
-    private static string LogsHiddenMarker => Utils.GetConfigPath("glide-logs-hidden");
+    // Glide-only preference, kept out of the shared v2rayN config. The raw engine log is for
+    // troubleshooting, so it starts folded away; a marker file means "the user opened it, keep it open".
+    private static string LogsShownMarker => Utils.GetConfigPath("glide-logs-shown");
 
     private bool _logsHidden;
     private GridLength _logsRowHeight = new(1, GridUnitType.Star);
@@ -1099,13 +1100,13 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         btnToggleLogs.Content = hidden ? ResUI.TbLogs : ResUI.TbHideLogs;
         try
         {
-            if (hidden)
+            if (!hidden)
             {
-                File.WriteAllText(LogsHiddenMarker, "1");
+                File.WriteAllText(LogsShownMarker, "1");
             }
-            else if (File.Exists(LogsHiddenMarker))
+            else if (File.Exists(LogsShownMarker))
             {
-                File.Delete(LogsHiddenMarker);
+                File.Delete(LogsShownMarker);
             }
         }
         catch

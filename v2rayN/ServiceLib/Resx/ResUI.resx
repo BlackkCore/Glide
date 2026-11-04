@@ -2530,4 +2530,13 @@ Direct: {1}</value>
   <data name="TipSpeedGraph" xml:space="preserve">
     <value>Last minute: download (filled) and upload (line). Point at the graph to see the speed at that moment.</value>
   </data>
+  <data name="TipSubPicker" xml:space="preserve">
+    <value>Subscription</value>
+  </data>
+  <data name="TbSearchSubs" xml:space="preserve">
+    <value>Search subscriptions</value>
+  </data>
+  <data name="TipNoSubsMatch" xml:space="preserve">
+    <value>No subscription matches</value>
+  </data>
 </root>

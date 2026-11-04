@@ -982,6 +982,68 @@
         <Setter Property="Margin" Value="4,1" />
     </Style>
 
+    <!--  ===== Subscription picker (above the server list) =====  -->
+    <Style Selector="Button.subPicker">
+        <Setter Property="Height" Value="34" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="MaxWidth" Value="380" />
+        <Setter Property="Padding" Value="12,0,10,0" />
+        <Setter Property="CornerRadius" Value="11" />
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.subPicker:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderStrongBrush}" />
+    </Style>
+    <Style Selector="Button.subPicker:focus-visible /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
+    </Style>
+    <Style Selector="Button.subPicker PathIcon.subIcon">
+        <Setter Property="Width" Value="14" />
+        <Setter Property="Height" Value="14" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource AppAccentSoftFgBrush}" />
+    </Style>
+    <Style Selector="Button.subPicker TextBlock.subPicked">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="MaxWidth" Value="240" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+    <Style Selector="Button.subPicker Border.subCount">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="Padding" Value="6,1" />
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+    </Style>
+    <Style Selector="Button.subPicker Border.subCount TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource AppFontCaption}" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontFeatures" Value="+tnum" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+    </Style>
+    <Style Selector="Button.subPicker PathIcon.subChevron">
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Height" Value="10" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource AppFaintBrush}" />
+        <Setter Property="RenderTransform" Value="rotate(90deg)" />
+    </Style>
+    <Style Selector="FlyoutPresenter.subPicker">
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Padding" Value="6" />
+        <Setter Property="MinWidth" Value="300" />
+        <Setter Property="MaxWidth" Value="380" />
+    </Style>
+
     <!--  Theme popup (the ⋮ button under the sidebar): same card look as the rest of the app.  -->
     <Style Selector="FlyoutPresenter.appearance">
         <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />

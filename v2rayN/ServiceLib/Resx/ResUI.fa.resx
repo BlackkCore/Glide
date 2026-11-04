@@ -2530,4 +2530,13 @@
   <data name="TipSpeedGraph" xml:space="preserve">
     <value>یک دقیقهٔ اخیر: دانلود (پررنگ) و آپلود (خط). نشانگر را روی نمودار ببرید تا سرعت همان لحظه را ببینید.</value>
   </data>
+  <data name="TipSubPicker" xml:space="preserve">
+    <value>اشتراک</value>
+  </data>
+  <data name="TbSearchSubs" xml:space="preserve">
+    <value>جستجوی اشتراک</value>
+  </data>
+  <data name="TipNoSubsMatch" xml:space="preserve">
+    <value>اشتراکی پیدا نشد</value>
+  </data>
 </root>

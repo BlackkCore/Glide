@@ -7271,5 +7271,32 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipSpeedGraph", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Subscription
+        /// </summary>
+        public static string TipSubPicker {
+            get {
+                return ResourceManager.GetString("TipSubPicker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Search subscriptions
+        /// </summary>
+        public static string TbSearchSubs {
+            get {
+                return ResourceManager.GetString("TbSearchSubs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No subscription matches
+        /// </summary>
+        public static string TipNoSubsMatch {
+            get {
+                return ResourceManager.GetString("TipNoSubsMatch", resourceCulture);
+            }
+        }
     }
 }

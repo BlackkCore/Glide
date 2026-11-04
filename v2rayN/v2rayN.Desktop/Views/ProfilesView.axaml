@@ -5,6 +5,7 @@
     xmlns:conv="using:v2rayN.Desktop.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:ent="clr-namespace:ServiceLib.Models.Entities;assembly=ServiceLib"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
@@ -258,12 +259,59 @@
                 </StackPanel>
             </Border>
 
-            <ListBox
-                x:Name="lstGroup"
-                Margin="0,3,8,0"
-                DisplayMemberBinding="{Binding Remarks}"
-                ItemsSource="{Binding SubItems}"
-                Theme="{StaticResource ChipListBox}">
+            <!--  One line however many subscriptions there are: the chosen one, and a searchable list on click.  -->
+            <Button
+                x:Name="btnSubPicker"
+                HorizontalAlignment="Left"
+                Classes="subPicker"
+                ToolTip.Tip="{x:Static resx:ResUI.TipSubPicker}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <PathIcon Classes="subIcon" Data="{StaticResource IconRss}" />
+                    <TextBlock x:Name="txtSubPicked" Classes="subPicked" />
+                    <PathIcon Classes="subChevron" Data="{StaticResource IconChevronRight}" />
+                </StackPanel>
+                <Button.Flyout>
+                    <Flyout
+                        FlyoutPresenterClasses="subPicker"
+                        Placement="BottomEdgeAlignedLeft">
+                        <DockPanel>
+                            <TextBox
+                                x:Name="txtSubSearch"
+                                Margin="0,0,0,6"
+                                Classes="search"
+                                DockPanel.Dock="Top"
+                                PlaceholderText="{x:Static resx:ResUI.TbSearchSubs}" />
+                            <TextBlock
+                                x:Name="txtSubNoMatch"
+                                Margin="10,8"
+                                Classes="muted"
+                                DockPanel.Dock="Top"
+                                FontSize="{DynamicResource AppFontSmall}"
+                                IsVisible="False"
+                                Text="{x:Static resx:ResUI.TipNoSubsMatch}" />
+                            <ListBox
+                                x:Name="lstGroup"
+                                MaxHeight="340"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                Theme="{StaticResource SubPickerListBox}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate x:DataType="ent:SubItem">
+                                        <StackPanel Spacing="1">
+                                            <TextBlock
+                                                FontSize="{DynamicResource AppFontBody}"
+                                                FontWeight="SemiBold"
+                                                Text="{Binding Remarks}"
+                                                TextTrimming="CharacterEllipsis" />
+                                            <!--  The provider's address tells apart subscriptions with the same name.  -->
+                                            <TextBlock
+                                                Classes="faint"
+                                                FontSize="{DynamicResource AppFontCaption}"
+                                                IsVisible="{Binding $self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                                                Text="{Binding Url, Converter={x:Static conv:SubHostConverter.Host}}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem x:Name="menuSubEdit" Header="{x:Static resx:ResUI.menuSubEdit}" />
@@ -276,7 +324,11 @@
                         <MenuItem x:Name="menuSubAutoUpdate" Header="{x:Static resx:ResUI.TbAutoUpdate}" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
-            </ListBox>
+                            </ListBox>
+                        </DockPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
         </DockPanel>
 
         <!--  Data used / left and expiry the provider reported for the selected subscription  -->

@@ -35,6 +35,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         SizeChanged += (_, e) => FitToolbar(e.NewSize.Width);
         btnAddServer.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
         btnAutoFastest.Click += async (_, _) => await UseAutoFastestAsync();
+        SetupSubPicker();
         // Sort without the table's column headers (upstream's own sorting, by column tag).
         menuSortFastest.Click += async (_, _) => await Guarded(() => ViewModel?.SortServer("DelayVal") ?? Task.CompletedTask);
         menuSortName.Click += async (_, _) => await Guarded(() => ViewModel?.SortServer("Remarks") ?? Task.CompletedTask);
@@ -97,7 +98,10 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             this.OneWayBind(ViewModel, vm => vm.ProfileItems, v => v.lstProfiles.ItemsSource).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.SelectedProfile, v => v.lstProfiles.SelectedItem).DisposeWith(disposables);
 
-            // this.OneWayBind(ViewModel, vm => vm.SubItems, v => v.lstGroup.ItemsSource).DisposeWith(disposables);
+            // Set directly, not through a {Binding}: the list sits in the picker's popup, which drops its
+            // DataContext when it closes. A bound ItemsSource then went empty and cleared the chosen
+            // subscription.
+            lstGroup.ItemsSource = ViewModel.SubItems;
             this.Bind(ViewModel, vm => vm.SelectedSub, v => v.lstGroup.SelectedItem).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.ServerFilter, v => v.txtServerFilter.Text).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.btnAddSub).DisposeWith(disposables);
@@ -509,8 +513,110 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         }
     }
 
+    // ---- Subscription picker: one button with the chosen subscription; the list (searchable when
+    // long) opens below it, so many subscriptions never wrap into rows of chips.
+    private const int SubSearchFrom = 7;
+
+    private Flyout SubFlyout => (Flyout)btnSubPicker.Flyout!;
+
+    private void SetupSubPicker()
+    {
+        SubFlyout.Opened += (_, _) =>
+        {
+            var many = (ViewModel?.SubItems.Count ?? 0) >= SubSearchFrom;
+            txtSubSearch.IsVisible = many;
+            txtSubSearch.Text = string.Empty;
+            FilterSubs(string.Empty);
+            Dispatcher.UIThread.Post(() =>
+            {
+                if (lstGroup.SelectedItem is { } selected)
+                {
+                    lstGroup.ScrollIntoView(selected);
+                }
+                if (many)
+                {
+                    txtSubSearch.Focus();
+                }
+                else
+                {
+                    (lstGroup.ContainerFromIndex(Math.Max(0, lstGroup.SelectedIndex)) as Control)?.Focus(NavigationMethod.Directional);
+                }
+            }, DispatcherPriority.Background);
+        };
+        txtSubSearch.TextChanged += (_, _) => FilterSubs(txtSubSearch.Text);
+        // Enter in the search box picks the first match; Down moves into the list.
+        txtSubSearch.KeyDown += (_, e) =>
+        {
+            if (e.Key == Key.Enter && FirstVisibleSub() is { } first)
+            {
+                lstGroup.SelectedItem = first;
+                SubFlyout.Hide();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Down && FirstVisibleSub() is { } next)
+            {
+                (lstGroup.ContainerFromItem(next) as Control)?.Focus(NavigationMethod.Directional);
+                e.Handled = true;
+            }
+        };
+        // A left click or Enter on a row picks it and closes the list; right-click keeps it open for the menu.
+        lstGroup.AddHandler(PointerReleasedEvent, (_, e) =>
+        {
+            if (e.InitialPressMouseButton == MouseButton.Left && e.Source is Visual v && Avalonia.VisualTree.VisualExtensions.FindAncestorOfType<ListBoxItem>(v, true) != null)
+            {
+                SubFlyout.Hide();
+            }
+        }, RoutingStrategies.Bubble, handledEventsToo: true);
+        lstGroup.KeyDown += (_, e) =>
+        {
+            if (e.Key == Key.Enter)
+            {
+                SubFlyout.Hide();
+                e.Handled = true;
+            }
+        };
+    }
+
+    private object? FirstVisibleSub()
+    {
+        // From the data, not the rows: a row's container may not exist (or be reused) yet.
+        var query = txtSubSearch.Text?.Trim() ?? string.Empty;
+        return lstGroup.Items.OfType<SubItem>().FirstOrDefault(s => SubMatches(s, query));
+    }
+
+    private static bool SubMatches(SubItem sub, string query)
+    {
+        return query.Length == 0
+            || (sub.Remarks?.Contains(query, StringComparison.OrdinalIgnoreCase) ?? false)
+            || (Converters.SubHostConverter.Host.Convert(sub.Url, typeof(string), null, CultureInfo.CurrentCulture) as string)?.Contains(query, StringComparison.OrdinalIgnoreCase) == true;
+    }
+
+    private void FilterSubs(string? query)
+    {
+        query = query?.Trim() ?? string.Empty;
+        var any = false;
+        foreach (var sub in lstGroup.Items.OfType<SubItem>())
+        {
+            var match = SubMatches(sub, query);
+            if (lstGroup.ContainerFromItem(sub) is Control container)
+            {
+                container.IsVisible = match;
+            }
+            any |= match;
+        }
+        txtSubNoMatch.IsVisible = !any;
+    }
+
+    private void UpdateSubPicker()
+    {
+        var sub = ViewModel?.SelectedSub;
+        txtSubPicked.Text = sub?.Remarks.IsNotEmpty() == true ? sub.Remarks : ResUI.AllGroupServers;
+        ToolTip.SetTip(btnSubPicker, $"{ResUI.TipSubPicker}: {txtSubPicked.Text}");
+    }
+
     private void UpdateSubInfo()
     {
+        UpdateSubPicker();
         // Auto needs one subscription to choose from, so not on "All servers".
         var sub = ViewModel?.SelectedSub;
         btnAutoFastest.IsVisible = sub?.Id.IsNotEmpty() == true;

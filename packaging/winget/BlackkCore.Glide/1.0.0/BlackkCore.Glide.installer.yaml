@@ -12,9 +12,9 @@ UpgradeBehavior: install
 Installers:
   - Architecture: x64
     InstallerUrl: https://github.com/BlackkCore/Glide/releases/download/1.0.0/Glide-setup-x64.exe
-    InstallerSha256: D39C2B3F219FF0C40859B975B0D287D1CFBE8C7B5AADE11D714D3212766B18B1
+    InstallerSha256: 09A405CDD4C1622AB4E61CBDF3787D395B5618097AADA5F07435B88F7FDD43A3
   - Architecture: x86
     InstallerUrl: https://github.com/BlackkCore/Glide/releases/download/1.0.0/Glide-setup-x86.exe
-    InstallerSha256: 4ED69CCEFFC0D74FACF5EB70C25F882009F5B7C22C56A32B05D90D75FE35E95B
+    InstallerSha256: 411DCEFF81DC5113DA8EB82FBC7590448C03B6839251293DB3AB8CC162D2CCB6
 ManifestType: installer
 ManifestVersion: 1.6.0

@@ -7298,5 +7298,32 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipNoSubsMatch", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Update all through the proxy
+        /// </summary>
+        public static string TbSubUpdateAllViaProxy {
+            get {
+                return ResourceManager.GetString("TbSubUpdateAllViaProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy proxy command for the terminal
+        /// </summary>
+        public static string TbCopyProxyCommand {
+            get {
+                return ResourceManager.GetString("TbCopyProxyCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Open Glide
+        /// </summary>
+        public static string TbOpenGlide {
+            get {
+                return ResourceManager.GetString("TbOpenGlide", resourceCulture);
+            }
+        }
     }
 }

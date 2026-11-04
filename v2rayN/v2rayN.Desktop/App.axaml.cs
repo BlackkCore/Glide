@@ -109,9 +109,40 @@ public partial class App : Application
             {
                 return;
             }
+            // Top of the menu: where things stand (click opens Glide), then one Connect / Disconnect
+            // item, then the servers. The proxy modes and the rest follow from App.axaml.
+            _trayStatus = new NativeMenuItem(ResUI.TbStatusNotConnected);
+            _trayStatus.Click += (_, _) => viewModel.ShowWindowCmd.Execute().Subscribe();
+            _trayToggle = new NativeMenuItem(ResUI.TbConnect);
+            _trayToggle.Click += (_, _) =>
+            {
+                var command = viewModel.BlSystemProxySet ? viewModel.SystemProxyClearCmd : viewModel.SystemProxySetCmd;
+                command.Execute().Subscribe();
+            };
             _trayServers = new NativeMenuItem(ResUI.menuServers) { Menu = new NativeMenu(), IsVisible = false };
-            var disconnect = menu.Items.OfType<NativeMenuItem>().FirstOrDefault(i => i.Header == ResUI.TbDisconnect);
-            menu.Items.Insert(disconnect == null ? 0 : menu.Items.IndexOf(disconnect) + 1, _trayServers);
+            menu.Items.Insert(0, _trayStatus);
+            menu.Items.Insert(1, new NativeMenuItemSeparator());
+            menu.Items.Insert(2, _trayToggle);
+            menu.Items.Insert(3, _trayServers);
+            // Space before the proxy modes when there's nothing else between them.
+            menu.Items.Insert(4, new NativeMenuItemSeparator());
+
+            viewModel.WhenAnyValue(v => v.BlSystemProxySet)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
+                .Subscribe(on =>
+                {
+                    _trayToggle.Header = on ? ResUI.TbDisconnect : ResUI.TbConnect;
+                    _trayToggleOn = on;
+                    RefreshTrayIcons();
+                });
+            StatusBarView.TrayStatusChanged += (state, label, server) => Dispatcher.UIThread.Post(() =>
+            {
+                _trayState = state;
+                _trayStatus.Header = server.IsNotEmpty() ? $"{label}  ·  {Shorten(server, 34)}" : label;
+                RefreshTrayIcons();
+            });
+            ActualThemeVariantChanged += (_, _) => RefreshTrayIcons();
+            RefreshTrayIcons();
 
             viewModel.Servers.CollectionChanged += (_, _) => _ = RebuildTrayServersAsync(viewModel);
             // Upstream leaves Servers empty when the list is too long for the tray, so starring and
@@ -127,6 +158,97 @@ public partial class App : Application
         {
             Logging.SaveLog("SetupTrayServers", ex);
         }
+    }
+
+    private NativeMenuItem? _trayStatus;
+    private NativeMenuItem? _trayToggle;
+    private bool _trayToggleOn;
+    private ConnState _trayState = ConnState.NotConnected;
+
+    private static string Shorten(string text, int max) => text.Length <= max ? text : text[..(max - 1)].TrimEnd() + "…";
+
+    // Small icons for the tray menu rows, drawn from the app's own icon shapes in the theme's muted
+    // colour; the status row gets a dot in the status colour. Redrawn when the theme changes.
+    private void RefreshTrayIcons()
+    {
+        try
+        {
+            if (TrayIcon.GetIcons(this)?.FirstOrDefault()?.Menu is not { } menu)
+            {
+                return;
+            }
+            var dark = ActualThemeVariant == ThemeVariant.Dark;
+            var muted = Color.Parse(dark ? "#A1A7B3" : "#4B5563");
+            var accent = Color.Parse(dark ? "#818CF8" : "#4F46E5");
+
+            if (_trayStatus != null)
+            {
+                var dot = _trayState switch
+                {
+                    ConnState.Connected => dark ? "#22D3EE" : "#06B6D4",
+                    ConnState.Checking => "#E39A12",
+                    ConnState.NoInternet or ConnState.PortConflict or ConnState.EngineStopped => "#E5484D",
+                    _ => dark ? "#6B7280" : "#9CA3AF",
+                };
+                _trayStatus.Icon = RenderDot(Color.Parse(dot));
+            }
+            if (_trayToggle != null)
+            {
+                _trayToggle.Icon = RenderIcon("IconPower", _trayToggleOn ? muted : accent);
+            }
+            if (_trayServers != null)
+            {
+                _trayServers.Icon = RenderIcon("IconServers", muted);
+            }
+
+            var byHeader = new Dictionary<string, string>
+            {
+                [ResUI.menuSystemproxy] = "IconShield",
+                [ResUI.menuAddServerViaClipboard] = "IconClipboard",
+                [ResUI.TbNavSubscriptions] = "IconRss",
+                [ResUI.TbCopyProxyCommand] = "IconTerminal",
+                [ResUI.TbOpenGlide] = "IconGlider",
+                [ResUI.menuExit] = "IconExit",
+            };
+            foreach (var item in menu.Items.OfType<NativeMenuItem>())
+            {
+                if (item.Header is { } header && byHeader.TryGetValue(header, out var key))
+                {
+                    item.Icon = RenderIcon(key, muted);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("RefreshTrayIcons", ex);
+        }
+    }
+
+    private const int TrayIconPx = 32; // drawn at 2x for a 16 px icon
+
+    private Bitmap? RenderIcon(string key, Color color)
+    {
+        if (!this.TryFindResource(key, ActualThemeVariant, out var resource) || resource is not Geometry geometry)
+        {
+            return null;
+        }
+        var bitmap = new RenderTargetBitmap(new PixelSize(TrayIconPx, TrayIconPx), new Vector(192, 192));
+        using (var context = bitmap.CreateDrawingContext())
+        using (context.PushTransform(Matrix.CreateScale(16 / 24.0, 16 / 24.0)))
+        {
+            context.DrawGeometry(new SolidColorBrush(color), null, geometry);
+        }
+        return bitmap;
+    }
+
+    private static Bitmap RenderDot(Color color)
+    {
+        var bitmap = new RenderTargetBitmap(new PixelSize(TrayIconPx, TrayIconPx), new Vector(192, 192));
+        using (var context = bitmap.CreateDrawingContext())
+        {
+            context.DrawEllipse(new SolidColorBrush(color), null, new Point(8, 8), 4.5, 4.5);
+        }
+        return bitmap;
     }
 
     private async Task RebuildTrayServersAsync(StatusBarViewModel viewModel)

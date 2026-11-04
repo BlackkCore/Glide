@@ -455,7 +455,11 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
             _sessionTimer.Stop();
         }
         UpdateSessionTime();
+        TrayStatusChanged?.Invoke(state, _powerStateLabel, state == ConnState.NoServer ? string.Empty : txtServerName.Text ?? string.Empty);
     }
+
+    /// <summary>The status line at the top of the tray menu follows the card: state, label, server.</summary>
+    public static event Action<ConnState, string, string>? TrayStatusChanged;
 
     private readonly DispatcherTimer _sessionTimer = new() { Interval = TimeSpan.FromSeconds(1) };
     private DateTime _sessionStart;

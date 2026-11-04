@@ -2539,4 +2539,13 @@ Direct: {1}</value>
   <data name="TipNoSubsMatch" xml:space="preserve">
     <value>No subscription matches</value>
   </data>
+  <data name="TbSubUpdateAllViaProxy" xml:space="preserve">
+    <value>Update all through the proxy</value>
+  </data>
+  <data name="TbCopyProxyCommand" xml:space="preserve">
+    <value>Copy proxy command for the terminal</value>
+  </data>
+  <data name="TbOpenGlide" xml:space="preserve">
+    <value>Open Glide</value>
+  </data>
 </root>

@@ -2539,4 +2539,13 @@
   <data name="TipNoSubsMatch" xml:space="preserve">
     <value>اشتراکی پیدا نشد</value>
   </data>
+  <data name="TbSubUpdateAllViaProxy" xml:space="preserve">
+    <value>به‌روزرسانی همه از طریق پروکسی</value>
+  </data>
+  <data name="TbCopyProxyCommand" xml:space="preserve">
+    <value>کپی دستور پروکسی برای ترمینال</value>
+  </data>
+  <data name="TbOpenGlide" xml:space="preserve">
+    <value>باز کردن Glide</value>
+  </data>
 </root>

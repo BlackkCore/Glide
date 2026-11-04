@@ -51,14 +51,8 @@
                             Command="{Binding NotifyLeftClickCmd}"
                             Header="{x:Static resx:ResUI.menuShowOrHideMainWindow}"
                             IsVisible="{Binding BlIsNonWindows}" />
-                        <NativeMenuItemSeparator />
-                        <!--  Glide: the everyday actions first; the four proxy modes live one level down.  -->
-                        <NativeMenuItem
-                            Command="{Binding SystemProxySetCmd}"
-                            Header="{x:Static resx:ResUI.TbConnect}"
-                            IsChecked="{Binding BlSystemProxySet}"
-                            ToggleType="CheckBox" />
-                        <NativeMenuItem Command="{Binding SystemProxyClearCmd}" Header="{x:Static resx:ResUI.TbDisconnect}" />
+                        <!--  Glide: App.SetupTrayMenu puts the status line, one Connect / Disconnect item and
+                              the Servers list first; the proxy modes and the rest follow, with icons.  -->
                         <NativeMenuItem Header="{x:Static resx:ResUI.menuSystemproxy}">
                             <NativeMenu>
                                 <NativeMenuItem
@@ -84,12 +78,17 @@
                                     ToggleType="Radio" />
                             </NativeMenu>
                         </NativeMenuItem>
-                        <NativeMenuItem Command="{Binding CopyProxyCmdToClipboardCmd}" Header="{x:Static resx:ResUI.menuCopyProxyCmdToClipboard}" />
                         <NativeMenuItemSeparator />
                         <NativeMenuItem Click="MenuAddServerViaClipboardClick" Header="{x:Static resx:ResUI.menuAddServerViaClipboard}" />
-                        <NativeMenuItem Command="{Binding SubUpdateCmd}" Header="{x:Static resx:ResUI.menuSubUpdate}" />
-                        <NativeMenuItem Command="{Binding SubUpdateViaProxyCmd}" Header="{x:Static resx:ResUI.menuSubUpdateViaProxy}" />
+                        <NativeMenuItem Header="{x:Static resx:ResUI.TbNavSubscriptions}">
+                            <NativeMenu>
+                                <NativeMenuItem Command="{Binding SubUpdateCmd}" Header="{x:Static resx:ResUI.TbSubUpdateAll}" />
+                                <NativeMenuItem Command="{Binding SubUpdateViaProxyCmd}" Header="{x:Static resx:ResUI.TbSubUpdateAllViaProxy}" />
+                            </NativeMenu>
+                        </NativeMenuItem>
+                        <NativeMenuItem Command="{Binding CopyProxyCmdToClipboardCmd}" Header="{x:Static resx:ResUI.TbCopyProxyCommand}" />
                         <NativeMenuItemSeparator />
+                        <NativeMenuItem Command="{Binding ShowWindowCmd}" Header="{x:Static resx:ResUI.TbOpenGlide}" />
                         <NativeMenuItem Click="MenuExit_Click" Header="{x:Static resx:ResUI.menuExit}" />
                     </NativeMenu>
                 </TrayIcon.Menu>

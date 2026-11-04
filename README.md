@@ -11,17 +11,19 @@
 
 <h3>A calm, modern Windows client for v2rayN</h3>
 
+<p><b>Go anywhere. Quietly.</b></p>
+
 <p>The same engines you already trust (Xray, sing-box and mihomo),<br>in a window that is easy to read and pleasant to use.</p>
 
-[![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&logo=github&label=Release&color=3157E6)](https://github.com/BlackkCore/Glide/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&logo=github&label=Downloads&color=3157E6)](https://github.com/BlackkCore/Glide/releases)
+[![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&logo=github&label=Release&color=5850EC)](https://github.com/BlackkCore/Glide/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&logo=github&label=Downloads&color=5850EC)](https://github.com/BlackkCore/Glide/releases)
 [![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?style=flat-square&logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
-[![Persian](https://img.shields.io/badge/UI-English%20%7C%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-3157E6?style=flat-square)](README.fa.md)
+[![Persian](https://img.shields.io/badge/UI-English%20%7C%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-5850EC?style=flat-square)](README.fa.md)
 [![License](https://img.shields.io/badge/License-GPL--3.0-555?style=flat-square)](LICENSE)
 
 <br>
 
-<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><img alt="Download the installer" src="https://img.shields.io/badge/Download-Installer%20(x64)-3157E6?style=for-the-badge&logo=windows&logoColor=white"></a>
+<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><img alt="Download the installer" src="https://img.shields.io/badge/Download-Installer%20(x64)-5850EC?style=for-the-badge&logo=windows&logoColor=white"></a>
 &nbsp;
 <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><img alt="Download the portable zip" src="https://img.shields.io/badge/Download-Portable%20zip-1F2937?style=for-the-badge&logo=files&logoColor=white"></a>
 
@@ -66,7 +68,21 @@
     </td>
     <td valign="top">
       <h4>🌙 Built for Persian, too</h4>
-      A complete Persian translation, a mirrored right-to-left window, and a ready-made Iran routing preset.
+      A complete Persian translation in natural, everyday wording, a mirrored right-to-left window, and a ready-made Iran routing preset.
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <h4>🌌 Midnight aurora design</h4>
+      Indigo for everything you choose, cyan only when you're protected. Light and dark themes, round country flags, speed-coloured pings.
+    </td>
+    <td valign="top">
+      <h4>🗂️ Any number of subscriptions</h4>
+      One tidy picker with search, which also tells same-named subscriptions apart by their address.
+    </td>
+    <td valign="top">
+      <h4>🧭 A tray menu that informs</h4>
+      Live status at the top, one Connect / Disconnect item, your servers, and icons on every row.
     </td>
   </tr>
 </table>
@@ -98,7 +114,9 @@ Glide **is** v2rayN underneath. Only the desktop interface is new.
 - Subscription data, expiry and early warnings
 - Preview before importing, and a clipboard offer
 - Basic and advanced settings, with search
-- A right-to-left Persian window
+- A right-to-left Persian window in natural Persian
+- The Midnight aurora theme, round flags and speed-coloured pings
+- A searchable subscription picker and an informative tray menu
 - One-click import from v2rayN
 
 </td>
@@ -111,7 +129,7 @@ Glide **is** v2rayN underneath. Only the desktop interface is new.
 <summary><b>Connecting</b></summary>
 <br>
 
-- **One button to connect.** The power button turns the system proxy on and off. Below it: the server, its protocol, a session timer, live upload and download speeds, and an optional speed graph.
+- **One button to connect.** The power button turns the system proxy on and off; once traffic is verified it glows with a cyan "protected" halo. Below it: the server with its flag, its protocol, a session timer, live download and upload speeds, and an optional speed graph.
 - **A status that tells the truth.** *Connected* appears only after a real test, with the delay. Otherwise you see *Checking connection…*, *No internet*, *Port in use* (with the app holding it) or *Engine stopped*, each with one button that fixes it.
 - **Notices when the connection drops,** and again when it's back. The tray icon shows a red dot while there's a problem.
 - **"Why can't I connect?"** checks your own internet, DNS, Glide's engine, the server, real traffic and the exit IP, then gives one plain answer.
@@ -121,6 +139,8 @@ Glide **is** v2rayN underneath. Only the desktop interface is new.
 - **Never touches what isn't its own.** Glide won't change a Windows proxy that another program set, and won't start on a port another app is using.
 - **Routing in plain words:** *Bypass China sites*, *Only listed blocked sites* and *Everything through proxy*. In Persian, Glide offers an Iran preset on first start.
 - **"Capture all apps (TUN)"**, explained, with an *Administrator* label.
+- **Advanced, out of the way.** The Windows proxy modes (Off, On, Unchanged, PAC) and local ports sit in an *Advanced* section with a one-line summary; it opens by itself if you use Unchanged or PAC.
+- **Tray menu with a live status line** (connected, checking or a problem, with the server), a single Connect / Disconnect item, your servers and icons on every row.
 
 </details>
 
@@ -128,11 +148,12 @@ Glide **is** v2rayN underneath. Only the desktop interface is new.
 <summary><b>Servers and subscriptions</b></summary>
 <br>
 
-- **A list, not a spreadsheet.** One clear row per server with flag, name, protocol, a coloured delay pill and an ⋯ menu. The full table is one click away.
+- **A list, not a spreadsheet.** One clear row per server with a round country flag, name, protocol, a delay pill coloured by speed (cyan fast, amber slow, red failed) and an ⋯ menu. The full table is one click away.
 - **Sort** by fastest or by name, and **live search** as you type.
 - **Favourites** stay at the top of the list and in the tray menu, next to your **recent servers**.
 - **Add server, the easy way.** Paste links or a subscription address and see what was found first. Scan a QR code on screen or in an image, or fill in a form for 12 protocols.
 - **Copied a link?** Switch back to Glide and it offers to add it, once per link.
+- **One subscription picker, however many you have.** A single button opens a list with search; subscriptions with the same name show their provider's address so you can tell them apart.
 - **Subscription status:** data used and left, days to expiry, last and next update. Warnings before a plan runs out.
 - **Right-click a subscription** to update it now or pick how often it updates by itself (off, 6, 12 or 24 hours).
 - **Quick switcher (Ctrl+K)** to jump to a server or run an action.
@@ -159,8 +180,9 @@ Glide **is** v2rayN underneath. Only the desktop interface is new.
 <summary><b>Look and feel</b></summary>
 <br>
 
-- **Light, Dark or Auto** (follows Windows), switched with a smooth crossfade.
-- **Persian, done properly.** Complete translation, checked on every build, with the whole window mirrored right-to-left.
+- **Midnight aurora.** Indigo marks what you choose, cyan appears only when you're protected, amber and red mean slow or broken. A blue-black dark mode and a soft light mode, switched (or following Windows) with a smooth crossfade.
+- **A new app icon:** the Aurora wing, used for the app, the tray (on, off and PAC states) and the installer.
+- **Persian, done properly.** Complete translation in natural, everyday Persian, checked on every build, with the whole window mirrored right-to-left and set in Vazirmatn.
 - **Fits any window.** Narrow windows get an icon-only sidebar; the log pane can be hidden; the speed graph can be turned off.
 - **Feels native on Windows 11.** Rounded corners, a theme-aware title bar, and animations that respect Windows' *Animation effects* setting.
 - **Accessible.** Icon buttons have names that screen readers announce.

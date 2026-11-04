@@ -46,7 +46,7 @@
                         Orientation="Horizontal"
                         Spacing="11">
                         <Border Classes="brandMark">
-                            <PathIcon Data="{StaticResource IconGlider}" />
+                            <Image Source="/Assets/GlideMark.png" />
                         </Border>
                         <StackPanel
                             VerticalAlignment="Center"

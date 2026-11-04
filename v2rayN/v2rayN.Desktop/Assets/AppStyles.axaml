@@ -133,17 +133,15 @@
         <Setter Property="BorderThickness" Value="0,0,1,0" />
         <Setter Property="Padding" Value="14,20,14,16" />
     </Style>
+    <!--  The app icon itself (Assets/GlideMark.png, the Aurora wing), with a soft indigo glow.  -->
     <Style Selector="Border.brandMark">
-        <Setter Property="Width" Value="34" />
-        <Setter Property="Height" Value="34" />
-        <Setter Property="CornerRadius" Value="10" />
-        <Setter Property="Background" Value="{DynamicResource AppPowerOnFill}" />
-        <Setter Property="BoxShadow" Value="0 4 10 -4 #804F46E5" />
+        <Setter Property="Width" Value="36" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="BoxShadow" Value="0 6 14 -6 #995850EC" />
     </Style>
-    <Style Selector="Border.brandMark PathIcon">
-        <Setter Property="Width" Value="20" />
-        <Setter Property="Height" Value="20" />
-        <Setter Property="Foreground" Value="{DynamicResource AppOnAccentBrush}" />
+    <Style Selector="Border.brandMark Image">
+        <Setter Property="Stretch" Value="Uniform" />
     </Style>
     <Style Selector="TextBlock.sectionLabel">
         <Setter Property="FontSize" Value="{DynamicResource AppFontCaption}" />

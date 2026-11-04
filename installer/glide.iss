@@ -28,6 +28,7 @@ DefaultGroupName=Glide
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 OutputBaseFilename=Glide-setup-{#Arch}
+SetupIconFile=..\v2rayN\v2rayN.Desktop\Assets\v2rayN.ico
 UninstallDisplayIcon={app}\Glide.exe
 UninstallDisplayName=Glide
 Compression=lzma2/max

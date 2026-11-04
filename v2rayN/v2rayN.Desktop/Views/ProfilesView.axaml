@@ -774,11 +774,8 @@
                     Margin="0,0,0,4"
                     HorizontalAlignment="Center"
                     Classes="brandMark"
-                    CornerRadius="16">
-                    <PathIcon
-                        Width="30"
-                        Height="30"
-                        Data="{StaticResource IconGlider}" />
+                    CornerRadius="13">
+                    <Image Source="/Assets/GlideMark.png" />
                 </Border>
                 <TextBlock
                     HorizontalAlignment="Center"

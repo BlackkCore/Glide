@@ -64,9 +64,9 @@ public partial class AddServerSheet : UserControl
     }
 
     /// <summary>Clears what was typed last time; called before each showing.</summary>
-    public void Reset()
+    public void Reset(string? text = null)
     {
-        txtImport.Text = string.Empty;
+        txtImport.Text = text ?? string.Empty;
         UpdatePreview();
         Dispatcher.UIThread.Post(() => txtImport.Focus(), DispatcherPriority.Loaded);
     }

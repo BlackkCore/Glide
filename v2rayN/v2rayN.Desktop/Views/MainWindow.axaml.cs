@@ -40,6 +40,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
         menuAddServerSheet.Click += (_, _) => ShowAddServerSheet();
         menuAppRouting.Click += async (_, _) => await ShowAppRoutingAsync();
+        Activated += async (_, _) => await OfferClipboardAsync();
         menuDataUsage.Click += async (_, _) => await ShowDataUsageAsync();
         // Daily data limit (Data usage): one warning a day, checked every minute.
         var usageTimer = new DispatcherTimer { Interval = TimeSpan.FromMinutes(1) };
@@ -670,7 +671,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         DialogHost.Show(_quickSwitcher);
     }
 
-    private void ShowAddServerSheet()
+    private void ShowAddServerSheet(string? text = null)
     {
         // Only one sheet at a time (Show throws when the host already has one).
         if (DialogHost.IsDialogOpen(null))
@@ -679,8 +680,39 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         }
         _addServerSheet ??= new AddServerSheet();
         _addServerSheet.Main = ViewModel;
-        _addServerSheet.Reset();
+        _addServerSheet.Reset(text);
         DialogHost.Show(_addServerSheet);
+    }
+
+    private string? _clipboardOffered;
+
+    // Copied a server link or a subscription address? Coming back to Glide offers it in the Add
+    // server sheet (with its preview; Cancel ignores it). Each clipboard content is offered once,
+    // and the clipboard is only read when this window is activated.
+    private async Task OfferClipboardAsync()
+    {
+        try
+        {
+            if (DialogHost.IsDialogOpen(null) || !IsVisible)
+            {
+                return;
+            }
+            var text = (await AvaUtils.GetClipboardData(this))?.Trim();
+            if (text.IsNullOrEmpty() || text == _clipboardOffered || text.Length > 100_000)
+            {
+                return;
+            }
+            _clipboardOffered = text;
+            if (ImportPreview.Analyze(text).IsEmpty)
+            {
+                return;
+            }
+            ShowAddServerSheet(text);
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("OfferClipboard", ex);
+        }
     }
 
     private void MenuBackupAndRestore_Click(object? sender, RoutedEventArgs e)

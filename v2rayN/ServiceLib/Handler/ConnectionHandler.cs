@@ -110,9 +110,32 @@ public static class ConnectionHandler
     /// </summary>
     public static async Task<IpInfoResult?> GetIPInfo(IWebProxy? webProxy, CancellationToken cancellationToken = default)
     {
+        var configured = AppManager.Instance.Config.SpeedTestItem.IPAPIUrl;
+        if (configured.IsNullOrEmpty())
+        {
+            return null;
+        }
+        // Glide: one blocked lookup service shouldn't hide the exit IP. When the chosen service is
+        // one of the stock ones, the other stock ones are tried after it.
+        var urls = new List<string> { configured };
+        if (Global.IPAPIUrls.Contains(configured))
+        {
+            urls.AddRange(Global.IPAPIUrls.Where(u => u.IsNotEmpty() && u != configured));
+        }
+        foreach (var url in urls)
+        {
+            if (await GetIPInfoFrom(url, webProxy, cancellationToken) is { } info)
+            {
+                return info;
+            }
+        }
+        return null;
+    }
+
+    private static async Task<IpInfoResult?> GetIPInfoFrom(string url, IWebProxy? webProxy, CancellationToken cancellationToken)
+    {
         try
         {
-            var url = AppManager.Instance.Config.SpeedTestItem.IPAPIUrl;
             if (url.IsNullOrEmpty())
             {
                 return null;

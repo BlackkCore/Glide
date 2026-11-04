@@ -194,12 +194,12 @@ Glide **is** v2rayN underneath. Only the desktop interface is new.
 
 <table>
   <tr>
-    <td width="60%"><img src="docs/screenshots/compact-light.png" alt="Compact layout on a narrow window"></td>
+    <td width="50%"><img src="docs/screenshots/compact-light.png" alt="Compact layout on a narrow window"></td>
     <td width="50%"><img src="docs/screenshots/menu-dark.png" alt="Sidebar menu"></td>
   </tr>
   <tr>
-    <td align="center"><sub>Sidebar menus with icons</sub></td>
     <td align="center"><sub>Compact layout for narrow windows</sub></td>
+    <td align="center"><sub>Sidebar menus with icons</sub></td>
   </tr>
   <tr>
     <td width="50%"><img src="docs/screenshots/settings-light.png" alt="Settings"></td>

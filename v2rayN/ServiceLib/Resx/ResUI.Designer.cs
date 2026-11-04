@@ -6848,5 +6848,23 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipAppRoutingTun", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   No leak: your lookups are answered on the server's side ({0}).
+        /// </summary>
+        public static string TipDnsLeakNone {
+            get {
+                return ResourceManager.GetString("TipDnsLeakNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Possible leak: some lookups are answered outside the server's country ({0}).
+        /// </summary>
+        public static string TipDnsLeakMaybe {
+            get {
+                return ResourceManager.GetString("TipDnsLeakMaybe", resourceCulture);
+            }
+        }
     }
 }

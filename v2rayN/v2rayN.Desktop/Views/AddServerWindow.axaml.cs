@@ -362,7 +362,8 @@ public partial class AddServerWindow : WindowBase<AddServerViewModel>
         {
             return;
         }
-        foreach (var grid in this.GetLogicalDescendants().OfType<Grid>().Where(g => g.RowDefinitions.Count > 0))
+        // Single-row grids (no RowDefinitions, e.g. Finalmask's) count too.
+        foreach (var grid in this.GetLogicalDescendants().OfType<Grid>())
         {
             foreach (var row in grid.Children.GroupBy(Grid.GetRow))
             {

@@ -124,7 +124,9 @@ public static class ConnectionDoctor
         try
         {
             var id = (await client.GetStringAsync("https://bash.ws/id", token)).Trim();
-            if (!id.All(char.IsDigit) || id.Length == 0)
+            // bash.ws ids were numbers and are now hex ("5cabd34d7d1546f3"): letters and digits only,
+            // since the id goes into a host name.
+            if (id.Length == 0 || id.Length > 64 || !id.All(char.IsAsciiLetterOrDigit))
             {
                 return new(false, [], null);
             }
@@ -141,7 +143,9 @@ public static class ConnectionDoctor
             }));
             var nodes = JsonUtils.ParseJson(await client.GetStringAsync($"https://bash.ws/dnsleak/test/{id}?json", token))?.AsArray();
             var servers = new List<string>();
-            string? conclusion = null;
+            var dnsCountries = new HashSet<string>();
+            string? exitCountry = null;
+            string? exitCountryName = null;
             foreach (var node in nodes ?? [])
             {
                 var type = node?["type"]?.ToString();
@@ -149,12 +153,21 @@ public static class ConnectionDoctor
                 {
                     var asn = node?["asn"]?.ToString();
                     servers.Add($"‎{node?["ip"]}‎ · {node?["country_name"]}{(asn.IsNotEmpty() ? $" · {asn}" : "")}");
+                    dnsCountries.Add(node?["country_name"]?.ToString() ?? "?");
                 }
-                else if (type == "conclusion")
+                else if (type == "ip")
                 {
-                    conclusion = node?["ip"]?.ToString();
+                    exitCountry = node?["country_name"]?.ToString();
+                    exitCountryName = exitCountry;
                 }
             }
+            // Glide's own verdict instead of bash.ws's ("DNS may be leaking" also fires when the DNS
+            // provider's network just differs from the server's): what matters is whether lookups are
+            // answered on the server's side, i.e. in the exit country.
+            var outside = dnsCountries.Where(c => c != exitCountry).ToList();
+            var conclusion = exitCountry == null ? null
+                : outside.Count == 0 ? string.Format(ResUI.TipDnsLeakNone, exitCountryName)
+                : string.Format(ResUI.TipDnsLeakMaybe, string.Join(", ", outside));
             return new(servers.Count > 0, servers, conclusion);
         }
         catch (OperationCanceledException) when (token.IsCancellationRequested)

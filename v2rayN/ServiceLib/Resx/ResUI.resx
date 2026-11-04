@@ -2389,4 +2389,10 @@ Direct: {1}</value>
   <data name="TipAppRoutingTun" xml:space="preserve">
     <value>App rules work while "Capture all apps (TUN)" is on. With only the system proxy, each app decides for itself whether to use it.</value>
   </data>
+  <data name="TipDnsLeakNone" xml:space="preserve">
+    <value>No leak: your lookups are answered on the server's side ({0}).</value>
+  </data>
+  <data name="TipDnsLeakMaybe" xml:space="preserve">
+    <value>Possible leak: some lookups are answered outside the server's country ({0}).</value>
+  </data>
 </root>

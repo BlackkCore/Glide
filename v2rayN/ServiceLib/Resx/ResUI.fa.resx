@@ -2389,4 +2389,10 @@
   <data name="TipAppRoutingTun" xml:space="preserve">
     <value>قوانین برنامه‌ها وقتی کار می‌کنند که «همهٔ برنامه‌ها (TUN)» روشن باشد. با پروکسی سیستم به‌تنهایی، هر برنامه خودش تصمیم می‌گیرد از آن استفاده کند یا نه.</value>
   </data>
+  <data name="TipDnsLeakNone" xml:space="preserve">
+    <value>نشتی وجود ندارد: جستجوهای شما در سمت سرور ({0}) پاسخ داده می‌شوند.</value>
+  </data>
+  <data name="TipDnsLeakMaybe" xml:space="preserve">
+    <value>احتمال نشت: برخی جستجوها بیرون از کشور سرور ({0}) پاسخ داده می‌شوند.</value>
+  </data>
 </root>

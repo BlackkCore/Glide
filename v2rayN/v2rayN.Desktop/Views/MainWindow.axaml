@@ -1,4 +1,4 @@
-<Window
+﻿<Window
     x:Class="v2rayN.Desktop.Views.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -67,62 +67,74 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel DockPanel.Dock="Bottom" Spacing="10">
+                    <!--  Theme at the bottom: Light | Dark | Auto when wide, one button when compact.  -->
+                    <StackPanel DockPanel.Dock="Bottom" Spacing="0">
+                        <Border Classes="sidebarRule" />
+                        <Border Classes="themeSwitch wideOnly">
+                            <Grid ColumnDefinitions="*,*,*">
+                                <Button x:Name="btnThemeLight" Classes="themeOpt">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <PathIcon Data="{StaticResource IconSun}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.TbThemeLight}" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    x:Name="btnThemeDark"
+                                    Grid.Column="1"
+                                    Classes="themeOpt">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <PathIcon Data="{StaticResource IconMoon}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.TbThemeDark}" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    x:Name="btnThemeAuto"
+                                    Grid.Column="2"
+                                    Classes="themeOpt"
+                                    ToolTip.Tip="{x:Static resx:ResUI.TbThemeSystem}">
+                                    <StackPanel Orientation="Horizontal" Spacing="5">
+                                        <PathIcon Data="{StaticResource IconMonitor}" />
+                                        <TextBlock Text="{x:Static resx:ResUI.TbThemeAuto}" />
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </Border>
                         <Button
-                            x:Name="btnNewUpdate"
-                            HorizontalAlignment="Stretch"
-                            Classes="Primary"
-                            Content="{x:Static resx:ResUI.menuNewUpdate}"
-                            CornerRadius="10"
-                            IsVisible="False"
-                            Theme="{DynamicResource SolidButton}" />
-                        <DockPanel>
-                            <ContentControl
-                                x:Name="conTheme"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                DockPanel.Dock="Right" />
-                            <Button
-                                x:Name="btnThemeCompact"
-                                HorizontalAlignment="Center"
-                                Classes="themeOpt compactOnly"
-                                ToolTip.Tip="{x:Static resx:ResUI.TbSettingsTheme}">
-                                <Panel>
-                                    <PathIcon x:Name="iconThemeCompactMoon" Data="{StaticResource IconMoon}" />
-                                    <PathIcon x:Name="iconThemeCompactSun" Data="{StaticResource IconSun}" />
-                                </Panel>
-                            </Button>
-                            <Border Classes="themeSwitch wideOnly">
-                                <Grid ColumnDefinitions="*,*">
-                                    <Button x:Name="btnThemeLight" Classes="themeOpt">
-                                        <StackPanel Orientation="Horizontal" Spacing="6">
-                                            <PathIcon Data="{StaticResource IconSun}" />
-                                            <TextBlock Text="{x:Static resx:ResUI.TbThemeLight}" />
-                                        </StackPanel>
-                                    </Button>
-                                    <Button
-                                        x:Name="btnThemeDark"
-                                        Grid.Column="1"
-                                        Classes="themeOpt">
-                                        <StackPanel Orientation="Horizontal" Spacing="6">
-                                            <PathIcon Data="{StaticResource IconMoon}" />
-                                            <TextBlock Text="{x:Static resx:ResUI.TbThemeDark}" />
-                                        </StackPanel>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </DockPanel>
+                            x:Name="btnThemeCompact"
+                            Classes="themeOpt themeCompact compactOnly"
+                            ToolTip.Tip="{x:Static resx:ResUI.TbSettingsTheme}">
+                            <Panel>
+                                <PathIcon x:Name="iconThemeCompactMoon" Data="{StaticResource IconMoon}" />
+                                <PathIcon x:Name="iconThemeCompactSun" Data="{StaticResource IconSun}" />
+                            </Panel>
+                        </Button>
+                        <!--  Holds the appearance popup (font size, language); opened from Settings.  -->
+                        <ContentControl
+                            x:Name="conTheme"
+                            Width="0"
+                            Height="0"
+                            ClipToBounds="True"
+                            IsHitTestVisible="False" />
                     </StackPanel>
 
                     <Menu
                         x:Name="menuSidebar"
                         VerticalAlignment="Top"
                         Classes="sidebar">
-                        <MenuItem>
+                        <MenuItem Classes="section first" Focusable="False" IsHitTestVisible="False">
+                            <MenuItem.Header>
+                                <Panel>
+                                    <TextBlock Classes="sectionText" Text="{x:Static resx:ResUI.TbNavSectionConnect}" />
+                                    <Border Classes="sectionLine" />
+                                </Panel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuNavServers">
                             <MenuItem.Header>
                                 <DockPanel>
-                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconServers}" />
-                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuServers}" />
+                                    <PathIcon Classes="nav" Data="{StaticResource IconServers}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavServers}" />
                                 </DockPanel>
                             </MenuItem.Header>
                             <MenuItem x:Name="menuAddServerSheet" Header="{x:Static resx:ResUI.TbAddServer}" />
@@ -157,39 +169,82 @@
                             <MenuItem x:Name="menuAddNaiveServer" Header="{x:Static resx:ResUI.menuAddNaiveServer}" />
                         </MenuItem>
 
-                        <MenuItem>
+                        <MenuItem x:Name="menuNavSubscriptions">
                             <MenuItem.Header>
                                 <DockPanel>
-                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconRss}" />
-                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuSubscription}" />
+                                    <PathIcon Classes="nav" Data="{StaticResource IconRss}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavSubscriptions}" />
                                 </DockPanel>
                             </MenuItem.Header>
-                            <MenuItem x:Name="menuSubSetting" Header="{x:Static resx:ResUI.menuSubSetting}" />
+                            <MenuItem x:Name="menuSubUpdate" Header="{x:Static resx:ResUI.TbSubUpdateAll}" />
+                            <MenuItem x:Name="menuSubGroupUpdate" Header="{x:Static resx:ResUI.TbSubUpdateThis}" />
                             <Separator />
-                            <MenuItem x:Name="menuSubUpdate" Header="{x:Static resx:ResUI.menuSubUpdate}" />
-                            <MenuItem x:Name="menuSubUpdateViaProxy" Header="{x:Static resx:ResUI.menuSubUpdateViaProxy}" />
-                            <MenuItem x:Name="menuSubGroupUpdate" Header="{x:Static resx:ResUI.menuSubGroupUpdate}" />
-                            <MenuItem x:Name="menuSubGroupUpdateViaProxy" Header="{x:Static resx:ResUI.menuSubGroupUpdateViaProxy}" />
+                            <MenuItem
+                                x:Name="menuSubViaProxy"
+                                Header="{x:Static resx:ResUI.TbSubViaProxy}"
+                                StaysOpenOnClick="True"
+                                ToggleType="CheckBox" />
+                            <Separator />
+                            <MenuItem x:Name="menuSubSetting" Header="{x:Static resx:ResUI.menuSubSetting}" />
                         </MenuItem>
 
-                        <MenuItem>
+                        <MenuItem Classes="section" Focusable="False" IsHitTestVisible="False">
+                            <MenuItem.Header>
+                                <Panel>
+                                    <TextBlock Classes="sectionText" Text="{x:Static resx:ResUI.TbNavSectionManage}" />
+                                    <Border Classes="sectionLine" />
+                                </Panel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuRoutingSetting">
                             <MenuItem.Header>
                                 <DockPanel>
-                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconSettings}" />
+                                    <PathIcon Classes="nav" Data="{StaticResource IconRoute}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavRouting}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuDataUsage">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconChart}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbDataUsage}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuNavTools">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconTools}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavTools}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                            <MenuItem x:Name="menuAppRouting" Header="{x:Static resx:ResUI.TbAppRouting}" />
+                            <MenuItem x:Name="menuExportDiagnostics" Header="{x:Static resx:ResUI.TbExportDiagnostics}" />
+                            <Separator />
+                            <MenuItem x:Name="menuBackupAndRestore" Header="{x:Static resx:ResUI.menuBackupAndRestore}" />
+                            <MenuItem x:Name="menuImportFromOriginal" Header="{x:Static resx:ResUI.menuImportFromOriginal}" />
+                            <MenuItem x:Name="menuOpenTheFileLocation" Header="{x:Static resx:ResUI.menuOpenTheFileLocation}" />
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuNavSettings">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconSettings}" />
                                     <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuSetting}" />
                                 </DockPanel>
                             </MenuItem.Header>
                             <MenuItem x:Name="menuOptionSetting" Header="{x:Static resx:ResUI.menuOptionSetting}" />
-                            <MenuItem x:Name="menuRoutingSetting" Header="{x:Static resx:ResUI.menuRoutingSetting}" />
-                            <MenuItem x:Name="menuAppRouting" Header="{x:Static resx:ResUI.TbAppRouting}" />
-                            <MenuItem x:Name="menuDataUsage" Header="{x:Static resx:ResUI.TbDataUsage}" />
-                            <MenuItem x:Name="menuExportDiagnostics" Header="{x:Static resx:ResUI.TbExportDiagnostics}" />
                             <MenuItem x:Name="menuDNSSetting" Header="{x:Static resx:ResUI.menuDNSSetting}" />
                             <MenuItem x:Name="menuFullConfigTemplate" Header="{x:Static resx:ResUI.menuFullConfigTemplate}" />
                             <MenuItem
                                 x:Name="menuGlobalHotkeySetting"
                                 Header="{x:Static resx:ResUI.menuGlobalHotkeySetting}"
                                 IsVisible="{Binding BlIsWindows}" />
+                            <MenuItem x:Name="menuAppearance" Header="{x:Static resx:ResUI.TbAppearanceMenu}" />
                             <Separator />
                             <MenuItem
                                 x:Name="menuRebootAsAdmin"
@@ -206,26 +261,38 @@
                                 <MenuItem x:Name="menuRegionalPresetsRussia" Header="{x:Static resx:ResUI.menuRegionalPresetsRussia}" />
                                 <MenuItem x:Name="menuRegionalPresetsIran" Header="{x:Static resx:ResUI.menuRegionalPresetsIran}" />
                             </MenuItem>
-                            <MenuItem x:Name="menuBackupAndRestore" Header="{x:Static resx:ResUI.menuBackupAndRestore}" />
-                            <MenuItem x:Name="menuImportFromOriginal" Header="{x:Static resx:ResUI.menuImportFromOriginal}" />
-                            <MenuItem x:Name="menuOpenTheFileLocation" Header="{x:Static resx:ResUI.menuOpenTheFileLocation}" />
+                        </MenuItem>
+
+                        <MenuItem Classes="section" Focusable="False" IsHitTestVisible="False">
+                            <MenuItem.Header>
+                                <Panel>
+                                    <TextBlock Classes="sectionText" Text="{x:Static resx:ResUI.TbNavSectionApp}" />
+                                    <Border Classes="sectionLine" />
+                                </Panel>
+                            </MenuItem.Header>
                         </MenuItem>
 
                         <MenuItem x:Name="menuCheckUpdate">
                             <MenuItem.Header>
                                 <DockPanel>
-                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconUpdate}" />
-                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuCheckUpdate}" />
+                                    <Panel>
+                                        <PathIcon Classes="nav" Data="{StaticResource IconUpdate}" />
+                                        <!--  A new version is ready.  -->
+                                        <Ellipse
+                                            x:Name="dotNewUpdate"
+                                            Classes="updateDot"
+                                            IsVisible="False"
+                                            ToolTip.Tip="{x:Static resx:ResUI.TipNewUpdateReady}" />
+                                    </Panel>
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavCheckUpdate}" />
                                 </DockPanel>
                             </MenuItem.Header>
                         </MenuItem>
 
-                        <Separator />
-
                         <MenuItem x:Name="menuReload">
                             <MenuItem.Header>
                                 <DockPanel>
-                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconReload}" />
+                                    <PathIcon Classes="nav" Data="{StaticResource IconReload}" />
                                     <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuReload}" />
                                 </DockPanel>
                             </MenuItem.Header>
@@ -234,7 +301,7 @@
                         <MenuItem x:Name="menuPromotion" IsVisible="False">
                             <MenuItem.Header>
                                 <DockPanel>
-                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconStar}" />
+                                    <PathIcon Classes="nav" Data="{StaticResource IconStar}" />
                                     <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuPromotion}" />
                                 </DockPanel>
                             </MenuItem.Header>
@@ -243,7 +310,7 @@
                         <MenuItem x:Name="menuClose">
                             <MenuItem.Header>
                                 <DockPanel>
-                                    <PathIcon Margin="0,0,12,0" Classes="nav" Data="{StaticResource IconExit}" />
+                                    <PathIcon Classes="nav" Data="{StaticResource IconExit}" />
                                     <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuExit}" />
                                 </DockPanel>
                             </MenuItem.Header>

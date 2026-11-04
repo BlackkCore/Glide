@@ -52,6 +52,16 @@ public partial class ThemeSettingView : ReactiveUserControl<ThemeSettingViewMode
         });
     }
 
+    /// <summary>Opens the appearance popup (theme, font size, language) next to <paramref name="target"/>.</summary>
+    public void OpenAt(Control target)
+    {
+        if (btnAppearance.Flyout is Flyout flyout)
+        {
+            flyout.Placement = PlacementMode.RightEdgeAlignedTop;
+            flyout.ShowAt(target);
+        }
+    }
+
     // Older configs may still name one of Semi's extra themes; those show as "System".
     private void SelectThemeItem(string? theme)
     {

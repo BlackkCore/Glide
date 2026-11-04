@@ -36,7 +36,29 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuSettingsSetUWP.Click += MenuSettingsSetUWP_Click;
         menuPromotion.Click += MenuPromotion_Click;
         menuCheckUpdate.Click += MenuCheckUpdate_Click;
-        btnNewUpdate.Click += MenuCheckUpdate_Click;
+        // Subscriptions: one "update all" and one "update this", with the proxy as a remembered checkbox.
+        menuSubViaProxy.IsChecked = File.Exists(SubViaProxyFile);
+        menuSubViaProxy.Click += (_, _) =>
+        {
+            try
+            {
+                if (menuSubViaProxy.IsChecked)
+                {
+                    File.WriteAllText(SubViaProxyFile, "1");
+                }
+                else if (File.Exists(SubViaProxyFile))
+                {
+                    File.Delete(SubViaProxyFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.SaveLog("SubViaProxy", ex);
+            }
+        };
+        menuSubUpdate.Click += (_, _) => (menuSubViaProxy.IsChecked ? ViewModel?.SubUpdateViaProxyCmd : ViewModel?.SubUpdateCmd)?.Execute().Subscribe();
+        menuSubGroupUpdate.Click += (_, _) => (menuSubViaProxy.IsChecked ? ViewModel?.SubGroupUpdateViaProxyCmd : ViewModel?.SubGroupUpdateCmd)?.Execute().Subscribe();
+        menuAppearance.Click += (_, _) => (conTheme.Content as ThemeSettingView)?.OpenAt(menuNavSettings);
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
         menuAddServerSheet.Click += (_, _) => ShowAddServerSheet();
         menuAppRouting.Click += async (_, _) => await ShowAppRoutingAsync();
@@ -79,6 +101,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         }
         btnThemeLight.Click += (_, _) => PlayThemeReveal(() => SetTheme(ETheme.Light), btnThemeLight);
         btnThemeDark.Click += (_, _) => PlayThemeReveal(() => SetTheme(ETheme.Dark), btnThemeDark);
+        btnThemeAuto.Click += (_, _) => PlayThemeReveal(() => SetTheme(ETheme.FollowSystem), btnThemeAuto);
         btnThemeCompact.Click += (_, _) => PlayThemeReveal(() => SetTheme(IsDarkTheme() ? ETheme.Light : ETheme.Dark), btnThemeCompact);
         ActualThemeVariantChanged += (_, _) => UpdateThemeToggle();
         UpdateThemeToggle();
@@ -123,10 +146,6 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
             //sub
             this.BindCommand(ViewModel, vm => vm.SubSettingCmd, v => v.menuSubSetting).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.SubUpdateCmd, v => v.menuSubUpdate).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.SubUpdateViaProxyCmd, v => v.menuSubUpdateViaProxy).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.SubGroupUpdateCmd, v => v.menuSubGroupUpdate).DisposeWith(disposables);
-            this.BindCommand(ViewModel, vm => vm.SubGroupUpdateViaProxyCmd, v => v.menuSubGroupUpdateViaProxy).DisposeWith(disposables);
 
             //setting
             this.BindCommand(ViewModel, vm => vm.OptionSettingCmd, v => v.menuOptionSetting).DisposeWith(disposables);
@@ -143,7 +162,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
             this.BindCommand(ViewModel, vm => vm.ReloadCmd, v => v.menuReload).DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.BlReloadEnabled, v => v.menuReload.IsEnabled).DisposeWith(disposables);
-            this.OneWayBind(ViewModel, vm => vm.BlNewUpdate, v => v.btnNewUpdate.IsVisible).DisposeWith(disposables);
+            this.OneWayBind(ViewModel, vm => vm.BlNewUpdate, v => v.dotNewUpdate.IsVisible).DisposeWith(disposables);
 
             this.OneWayBind(ViewModel, vm => vm.StatusBarViewModel, v => v.contentStatusBarView.Content).DisposeWith(disposables);
 
@@ -403,8 +422,12 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     private void UpdateThemeToggle()
     {
         var isDark = IsDarkTheme();
-        btnThemeLight.Classes.Set("active", !isDark);
-        btnThemeDark.Classes.Set("active", isDark);
+        // The saved choice decides which segment is lit; "Auto" follows Windows.
+        var saved = (conTheme.Content as ThemeSettingView)?.ViewModel?.CurrentTheme;
+        var auto = saved is null || saved == nameof(ETheme.FollowSystem) || !Enum.IsDefined(typeof(ETheme), saved);
+        btnThemeAuto.Classes.Set("active", auto);
+        btnThemeLight.Classes.Set("active", !auto && !isDark);
+        btnThemeDark.Classes.Set("active", !auto && isDark);
         iconThemeCompactMoon.IsVisible = !isDark;
         iconThemeCompactSun.IsVisible = isDark;
     }
@@ -566,7 +589,6 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         gridContent.ColumnDefinitions[1].Width = new GridLength(compact ? 20 : 24);
         var gap = compact ? 20 : 24;
         gridContent.Margin = new Thickness(gap, gap + _titleBarInset, gap, gap);
-        DockPanel.SetDock(conTheme, compact ? Dock.Bottom : Dock.Right);
 
         foreach (var item in menuSidebar.Items.OfType<MenuItem>())
         {
@@ -708,6 +730,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
     }
 
     private string? _clipboardOffered;
+
+    // Present when "Update through the proxy" is ticked in the Subscriptions menu.
+    private static string SubViaProxyFile => Utils.GetConfigPath("glide-sub-via-proxy");
 
     // A fingerprint of the last offered clipboard content, kept across restarts so the same copied
     // link isn't offered again every time Glide starts.

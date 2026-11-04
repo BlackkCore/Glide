@@ -6956,5 +6956,131 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbUsageMonth", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Servers
+        /// </summary>
+        public static string TbNavServers {
+            get {
+                return ResourceManager.GetString("TbNavServers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Subscriptions
+        /// </summary>
+        public static string TbNavSubscriptions {
+            get {
+                return ResourceManager.GetString("TbNavSubscriptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Routing
+        /// </summary>
+        public static string TbNavRouting {
+            get {
+                return ResourceManager.GetString("TbNavRouting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Tools
+        /// </summary>
+        public static string TbNavTools {
+            get {
+                return ResourceManager.GetString("TbNavTools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Connect
+        /// </summary>
+        public static string TbNavSectionConnect {
+            get {
+                return ResourceManager.GetString("TbNavSectionConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Manage
+        /// </summary>
+        public static string TbNavSectionManage {
+            get {
+                return ResourceManager.GetString("TbNavSectionManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   App
+        /// </summary>
+        public static string TbNavSectionApp {
+            get {
+                return ResourceManager.GetString("TbNavSectionApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Check update
+        /// </summary>
+        public static string TbNavCheckUpdate {
+            get {
+                return ResourceManager.GetString("TbNavCheckUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Auto
+        /// </summary>
+        public static string TbThemeAuto {
+            get {
+                return ResourceManager.GetString("TbThemeAuto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update all subscriptions
+        /// </summary>
+        public static string TbSubUpdateAll {
+            get {
+                return ResourceManager.GetString("TbSubUpdateAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update this subscription
+        /// </summary>
+        public static string TbSubUpdateThis {
+            get {
+                return ResourceManager.GetString("TbSubUpdateThis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update through the proxy
+        /// </summary>
+        public static string TbSubViaProxy {
+            get {
+                return ResourceManager.GetString("TbSubViaProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Appearance (font size, language)…
+        /// </summary>
+        public static string TbAppearanceMenu {
+            get {
+                return ResourceManager.GetString("TbAppearanceMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   A new version is ready
+        /// </summary>
+        public static string TipNewUpdateReady {
+            get {
+                return ResourceManager.GetString("TipNewUpdateReady", resourceCulture);
+            }
+        }
     }
 }

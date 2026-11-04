@@ -154,7 +154,47 @@
     <Style Selector="Menu.sidebar PathIcon.nav">
         <Setter Property="Width" Value="18" />
         <Setter Property="Height" Value="18" />
+        <Setter Property="Margin" Value="0,0,12,0" />
         <Setter Property="Foreground" Value="{Binding $parent[MenuItem].Foreground}" />
+    </Style>
+    <!--  Section headings (Connect / Manage / App); a thin line instead when the sidebar is compact.  -->
+    <Style Selector="Menu.sidebar > MenuItem.section">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Padding" Value="12,10,12,4" />
+        <Setter Property="Cursor" Value="Arrow" />
+    </Style>
+    <Style Selector="Menu.sidebar > MenuItem.section.first">
+        <Setter Property="Height" Value="22" />
+        <Setter Property="Padding" Value="12,2,12,4" />
+    </Style>
+    <Style Selector="Menu.sidebar TextBlock.sectionText">
+        <Setter Property="FontSize" Value="{DynamicResource AppFontCaption}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource AppFaintBrush}" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+    <Style Selector="Menu.sidebar Border.sectionLine">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <!--  "A new version is ready" dot on the Check update icon.  -->
+    <Style Selector="Ellipse.updateDot">
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Height" Value="8" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="13,-2,0,0" />
+        <Setter Property="Fill" Value="{DynamicResource AppAccentBrush}" />
+        <Setter Property="Stroke" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="StrokeThickness" Value="1.5" />
+    </Style>
+    <Style Selector="Border.sidebarRule">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Margin" Value="6,0,6,12" />
+        <Setter Property="Background" Value="{DynamicResource AppBorderBrush}" />
     </Style>
     <Style Selector="Menu.sidebar TextBlock.nav">
         <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
@@ -169,16 +209,18 @@
         <Setter Property="Background" Value="{DynamicResource AppBorderBrush}" />
     </Style>
 
-    <!--  Theme switch (Light | Dark) at the bottom of the sidebar  -->
+    <!--  Theme switch (Light | Dark | Auto) at the bottom of the sidebar: same 42px height as the
+          sidebar rows, full width.  -->
     <Style Selector="Border.themeSwitch">
         <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
-        <Setter Property="CornerRadius" Value="11" />
+        <Setter Property="CornerRadius" Value="10" />
         <Setter Property="Padding" Value="3" />
+        <Setter Property="Height" Value="42" />
     </Style>
     <Style Selector="Button.themeOpt">
         <Setter Property="Theme" Value="{DynamicResource BorderlessButton}" />
-        <Setter Property="Height" Value="32" />
-        <Setter Property="Padding" Value="8,0" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Padding" Value="4,0" />
         <Setter Property="CornerRadius" Value="8" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -235,6 +277,39 @@
     </Style>
     <Style Selector="Border.sidebar.compact Menu.sidebar > Separator">
         <Setter Property="Margin" Value="8,10" />
+    </Style>
+    <!--  Compact: icons sit in the exact middle (no gap reserved for the hidden label).  -->
+    <Style Selector="Border.sidebar.compact Menu.sidebar PathIcon.nav">
+        <Setter Property="Margin" Value="0" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Menu.sidebar > MenuItem.section">
+        <Setter Property="Height" Value="13" />
+        <Setter Property="Padding" Value="12,0" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Menu.sidebar > MenuItem.section.first">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Menu.sidebar TextBlock.sectionText">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Menu.sidebar Border.sectionLine">
+        <Setter Property="IsVisible" Value="True" />
+    </Style>
+    <Style Selector="Border.sidebar.compact Ellipse.updateDot">
+        <Setter Property="Margin" Value="11,-3,0,0" />
+    </Style>
+    <Style Selector="Button.themeOpt.themeCompact">
+        <Setter Property="Width" Value="56" />
+        <Setter Property="Height" Value="42" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button.themeOpt.themeCompact PathIcon">
+        <Setter Property="Width" Value="18" />
+        <Setter Property="Height" Value="18" />
+    </Style>
+    <Style Selector="Button.themeOpt.themeCompact:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
     </Style>
 
     <!--  ===== Connection card =====  -->

@@ -2425,4 +2425,46 @@ Direct: {1}</value>
   <data name="TbUsageMonth" xml:space="preserve">
     <value>This month: {0}</value>
   </data>
+  <data name="TbNavServers" xml:space="preserve">
+    <value>Servers</value>
+  </data>
+  <data name="TbNavSubscriptions" xml:space="preserve">
+    <value>Subscriptions</value>
+  </data>
+  <data name="TbNavRouting" xml:space="preserve">
+    <value>Routing</value>
+  </data>
+  <data name="TbNavTools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="TbNavSectionConnect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="TbNavSectionManage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="TbNavSectionApp" xml:space="preserve">
+    <value>App</value>
+  </data>
+  <data name="TbNavCheckUpdate" xml:space="preserve">
+    <value>Check update</value>
+  </data>
+  <data name="TbThemeAuto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="TbSubUpdateAll" xml:space="preserve">
+    <value>Update all subscriptions</value>
+  </data>
+  <data name="TbSubUpdateThis" xml:space="preserve">
+    <value>Update this subscription</value>
+  </data>
+  <data name="TbSubViaProxy" xml:space="preserve">
+    <value>Update through the proxy</value>
+  </data>
+  <data name="TbAppearanceMenu" xml:space="preserve">
+    <value>Appearance (font size, language)…</value>
+  </data>
+  <data name="TipNewUpdateReady" xml:space="preserve">
+    <value>A new version is ready</value>
+  </data>
 </root>

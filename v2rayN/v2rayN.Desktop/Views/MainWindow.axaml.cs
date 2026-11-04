@@ -446,8 +446,8 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
     private DispatcherTimer? _revealTimer;
 
-    // The new theme spreads out in a circle from the button that was clicked: a picture of the old
-    // theme covers the window, the theme changes underneath, and a growing hole is cut into the picture.
+    // Theme switch: a picture of the old theme covers the window, the theme changes underneath,
+    // and the picture fades away (a crossfade).
     private RenderTargetBitmap? _revealSnapshot;
 
     private void PlayThemeReveal(Action applyTheme, Control origin)
@@ -462,6 +462,9 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         // Clicked again mid-reveal: picture exactly what is on screen now (the overlay is inside gridRoot,
         // so the half-grown circle is included) and start a fresh circle from the new click.
         _revealTimer?.Stop();
+        _revealId++;
+        imgThemeSnapshot.Transitions = null;
+        imgThemeSnapshot.Opacity = 1;
         var wasDark = IsDarkTheme();
         var scaling = RenderScaling;
         var snapshot = new RenderTargetBitmap(
@@ -487,36 +490,40 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             return;
         }
 
-        var center = origin.TranslatePoint(new Point(origin.Bounds.Width / 2, origin.Bounds.Height / 2), gridRoot)
-                     ?? new Point(0, bounds.Height);
-        var maxRadius = new[]
+        // Wait until the new theme has been drawn once underneath (restyling the window is the slow
+        // part), then let the picture of the old theme dissolve. The fade itself is a plain opacity
+        // transition, so it stays smooth no matter how big the window is.
+        var id = ++_revealId;
+        RequestAnimationFrame(_ => RequestAnimationFrame(_ =>
         {
-            new Point(0, 0), new Point(bounds.Width, 0), new Point(0, bounds.Height), new Point(bounds.Width, bounds.Height),
-        }.Max(p => Math.Sqrt(Math.Pow(p.X - center.X, 2) + Math.Pow(p.Y - center.Y, 2)));
-        var area = new RectangleGeometry(new Rect(bounds.Size));
-        var start = DateTime.Now;
-
-        _revealTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
-        _revealTimer.Tick += (_, _) =>
-        {
-            var t = Math.Clamp((DateTime.Now - start).TotalMilliseconds / 620, 0, 1);
-            var eased = t < 0.5 ? 4 * t * t * t : 1 - (Math.Pow((-2 * t) + 2, 3) / 2);
-            var r = maxRadius * eased;
-            imgThemeSnapshot.Clip = new CombinedGeometry(GeometryCombineMode.Exclude, area,
-                new EllipseGeometry(new Rect(center.X - r, center.Y - r, r * 2, r * 2)));
-            if (t >= 1)
+            if (id != _revealId)
             {
-                EndThemeReveal();
+                return;
             }
-        };
-        _revealTimer.Start();
+            imgThemeSnapshot.Transitions =
+            [
+                new Avalonia.Animation.DoubleTransition { Property = OpacityProperty, Duration = TimeSpan.FromMilliseconds(300), Easing = new Avalonia.Animation.Easings.CubicEaseInOut() },
+            ];
+            imgThemeSnapshot.Opacity = 0;
+            DispatcherTimer.RunOnce(() =>
+            {
+                if (id == _revealId)
+                {
+                    EndThemeReveal();
+                }
+            }, TimeSpan.FromMilliseconds(340));
+        }));
     }
+
+    private int _revealId;
 
     private void EndThemeReveal()
     {
         _revealTimer?.Stop();
         Classes.Remove("themeSwap");
         imgThemeSnapshot.IsVisible = false;
+        imgThemeSnapshot.Transitions = null;
+        imgThemeSnapshot.Opacity = 1;
         imgThemeSnapshot.Source = null;
         imgThemeSnapshot.Clip = null;
         _revealSnapshot?.Dispose();

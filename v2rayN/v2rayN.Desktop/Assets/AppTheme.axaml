@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:conv="using:Avalonia.Controls.Converters">
     <!--  Redesign color tokens. Light and Dark; Semi's other variants inherit from one of these.  -->
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
@@ -270,6 +270,7 @@
         <Setter Property="Margin" Value="0,1" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="ItemContainerTheme" Value="{DynamicResource SidebarSubItem}" />
         <Setter Property="Template">
             <ControlTemplate>
                 <Border
@@ -323,15 +324,19 @@
                             VerticalOffset="-8"
                             WindowManagerAddShadowHint="False">
                             <Border
-                                MinWidth="240"
+                                Name="PART_PopupBorder"
+                                MinWidth="232"
                                 MaxHeight="{DynamicResource MenuFlyoutMaxHeight}"
                                 Margin="8"
-                                Padding="6"
-                                Background="{DynamicResource MenuFlyoutBackground}"
+                                Padding="5"
+                                Background="{DynamicResource AppSurfaceBrush}"
                                 BorderBrush="{DynamicResource AppBorderBrush}"
                                 BorderThickness="1"
-                                BoxShadow="{DynamicResource MenuFlyoutBorderBoxShadow}"
-                                CornerRadius="14">
+                                BoxShadow="0 12 32 -8 #59000000, 0 2 6 0 #1F000000"
+                                CornerRadius="12">
+                                <Border.RenderTransform>
+                                    <TranslateTransform />
+                                </Border.RenderTransform>
                                 <ScrollViewer IsScrollChainingEnabled="False" VerticalScrollBarVisibility="Auto">
                                     <ItemsPresenter
                                         Name="PART_ItemsPresenter"
@@ -366,6 +371,123 @@
         </Style>
         <Style Selector="^:disabled">
             <Setter Property="Opacity" Value="0.5" />
+        </Style>
+    </ControlTheme>
+
+    <!--  Rows inside the sidebar's popups: regular weight, one height, one hover look, a real
+          checkbox for toggles, and the shortcut on the far side in a quiet tone.  -->
+    <StreamGeometry x:Key="IconCheck">M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6L20.1 8.4 18.7 7z</StreamGeometry>
+    <conv:PlatformKeyGestureConverter x:Key="SidebarKeyGestureConverter" />
+    <ControlTheme x:Key="SidebarSubItem" TargetType="MenuItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="ItemContainerTheme" Value="{DynamicResource SidebarSubItem}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="PART_LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <Panel>
+                        <Grid
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="Center"
+                            ColumnDefinitions="Auto,*,Auto,Auto">
+                            <Border
+                                Name="PART_ToggleBox"
+                                Width="16"
+                                Height="16"
+                                Margin="0,0,10,0"
+                                BorderBrush="{DynamicResource AppBorderStrongBrush}"
+                                BorderThickness="1.5"
+                                CornerRadius="4"
+                                IsVisible="False">
+                                <PathIcon
+                                    Name="PART_Check"
+                                    Width="11"
+                                    Height="11"
+                                    Data="{StaticResource IconCheck}"
+                                    Foreground="{DynamicResource AppOnAccentBrush}"
+                                    IsVisible="False" />
+                            </Border>
+                            <ContentPresenter
+                                Name="PART_HeaderPresenter"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                RecognizesAccessKey="True" />
+                            <TextBlock
+                                Name="PART_Gesture"
+                                Grid.Column="2"
+                                Margin="18,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource AppFontSmall}"
+                                Foreground="{DynamicResource AppFaintBrush}"
+                                Text="{TemplateBinding InputGesture, Converter={StaticResource SidebarKeyGestureConverter}}" />
+                            <PathIcon
+                                Name="PART_Chevron"
+                                Grid.Column="3"
+                                Width="9"
+                                Height="9"
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource IconChevronRight}"
+                                Foreground="{DynamicResource AppFaintBrush}" />
+                        </Grid>
+                        <Popup
+                            Name="PART_Popup"
+                            HorizontalOffset="4"
+                            IsLightDismissEnabled="False"
+                            IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+                            Placement="RightEdgeAlignedTop"
+                            VerticalOffset="-14"
+                            WindowManagerAddShadowHint="False">
+                            <Border
+                                Name="PART_PopupBorder"
+                                MinWidth="200"
+                                Margin="8"
+                                Padding="5"
+                                Background="{DynamicResource AppSurfaceBrush}"
+                                BorderBrush="{DynamicResource AppBorderBrush}"
+                                BorderThickness="1"
+                                BoxShadow="0 12 32 -8 #59000000, 0 2 6 0 #1F000000"
+                                CornerRadius="12">
+                                <Border.RenderTransform>
+                                    <TranslateTransform />
+                                </Border.RenderTransform>
+                                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            </Border>
+                        </Popup>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:empty /template/ PathIcon#PART_Chevron">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:pointerover, ^:open">
+            <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+        </Style>
+        <Style Selector="^:toggle /template/ Border#PART_ToggleBox">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^:checked /template/ Border#PART_ToggleBox">
+            <Setter Property="Background" Value="{DynamicResource AppAccentBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
+        </Style>
+        <Style Selector="^:checked /template/ PathIcon#PART_Check">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^:disabled">
+            <Setter Property="Opacity" Value="0.45" />
         </Style>
     </ControlTheme>
 

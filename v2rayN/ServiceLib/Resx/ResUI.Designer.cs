@@ -7082,5 +7082,23 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipNewUpdateReady", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Speed graph
+        /// </summary>
+        public static string TbSpeedGraph {
+            get {
+                return ResourceManager.GetString("TbSpeedGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show the graph under the speeds
+        /// </summary>
+        public static string TbShowSpeedGraph {
+            get {
+                return ResourceManager.GetString("TbShowSpeedGraph", resourceCulture);
+            }
+        }
     }
 }

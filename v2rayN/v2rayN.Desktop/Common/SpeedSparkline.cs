@@ -19,8 +19,37 @@ public class SpeedSparkline : Control
     private double _fromMax;
     private double _targetMax;
 
+    // Appearance → "Speed graph": the graph can be turned off so only the numbers show.
+    private static string HiddenFile => Utils.GetConfigPath("glide-hide-speed-graph");
+
+    public static bool GraphHidden => File.Exists(HiddenFile);
+
+    public static event Action? GraphVisibilityChanged;
+
+    public static void SetGraphHidden(bool hidden)
+    {
+        try
+        {
+            if (hidden)
+            {
+                File.WriteAllText(HiddenFile, "1");
+            }
+            else if (File.Exists(HiddenFile))
+            {
+                File.Delete(HiddenFile);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog("SpeedGraph", ex);
+        }
+        GraphVisibilityChanged?.Invoke();
+    }
+
     public SpeedSparkline()
     {
+        IsVisible = !GraphHidden;
+        GraphVisibilityChanged += () => IsVisible = !GraphHidden;
         _slideTimer.Tick += (_, _) => Slide();
         // Hover shows the speeds at that moment, with units, and the minute's peak (the chart has no axis).
         PointerMoved += (_, e) => ShowValueAt(e.GetPosition(this).X);

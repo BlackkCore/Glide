@@ -48,6 +48,13 @@
                         <TextBlock Classes="label" Text="{x:Static resx:ResUI.TbSettingsLanguage}" />
                         <ComboBox x:Name="cmbCurrentLanguage" HorizontalAlignment="Stretch" />
                     </StackPanel>
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="label" Text="{x:Static resx:ResUI.TbSpeedGraph}" />
+                        <ToggleSwitch
+                            x:Name="togSpeedGraph"
+                            OffContent="{x:Static resx:ResUI.TbShowSpeedGraph}"
+                            OnContent="{x:Static resx:ResUI.TbShowSpeedGraph}" />
+                    </StackPanel>
                 </StackPanel>
             </Flyout>
         </Button.Flyout>

@@ -1,4 +1,4 @@
-using Avalonia.Data;
+﻿using Avalonia.Data;
 using v2rayN.Desktop.ViewModels;
 
 namespace v2rayN.Desktop.Views;
@@ -41,6 +41,8 @@ public partial class ThemeSettingView : ReactiveUserControl<ThemeSettingViewMode
         cmbCurrentLanguage.DisplayMemberBinding = new Binding(nameof(LanguageOption.Display));
         cmbCurrentLanguage.SelectedValueBinding = new Binding(nameof(LanguageOption.Value));
         lstTheme.SelectionChanged += LstTheme_SelectionChanged;
+        togSpeedGraph.IsChecked = !v2rayN.Desktop.Common.SpeedSparkline.GraphHidden;
+        togSpeedGraph.IsCheckedChanged += (_, _) => v2rayN.Desktop.Common.SpeedSparkline.SetGraphHidden(togSpeedGraph.IsChecked != true);
 
         this.WhenActivated(disposables =>
         {

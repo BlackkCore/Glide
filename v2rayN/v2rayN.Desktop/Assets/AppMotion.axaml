@@ -71,7 +71,7 @@
     </Style>
     <Style Selector="MenuItem:open /template/ Border#PART_Indicator">
         <Style.Animations>
-            <Animation Easing="BackEaseOut" Duration="0:0:0.32" FillMode="Forward">
+            <Animation Easing="CubicEaseOut" Duration="0:0:0.18" FillMode="Forward">
                 <KeyFrame Cue="0%">
                     <Setter Property="ScaleTransform.ScaleY" Value="0.3" />
                 </KeyFrame>
@@ -94,16 +94,31 @@
             </Animation>
         </Style.Animations>
     </Style>
-    <!--  Sidebar icons and labels nudge right a touch on hover.  -->
-    <Style Selector="Menu.sidebar > MenuItem /template/ ContentPresenter#PART_HeaderPresenter">
+    <!--  Sidebar hover: only the background and colour change, quickly and evenly; nothing moves.  -->
+    <Style Selector="Menu.sidebar MenuItem /template/ Border#PART_LayoutRoot">
         <Setter Property="Transitions">
             <Transitions>
-                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.18" Easing="CubicEaseOut" />
+                <BrushTransition Property="Background" Duration="0:0:0.12" Easing="QuadraticEaseOut" />
             </Transitions>
         </Setter>
     </Style>
-    <Style Selector="Menu.sidebar > MenuItem:pointerover /template/ ContentPresenter#PART_HeaderPresenter, Menu.sidebar > MenuItem:open /template/ ContentPresenter#PART_HeaderPresenter">
-        <Setter Property="RenderTransform" Value="translateX(2px)" />
+    <Style Selector="Menu.sidebar > MenuItem:pointerover /template/ PathIcon#PART_Chevron, Menu.sidebar > MenuItem:open /template/ PathIcon#PART_Chevron">
+        <Setter Property="RenderTransform" Value="none" />
+    </Style>
+    <!--  Sidebar popups settle in: a quick fade with a 6px slide away from the sidebar.  -->
+    <Style Selector="Menu.sidebar MenuItem:open /template/ Border#PART_PopupBorder">
+        <Style.Animations>
+            <Animation Easing="CubicEaseOut" Duration="0:0:0.16" FillMode="Forward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0" />
+                    <Setter Property="TranslateTransform.X" Value="-6" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1" />
+                    <Setter Property="TranslateTransform.X" Value="0" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
     </Style>
 
     <!--  ===== Buttons: a short press-in so clicks feel physical =====  -->

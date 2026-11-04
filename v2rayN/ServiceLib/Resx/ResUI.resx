@@ -2467,4 +2467,10 @@ Direct: {1}</value>
   <data name="TipNewUpdateReady" xml:space="preserve">
     <value>A new version is ready</value>
   </data>
+  <data name="TbSpeedGraph" xml:space="preserve">
+    <value>Speed graph</value>
+  </data>
+  <data name="TbShowSpeedGraph" xml:space="preserve">
+    <value>Show the graph under the speeds</value>
+  </data>
 </root>

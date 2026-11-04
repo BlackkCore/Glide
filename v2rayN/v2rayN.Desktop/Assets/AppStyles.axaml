@@ -208,6 +208,13 @@
         <Setter Property="Margin" Value="12,10" />
         <Setter Property="Background" Value="{DynamicResource AppBorderBrush}" />
     </Style>
+    <!--  Dividers inside the sidebar's popups.  -->
+    <Style Selector="Menu.sidebar MenuItem Separator">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="MinHeight" Value="1" />
+        <Setter Property="Margin" Value="10,5" />
+        <Setter Property="Background" Value="{DynamicResource AppBorderBrush}" />
+    </Style>
 
     <!--  Theme switch (Light | Dark | Auto) at the bottom of the sidebar: same 42px height as the
           sidebar rows, full width.  -->

@@ -2467,4 +2467,10 @@
   <data name="TipNewUpdateReady" xml:space="preserve">
     <value>نسخه جدید آماده است</value>
   </data>
+  <data name="TbSpeedGraph" xml:space="preserve">
+    <value>نمودار سرعت</value>
+  </data>
+  <data name="TbShowSpeedGraph" xml:space="preserve">
+    <value>نمایش نمودار زیر اعداد سرعت</value>
+  </data>
 </root>

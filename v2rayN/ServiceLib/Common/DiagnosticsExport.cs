@@ -10,7 +10,8 @@ namespace ServiceLib.Common;
 public static class DiagnosticsExport
 {
     // Settings whose values identify servers or accounts.
-    private static readonly Regex SensitiveKey = new("pass|secret|token|key|user|url|address|server|host|sni|id$", RegexOptions.IgnoreCase);
+    // (Plain settings like "TrayMenuServersLimit" stay readable.)
+    private static readonly Regex SensitiveKey = new("pass|secret|token|key$|user|url$|address|host|sni|servername|indexid$|(^|_)id$", RegexOptions.IgnoreCase);
 
     public static void Create(string zipPath)
     {
@@ -45,7 +46,13 @@ public static class DiagnosticsExport
             return LogSafe.Text(json);
         }
         Redact(root);
-        return root.ToJsonString(new JsonSerializerOptions { WriteIndented = true, TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver() });
+        // Unescaped, so "•••" and Persian text read as themselves in the file.
+        return root.ToJsonString(new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver(),
+        });
     }
 
     private static void Redact(JsonNode node)

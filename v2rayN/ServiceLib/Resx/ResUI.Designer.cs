@@ -7226,5 +7226,23 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbPrograms", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Activity
+        /// </summary>
+        public static string TbActivity {
+            get {
+                return ResourceManager.GetString("TbActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Nothing yet. Connections, server changes, imports and updates will show up here.
+        /// </summary>
+        public static string TipNoActivity {
+            get {
+                return ResourceManager.GetString("TipNoActivity", resourceCulture);
+            }
+        }
     }
 }

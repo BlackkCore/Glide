@@ -61,6 +61,12 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
         menuSubGroupUpdate.Click += (_, _) => (menuSubViaProxy.IsChecked ? ViewModel?.SubGroupUpdateViaProxyCmd : ViewModel?.SubGroupUpdateCmd)?.Execute().Subscribe();
         menuAppearance.Click += (_, _) => (conTheme.Content as ThemeSettingView)?.OpenAt(menuNavSettings);
         SetSubmenuIcons();
+        // "Activity" opens first in the log pane: plain messages, with the raw engine log one tab over.
+        foreach (var tab in new[] { tabActivity, tabActivity1, tabActivity2 })
+        {
+            tab.Content = ActivityFeed.Create();
+            tab.IsSelected = true;
+        }
         menuBackupAndRestore.Click += MenuBackupAndRestore_Click;
         menuAddServerSheet.Click += (_, _) => ShowAddServerSheet();
         menuAppRouting.Click += async (_, _) => await ShowAppRoutingAsync();
@@ -280,6 +286,7 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
             content = $"{ResUI.TipActiveServer}: {summary.Groups["name"].Value.Trim()}";
         }
         _manager?.Show(new Avalonia.Controls.Notifications.Notification(null, content, NotificationType.Information));
+        ActivityFeed.Add(content);
     }
 
     private static readonly System.Text.RegularExpressions.Regex ServerSummaryRegex =

@@ -10,6 +10,11 @@ public partial class App : Application
     {
         AvaloniaXamlLoader.Load(this);
 
+        // Dropdowns hanging off a button (List actions, Sort, Appearance) open in their own popup that
+        // doesn't inherit the window's right-to-left layout; follow the main window, as right-click menus do.
+        Control.LoadedEvent.AddClassHandler<MenuFlyoutPresenter>((presenter, _) => FollowMainWindowDirection(presenter));
+        Control.LoadedEvent.AddClassHandler<FlyoutPresenter>((presenter, _) => FollowMainWindowDirection(presenter));
+
         // Screen readers: an icon-only button (sort, star, ⋯, theme…) has no text of its own, so give it
         // its tooltip as its accessible name. Buttons with text keep reading their text.
         Control.LoadedEvent.AddClassHandler<Button>((button, _) =>
@@ -45,6 +50,15 @@ public partial class App : Application
 
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+    }
+
+    private void FollowMainWindowDirection(Control presenter)
+    {
+        if ((ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow is { } window
+            && presenter.FlowDirection != window.FlowDirection)
+        {
+            presenter.FlowDirection = window.FlowDirection;
+        }
     }
 
     public override void OnFrameworkInitializationCompleted()

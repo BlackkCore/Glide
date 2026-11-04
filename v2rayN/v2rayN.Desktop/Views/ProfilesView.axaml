@@ -362,7 +362,7 @@
                             </DataTemplate>
                         </MenuItem.ItemTemplate>
                     </MenuItem>
-                    <MenuItem Header="{x:Static resx:ResUI.menuMoveTo}">
+                    <MenuItem x:Name="menuMoveSub" Header="{x:Static resx:ResUI.menuMoveTo}">
                         <MenuItem
                             x:Name="menuMoveTop"
                             Header="{x:Static resx:ResUI.menuMoveTop}"
@@ -385,7 +385,7 @@
                         x:Name="menuShareServer"
                         Header="{x:Static resx:ResUI.TbSendToPhone}"
                         InputGesture="Ctrl+F" />
-                    <MenuItem Header="{x:Static resx:ResUI.menuExportConfig}">
+                    <MenuItem x:Name="menuExportSub" Header="{x:Static resx:ResUI.menuExportConfig}">
                         <MenuItem x:Name="menuExport2ClientConfig" Header="{x:Static resx:ResUI.menuExport2ClientConfig}" />
                         <MenuItem x:Name="menuExport2ClientConfigClipboard" Header="{x:Static resx:ResUI.menuExport2ClientConfigClipboard}" />
                         <Separator />

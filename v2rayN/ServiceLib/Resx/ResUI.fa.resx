@@ -2515,4 +2515,10 @@
   <data name="TbPrograms" xml:space="preserve">
     <value>برنامه‌ها</value>
   </data>
+  <data name="TbActivity" xml:space="preserve">
+    <value>رویدادها</value>
+  </data>
+  <data name="TipNoActivity" xml:space="preserve">
+    <value>هنوز چیزی نیست. اتصال‌ها، تغییر سرور، افزودن سرورها و به‌روزرسانی‌ها اینجا نمایش داده می‌شوند.</value>
+  </data>
 </root>

@@ -2515,4 +2515,10 @@ Direct: {1}</value>
   <data name="TbPrograms" xml:space="preserve">
     <value>Programs</value>
   </data>
+  <data name="TbActivity" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="TipNoActivity" xml:space="preserve">
+    <value>Nothing yet. Connections, server changes, imports and updates will show up here.</value>
+  </data>
 </root>

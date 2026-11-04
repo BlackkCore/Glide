@@ -33,6 +33,45 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         btnEmptyPaste.Click += (_, _) => AppEvents.AddServerViaClipboardRequested.Publish();
         btnAddServer.Click += (_, _) => AppEvents.AddServerSheetRequested.Publish();
         btnAutoFastest.Click += async (_, _) => await UseAutoFastestAsync();
+        // Sort without the table's column headers (upstream's own sorting, by column tag).
+        menuSortFastest.Click += async (_, _) => await Guarded(() => ViewModel?.SortServer("DelayVal") ?? Task.CompletedTask);
+        menuSortName.Click += async (_, _) => await Guarded(() => ViewModel?.SortServer("Remarks") ?? Task.CompletedTask);
+        // This subscription only, right away (the main menu updates all of them).
+        menuSubUpdateNow.Click += async (_, _) => await Guarded(async () =>
+        {
+            if (ViewModel?.SelectedSub is { Id.Length: > 0 } sub && TopLevel.GetTopLevel(this) is MainWindow { ViewModel: { } main })
+            {
+                await main.UpdateSubscriptionProcess(sub.Id, false);
+            }
+        });
+        // Upstream's per-subscription refresh interval, without opening the editor.
+        foreach (var hours in new[] { 0, 6, 12, 24 })
+        {
+            var item = new MenuItem
+            {
+                Header = hours == 0 ? ResUI.TbOff : string.Format(ResUI.TbEveryHours, hours),
+                ToggleType = MenuItemToggleType.Radio,
+            };
+            item.Click += async (_, _) => await Guarded(async () =>
+            {
+                if (ViewModel?.SelectedSub is { Id.Length: > 0 } sub)
+                {
+                    sub.AutoUpdateInterval = hours * 60;
+                    await ConfigHandler.AddSubItem(_config, sub);
+                    UpdateSubInfo();
+                }
+            });
+            menuSubAutoUpdate.Items.Add(item);
+        }
+        menuSubAutoUpdate.SubmenuOpened += (_, _) =>
+        {
+            var current = ViewModel?.SelectedSub?.AutoUpdateInterval ?? 0;
+            var index = current switch { 360 => 1, 720 => 2, 1440 => 3, _ => current > 0 ? -1 : 0 };
+            for (var i = 0; i < menuSubAutoUpdate.Items.Count; i++)
+            {
+                ((MenuItem)menuSubAutoUpdate.Items[i]!).IsChecked = i == index;
+            }
+        };
         // The whole subscription as a QR code, for v2rayNG / Hiddify on the phone.
         menuSubSendToPhone.Click += async (_, _) =>
         {
@@ -338,6 +377,20 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
     }
 
     #endregion List view
+
+    // Click handlers are async void underneath: an exception escaping one would close the app.
+    private async Task Guarded(Func<Task> action)
+    {
+        try
+        {
+            await action();
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog(_tag, ex);
+            NoticeManager.Instance.Enqueue(ResUI.OperationFailed);
+        }
+    }
 
     private async Task UseAutoFastestAsync()
     {

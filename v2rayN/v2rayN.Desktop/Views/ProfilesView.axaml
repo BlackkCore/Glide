@@ -154,6 +154,18 @@
                         </StackPanel>
                     </Button>
                     <Button
+                        x:Name="btnSort"
+                        Classes="IconButton"
+                        ToolTip.Tip="{x:Static resx:ResUI.TbSort}">
+                        <PathIcon Data="{StaticResource IconArrowDown}" />
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuItem x:Name="menuSortFastest" Header="{x:Static resx:ResUI.TbSortFastest}" />
+                                <MenuItem x:Name="menuSortName" Header="{x:Static resx:ResUI.TbSortName}" />
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button
                         x:Name="menuMixedTestServer"
                         Classes="IconButton"
                         ToolTip.Tip="{x:Static resx:ResUI.menuMixedTestServer}">
@@ -234,6 +246,9 @@
                         <MenuItem x:Name="menuSubDelete" Header="{x:Static resx:ResUI.menuSubDelete}" />
                         <Separator />
                         <MenuItem x:Name="menuSubSendToPhone" Header="{x:Static resx:ResUI.TbSendSubToPhone}" />
+                        <Separator />
+                        <MenuItem x:Name="menuSubUpdateNow" Header="{x:Static resx:ResUI.TbUpdateNow}" />
+                        <MenuItem x:Name="menuSubAutoUpdate" Header="{x:Static resx:ResUI.TbAutoUpdate}" />
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

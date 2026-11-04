@@ -2395,4 +2395,25 @@ Direct: {1}</value>
   <data name="TipDnsLeakMaybe" xml:space="preserve">
     <value>Possible leak: some lookups are answered outside the server's country ({0}).</value>
   </data>
+  <data name="TbSort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="TbSortFastest" xml:space="preserve">
+    <value>Fastest first</value>
+  </data>
+  <data name="TbSortName" xml:space="preserve">
+    <value>By name</value>
+  </data>
+  <data name="TbUpdateNow" xml:space="preserve">
+    <value>Update now</value>
+  </data>
+  <data name="TbAutoUpdate" xml:space="preserve">
+    <value>Update automatically</value>
+  </data>
+  <data name="TbOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="TbEveryHours" xml:space="preserve">
+    <value>Every {0} hours</value>
+  </data>
 </root>

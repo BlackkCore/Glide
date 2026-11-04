@@ -2395,4 +2395,25 @@
   <data name="TipDnsLeakMaybe" xml:space="preserve">
     <value>احتمال نشت: برخی جستجوها بیرون از کشور سرور ({0}) پاسخ داده می‌شوند.</value>
   </data>
+  <data name="TbSort" xml:space="preserve">
+    <value>مرتب‌سازی</value>
+  </data>
+  <data name="TbSortFastest" xml:space="preserve">
+    <value>سریع‌ترین‌ها اول</value>
+  </data>
+  <data name="TbSortName" xml:space="preserve">
+    <value>بر اساس نام</value>
+  </data>
+  <data name="TbUpdateNow" xml:space="preserve">
+    <value>به‌روزرسانی اکنون</value>
+  </data>
+  <data name="TbAutoUpdate" xml:space="preserve">
+    <value>به‌روزرسانی خودکار</value>
+  </data>
+  <data name="TbOff" xml:space="preserve">
+    <value>خاموش</value>
+  </data>
+  <data name="TbEveryHours" xml:space="preserve">
+    <value>هر {0} ساعت</value>
+  </data>
 </root>

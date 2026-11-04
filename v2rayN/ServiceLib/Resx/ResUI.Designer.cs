@@ -6866,5 +6866,68 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TipDnsLeakMaybe", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sort
+        /// </summary>
+        public static string TbSort {
+            get {
+                return ResourceManager.GetString("TbSort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Fastest first
+        /// </summary>
+        public static string TbSortFastest {
+            get {
+                return ResourceManager.GetString("TbSortFastest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   By name
+        /// </summary>
+        public static string TbSortName {
+            get {
+                return ResourceManager.GetString("TbSortName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update now
+        /// </summary>
+        public static string TbUpdateNow {
+            get {
+                return ResourceManager.GetString("TbUpdateNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update automatically
+        /// </summary>
+        public static string TbAutoUpdate {
+            get {
+                return ResourceManager.GetString("TbAutoUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Off
+        /// </summary>
+        public static string TbOff {
+            get {
+                return ResourceManager.GetString("TbOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Every {0} hours
+        /// </summary>
+        public static string TbEveryHours {
+            get {
+                return ResourceManager.GetString("TbEveryHours", resourceCulture);
+            }
+        }
     }
 }

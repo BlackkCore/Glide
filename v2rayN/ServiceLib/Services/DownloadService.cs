@@ -184,7 +184,8 @@ public class DownloadService
         else
         {
             Error?.Invoke(this, new ErrorEventArgs(new Exception("StatusCode error: " + response.StatusCode)));
-            Logging.SaveLog("StatusCode error: " + url);
+            // Glide: the host only; a subscription address carries its token in the path or query.
+            Logging.SaveLog("StatusCode error: " + LogSafe.Url(url));
             return null;
         }
     }

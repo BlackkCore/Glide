@@ -9,7 +9,7 @@
   <img alt="Glide" src="docs/brand/glide-logo-light.png" width="280">
 </picture>
 
-<div dir="rtl">
+<div dir="rtl" align="right">
 
 <h3>قدرت v2rayN، با ظاهری جدید و کاربری ساده‌تر در ویندوز</h3>
 
@@ -41,7 +41,7 @@
 
 <br>
 
-<div dir="rtl">
+<div dir="rtl" align="right">
 
 ## ✨ امکانات اصلی
 
@@ -222,7 +222,7 @@ Glide بر پایهٔ v2rayN ساخته شده و قابلیت‌های اصلی
   </tr>
 </table>
 
-<div dir="rtl">
+<div dir="rtl" align="right">
 
 ## 🚀 نصب و شروع کار
 
@@ -285,7 +285,7 @@ gpg --import Glide-public-key.asc
 gpg --verify Glide-windows-x64.zip.sig Glide-windows-x64.zip
 ```
 
-<div dir="rtl">
+<div dir="rtl" align="right">
 
 فایل `Glide-public-key.asc` را هم از صفحهٔ انتشار دانلود کنید. اگر امضا معتبر باشد، عبارت `Good signature from "BlackkCore Releases"` را در خروجی می‌بینید. برای اطمینان بیشتر، اثر انگشت کلید را با یک منبع مطمئن مقایسه کنید.
 
@@ -301,17 +301,40 @@ cd Glide/v2rayN/v2rayN.Desktop
 dotnet publish -c Release -r win-x64 --self-contained true -o ../../out
 ```
 
-<div dir="rtl">
+<div dir="rtl" align="right">
 
 پوشهٔ `bin` که فایل‌های هسته‌ها داخل آن قرار دارند را کنار `Glide.exe` بگذارید. راه دیگر این است که هسته‌ها را از بخش **بررسی به‌روزرسانی** در خود برنامه دانلود کنید.
 
-## 💙 سازندگان و مجوز
+<section dir="rtl" align="right">
 
-- Glide بر پایهٔ [v2rayN](https://github.com/2dust/v2rayN)، پروژهٔ [2dust](https://github.com/2dust) و مشارکت‌کنندگان آن ساخته شده است. بخش اصلی ارتباطات شبکه از v2rayN گرفته شده و تغییرات Glide بیشتر روی رابط کاربری دسکتاپ متمرکز است.
-- **هسته‌ها:** [Xray](https://github.com/XTLS/Xray-core)، [sing-box](https://github.com/SagerNet/sing-box) و [mihomo](https://github.com/MetaCubeX/mihomo).
-- **رابط کاربری:** [Avalonia](https://avaloniaui.net/) و [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia). **فونت‌ها:** [Manrope](https://github.com/sharanda/manrope)، [وزیرمتن](https://github.com/rastikerdar/vazirmatn) و [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)، تحت [مجوز SIL Open Font](v2rayN/v2rayN.Desktop/Assets/Fonts/OFL.txt).
-- Glide مانند v2rayN با مجوز [GPL-3.0](LICENSE) منتشر می‌شود.
+<h2>سازندگان، حقوق نشر و مجوز</h2>
 
+<p>نرم‌افزار <bdi dir="ltr">Glide</bdi> توسط <a href="https://github.com/BlackkCore"><bdi dir="ltr">BlackCore</bdi></a> توسعه داده شده و نگهداری می‌شود.</p>
+
+<p>این نرم‌افزار بر پایهٔ پروژهٔ متن‌باز <a href="https://github.com/2dust/v2rayN"><bdi dir="ltr">v2rayN</bdi></a>، ساخته‌شده توسط <a href="https://github.com/2dust"><bdi dir="ltr">2dust</bdi></a> و مشارکت‌کنندگان آن، توسعه یافته است. <bdi dir="ltr">Glide</bdi> رابط کاربری را بازطراحی کرده و قابلیت‌های شبکهٔ پروژهٔ اصلی را حفظ می‌کند.</p>
+
+<h3>توسعه‌دهندگان و ارجاع به سازندگان</h3>
+
+<ul dir="rtl">
+<li><strong>توسعه‌دهنده و نگهدارنده:</strong> <a href="https://github.com/BlackkCore"><bdi dir="ltr">BlackCore</bdi></a></li>
+<li><strong>حقوق نشر مشارکت‌های اصلی:</strong> © ۲۰۲۶ <bdi dir="ltr">BlackCore</bdi> و دیگر صاحبان حقوق مربوطه.</li>
+<li><strong>پروژهٔ پایه:</strong> <a href="https://github.com/2dust/v2rayN"><bdi dir="ltr">v2rayN</bdi></a></li>
+<li><strong>موتورهای ارتباطی:</strong> <a href="https://github.com/XTLS/Xray-core"><bdi dir="ltr">Xray</bdi></a>، <a href="https://github.com/SagerNet/sing-box"><bdi dir="ltr">sing-box</bdi></a> و <a href="https://github.com/MetaCubeX/mihomo"><bdi dir="ltr">mihomo</bdi></a></li>
+<li><strong>رابط کاربری:</strong> <a href="https://avaloniaui.net/"><bdi dir="ltr">Avalonia</bdi></a> و <a href="https://github.com/irihitech/Semi.Avalonia"><bdi dir="ltr">Semi.Avalonia</bdi></a></li>
+<li><strong>فونت‌ها:</strong> <bdi dir="ltr">Manrope</bdi>، <bdi dir="ltr">Vazirmatn</bdi> و <bdi dir="ltr">JetBrains Mono</bdi> (تحت مجوز <bdi dir="ltr">SIL Open Font License</bdi>)</li>
+</ul>
+
+<h3>مجوز</h3>
+
+<p><bdi dir="ltr">Glide</bdi> تحت <a href="LICENSE">مجوز عمومی گنو نسخهٔ ۳ (<bdi dir="ltr">GPL-3.0</bdi>)</a> منتشر می‌شود.</p>
+
+<p>کپی، تغییر و توزیع مجدد این نرم‌افزار مطابق شرایط <bdi dir="ltr">GPL-3.0</bdi> مجاز است، به شرط رعایت الزامات مجوز و حفظ اطلاعیه‌های حقوق نشر و مجوزهای مربوطه.</p>
+
+<p>برای جزئیات بیشتر دربارهٔ حقوق نشر و ارجاع به سازندگان، فایل <a href="NOTICE.md"><bdi dir="ltr">NOTICE.md</bdi></a> را مطالعه کنید.</p>
+
+<p><strong>مخزن رسمی پروژه:</strong> <a href="https://github.com/BlackkCore/Glide"><bdi dir="ltr">Glide by BlackCore</bdi></a></p>
+
+</section>
 </div>
 
 <div align="center" dir="rtl">

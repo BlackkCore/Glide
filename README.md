@@ -286,14 +286,42 @@ dotnet publish -c Release -r win-x64 --self-contained true -o ../../out
 
 Put a `bin` folder with the engines next to `Glide.exe`, or let **Check update** download them after the first start.
 
-## Credits and license
 
-Glide is built on [v2rayN](https://github.com/2dust/v2rayN) by [2dust](https://github.com/2dust) and contributors. The networking is all theirs; Glide redesigns the desktop experience.
 
+
+## Credits and License
+
+**Glide** is developed and maintained by
+[BlackCore](https://github.com/BlackkCore).
+
+Built upon [v2rayN](https://github.com/2dust/v2rayN)
+by [2dust](https://github.com/2dust) and its contributors,
+Glide introduces a redesigned desktop experience
+while retaining the upstream networking capabilities.
+
+### Development & Attribution
+
+- **Developer & Maintainer:** [BlackCore](https://github.com/BlackkCore)
+- **Original Contributions:** © 2026 BlackCore and respective contributors.
+- **Upstream Project:** [v2rayN](https://github.com/2dust/v2rayN)
 - **Engines:** [Xray](https://github.com/XTLS/Xray-core), [sing-box](https://github.com/SagerNet/sing-box), [mihomo](https://github.com/MetaCubeX/mihomo).
-- **Interface:** [Avalonia](https://avaloniaui.net/) with [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia).
-- **Fonts:** [Manrope](https://github.com/sharanda/manrope), [Vazirmatn](https://github.com/rastikerdar/vazirmatn) and [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono), under the [SIL Open Font License](v2rayN/v2rayN.Desktop/Assets/Fonts/OFL.txt).
-- **License:** [GPL-3.0](LICENSE), like v2rayN.
+- **Interface:** [Avalonia](https://avaloniaui.net/) and [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia).
+- **Fonts:** Manrope, Vazirmatn, and JetBrains Mono (SIL Open Font License).
+
+### License
+
+Glide is distributed under the
+[GNU General Public License v3.0](LICENSE).
+
+Redistribution and modification are permitted
+under GPL-3.0, provided all applicable license
+conditions and copyright notices are preserved.
+
+For copyright details and attribution information,
+see [NOTICE.md](NOTICE.md).
+
+**Official Project:** [Glide by BlackCore](https://github.com/BlackkCore/Glide)
+
 
 <div align="center">
 <br>

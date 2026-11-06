@@ -22,20 +22,20 @@
 [![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&logo=github&label=Release&color=5850EC)](https://github.com/BlackkCore/Glide/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&logo=github&label=Downloads&color=5850EC)](https://github.com/BlackkCore/Glide/releases)
 [![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?style=flat-square&logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
-[![Persian](https://img.shields.io/badge/UI-English%20%7C%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-5850EC?style=flat-square)](README.md)
+[![Languages](https://img.shields.io/badge/UI-EN%20%7C%20FA-5850EC?style=flat-square)](README.md)
 [![License](https://img.shields.io/badge/License-GPL--3.0-555?style=flat-square)](LICENSE)
 
 <br>
 
-<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><img alt="دانلود نصب‌کننده" src="https://img.shields.io/badge/%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%86%D8%B5%D8%A8%E2%80%8C%DA%A9%D9%86%D9%86%D8%AF%D9%87%20(x64)-5850EC?style=for-the-badge&logo=windows&logoColor=white"></a>
-&nbsp;
-<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><img alt="دانلود نسخهٔ قابل‌حمل" src="https://img.shields.io/badge/%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%86%D8%B3%D8%AE%D9%87%D9%94%20%D9%82%D8%A7%D8%A8%D9%84%E2%80%8C%D8%AD%D9%85%D9%84-1F2937?style=for-the-badge&logo=files&logoColor=white"></a>
+<p dir="rtl" align="center">
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><strong>📥 دانلود نسخهٔ نصبی (x64)</strong></a>
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><strong>📦 دانلود نسخهٔ قابل‌حمل</strong></a>
+</p>
 
-<br><br>
-
-<a href="https://g1ide.pages.dev/"><img src="https://img.shields.io/badge/Official_Website-Visit_Glide-5850EC?style=for-the-badge&logo=googlechrome&logoColor=white" alt="ورود به وب‌سایت رسمی Glide"></a>
-
-<br><br>
+<p dir="rtl" align="center">
+  🌐 <a href="https://g1ide.pages.dev/"><strong>بازدید از وب‌سایت رسمی Glide</strong></a>
+</p>
 
 <sub dir="rtl">ویندوز ۳۲ بیتی دارید؟ فایل مناسب را از <a href="https://github.com/BlackkCore/Glide/releases/latest">صفحهٔ دانلود</a> بگیرید.</sub>
 

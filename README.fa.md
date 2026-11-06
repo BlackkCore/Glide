@@ -31,6 +31,12 @@
 &nbsp;
 <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><img alt="دانلود نسخهٔ قابل‌حمل" src="https://img.shields.io/badge/%D8%AF%D8%A7%D9%86%D9%84%D9%88%D8%AF-%D9%86%D8%B3%D8%AE%D9%87%D9%94%20%D9%82%D8%A7%D8%A8%D9%84%E2%80%8C%D8%AD%D9%85%D9%84-1F2937?style=for-the-badge&logo=files&logoColor=white"></a>
 
+<br><br>
+
+<a href="https://g1ide.pages.dev/"><img src="https://img.shields.io/badge/Official_Website-Visit_Glide-5850EC?style=for-the-badge&logo=googlechrome&logoColor=white" alt="ورود به وب‌سایت رسمی Glide"></a>
+
+<br><br>
+
 <sub dir="rtl">ویندوز ۳۲ بیتی دارید؟ فایل مناسب را از <a href="https://github.com/BlackkCore/Glide/releases/latest">صفحهٔ دانلود</a> بگیرید.</sub>
 
 <br><br>

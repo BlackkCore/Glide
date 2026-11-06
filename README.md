@@ -22,10 +22,18 @@ Pick a server, press one button, and know for sure when you're connected.
 
 <br>
 
+
 <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><img src="https://img.shields.io/badge/Download-Installer%20(x64)-5850EC?style=for-the-badge&logo=windows&logoColor=white" alt="Download the Glide installer for Windows"></a>
 <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><img src="https://img.shields.io/badge/Download-Portable%20zip-141722?style=for-the-badge&logo=files&logoColor=white" alt="Download the portable zip"></a>
 
+<br><br>
+
+<a href="https://g1ide.pages.dev/"><img src="https://img.shields.io/badge/Official_Website-Visit_Glide-5850EC?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Visit the official Glide website"></a>
+
+<br><br>
+
 <sub>Windows 10 & 11 · English & فارسی · Powered by Xray, sing-box and mihomo · <a href="https://github.com/BlackkCore/Glide/releases/latest">32-bit and all files</a></sub>
+
 
 <br><br>
 

@@ -1,7 +1,7 @@
 name: release Glide for Windows
 
 # Builds Glide for 64-bit (x64) and 32-bit (x86) Windows.
-# Run it from the Actions tab with a release tag (e.g. 1.0.1) to build, sign and publish.
+# Run it from the Actions tab with a release tag (e.g. 1.1.1) to build, sign and publish.
 #
 # The release is a DRAFT from the first job until the last: draft-release creates it, every upload goes to the draft,
 # verify-release-sources checks the assets, the signatures and the contents of the draft, and only then does publish
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: 'Release tag, e.g. 1.0.1 (empty = build only)'
+        description: 'Release tag, e.g. 1.1.1 (empty = build only)'
         required: false
         type: string
       bundle_geolite_data:

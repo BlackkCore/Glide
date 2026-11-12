@@ -1,7 +1,7 @@
 namespace ServiceLib.Common;
 
 /// <summary>
-/// Glide: the signed engine index. The portable version updates Xray, sing-box and mihomo independently of Glide
+/// Glide: the signed engine index. Glide (installed and portable) updates Xray, sing-box and mihomo independently of Glide
 /// releases, but only to builds that Glide's maintainers have vetted and listed in this file. It is signed with the
 /// same ECDSA P-256 release key as app updates (see <see cref="UpdateSignatureKey"/>), so a tampered release or
 /// connection cannot make the app run an engine nobody vetted.

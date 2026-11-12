@@ -162,7 +162,7 @@ public partial class UpdateService(DownloadService downloadService, Config confi
         }
     }
 
-    #region Signed engine index (portable Windows version)
+    #region Signed engine index (Windows)
 
     /// <summary>
     /// Glide: Xray, sing-box and mihomo are updated, portable or installed, only to builds listed in the signed engine

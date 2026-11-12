@@ -8,12 +8,12 @@ public sealed record CoreIndexOptions(string IndexUrl, string? PublicKeyPem, str
     public static CoreIndexOptions Default => new(CoreIndexClient.IndexUrl, UpdateSignatureKey.PublicKeyPem, CoreIndexState.DefaultPath());
 }
 
-/// <summary>What the portable "Check update" does for one engine, decided from a verified index.</summary>
+/// <summary>What "Check update" does for one engine, decided from a verified index.</summary>
 public sealed record CoreUpdateDecision(CoreIndexPick? Pick, bool UpToDate, string? Message);
 
 /// <summary>
-/// Glide: fetches the signed engine index and decides what an engine may be updated to. Used only by the portable
-/// version, and only on Windows. The index address and how it is verified are described in SECURITY.md.
+/// Glide: fetches the signed engine index and decides what an engine may be updated to. Used on Windows only,
+/// installed or portable. The index address and how it is verified are described in SECURITY.md.
 /// </summary>
 public static class CoreIndexClient
 {

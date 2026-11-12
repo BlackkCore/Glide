@@ -210,7 +210,7 @@ The engines are included in every download.
 
 ## Glide vs. v2rayN
 
-**Glide is v2rayN underneath; only the desktop interface is new.** It keeps upstream's protocols, transports, configuration format, engines, routing, DNS and TUN, and redesigns how you use them.
+**Glide is v2rayN underneath, with a new interface and some functional improvements.** It keeps upstream's protocols, transports, configuration format, engines, routing, DNS and TUN. On top of that it redesigns how you use them and adds a verified connection status, signed updates (Glide, the engines and the rule files), an installer for all users and a Persian interface.
 
 | From v2rayN | Added or redesigned in Glide |
 | :--- | :--- |
@@ -333,7 +333,7 @@ while retaining the upstream networking capabilities.
 - **Engines:** [Xray](https://github.com/XTLS/Xray-core), [sing-box](https://github.com/SagerNet/sing-box), [mihomo](https://github.com/MetaCubeX/mihomo).
 - **Interface:** [Avalonia](https://avaloniaui.net/) and [Semi.Avalonia](https://github.com/irihitech/Semi.Avalonia).
 - **Fonts:** Manrope, Vazirmatn, and JetBrains Mono (SIL Open Font License).
-- **Routing data** (downloaded in the app on first use, not bundled): `geosite.dat` and `geoip.dat` from [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat) (GPL-3.0, built on [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community), MIT), `Country.mmdb` and `geoip-only-cn-private.dat` from [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip) (CC-BY-SA-4.0) and `geoip.metadb` from [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) (GPL-3.0). This product includes GeoLite Data created by MaxMind, available from https://www.maxmind.com.
+- **Routing data** (`geosite.dat` is included in the release packages; the other files are downloaded in the app on first use): `geosite.dat` and `geoip.dat` from [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat) (GPL-3.0, built on [v2fly/domain-list-community](https://github.com/v2fly/domain-list-community), MIT), `Country.mmdb` and `geoip-only-cn-private.dat` from [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip) (CC-BY-SA-4.0) and `geoip.metadb` from [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat) (GPL-3.0). This product includes GeoLite Data created by MaxMind, available from https://www.maxmind.com.
 
 ### License
 

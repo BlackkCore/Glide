@@ -13,7 +13,7 @@ on:
         required: false
         type: string
         default: '["x64"]'
-      version: # release tag (e.g. 1.0.1); empty = the <Version> in Directory.Build.props
+      version: # release tag (e.g. 1.1.1); empty = the <Version> in Directory.Build.props
         required: false
         type: string
         default: ''

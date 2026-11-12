@@ -2848,4 +2848,14 @@
   <data name="MsgCoreInstallFailed" xml:space="preserve">
     <value>{0} نصب نشد؛ نسخهٔ قبلی نگه داشته شد. {1}</value>
   </data>
+
+  <data name="TipCoreNotInstalled" xml:space="preserve">
+    <value>نصب نشده است. «به‌روزرسانی همه» آن را نصب می‌کند.</value>
+  </data>
+  <data name="MsgCoreUacDeclined" xml:space="preserve">
+    <value>اجازهٔ مدیر سیستم رد شد؛ {0} تغییر نکرد.</value>
+  </data>
+  <data name="TipCoreUpdateAvailable" xml:space="preserve">
+    <value>نصب‌شده: {0}. موجود: {1}</value>
+  </data>
 </root>

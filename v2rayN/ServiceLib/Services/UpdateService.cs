@@ -165,11 +165,12 @@ public partial class UpdateService(DownloadService downloadService, Config confi
     #region Signed engine index (portable Windows version)
 
     /// <summary>
-    /// Glide: Xray, sing-box and mihomo are updated in the portable version only to builds listed in the signed engine
-    /// index (see CoreIndexClient). The installed version never updates engines on its own.
+    /// Glide: Xray, sing-box and mihomo are updated, portable or installed, only to builds listed in the signed engine
+    /// index (see CoreIndexClient). Installed, the files go into the protected program folder through a short-lived
+    /// administrator process that checks the index again (see ElevatedCoreInstall).
     /// </summary>
     public static bool UsesCoreIndex(ECoreType type)
-        => OperatingSystem.IsWindows() && !GlidePaths.IsInstalled && CoreIndexKeys.For(type) != null;
+        => OperatingSystem.IsWindows() && CoreIndexKeys.For(type) != null;
 
     private readonly Dictionary<ECoreType, CoreIndexAsset> _pendingAssets = [];
 
@@ -195,6 +196,11 @@ public partial class UpdateService(DownloadService downloadService, Config confi
         if (load.Document == null)
         {
             return new UpdateResult(false, load.Message);
+        }
+
+        if (load.RawJson != null && load.RawSignature != null)
+        {
+            VerifiedCoreDownloads.LatestIndex = (load.RawJson, load.RawSignature);
         }
 
         var installed = await GetCoreVersion(type, cancellationToken);
@@ -382,6 +388,21 @@ public partial class UpdateService(DownloadService downloadService, Config confi
     {
         try
         {
+            return await InstalledCoreVersion(type, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            Logging.SaveLog(_tag, ex);
+            await UpdateFunc(false, ex.Message);
+            return new SemanticVersion("");
+        }
+    }
+
+    /// <summary>The version of the engine in its bin folder; 0.0.0 when it is not installed (or says nothing readable).</summary>
+    public static async Task<SemanticVersion> InstalledCoreVersion(ECoreType type, CancellationToken cancellationToken = default)
+    {
+        try
+        {
             var coreInfo = CoreInfoManager.Instance.GetCoreInfo(type);
             var filePath = string.Empty;
             foreach (var name in coreInfo.CoreExes)
@@ -406,10 +427,9 @@ public partial class UpdateService(DownloadService downloadService, Config confi
             var version = SemVerRegex().Match(echo).Groups["version"].Value;
             return new SemanticVersion(version);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
             Logging.SaveLog(_tag, ex);
-            await UpdateFunc(false, ex.Message);
             return new SemanticVersion("");
         }
     }

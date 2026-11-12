@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Builds (and optionally signs / verifies) Glide's signed engine index: cores-index.json.
-// The portable Glide updates Xray, sing-box and mihomo only to builds listed in this file
+// Glide (installed and portable) updates Xray, sing-box and mihomo only to builds listed in this file
 // (see SECURITY.md). No dependencies: Node 20+, the GitHub CLI `gh`.
 //
 //   node scripts/cores/make-cores-index.mjs --out cores-index.json --min-glide 1.1.0 \

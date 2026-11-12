@@ -2300,6 +2300,33 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("MsgCoreInstallFailed", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Not installed. Update all will install it.
+        /// </summary>
+        public static string TipCoreNotInstalled {
+            get {
+                return ResourceManager.GetString("TipCoreNotInstalled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Administrator permission was declined; {0} was not changed.
+        /// </summary>
+        public static string MsgCoreUacDeclined {
+            get {
+                return ResourceManager.GetString("MsgCoreUacDeclined", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Installed: {0}. Available: {1}
+        /// </summary>
+        public static string TipCoreUpdateAvailable {
+            get {
+                return ResourceManager.GetString("TipCoreUpdateAvailable", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   查找类似 Not support protocol &apos;{0}&apos; 的本地化字符串。

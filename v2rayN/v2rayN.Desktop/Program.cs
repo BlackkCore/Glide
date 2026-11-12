@@ -13,6 +13,16 @@ internal class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        // Glide: the short-lived administrator process that installs engines into Program Files (no window, no settings,
+        // no single-instance check; it re-verifies the signed engine list itself).
+        if (args.Length > 0 && args[0] == ElevatedCoreInstall.Verb)
+        {
+            Environment.Exit(Utils.IsWindows() && GlidePaths.IsInstalled
+                ? ElevatedCoreInstall.Run(args[1..], GlidePaths.ProgramRoot, UpdateSignatureKey.PublicKeyPem, DateTimeOffset.UtcNow, new SemanticVersion(Utils.GetVersionInfo()))
+                : ElevatedCoreInstall.BadArguments);
+            return;
+        }
+
         if (OnStartup(args) == false)
         {
             Environment.Exit(0);

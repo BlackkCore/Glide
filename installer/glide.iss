@@ -71,6 +71,11 @@ Name: "{autodesktop}\Glide"; Filename: "{app}\Glide.exe"; Tasks: desktopicon
 [UninstallDelete]
 // Left behind by in-app updates (the updater renames itself before replacing).
 Type: files; Name: "{app}\*.tmp"
+// Left behind by engine updates (the kept previous engine and the replay floor of the signed engine list).
+Type: filesandordirs; Name: "{app}\bin\xray\.glide-previous"
+Type: filesandordirs; Name: "{app}\bin\sing_box\.glide-previous"
+Type: filesandordirs; Name: "{app}\bin\mihomo\.glide-previous"
+Type: files; Name: "{app}\bin\cores-index-state.json"
 
 [Run]
 // Started as the user who ran setup, not with setup's administrator rights.

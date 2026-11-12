@@ -1,6 +1,6 @@
 namespace ServiceLib.Services;
 
-public sealed record CoreIndexLoad(CoreIndexDocument? Document, string Message);
+public sealed record CoreIndexLoad(CoreIndexDocument? Document, string Message, string? RawJson = null, string? RawSignature = null);
 
 /// <summary>Where the index comes from and which key and state it is checked against. Production uses <see cref="Default"/>; tests use their own.</summary>
 public sealed record CoreIndexOptions(string IndexUrl, string? PublicKeyPem, string StatePath)
@@ -65,7 +65,7 @@ public static class CoreIndexClient
 
         // Remembered only after a fully valid index, so a bad file can never raise the bar.
         CoreIndexState.Save(statePath, result.Document!.Sequence);
-        return new CoreIndexLoad(result.Document, "");
+        return new CoreIndexLoad(result.Document, "", json, signature);
     }
 
     public static CoreUpdateDecision Decide(
@@ -127,6 +127,9 @@ public static class VerifiedCoreInstall
 public static class VerifiedCoreDownloads
 {
     private static readonly ConcurrentDictionary<string, CoreIndexAsset> Items = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>The newest engine list this session verified, as downloaded; handed on so the administrator process can verify it again itself.</summary>
+    public static (string Json, string Signature)? LatestIndex { get; set; }
 
     public static void Register(string zipPath, CoreIndexAsset asset) => Items[Path.GetFullPath(zipPath)] = asset;
 

@@ -15,6 +15,7 @@ public enum CoreInstallError
     TooLarge,
     SwapFailed,
     NotVerified,
+    NoSpace,
 }
 
 public sealed record CoreInstallResult(bool Ok, CoreInstallError Error, string Message)
@@ -45,50 +46,98 @@ public static class CoreInstaller
         }
         try
         {
-            var length = new FileInfo(zipPath).Length;
-            if (length != asset.Size)
-            {
-                return Fail(CoreInstallError.SizeMismatch, $"The download is {length} bytes; the signed list says {asset.Size}.");
-            }
-            using var stream = File.OpenRead(zipPath);
-            var hash = Convert.ToHexString(SHA256.HashData(stream)).ToLowerInvariant();
-            return hash.Equals(asset.Sha256, StringComparison.OrdinalIgnoreCase)
-                ? CoreInstallResult.Success
-                : Fail(CoreInstallError.HashMismatch, "The download does not match the signed list.");
+            using var stream = OpenLocked(zipPath);
+            return VerifyArchive(stream, asset);
         }
-        catch (IOException ex)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             return Fail(CoreInstallError.MissingFile, ex.Message);
         }
     }
 
-    public static CoreInstallResult Install(string zipPath, CoreIndexAsset asset, string binDir, long maxFileBytes = DefaultMaxFileBytes)
-    {
-        var verified = VerifyArchive(zipPath, asset);
-        if (!verified.Ok)
-        {
-            return verified;
-        }
+    /// <summary>Open for reading with writes and deletes denied to others, so what is verified is what is extracted.</summary>
+    private static FileStream OpenLocked(string path) => new(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-        Directory.CreateDirectory(binDir);
-        var staging = Path.Combine(binDir, StagingPrefix + Guid.NewGuid().ToString("N"));
+    private static CoreInstallResult VerifyArchive(FileStream stream, CoreIndexAsset asset)
+    {
+        if (stream.Length != asset.Size)
+        {
+            return Fail(CoreInstallError.SizeMismatch, $"The download is {stream.Length} bytes; the signed list says {asset.Size}.");
+        }
+        stream.Position = 0;
+        var hash = Convert.ToHexString(SHA256.HashData(stream)).ToLowerInvariant();
+        stream.Position = 0;
+        return hash.Equals(asset.Sha256, StringComparison.OrdinalIgnoreCase)
+            ? CoreInstallResult.Success
+            : Fail(CoreInstallError.HashMismatch, "The download does not match the signed list.");
+    }
+
+    /// <summary>Staging plus the kept previous files need room: engines unpack to a few times the zip's size.</summary>
+    public const int SpaceFactor = 4;
+
+    private static long FreeBytes(string folder) => new DriveInfo(Path.GetPathRoot(Path.GetFullPath(folder))!).AvailableFreeSpace;
+
+    /// <summary>ERROR_HANDLE_DISK_FULL (0x27) or ERROR_DISK_FULL (0x70).</summary>
+    private static bool IsDiskFull(IOException ex) => (ex.HResult & 0xFFFF) is 0x27 or 0x70;
+
+    private static CoreInstallError FailureKind(Exception ex, CoreInstallError otherwise)
+        => ex is IOException io && IsDiskFull(io) ? CoreInstallError.NoSpace : otherwise;
+
+    /// <param name="freeBytes">Free space on the engine folder's drive; tests replace it.</param>
+    public static CoreInstallResult Install(string zipPath, CoreIndexAsset asset, string binDir, long maxFileBytes = DefaultMaxFileBytes, Func<string, long>? freeBytes = null)
+    {
+        FileStream stream;
         try
         {
-            Directory.CreateDirectory(staging);
-            var extracted = Extract(zipPath, asset, staging, maxFileBytes);
-            return extracted.Ok ? Swap(asset, staging, binDir) : extracted;
+            // One handle for the check and the extraction: the file can't be swapped in between.
+            stream = OpenLocked(zipPath);
         }
-        finally
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            TryDeleteDirectory(staging);
+            return Fail(CoreInstallError.MissingFile, ex.Message);
+        }
+
+        using (stream)
+        {
+            var verified = VerifyArchive(stream, asset);
+            if (!verified.Ok)
+            {
+                return verified;
+            }
+
+            string? staging = null;
+            try
+            {
+                Directory.CreateDirectory(binDir);
+                if ((freeBytes ?? FreeBytes)(binDir) < asset.Size * SpaceFactor)
+                {
+                    return Fail(CoreInstallError.NoSpace, "There is not enough free disk space.");
+                }
+                staging = Path.Combine(binDir, StagingPrefix + Guid.NewGuid().ToString("N"));
+                Directory.CreateDirectory(staging);
+                var extracted = Extract(stream, asset, staging, maxFileBytes);
+                return extracted.Ok ? Swap(asset, staging, binDir) : extracted;
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                // The engine folder itself can't be written (permissions): nothing was replaced.
+                return Fail(FailureKind(ex, CoreInstallError.SwapFailed), ex.Message);
+            }
+            finally
+            {
+                if (staging != null)
+                {
+                    TryDeleteDirectory(staging);
+                }
+            }
         }
     }
 
-    private static CoreInstallResult Extract(string zipPath, CoreIndexAsset asset, string staging, long maxFileBytes)
+    private static CoreInstallResult Extract(Stream zipStream, CoreIndexAsset asset, string staging, long maxFileBytes)
     {
         try
         {
-            using var zip = ZipFile.OpenRead(zipPath);
+            using var zip = new ZipArchive(zipStream, ZipArchiveMode.Read, leaveOpen: true);
             foreach (var (name, expected) in asset.Files)
             {
                 // Normally the file keeps its name; a signed "sources" entry says which zip entry becomes this file.
@@ -140,7 +189,7 @@ public static class CoreInstaller
         }
         catch (Exception ex) when (ex is InvalidDataException or IOException or UnauthorizedAccessException)
         {
-            return Fail(CoreInstallError.BadArchive, ex.Message);
+            return Fail(FailureKind(ex, CoreInstallError.BadArchive), ex.Message);
         }
     }
 
@@ -179,7 +228,7 @@ public static class CoreInstaller
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
             Rollback(installed, movedAway);
-            return Fail(CoreInstallError.SwapFailed, ex.Message);
+            return Fail(FailureKind(ex, CoreInstallError.SwapFailed), ex.Message);
         }
     }
 

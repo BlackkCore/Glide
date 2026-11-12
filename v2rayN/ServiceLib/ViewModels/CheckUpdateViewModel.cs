@@ -60,6 +60,38 @@ public partial class CheckUpdateViewModel : MyReactiveObject
         models.Add(GetGeoFileCheckUpdateModel());
 
         CheckUpdateModels.ReplaceRange(models);
+        _ = ShowInstalledVersions();
+    }
+
+    private static bool IsEngine(ECoreType? type) => type is ECoreType.Xray or ECoreType.mihomo or ECoreType.sing_box;
+
+    /// <summary>What is installed, or that the engine is missing and Update all will install it (verified).</summary>
+    private async Task ShowInstalledVersions()
+    {
+        foreach (var type in CheckUpdateModels.Select(m => m.CoreType).Where(IsEngine).ToList())
+        {
+            if (AppManager.Instance.LastCheckUpdateResults.ContainsKey(type!.Value))
+            {
+                continue;
+            }
+            var installed = await UpdateService.InstalledCoreVersion(type.Value);
+            await UpdateView(type, installed.Equals(new SemanticVersion(0, 0, 0))
+                ? ResUI.TipCoreNotInstalled
+                : string.Format(ResUI.TipInstalledVersion, installed.ToStandardVersionString("v")));
+        }
+    }
+
+    private static async Task<string> AvailableMessage(ECoreType type, SemanticVersion available)
+    {
+        var name = Global.CoreDisplayName(type);
+        if (!IsEngine(type))
+        {
+            return string.Format(ResUI.MsgCheckUpdateHasNewVersion, name, available);
+        }
+        var installed = await UpdateService.InstalledCoreVersion(type);
+        return installed.Equals(new SemanticVersion(0, 0, 0))
+            ? $"{ResUI.TipCoreNotInstalled} {string.Format(ResUI.MsgCheckUpdateHasNewVersion, name, available)}"
+            : string.Format(ResUI.TipCoreUpdateAvailable, installed.ToStandardVersionString("v"), available.ToStandardVersionString("v"));
     }
 
     private CheckUpdateModel GetCheckUpdateModel(ECoreType coreType)
@@ -173,7 +205,7 @@ public partial class CheckUpdateViewModel : MyReactiveObject
             var result = await updateService.CheckHasUpdateOnly(item.CoreType.Value, item.IsCheckPreRelease);
             if (result.Success && result.Version != null)
             {
-                await UpdateView(item.CoreType, string.Format(ResUI.MsgCheckUpdateHasNewVersion, Global.CoreDisplayName(item.CoreType.Value), result.Version));
+                await UpdateView(item.CoreType, await AvailableMessage(item.CoreType.Value, result.Version));
             }
             else
             {
@@ -298,15 +330,22 @@ public partial class CheckUpdateViewModel : MyReactiveObject
         {
             await UpdateFinishedSub(false);
             await Task.Delay(2000);
-            await UpgradeCore();
-
-            if (_lstUpdated.Any(x => x.CoreType == _v2rayN && x.IsFinished == true))
+            try
             {
-                await Task.Delay(1000);
-                await UpgradeN();
+                await UpgradeCore();
+
+                if (_lstUpdated.Any(x => x.CoreType == _v2rayN && x.IsFinished == true))
+                {
+                    await Task.Delay(1000);
+                    await UpgradeN();
+                }
             }
-            await Task.Delay(1000);
-            await UpdateFinishedSub(true);
+            finally
+            {
+                // Whatever happened, the engine that was stopped for the update starts again.
+                await Task.Delay(1000);
+                await UpdateFinishedSub(true);
+            }
         }
     }
 
@@ -403,6 +442,7 @@ public partial class CheckUpdateViewModel : MyReactiveObject
 
     private async Task UpgradeCore()
     {
+        var elevated = new List<(ECoreType Type, string Zip)>();
         foreach (var item in _lstUpdated)
         {
             if (item.FileName.IsNullOrEmpty() || item.IsGeoFile)
@@ -418,6 +458,14 @@ public partial class CheckUpdateViewModel : MyReactiveObject
 
             var coreTypeStr = item.CoreType?.ToString() ?? "";
             var toPath = Utils.GetBinPath("", coreTypeStr);
+
+            // Glide: installed, engines live in the protected program folder; they are collected here and installed by one
+            // short-lived administrator process (one permission prompt), which checks everything again itself.
+            if (item.CoreType.HasValue && UpdateService.UsesCoreIndex(item.CoreType.Value) && GlidePaths.IsInstalled)
+            {
+                elevated.Add((item.CoreType.Value, fileName));
+                continue;
+            }
 
             // Glide: an engine from the signed index goes through the staged, verified installer; an engine zip that was
             // not checked against the index is never extracted (fail closed).
@@ -479,6 +527,51 @@ public partial class CheckUpdateViewModel : MyReactiveObject
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);
+            }
+        }
+
+        if (elevated.Count > 0)
+        {
+            await InstallElevated(elevated);
+        }
+    }
+
+    private async Task InstallElevated(List<(ECoreType Type, string Zip)> jobs)
+    {
+        var index = VerifiedCoreDownloads.LatestIndex;
+        var ready = jobs.Where(j => index != null && VerifiedCoreDownloads.TryGet(j.Zip, out _)).ToList();
+        try
+        {
+            foreach (var j in jobs.Except(ready))
+            {
+                await UpdateView(j.Type, string.Format(ResUI.MsgCoreVerifyFailed, Global.CoreDisplayName(j.Type)));
+            }
+            if (ready.Count == 0)
+            {
+                return;
+            }
+
+            var outcomes = await ElevatedCoreInstallLauncher.RunAsync(ready, index!.Value.Json, index.Value.Signature, Utils.GetTempPath());
+            foreach (var (type, outcome) in outcomes)
+            {
+                var name = Global.CoreDisplayName(type);
+                await UpdateView(type, outcome switch
+                {
+                    ElevatedInstallOutcome.Installed => ResUI.MsgUpdateV2rayCoreSuccessfully,
+                    ElevatedInstallOutcome.Declined => string.Format(ResUI.MsgCoreUacDeclined, name),
+                    _ => string.Format(ResUI.MsgCoreInstallFailed, name, ""),
+                });
+            }
+        }
+        finally
+        {
+            foreach (var (_, zip) in jobs)
+            {
+                VerifiedCoreDownloads.Remove(zip);
+                if (File.Exists(zip))
+                {
+                    File.Delete(zip);
+                }
             }
         }
     }

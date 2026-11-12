@@ -1,7 +1,7 @@
 name: publish signed engine index
 
 # Builds Glide's signed engine index (cores-index.json) and uploads it to the fixed release "cores-index".
-# The portable Glide updates Xray, sing-box and mihomo only to builds listed in it.
+# Glide (installed and portable) updates Xray, sing-box and mihomo only to builds listed in it.
 #
 # Run it by hand from the Actions tab AFTER you have vetted the engine releases (release notes, advisories). The index must be renewed
 # before it expires (default 75 days, the app refuses anything longer than 120): run it again with empty version fields to re-sign.
@@ -139,7 +139,7 @@ jobs:
         set -euo pipefail
         gh release view cores-index -R "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
           || gh release create cores-index -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "Engine index" \
-               --notes "Glide's signed list of vetted Xray, sing-box and mihomo builds. Read by the portable Glide; not a program. Do not delete."
+               --notes "Glide's signed list of vetted Xray, sing-box and mihomo builds. Read by Glide (installed and portable); not a program. Do not delete."
         gh release upload cores-index cores-index.json cores-index.json.sig256 -R "$GITHUB_REPOSITORY" --clobber
 
     - name: Verify what was published

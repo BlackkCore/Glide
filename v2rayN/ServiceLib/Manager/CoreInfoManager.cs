@@ -51,26 +51,25 @@ public sealed class CoreInfoManager
     }
 
     public List<ECoreType> GetCheckUpdateCoreTypes()
+        => GetCheckUpdateCoreTypes(IsCheckUpdateSupported(ECoreType.v2rayN), Utils.IsWindows() && Environment.OSVersion.Version.Major < 10);
+
+    /// <summary>
+    /// Glide: the same rows for the installer and the portable zip, and for 64-bit and 32-bit builds (Glide ships both, and
+    /// the signed engine list has both). Only Windows older than 10 gets no engine rows.
+    /// </summary>
+    public static List<ECoreType> GetCheckUpdateCoreTypes(bool appUpdatable, bool windowsBefore10)
     {
         var lst = new List<ECoreType>();
-
-        if (RuntimeInformation.ProcessArchitecture != Architecture.X86)
+        if (appUpdatable)
         {
-            if (IsCheckUpdateSupported(ECoreType.v2rayN))
-            {
-                lst.Add(ECoreType.v2rayN);
-            }
-
-            // Glide (S-01): installed in Program Files, cores come only inside signed app updates
-            // (core downloads aren't verified yet, S-03, and writing them would need administrator rights).
-            if (!(Utils.IsWindows() && Environment.OSVersion.Version.Major < 10) && !GlidePaths.IsInstalled)
-            {
-                lst.Add(ECoreType.Xray);
-                lst.Add(ECoreType.mihomo);
-                lst.Add(ECoreType.sing_box);
-            }
+            lst.Add(ECoreType.v2rayN);
         }
-
+        if (!windowsBefore10)
+        {
+            lst.Add(ECoreType.Xray);
+            lst.Add(ECoreType.mihomo);
+            lst.Add(ECoreType.sing_box);
+        }
         return lst;
     }
 

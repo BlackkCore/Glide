@@ -106,8 +106,10 @@ internal class UpgradeApp
 
                     Directory.CreateDirectory(Path.GetDirectoryName(entryOutputPath)!);
                     //In the bin folder, if the file already exists, it will be skipped
-                    // Glide (S-01): an installed Glide gets new cores only with app updates, so they are replaced.
-                    if (fullName.StartsWith("bin", pathComparison) && File.Exists(entryOutputPath) && !Utils.IsInstalled)
+                    // Glide: installed or portable, engines are updated through the signed engine list; an app update must
+                    // not put an older bundled engine over a newer one. Installed, other bin files (helpers) are still replaced.
+                    if (fullName.StartsWith("bin", pathComparison) && File.Exists(entryOutputPath)
+                        && (!Utils.IsInstalled || IsEngineFile(fullName)))
                     {
                         continue;
                     }
@@ -162,6 +164,9 @@ internal class UpgradeApp
         }
         return archive.Entries.OrderBy(IsSelf);
     }
+
+    private static bool IsEngineFile(string relativePath)
+        => new[] { "bin/xray/", "bin/sing_box/", "bin/mihomo/" }.Any(p => relativePath.StartsWith(p, Utils.GetPathComparison()));
 
     /// <summary>The zip, open for reading with writes and deletes denied to everyone else; null when it can't be.</summary>
     private static FileStream? OpenLocked(string fileName)

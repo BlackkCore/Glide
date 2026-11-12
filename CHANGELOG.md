@@ -9,7 +9,7 @@ Copies of 1.0.0 that are already installed check this repository for updates and
 ### Security
 - The installer now installs for all users into `Program Files`, where ordinary programs cannot change the executables that may run with administrator rights. Settings and downloaded data live in `%LOCALAPPDATA%\Glide`. A folder outside `Program Files` is refused.
 - In-app updates are accepted only when the zip carries a valid ECDSA P-256 signature (checked by Glide, and again by the updater on the locked file before extracting).
-- Engine updates in the portable version install only builds listed in a signed engine list (ECDSA, expiring, replay-protected). A download is checked against its signed size and SHA-256 before anything is replaced, each installed file is checked too, and the previous engine is kept.
+- Engine updates, installed or portable, install only builds listed in a signed engine list (ECDSA, expiring, replay-protected). Installed, a short-lived administrator process (one Windows permission prompt, Glide itself never runs as administrator for it) checks the list again, picks the build itself and writes into the protected program folder. A download is checked against its signed size and SHA-256 before anything is replaced, each installed file is checked too, and the previous engine is kept.
 - The proxy engines in each release are pinned to exact versions and checked against SHA-256 values when the release is built; the sing-box build is verified against its signed provenance; configuration import no longer copies executables.
 - Release packaging is a draft until every check passes; the release gate verifies GPG signatures, update signatures, contents and that the tag points at the build commit.
 
@@ -20,7 +20,7 @@ Copies of 1.0.0 that are already installed check this repository for updates and
 - MaxMind attribution in the About screen and the documentation.
 
 ### Changed
-- Xray, sing-box and mihomo have no pre-release update option in the portable version (nothing signed can exist for it).
+- The Updates screen shows Glide, Xray, sing-box, mihomo and the rule files in the installed and the portable version, on 64-bit and 32-bit builds; it shows each engine's installed version (or that it is missing and will be installed, verified). Xray, sing-box and mihomo have no pre-release update option (nothing signed can exist for it). A Glide update no longer replaces an engine that is already installed.
 - The language selector offers English and فارسی. A language saved by an earlier version falls back to English for display and is not overwritten.
 - The IP-to-country data files (`geoip.dat`, `Country.mmdb`, `geoip-only-cn-private.dat`, `geoip.metadb`) are no longer bundled; Glide downloads them in the app. `geosite.dat` is still included.
 - A failed download that is really a name-lookup (DNS) problem now says so, naming the host.

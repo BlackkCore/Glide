@@ -199,7 +199,7 @@ The engines are included in every download.
 
 - **A tidy sidebar** in three groups (Connect, Manage, App).
 - **Basic and advanced settings.** Everyday options first; *Show advanced settings* reveals the rest, and Ctrl+F searches them all.
-- **Update all** (portable version) updates Glide, the proxy engines (only to builds in Glide's signed engine list) and the rule files in one go. The installed version updates Glide with a signed update and ships the engines with each release.
+- **Update all** updates Glide, the proxy engines (only to builds in Glide's signed engine list) and the rule files in one go, in the installed and the portable version. Each can be switched off, and *Check for updates* only looks.
 - **Data usage** for today, this month, in total and per server, with an optional daily limit.
 - **Export diagnostics:** a zip of recent logs and settings for support, with addresses, passwords and tokens removed. Logs shorten addresses to the host name.
 - **Midnight aurora theme** in light, dark or auto, with a smooth crossfade, Windows 11 rounded corners and animations that follow Windows' *Animation effects* setting.
@@ -224,7 +224,7 @@ Glide follows [2dust/v2rayN](https://github.com/2dust/v2rayN): new upstream vers
 
 ## Updating
 
-- **Installed version:** open **Check update** in the sidebar and update Glide. The new version is downloaded, its signature is checked, and it is installed (Windows asks for administrator permission). The engines come with each Glide release; updating them separately is switched off in the installed version on purpose, to keep `Program Files` safe.
+- **Installed version:** open **Check update** in the sidebar and press **Update all**: Glide (signature checked), the proxy engines (only builds in Glide's signed engine list) and the rule files. Windows asks for administrator permission once when Glide or an engine is installed into `Program Files`; Glide itself keeps running without it. If you decline, nothing is changed.
 - **Portable version:** open **Check update** and press **Update all** to update Glide, the proxy engines (only builds that Glide's maintainers have vetted and signed) and the rule files together. Or extract the new zip over the old folder; your servers and settings live in `guiConfigs` and are kept.
 
 > [!IMPORTANT]

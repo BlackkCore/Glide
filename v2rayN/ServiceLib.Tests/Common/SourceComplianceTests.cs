@@ -134,4 +134,52 @@ public class SourceComplianceTests
         await Regex.Matches(Read(".github", "workflows", "build-windows-desktop.yml"), @"GPG_PASSPHRASE: \$\{\{ secrets\.GPG_PASSPHRASE \}\}").Count.Should().BeEqualTo(3);
         await Read(".github", "workflows", "pub-key.yml").Contains("GPG_PASSPHRASE").Should().BeFalse();
     }
+
+    [Test]
+    public async Task EngineIndexWorkflow_IsManualOnly_KeepsTheKeyInOneProtectedStep_AndNeverBecomesTheLatestRelease()
+    {
+        var wf = Read(".github", "workflows", "publish-cores-index.yml");
+        // manual start only: no push, schedule or pull_request trigger
+        await Regex.IsMatch(wf, @"(?m)^on:\s*\n\s+workflow_dispatch:").Should().BeTrue();
+        await Regex.IsMatch(wf, @"(?m)^\s+(push|schedule|pull_request|pull_request_target|release):").Should().BeFalse();
+        // the job is in the protected environment, and the signing key appears exactly once, in the signing step only
+        await wf.Contains("environment: release").Should().BeTrue();
+        await Regex.Matches(wf, @"secrets\.UPDATE_SIGNING_KEY").Count.Should().BeEqualTo(1);
+        var signStep = Regex.Match(wf, @"- name: Sign with the release key[\s\S]*?(?=\n    # |\n    - name: )").Value;
+        await signStep.Contains("secrets.UPDATE_SIGNING_KEY").Should().BeTrue();
+        await signStep.Contains("is not the private half of UpdateSignatureKey.PublicKeyPem").Should().BeTrue();
+        // only GitHub's own actions run in the job that holds the key
+        foreach (Match m in Regex.Matches(wf, @"uses:\s*([^\s@]+)"))
+        {
+            await m.Groups[1].Value.StartsWith("actions/").Should().BeTrue();
+        }
+        // inputs reach the shell through env, never interpolated into a script (S-11)
+        foreach (var line in wf.Split('\n').Where(l => l.Contains("${{ inputs.")))
+        {
+            await Regex.IsMatch(line.TrimEnd('\r'), @"^\s+[A-Z_]+: \$\{\{ inputs\.\w+ \}\}$").Should().BeTrue();
+        }
+        // the index release stays a pre-release: the app's own update check follows releases/latest
+        await wf.Contains("--prerelease").Should().BeTrue();
+        await wf.Contains("must stay a pre-release").Should().BeTrue();
+    }
+
+    [Test]
+    public async Task EngineIndexGenerator_ListsTheSameWindowsBuildsAsTheReleasePackages()
+    {
+        var gen = Read("scripts", "cores", "make-cores-index.mjs");
+        var zip = Read(".github", "workflows", "package-zip.yml");
+        foreach (var (generatorPattern, workflowPattern) in new[]
+        {
+            ("'Xray-windows-64.zip'", "Xray-windows-64.zip"),
+            ("'Xray-windows-32.zip'", "Xray-windows-32.zip"),
+            ("`sing-box-${v}-windows-amd64.zip`", "sing-box-%v-windows-amd64.zip"),
+            ("`sing-box-${v}-windows-386.zip`", "sing-box-%v-windows-386.zip"),
+            ("`mihomo-windows-amd64-v${v}.zip`", "mihomo-windows-amd64-v%v.zip"),
+            ("`mihomo-windows-386-v${v}.zip`", "mihomo-windows-386-v%v.zip"),
+        })
+        {
+            await gen.Contains(generatorPattern).Should().BeTrue();
+            await zip.Contains(workflowPattern).Should().BeTrue();
+        }
+    }
 }

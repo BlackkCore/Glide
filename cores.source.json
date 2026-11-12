@@ -4,22 +4,22 @@
     "xray": {
       "name": "Xray-core",
       "repo": "XTLS/Xray-core",
-      "tag": "v26.10.31",
-      "commit": "a4a3dff5b20c2faae567b742c172c7b95e75c083",
+      "tag": "v26.11.9",
+      "commit": "676eaf66f8f05d4d558ee7a74b4736623d3feeb9",
       "license": "MPL-2.0"
     },
     "singBox": {
       "name": "sing-box",
       "repo": "SagerNet/sing-box",
-      "tag": "v1.14.3",
-      "commit": "7054cac5124465ffdb145870d7c01885566711b1",
+      "tag": "v1.14.4",
+      "commit": "c005f35300ce76427dc285481ec5695f5b179cd2",
       "license": "GPL-3.0-or-later with the upstream name clause"
     },
     "mihomo": {
       "name": "mihomo",
       "repo": "MetaCubeX/mihomo",
-      "tag": "v1.19.29",
-      "commit": "e26714a181ac0e2fa803453c0a8e9a9ce94e31cb",
+      "tag": "v1.19.33",
+      "commit": "3f27ef39f8c96bbfbc8b0b9bb10f5c9ef60149d8",
       "license": "GPL-3.0"
     }
   },

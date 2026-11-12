@@ -81,8 +81,9 @@ public partial class CheckUpdateViewModel : MyReactiveObject
         return new()
         {
             IsSelected = _config.CheckUpdateItem.SelectedCoreTypes?.Contains(coreType.ToString()) ?? true,
-            IsCheckPreRelease = _config.CheckUpdateItem.CheckPreReleaseCoreTypes?.Contains(coreType.ToString()) ?? false,
-            ShowCheckPreRelease = CoreInfoManager.Instance.GetCheckPreRelease(coreType, true),
+            // Glide: engines updated through the signed index have no pre-release channel (nothing signed can exist for it).
+            IsCheckPreRelease = !UpdateService.UsesCoreIndex(coreType) && (_config.CheckUpdateItem.CheckPreReleaseCoreTypes?.Contains(coreType.ToString()) ?? false),
+            ShowCheckPreRelease = CoreInfoManager.Instance.GetCheckPreRelease(coreType, true) && !UpdateService.UsesCoreIndex(coreType),
             CoreType = coreType,
             IsGeoFile = false,
             // Glide: say what's there instead of repeating "Check update" on every row.
@@ -417,6 +418,30 @@ public partial class CheckUpdateViewModel : MyReactiveObject
 
             var coreTypeStr = item.CoreType?.ToString() ?? "";
             var toPath = Utils.GetBinPath("", coreTypeStr);
+
+            // Glide: an engine from the signed index goes through the staged, verified installer; an engine zip that was
+            // not checked against the index is never extracted (fail closed).
+            if (item.CoreType.HasValue && UpdateService.UsesCoreIndex(item.CoreType.Value))
+            {
+                var coreName = Global.CoreDisplayName(item.CoreType.Value);
+                var installed = VerifiedCoreInstall.Install(fileName, toPath);
+                if (installed.Ok)
+                {
+                    await UpdateView(item.CoreType, ResUI.MsgUpdateV2rayCoreSuccessfully);
+                }
+                else
+                {
+                    Logging.SaveLog($"{_tag}: {coreName} install refused: {installed.Error}: {installed.Message}");
+                    await UpdateView(item.CoreType, installed.Error == CoreInstallError.NotVerified
+                        ? string.Format(ResUI.MsgCoreVerifyFailed, coreName)
+                        : string.Format(ResUI.MsgCoreInstallFailed, coreName, installed.Message));
+                }
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
+                }
+                continue;
+            }
 
             if (fileName.Contains(".tar.gz"))
             {

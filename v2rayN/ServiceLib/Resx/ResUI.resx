@@ -2824,4 +2824,25 @@ Direct: {1}</value>
   <data name="TipRoutingDataReady" xml:space="preserve">
     <value>Routing data downloaded. You can connect now.</value>
   </data>
+  <data name="MsgCoreIndexUnavailable" xml:space="preserve">
+    <value>The signed engine list could not be downloaded or verified, so the engines were not updated.</value>
+  </data>
+  <data name="MsgCoreIndexExpired" xml:space="preserve">
+    <value>The signed engine list has expired. Engines stay as they are until a new list is published.</value>
+  </data>
+  <data name="MsgCoreIndexReplay" xml:space="preserve">
+    <value>The engine list is older than one this PC has already accepted, so it was ignored.</value>
+  </data>
+  <data name="MsgCoreNoVerifiedUpdate" xml:space="preserve">
+    <value>No verified update for {0}.</value>
+  </data>
+  <data name="MsgCoreVerifyFailed" xml:space="preserve">
+    <value>The downloaded {0} did not match the signed list and was discarded.</value>
+  </data>
+  <data name="MsgCoreRevoked" xml:space="preserve">
+    <value>{0} {1} has been withdrawn: {2} Please update.</value>
+  </data>
+  <data name="MsgCoreInstallFailed" xml:space="preserve">
+    <value>{0} could not be installed; the previous version was kept. {1}</value>
+  </data>
 </root>

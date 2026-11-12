@@ -2827,4 +2827,25 @@
   <data name="TipRoutingDataReady" xml:space="preserve">
     <value>داده‌های مسیریابی دانلود شد. اکنون می‌توانید وصل شوید.</value>
   </data>
+  <data name="MsgCoreIndexUnavailable" xml:space="preserve">
+    <value>فهرست امضاشدهٔ هسته‌ها دانلود یا تأیید نشد، بنابراین هسته‌ها به‌روز نشدند.</value>
+  </data>
+  <data name="MsgCoreIndexExpired" xml:space="preserve">
+    <value>فهرست امضاشدهٔ هسته‌ها منقضی شده است. تا انتشار فهرست جدید، هسته‌ها همان‌طور که هستند می‌مانند.</value>
+  </data>
+  <data name="MsgCoreIndexReplay" xml:space="preserve">
+    <value>این فهرست هسته‌ها قدیمی‌تر از فهرستی است که قبلاً پذیرفته شده است، پس نادیده گرفته شد.</value>
+  </data>
+  <data name="MsgCoreNoVerifiedUpdate" xml:space="preserve">
+    <value>به‌روزرسانی تأییدشده‌ای برای {0} وجود ندارد.</value>
+  </data>
+  <data name="MsgCoreVerifyFailed" xml:space="preserve">
+    <value>فایل دانلودشدهٔ {0} با فهرست امضاشده مطابقت نداشت و دور ریخته شد.</value>
+  </data>
+  <data name="MsgCoreRevoked" xml:space="preserve">
+    <value>{0} {1} پس گرفته شده است: {2} لطفاً به‌روزرسانی کنید.</value>
+  </data>
+  <data name="MsgCoreInstallFailed" xml:space="preserve">
+    <value>{0} نصب نشد؛ نسخهٔ قبلی نگه داشته شد. {1}</value>
+  </data>
 </root>

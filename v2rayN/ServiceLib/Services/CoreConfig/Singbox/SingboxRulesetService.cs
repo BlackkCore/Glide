@@ -106,12 +106,13 @@ public partial class CoreConfigSingboxService
                         ? Global.SingboxRulesetUrl
                         : _config.ConstItem.SrsSourceUrl;
 
+                    var kind = item.StartsWith(geosite) ? geosite : geoip;
                     customRuleset = new()
                     {
                         type = "remote",
                         format = "binary",
                         tag = item,
-                        url = string.Format(srsUrl, item.StartsWith(geosite) ? geosite : geoip, item),
+                        url = string.Format(srsUrl, kind, item, item.StartsWith(kind + "-") ? item[(kind.Length + 1)..] : item),
                         http_client = Global.SingboxSrsDownloadHttpClientTag,
                     };
                 }

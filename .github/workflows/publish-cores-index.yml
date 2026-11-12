@@ -1,0 +1,154 @@
+name: publish signed engine index
+
+# Builds Glide's signed engine index (cores-index.json) and uploads it to the fixed release "cores-index".
+# The portable Glide updates Xray, sing-box and mihomo only to builds listed in it.
+#
+# Run it by hand from the Actions tab AFTER you have vetted the engine releases (release notes, advisories). The index must be renewed
+# before it expires (default 75 days, the app refuses anything longer than 120): run it again with empty version fields to re-sign.
+# Nothing here publishes a Glide release, and the signing key is only ever in the `release` environment job below.
+
+on:
+  workflow_dispatch:
+    inputs:
+      xray:
+        description: 'Xray version(s) to list, comma separated, e.g. 26.11.9 (empty = keep what is listed)'
+        required: false
+        type: string
+      sing_box:
+        description: 'sing-box version(s) to list, e.g. 1.14.4'
+        required: false
+        type: string
+      mihomo:
+        description: 'mihomo version(s) to list, e.g. 1.19.34'
+        required: false
+        type: string
+      min_glide:
+        description: 'Oldest Glide that may install these builds'
+        required: true
+        type: string
+        default: '1.1.0'
+      valid_days:
+        description: 'Validity of this index in days (1 to 120)'
+        required: true
+        type: string
+        default: '75'
+      cooldown_hours:
+        description: 'Refuse engine releases younger than this many hours (a hijacked release is usually noticed within days)'
+        required: true
+        type: string
+        default: '72'
+      revoke:
+        description: 'Withdraw builds: core:version:reason, comma separated (a reason may not contain a comma)'
+        required: false
+        type: string
+      drop:
+        description: 'Remove builds from the list: core:version, comma separated'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    # Holds UPDATE_SIGNING_KEY: a secret of the protected `release` environment (required reviewer, master only).
+    environment: release
+    steps:
+    - uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+
+    # The entries already listed are kept. The old index is accepted as input only if its signature is valid (expiry does not
+    # matter here: renewing an expired index is the normal case).
+    - name: Previous index
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        mkdir -p prev
+        if gh release download cores-index -R "$GITHUB_REPOSITORY" -D prev -p cores-index.json -p cores-index.json.sig256 2>/dev/null \
+           && [[ -s prev/cores-index.json && -s prev/cores-index.json.sig256 ]]; then
+          sed -n '/^[[:space:]]*-----BEGIN PUBLIC KEY-----/,/^[[:space:]]*-----END PUBLIC KEY-----/p' v2rayN/ServiceLib/Common/UpdateSignatureKey.cs | tr -d '\r' | sed 's/^[[:space:]]*//' > "$RUNNER_TEMP/pub.pem"
+          [[ -s "$RUNNER_TEMP/pub.pem" ]] || { echo "no embedded update public key"; exit 1; }
+          openssl dgst -sha256 -verify "$RUNNER_TEMP/pub.pem" -signature <(base64 -d prev/cores-index.json.sig256) prev/cores-index.json \
+            || { echo "the published index has an invalid signature; refusing to build on it"; exit 1; }
+          echo "building on the published index"
+        else
+          rm -rf prev; echo "no published index yet: starting a new one"
+        fi
+
+    # Every download is checked (GitHub digest, Xray .dgst, sing-box attestation, cool-down) and every .exe/.dll is hashed. No secret here.
+    - name: Build the unsigned index
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        XRAY: ${{ inputs.xray }}
+        SING_BOX: ${{ inputs.sing_box }}
+        MIHOMO: ${{ inputs.mihomo }}
+        MIN_GLIDE: ${{ inputs.min_glide }}
+        VALID_DAYS: ${{ inputs.valid_days }}
+        COOLDOWN: ${{ inputs.cooldown_hours }}
+        REVOKE: ${{ inputs.revoke }}
+        DROP: ${{ inputs.drop }}
+      run: |
+        set -euo pipefail
+        args=(--out cores-index.json --min-glide "$MIN_GLIDE" --valid-days "$VALID_DAYS" --cooldown-hours "$COOLDOWN")
+        [[ -n "$XRAY" ]] && args+=(--xray "$XRAY")
+        [[ -n "$SING_BOX" ]] && args+=(--sing-box "$SING_BOX")
+        [[ -n "$MIHOMO" ]] && args+=(--mihomo "$MIHOMO")
+        [[ -f prev/cores-index.json ]] && args+=(--previous prev/cores-index.json)
+        if [[ -n "$REVOKE" ]]; then IFS=, read -ra items <<< "$REVOKE"; for i in "${items[@]}"; do args+=(--revoke "$i"); done; fi
+        if [[ -n "$DROP" ]]; then IFS=, read -ra items <<< "$DROP"; for i in "${items[@]}"; do args+=(--drop "$i"); done; fi
+        node scripts/cores/make-cores-index.mjs "${args[@]}"
+        cat cores-index.json
+
+    # Same key, same openssl commands as the app-update zips (package-zip.yml). The secret must be the private half of the key built
+    # into the app; otherwise every installed Glide would reject this index.
+    - name: Sign with the release key
+      shell: bash
+      env:
+        UPDATE_SIGNING_KEY: ${{ secrets.UPDATE_SIGNING_KEY }}
+      run: |
+        set -euo pipefail
+        [[ -n "$UPDATE_SIGNING_KEY" ]] || { echo "UPDATE_SIGNING_KEY secret is missing"; exit 1; }
+        key="$RUNNER_TEMP/update-signing-key.pem"
+        (umask 077; printf '%s\n' "$UPDATE_SIGNING_KEY" > "$key")
+        openssl dgst -sha256 -sign "$key" cores-index.json | base64 -w0 > cores-index.json.sig256
+        openssl ec -in "$key" -pubout 2>/dev/null > "$RUNNER_TEMP/signer.pem"
+        rm -f "$key"
+        sed -n '/^[[:space:]]*-----BEGIN PUBLIC KEY-----/,/^[[:space:]]*-----END PUBLIC KEY-----/p' v2rayN/ServiceLib/Common/UpdateSignatureKey.cs | tr -d '\r' | sed 's/^[[:space:]]*//' > "$RUNNER_TEMP/embedded.pem"
+        [[ -s "$RUNNER_TEMP/embedded.pem" && "$(cat "$RUNNER_TEMP/embedded.pem")" == "$(cat "$RUNNER_TEMP/signer.pem")" ]] \
+          || { echo "UPDATE_SIGNING_KEY is not the private half of UpdateSignatureKey.PublicKeyPem"; exit 1; }
+        openssl dgst -sha256 -verify "$RUNNER_TEMP/embedded.pem" -signature <(base64 -d cores-index.json.sig256) cores-index.json
+
+    # A second, independent check (Node's crypto and the app's own rules: format, validity window, hashes, addresses).
+    - name: Verify the signed index
+      shell: bash
+      run: node scripts/cores/make-cores-index.mjs --verify cores-index.json
+
+    # The release is a pre-release on purpose: it must never become the "latest" release, because the app's own update check
+    # follows releases/latest. The two uploads are not atomic; in the seconds between them an app sees a bad signature and
+    # simply offers no engine update.
+    - name: Publish
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        gh release view cores-index -R "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
+          || gh release create cores-index -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease --title "Engine index" \
+               --notes "Glide's signed list of vetted Xray, sing-box and mihomo builds. Read by the portable Glide; not a program. Do not delete."
+        gh release upload cores-index cores-index.json cores-index.json.sig256 -R "$GITHUB_REPOSITORY" --clobber
+
+    - name: Verify what was published
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+        mkdir back && gh release download cores-index -R "$GITHUB_REPOSITORY" -D back -p cores-index.json -p cores-index.json.sig256
+        cmp back/cores-index.json cores-index.json && cmp back/cores-index.json.sig256 cores-index.json.sig256
+        node scripts/cores/make-cores-index.mjs --verify back/cores-index.json
+        [[ "$(gh release view cores-index -R "$GITHUB_REPOSITORY" --json isPrerelease --jq .isPrerelease)" == true ]] || { echo "cores-index must stay a pre-release"; exit 1; }

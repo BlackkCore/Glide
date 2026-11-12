@@ -2239,6 +2239,69 @@ namespace ServiceLib.Resx {
         }
         
         /// <summary>
+        ///   The signed engine list could not be downloaded or verified, so the engines were not updated.
+        /// </summary>
+        public static string MsgCoreIndexUnavailable {
+            get {
+                return ResourceManager.GetString("MsgCoreIndexUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The signed engine list has expired. Engines stay as they are until a new list is published.
+        /// </summary>
+        public static string MsgCoreIndexExpired {
+            get {
+                return ResourceManager.GetString("MsgCoreIndexExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The engine list is older than one this PC has already accepted, so it was ignored.
+        /// </summary>
+        public static string MsgCoreIndexReplay {
+            get {
+                return ResourceManager.GetString("MsgCoreIndexReplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No verified update for {0}.
+        /// </summary>
+        public static string MsgCoreNoVerifiedUpdate {
+            get {
+                return ResourceManager.GetString("MsgCoreNoVerifiedUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The downloaded {0} did not match the signed list and was discarded.
+        /// </summary>
+        public static string MsgCoreVerifyFailed {
+            get {
+                return ResourceManager.GetString("MsgCoreVerifyFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0} {1} has been withdrawn: {2} Please update.
+        /// </summary>
+        public static string MsgCoreRevoked {
+            get {
+                return ResourceManager.GetString("MsgCoreRevoked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0} could not be installed; the previous version was kept. {1}
+        /// </summary>
+        public static string MsgCoreInstallFailed {
+            get {
+                return ResourceManager.GetString("MsgCoreInstallFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Not support protocol &apos;{0}&apos; 的本地化字符串。
         /// </summary>
         public static string MsgNotSupportProtocol {

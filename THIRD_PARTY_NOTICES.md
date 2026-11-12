@@ -22,9 +22,9 @@ Pinned in `cores.lock.json` (versions and SHA-256) and `cores.source.json` (the 
 
 | Core | Version | Licence | Source commit (corresponding source) |
 |---|---|---|---|
-| Xray-core | 26.10.31 | MPL-2.0 | https://github.com/XTLS/Xray-core, tag v26.10.31, `a4a3dff5b20c2faae567b742c172c7b95e75c083` |
-| sing-box | 1.14.3 | GPL-3.0-or-later, with the upstream's extra term that derivative works may not use the sing-box name | https://github.com/SagerNet/sing-box, tag v1.14.3, `7054cac5124465ffdb145870d7c01885566711b1` (the commit its signed build attestation names) |
-| mihomo | 1.19.29 | GPL-3.0 | https://github.com/MetaCubeX/mihomo, tag v1.19.29, `e26714a181ac0e2fa803453c0a8e9a9ce94e31cb` |
+| Xray-core | 26.11.9 | MPL-2.0 | https://github.com/XTLS/Xray-core, tag v26.11.9, `676eaf66f8f05d4d558ee7a74b4736623d3feeb9` |
+| sing-box | 1.14.4 | GPL-3.0-or-later, with the upstream's extra term that derivative works may not use the sing-box name | https://github.com/SagerNet/sing-box, tag v1.14.4, `c005f35300ce76427dc285481ec5695f5b179cd2` (the commit its signed build attestation names) |
+| mihomo | 1.19.33 | GPL-3.0 | https://github.com/MetaCubeX/mihomo, tag v1.19.33, `3f27ef39f8c96bbfbc8b0b9bb10f5c9ef60149d8` |
 | Wintun (`wintun.dll`) | as shipped in the Xray zip | WireGuard "Prebuilt Binaries License" (redistribution allowed alongside software that uses it only through its public API; no source obligation) | https://www.wintun.net/ , file `Wintun-prebuilt-binaries.txt` |
 | `libcronet.dll` (windows-amd64, shipped with sing-box) | cronet-go `0d28acc44093df24b2526dea3d6ffefd6b0a54f0` | BSD-3-Clause (Chromium / naiveproxy); the Go bindings that load it, SagerNet/cronet-go, are GPL-3.0 and are part of the sing-box source archive | Prebuilt in https://github.com/SagerNet/cronet-go (git blob `91268f1f6fbacf1f5a684428a3ff5b77a7f69527`, identical to the file in the sing-box zip), from SagerNet/naiveproxy `72a06c9fca0e2d228588c7f3074bf7efff3ff686`. Licence text `Licenses\cores\libcronet-Chromium-BSD-3-Clause.txt`. Chromium bundles further components with their own notices (Chromium's credits list); those are not reproduced here |
 
@@ -38,21 +38,29 @@ Each release page carries the corresponding source next to the binaries (`Licens
 
 How the source for each release is published is described in `docs/SOURCE_AND_LICENSES.md`. The cores are separate programs started by Glide.
 
+## Unresolved licensing points
+
+Attribution and licence texts are provided below, but they do **not** by themselves resolve these points. They have not been confirmed:
+
+1. **GeoLite-derived data** (`geoip.dat`, `Country.mmdb`, `geoip-only-cn-private.dat`, `geoip.metadb`, and the `geoip-*` sing-box rule sets). MaxMind's GeoLite agreement limits disclosure of the data to third parties and requires old copies to be replaced within 30 days of an update. Whether republishing these files, and fetching them on the user's behalf as Glide does, satisfies those terms has not been confirmed. Glide does not include them in its release packages.
+2. **PAC domain list.** Whether material derived from an LGPL-2.1 list may be distributed inside a GPL-3.0 package has not been confirmed, and the origin of the entries that are not from gfwlist is not documented upstream.
+3. **sing-box rule sets** are downloaded from a repository with a GPL-3.0 licence file whose data is itself derived from items 1 and 2.
+
 ## Data files
 
 Taken unmodified from `2dust/v2rayN-core-bin` (pinned in `cores.lock.json`, bundle SHA-256 checked in CI). Only `geosite.dat` is included in the release packages; Glide downloads the other files from the locations below when the user asks (the first-run message, or Update all). They are data read by the cores, not programs.
 
-**MaxMind attribution.** This product includes GeoLite Data created by MaxMind, available from https://www.maxmind.com. The IP-to-country data in `geoip.dat`, `geoip-only-cn-private.dat`, `Country.mmdb`, and `geoip.metadb` is built from MaxMind's GeoLite2 Country data (the GeoLite End User License Agreement, https://www.maxmind.com/en/geolite2/eula, applies to it: Creative Commons Attribution-ShareAlike 4.0 for the copyrightable elements plus MaxMind's additional terms). Glide's release packages do not include these files; Glide downloads them from the upstream locations listed below when the user asks.
+**MaxMind attribution.** This product includes GeoLite Data created by MaxMind, available from https://www.maxmind.com. The IP-to-country data in `geoip.dat`, `geoip-only-cn-private.dat`, `Country.mmdb`, and `geoip.metadb` is built from MaxMind's GeoLite2 Country data (the GeoLite End User License Agreement, https://www.maxmind.com/en/geolite2/eula, applies to it: Creative Commons Attribution-ShareAlike 4.0 for the copyrightable elements plus MaxMind's additional terms). Glide's release packages do not include these files; Glide downloads them from the upstream locations listed below when the user asks. Attribution is given here and in the About screen, but whether the way these files are republished and fetched satisfies MaxMind's terms has **not been confirmed** (see "Unresolved licensing points").
 
 **v2fly/domain-list-community** (the domain lists behind `geosite.dat`), MIT licence: Copyright (c) 2018-2019 V2Ray. Permission is granted, free of charge, to use, copy, modify, merge, publish, distribute, sublicense and sell copies of the data, subject to this notice being included in all copies or substantial portions of it. The data is provided "as is", without warranty of any kind.
 
 | Files | Upstream | Licence | Matched upstream release | Status |
 |---|---|---|---|---|
 | `geosite.dat` | https://github.com/Loyalsoldier/v2ray-rules-dat (built from v2fly/domain-list-community, MIT, and Loyalsoldier's own lists) | GPL-3.0 (repository LICENSE) | release 202611082203, byte-identical | included in release packages; no MaxMind data |
-| `geoip.dat` | https://github.com/Loyalsoldier/v2ray-rules-dat (built from MaxMind GeoLite2 Country CSV) | GPL-3.0 (repository LICENSE) plus MaxMind GeoLite terms | releases 202611052203 to 202611102204, byte-identical | downloaded on request; MaxMind terms apply |
-| `Country.mmdb`, `geoip-only-cn-private.dat` | https://github.com/Loyalsoldier/geoip (built from MaxMind GeoLite2 Country CSV) | CC-BY-SA-4.0 (repository LICENSE) plus MaxMind GeoLite terms | not matched (files sit on a branch, not in a release) | downloaded on request; MaxMind terms apply |
-| `geoip.metadb` | https://github.com/MetaCubeX/meta-rules-dat (credits Loyalsoldier/geoip and v2fly) | GPL-3.0 (repository LICENSE) plus MaxMind GeoLite terms | not matched (rolling "latest" release) | downloaded on request; MaxMind terms apply |
-| `srss\*.srs` | https://github.com/2dust/sing-box-rules, a fork of lyc8503/sing-box-rules whose README says it is ported from Loyalsoldier/v2ray-rules-dat | **no licence file in either repository**; derived from GPL-3.0 and GeoLite2 data | not matched | not included in release packages (the repositories that publish them have no licence file); sing-box downloads a rule set on demand |
+| `geoip.dat` | https://github.com/Loyalsoldier/v2ray-rules-dat (built from MaxMind GeoLite2 Country CSV) | GPL-3.0 (repository LICENSE) plus MaxMind GeoLite terms | releases 202611052203 to 202611102204, byte-identical | downloaded on request; **unresolved**: MaxMind terms |
+| `Country.mmdb`, `geoip-only-cn-private.dat` | https://github.com/Loyalsoldier/geoip (built from MaxMind GeoLite2 Country CSV) | CC-BY-SA-4.0 (repository LICENSE) plus MaxMind GeoLite terms | not matched (files sit on a branch, not in a release) | downloaded on request; **unresolved**: MaxMind terms |
+| `geoip.metadb` | https://github.com/MetaCubeX/meta-rules-dat (credits Loyalsoldier/geoip and v2fly) | GPL-3.0 (repository LICENSE) plus MaxMind GeoLite terms | not matched (rolling "latest" release) | downloaded on request; **unresolved**: MaxMind terms |
+| `srss\*.srs` (sing-box rule sets) | https://github.com/MetaCubeX/meta-rules-dat, branch `sing` (credits Loyalsoldier/geoip, v2fly/domain-list-community and Loyalsoldier's custom lists) | GPL-3.0 (repository LICENSE); derived from GPL-3.0, MIT and GeoLite2 data | not matched | not included in release packages; sing-box downloads a rule set on demand from this address |
 
 ## Certificate root data
 
@@ -68,6 +76,14 @@ Redistribution and use in source and binary forms, with or without modification,
 3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+## PAC domain list
+
+`Sample/pac` is compiled into Glide and used only by the *PAC* proxy mode. It is the domain list that v2rayN ships for that mode, and it is derived in part from **gfwlist** (https://github.com/gfwlist/gfwlist), which is licensed under the GNU Lesser General Public License, version 2.1: its licence text is in `Licenses/third-party/gfwlist-LGPL-2.1.txt`. v2rayN's maintainers have added and removed entries over time; the origin of the entries that are not from gfwlist is not documented upstream. The list is data read by the PAC script, not code linked into Glide. Whether this satisfies the LGPL-2.1 and its combination with GPL-3.0 has **not been confirmed**; the notice and licence text do not by themselves settle it (see "Unresolved licensing points").
+
+## Globe land data
+
+The land dots of the globe are sampled from the Natural Earth 1:110m land polygons (https://www.naturalearthdata.com/), which are in the public domain; no attribution is required and it is given as a courtesy. The sampling script is `scripts/globe/gen-land.mjs`, and `Assets/globe-land.txt` is its output.
 
 ## .NET packages
 

@@ -53,6 +53,12 @@ public partial class UpdateService(DownloadService downloadService, Config confi
 
     public async Task CheckUpdateCore(ECoreType type, bool preRelease, CancellationToken cancellationToken = default)
     {
+        if (UsesCoreIndex(type))
+        {
+            await CheckUpdateCoreVerified(type, cancellationToken);
+            return;
+        }
+
         var url = string.Empty;
         var fileName = string.Empty;
 
@@ -156,12 +162,132 @@ public partial class UpdateService(DownloadService downloadService, Config confi
         }
     }
 
+    #region Signed engine index (portable Windows version)
+
+    /// <summary>
+    /// Glide: Xray, sing-box and mihomo are updated in the portable version only to builds listed in the signed engine
+    /// index (see CoreIndexClient). The installed version never updates engines on its own.
+    /// </summary>
+    public static bool UsesCoreIndex(ECoreType type)
+        => OperatingSystem.IsWindows() && !GlidePaths.IsInstalled && CoreIndexKeys.For(type) != null;
+
+    private readonly Dictionary<ECoreType, CoreIndexAsset> _pendingAssets = [];
+
+    /// <summary>Production uses the default; tests point the service at a fake server with a disposable key.</summary>
+    public CoreIndexOptions? IndexOptions { get; init; }
+
+    private async Task<UpdateResult> CheckUpdateViaIndexAsync(ECoreType type, CancellationToken cancellationToken)
+    {
+        var arch = CoreIndexKeys.CurrentArch();
+        if (arch == null)
+        {
+            return new UpdateResult(false, ResUI.MsgNotSupport);
+        }
+
+        var options = IndexOptions ?? CoreIndexOptions.Default;
+        var load = await CoreIndexClient.LoadAsync(
+            (url, ct) => downloadService.TryDownloadString(url, ct),
+            options.PublicKeyPem,
+            DateTimeOffset.UtcNow,
+            options.StatePath,
+            cancellationToken,
+            options.IndexUrl);
+        if (load.Document == null)
+        {
+            return new UpdateResult(false, load.Message);
+        }
+
+        var installed = await GetCoreVersion(type, cancellationToken);
+        var warning = CoreIndexClient.RevokedWarning(load.Document, type, installed);
+        if (warning != null)
+        {
+            await UpdateFunc(false, warning);
+        }
+
+        var coreInfo = CoreInfoManager.Instance.GetCoreInfo(type);
+        var glide = new SemanticVersion(Utils.GetVersionInfo());
+        var decision = CoreIndexClient.Decide(load.Document, type, arch, glide, coreInfo?.LockedMaxVersion, installed);
+        if (decision.Pick == null)
+        {
+            return new UpdateResult(false, decision.Message);
+        }
+
+        _pendingAssets[type] = decision.Pick.Asset;
+        return new UpdateResult(true, $"{Global.CoreDisplayName(type)} {decision.Pick.Version}")
+        {
+            Version = decision.Pick.Version,
+            Url = decision.Pick.Asset.Url,
+        };
+    }
+
+    private async Task CheckUpdateCoreVerified(ECoreType type, CancellationToken cancellationToken)
+    {
+        // Progress and errors only: unlike the old path, "download finished" is not "update ready".
+        downloadService.UpdateCompleted += (sender, args) =>
+        {
+            if (!args.Success)
+            {
+                _ = UpdateFunc(false, args.Msg);
+            }
+        };
+        downloadService.Error += (sender, args) => _ = UpdateFunc(false, args.GetException().Message);
+
+        await UpdateFunc(false, string.Format(ResUI.MsgStartUpdating, type));
+        var result = await CheckUpdateAsync(type, false, cancellationToken);
+        if (!result.Success || !_pendingAssets.TryGetValue(type, out var asset))
+        {
+            if (!result.Msg.IsNullOrEmpty())
+            {
+                await UpdateFunc(false, result.Msg);
+            }
+            return;
+        }
+
+        await UpdateFunc(false, string.Format(ResUI.MsgParsingSuccessfully, type));
+        await UpdateFunc(false, result.Msg);
+
+        var fileName = Utils.GetTempPath(Utils.GetGuid() + ".zip");
+        await downloadService.DownloadFileAsync(new() { FileUrl = asset.Url, FilePath = fileName }, cancellationToken);
+
+        var verified = CoreInstaller.VerifyArchive(fileName, asset);
+        if (!verified.Ok)
+        {
+            Logging.SaveLog($"{_tag}: {type} download refused: {verified.Error}: {verified.Message}");
+            TryDelete(fileName);
+            await UpdateFunc(false, string.Format(ResUI.MsgCoreVerifyFailed, Global.CoreDisplayName(type)));
+            return;
+        }
+
+        VerifiedCoreDownloads.Register(fileName, asset);
+        await UpdateFunc(false, ResUI.MsgDownloadV2rayCoreSuccessfully);
+        await UpdateFunc(true, fileName);
+    }
+
+    private static void TryDelete(string path)
+    {
+        try
+        {
+            File.Delete(path);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            Logging.SaveLog(_tag, ex);
+        }
+    }
+
+    #endregion
+
     #region CheckUpdate private
 
     private async Task<UpdateResult> CheckUpdateAsync(ECoreType type, bool preRelease, CancellationToken cancellationToken = default)
     {
         try
         {
+            if (UsesCoreIndex(type))
+            {
+                return await CheckUpdateViaIndexAsync(type, cancellationToken);
+            }
+
             var result = await GetRemoteVersion(type, preRelease, cancellationToken);
             if (!result.Success || result.Version is null)
             {

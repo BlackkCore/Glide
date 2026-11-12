@@ -12,7 +12,7 @@ git clone https://github.com/BlackkCore/Glide.git
 cd Glide/v2rayN
 dotnet build v2rayN.slnx -c Release
 dotnet test --project ./ServiceLib.Tests -c Release
-node --test ../scripts/source/*.test.mjs
+node --test ../scripts/source/*.test.mjs ../scripts/cores/*.test.mjs
 ```
 You need the .NET SDK pinned in `global.json` and Node.js 20 or newer for the source tooling tests. A change is ready for review when the build has no errors and every test passes.
 

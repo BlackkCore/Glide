@@ -31,7 +31,12 @@ public class Global
     public const string GithubUrl = "https://github.com";
     public const string GithubApiUrl = "https://api.github.com/repos";
     public const string GeoUrl = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/{0}.dat";
-    public const string SingboxRulesetUrl = @"https://raw.githubusercontent.com/2dust/sing-box-rules/rule-set-{0}/{1}.srs";
+    /// <summary>
+    /// Glide: the default home of the sing-box rule sets (GPL-3.0 licence file in the repository; the previous default,
+    /// 2dust/sing-box-rules, has none). {0} = geosite or geoip, {1} = the full name such as geosite-cn, {2} = the name without the prefix (cn).
+    /// A user-set source that only uses {0} and {1} keeps working.
+    /// </summary>
+    public const string SingboxRulesetUrl = @"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/{0}/{2}.srs";
 
     public const string PromotionUrl = @"aHR0cHM6Ly85LjIzNDQ1Ni54eXovYWJjLmh0bWw=";
     public const string ConfigFileName = "guiNConfig.json";

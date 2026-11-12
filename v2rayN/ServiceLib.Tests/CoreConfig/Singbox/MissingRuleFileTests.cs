@@ -44,7 +44,8 @@ public class MissingRuleFileTests
         await set.Should().NotBeNull();
         await set!.type.Should().BeEqualTo("remote");
         await set.format.Should().BeEqualTo("binary");
-        await (set.url ?? "").Contains(tag).Should().BeTrue();
+        // the default source (a repository with a GPL-3.0 licence file): geo/<kind>/<name>.srs on the "sing" branch
+        await set.url.Should().BeEqualTo($"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/{tag["geosite-".Length..]}.srs");
         await set.http_client.Should().BeEqualTo(Global.SingboxSrsDownloadHttpClientTag);
         await (cfg.http_clients ?? []).Any(c => c.tag == Global.SingboxSrsDownloadHttpClientTag).Should().BeTrue();
     }
@@ -55,5 +56,31 @@ public class MissingRuleFileTests
         var cfg = Generate("geosite:google");
 
         await cfg.route.rule_set.Any(r => r.type == "local").Should().BeFalse();
+    }
+
+    // The 15 rule sets Glide's presets use (the files that used to ship in binsrss).
+    private static readonly string[] PresetRuleSets =
+    [
+        "geoip-cn", "geoip-facebook", "geoip-fastly", "geoip-google", "geoip-netflix", "geoip-private", "geoip-telegram", "geoip-twitter",
+        "geosite-category-ads-all", "geosite-cn", "geosite-geolocation-cn", "geosite-gfw", "geosite-google", "geosite-greatfire", "geosite-private",
+    ];
+
+    [Test]
+    public async Task DefaultSource_MapsEveryPresetRuleSetToItsFileOnTheSingBranch()
+    {
+        foreach (var name in PresetRuleSets)
+        {
+            var kind = name.StartsWith("geoip-") ? "geoip" : "geosite";
+            var bare = name[(kind.Length + 1)..];
+            var url = string.Format(Global.SingboxRulesetUrl, kind, name, bare);
+            await url.Should().BeEqualTo($"https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/{kind}/{bare}.srs");
+        }
+    }
+
+    [Test]
+    public async Task ATemplateTheUserSavedEarlier_WithOnlyTwoPlaceholders_StillWorks()
+    {
+        var legacy = "https://example.invalid/rule-set-{0}/{1}.srs";
+        await string.Format(legacy, "geosite", "geosite-cn", "cn").Should().BeEqualTo("https://example.invalid/rule-set-geosite/geosite-cn.srs");
     }
 }

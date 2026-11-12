@@ -14,6 +14,7 @@ on:
       - 'v2rayN/Directory.Build.*'
       - 'v2rayN/Directory.Packages.props'
       - 'global.json'
+      - 'scripts/cores/**'
       - '.github/workflows/test.yml'
   pull_request:
     branches:
@@ -46,6 +47,10 @@ jobs:
       with:
         dotnet-version: '10.x'
         dotnet-quality: 'ga'
+
+    # The signed engine index generator (offline: synthetic releases, a stub gh, throwaway keys).
+    - name: Engine index tool self-tests
+      run: node --test scripts/cores/*.test.mjs
 
     - name: Test Code
       run: dotnet test --project ./v2rayN/ServiceLib.Tests -c Release --results-directory ./TestResults -- --report-trx

@@ -38,6 +38,7 @@ public class LicenseShippingTests
             Path.Combine("licenses", "cores", "libcronet-Chromium-BSD-3-Clause.txt"),
             Path.Combine("licenses", "third-party", "ANGLE-BSD-3-Clause.txt"),
             Path.Combine("licenses", "third-party", "sqlite-net-MIT.txt"),
+            Path.Combine("licenses", "third-party", "gfwlist-LGPL-2.1.txt"),
         })
         {
             var path = Path.Combine(root, file);
@@ -83,5 +84,19 @@ public class LicenseShippingTests
         {
             await licenses.Any(l => l!.StartsWith(marker, StringComparison.Ordinal)).Should().BeTrue();
         }
+    }
+
+    [Test]
+    public async Task DataThatNeedsANotice_IsCreditedInTheShippedNotices()
+    {
+        // The PAC list (gfwlist, LGPL-2.1), the compiled-in CA roots (CCADB CDLA-2.0, Chromium BSD-3) and the rule-set source.
+        var notices = File.ReadAllText(Path.Combine(TestRepo.Root(), "THIRD_PARTY_NOTICES.md"));
+        foreach (var must in new[] { "gfwlist", "gfwlist-LGPL-2.1.txt", "Community Data License Agreement", "cdla.dev/permissive-2-0", "Chromium Root Store", "BSD 3-Clause", "MetaCubeX/meta-rules-dat" })
+        {
+            await notices.Contains(must).Should().BeTrue();
+        }
+        var lgpl = File.ReadAllText(Path.Combine(TestRepo.Root(), "licenses", "third-party", "gfwlist-LGPL-2.1.txt"));
+        await lgpl.Contains("GNU LESSER GENERAL PUBLIC LICENSE").Should().BeTrue();
+        await lgpl.Contains("Version 2.1").Should().BeTrue();
     }
 }

@@ -1,0 +1,40 @@
+<UserControl
+    x:Class="v2rayN.Desktop.Views.QrcodeView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <sys:Double x:Key="QrcodeWidth">400</sys:Double>
+    </UserControl.Resources>
+
+    <Grid Margin="{StaticResource Margin8}" RowDefinitions="Auto,Auto,Auto">
+        <Image
+            Name="imgQrcode"
+            Width="{StaticResource QrcodeWidth}"
+            Height="{StaticResource QrcodeWidth}" />
+
+        <TextBox
+            x:Name="txtContent"
+            Grid.Row="1"
+            Width="{StaticResource QrcodeWidth}"
+            MaxHeight="100"
+            Margin="{StaticResource MarginTb8}"
+            VerticalAlignment="Center"
+            IsReadOnly="True"
+            TextWrapping="WrapWithOverflow" />
+
+        <!--  The sheet had no way out except a click outside it; Escape works too (MainWindow).  -->
+        <Button
+            x:Name="btnClose"
+            Grid.Row="2"
+            MinWidth="96"
+            HorizontalAlignment="Right"
+            Content="{x:Static resx:ResUI.TbClose}"
+            IsCancel="True" />
+    </Grid>
+</UserControl>

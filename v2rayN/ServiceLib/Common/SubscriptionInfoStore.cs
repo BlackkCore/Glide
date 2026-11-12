@@ -1,0 +1,138 @@
+namespace ServiceLib.Common;
+
+/// <summary>
+/// Data used / left and expiry that subscription providers send in the "subscription-userinfo"
+/// response header ("upload=1; download=2; total=3; expire=1700000000"). Kept per subscription in
+/// guiConfigs/glide-subinfo.json, keyed by a hash of the URL so no subscription token is ever stored.
+/// </summary>
+public static class SubscriptionInfoStore
+{
+    // The header comes from the provider and the file can be edited: clamp so sums can't overflow
+    // (checked arithmetic is on) and dates stay inside what DateTimeOffset accepts.
+    public const long MaxBytes = 1L << 60;
+    public const long MaxUnix = 253402300799;
+
+    private static long Bytes(long v) => Math.Clamp(v, 0, MaxBytes);
+
+    public sealed record Info(long Upload, long Download, long Total, long Expire, long UpdatedUnix)
+    {
+        public long Used => Bytes(Upload) + Bytes(Download);
+        public long Left => Total > 0 ? Math.Max(0, Bytes(Total) - Used) : 0;
+        public DateTimeOffset? Expires => Expire is > 0 and <= MaxUnix ? DateTimeOffset.FromUnixTimeSeconds(Expire) : null;
+        public DateTimeOffset Updated => DateTimeOffset.FromUnixTimeSeconds(Math.Clamp(UpdatedUnix, 0, MaxUnix));
+    }
+
+    private static readonly object Gate = new();
+    private static Dictionary<string, Info>? _cache;
+
+    // Public only so tests can point it (and ResetCache) somewhere else.
+    public static string FilePath { get; set; } = Utils.GetConfigPath("glide-subinfo.json");
+
+    public static void ResetCache()
+    {
+        lock (Gate)
+        {
+            _cache = null;
+        }
+    }
+
+    public static string KeyFor(string url)
+    {
+        return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(url.Trim())))[..32];
+    }
+
+    /// <summary>Parses the header value; null when it carries nothing useful.</summary>
+    public static Info? Parse(string? header, DateTimeOffset now)
+    {
+        if (header.IsNullOrEmpty())
+        {
+            return null;
+        }
+        long Get(string name)
+        {
+            var match = Regex.Match(header, $@"(?:^|[;,\s]){name}\s*=\s*(\d+)", RegexOptions.IgnoreCase);
+            return match.Success && long.TryParse(match.Groups[1].Value, out var v) ? v : 0;
+        }
+        var expire = Get("expire");
+        var info = new Info(Bytes(Get("upload")), Bytes(Get("download")), Bytes(Get("total")), expire <= MaxUnix ? expire : 0, now.ToUnixTimeSeconds());
+        return info.Total > 0 || info.Expire > 0 || info.Used > 0 ? info : null;
+    }
+
+    public enum WarningKind { None, ExpiresSoon, Expired, LowData, NoDataLeft }
+
+    /// <summary>
+    /// Whether to warn about a plan: expired, expiring within 3 days, out of data, or under 10% left.
+    /// Expiry wins over data (the plan stops either way, and the date is the clearer reason).
+    /// </summary>
+    public static WarningKind Warning(Info info, DateTimeOffset now)
+    {
+        if (info.Expires is { } expires)
+        {
+            if (expires <= now)
+            {
+                return WarningKind.Expired;
+            }
+            if (expires - now <= TimeSpan.FromDays(3))
+            {
+                return WarningKind.ExpiresSoon;
+            }
+        }
+        if (info.Total > 0)
+        {
+            if (info.Left <= 0)
+            {
+                return WarningKind.NoDataLeft;
+            }
+            if (info.Left < info.Total / 10)
+            {
+                return WarningKind.LowData;
+            }
+        }
+        return WarningKind.None;
+    }
+
+    public static void Record(string url, string? header)
+    {
+        var info = Parse(header, DateTimeOffset.UtcNow);
+        if (info == null || url.IsNullOrEmpty())
+        {
+            return;
+        }
+        lock (Gate)
+        {
+            var all = LoadLocked();
+            all[KeyFor(url)] = info;
+            try
+            {
+                // Through JsonUtils: this build only serializes the types listed in AppJsonContext.
+                GlideFile.WriteAtomic(FilePath, JsonUtils.Serialize(all, false));
+            }
+            catch
+            {
+                // Only a convenience: a read-only folder means the info isn't remembered.
+            }
+        }
+    }
+
+    public static Info? Get(string? url)
+    {
+        if (url.IsNullOrEmpty())
+        {
+            return null;
+        }
+        lock (Gate)
+        {
+            return LoadLocked().TryGetValue(KeyFor(url), out var info) ? info : null;
+        }
+    }
+
+    private static Dictionary<string, Info> LoadLocked()
+    {
+        if (_cache != null)
+        {
+            return _cache;
+        }
+        _cache = GlideFile.Read(FilePath, JsonUtils.Deserialize<Dictionary<string, Info>>) ?? [];
+        return _cache;
+    }
+}

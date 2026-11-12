@@ -1,0 +1,102 @@
+<!--
+    All of Glide's motion lives here. App.Initialize only loads this file when the Windows
+    "Animation effects" setting is on (see Common/AppMotion.cs); without it every state change
+    simply snaps. Nothing here loops: each animation runs once in response to a change.
+-->
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Theme switch: no per-surface colour fades. An in-app switch crossfades a picture of the old theme
+          (MainWindow.PlayThemeReveal); a switch that follows Windows snaps at once, instead of every
+          surface fading out of step.  -->
+    <!--  ===== Hover backgrounds on sidebar items, chips and segments =====  -->
+    <Style Selector="MenuItem /template/ Border#PART_LayoutRoot, ListBoxItem /template/ Border#PART_Bg">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15" />
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.12" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <!--  Chips and segments give a little under the pointer.  -->
+    <Style Selector="ListBoxItem:pressed /template/ Border#PART_Bg">
+        <Setter Property="RenderTransform" Value="scale(0.97)" />
+    </Style>
+    <!--  Sidebar hover: only the background and colour change, quickly and evenly; nothing moves.  -->
+    <Style Selector="Menu.sidebar MenuItem /template/ Border#PART_LayoutRoot">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.12" Easing="QuadraticEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <!--  Sidebar popups settle in: a quick fade from their anchored position.  -->
+    <Style Selector="Menu.sidebar MenuItem:open /template/ Border#PART_PopupBorder">
+        <Style.Animations>
+            <Animation Easing="CubicEaseOut" Duration="0:0:0.16" FillMode="Forward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <!--  ===== Buttons: a short press-in so clicks feel physical =====  -->
+    <Style Selector="Button.IconButton, Button#btnSave, Button#btnYes, Button#btnCancel, Button#btnNo, Button#btnReset, Button#btnEmptyPaste, Button#btnEmptyAddSub">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.12" Easing="CubicEaseOut" />
+                <BrushTransition Property="Background" Duration="0:0:0.15" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.IconButton:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.97)" />
+    </Style>
+    <Style Selector="Button#btnSave:pressed, Button#btnYes:pressed, Button#btnCancel:pressed, Button#btnNo:pressed, Button#btnReset:pressed, Button#btnEmptyPaste:pressed, Button#btnEmptyAddSub:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.97)" />
+    </Style>
+
+    <!--  ===== Status pill: recolors as the connection changes =====  -->
+    <Style Selector="Border.pill">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.25" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.heroBtn /template/ Border#PART_Ring, PathIcon.disclosureChevron">
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.16" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.heroBtn:pressed /template/ Border#PART_Ring">
+        <Setter Property="RenderTransform" Value="scale(0.97)" />
+    </Style>
+    <Style Selector="Button.heroBtn">
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.15" Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!--  ===== Latency dot fades from gray (testing) to its result color =====  -->
+    <Style Selector="Ellipse.delayDot">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Fill" Duration="0:0:0.15" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!--  While the theme reveal runs, colours snap straight to the new theme underneath the old-theme
+          picture; otherwise the circle would uncover half-faded, muddy surfaces. Keep this block last.  -->
+    <Style Selector="Window.themeSwap, Window.themeSwap Border, Window.themeSwap Ellipse, Window.themeSwap Button, Window.themeSwap Button /template/ Ellipse, Window.themeSwap Button /template/ Border, Window.themeSwap MenuItem /template/ Border, Window.themeSwap ListBoxItem /template/ Border">
+        <Setter Property="Transitions" Value="{x:Null}" />
+    </Style>
+</Styles>

@@ -1,0 +1,76 @@
+name: package and release corresponding source
+
+# GPL-3.0 section 6 / MPL-2.0 section 3.2: the release page that offers the binaries also offers their source.
+# Builds Glide-source-<tag>.tar.gz, one source archive per redistributed core at the commit pinned in
+# cores.source.json (with its Go dependencies vendored), SOURCES-<tag>.json and SHA256SUMS-source-<tag>.txt,
+# verifies them, then signs and uploads them like the other release files. build-windows-desktop.yml runs this
+# before the zips and installers are uploaded, and checks the release's asset list at the end.
+# See docs/SOURCE_AND_LICENSES.md.
+
+on:
+  workflow_call:
+    inputs:
+      release_tag:
+        required: true
+        type: string
+    secrets:
+      GPG_PRIVATE_KEY:
+        required: true
+      GPG_PASSPHRASE: # passphrase of the GPG release key (the key is protected)
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  source:
+    name: build source archives
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ inputs.release_tag }}
+    steps:
+    - name: Checkout the release commit
+      uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+
+    - name: Tool self-tests (offline)
+      shell: bash
+      run: node --test scripts/source/*.test.mjs
+
+    # A core bump without its source pin, a moved tag, a missing licence file or a missing vendor/ fails here,
+    # before anything is uploaded.
+    - name: Build source archives
+      shell: bash
+      env:
+        REPO: ${{ github.repository }}
+        COMMIT: ${{ github.sha }}
+      run: |
+        set -euo pipefail
+        go version
+        node scripts/source/make-source-bundle.mjs --release --out source-out --tag "$RELEASE_TAG" --commit "$COMMIT" --repo "$REPO"
+
+    - name: Verify source archives
+      shell: bash
+      env:
+        COMMIT: ${{ github.sha }}
+      run: node scripts/source/verify-source-bundle.mjs --release --dir source-out --tag "$RELEASE_TAG" --commit "$COMMIT"
+
+    - name: Upload source artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: release-source
+        path: source-out/*
+        if-no-files-found: error
+
+  release:
+    name: sign and upload source
+    needs: source
+    uses: ./.github/workflows/upload-sign.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+      artifact_name: release-source
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

@@ -1,0 +1,41 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--
+        Glide (R-24): styles for AvaloniaEdit (MIT). This replaces Semi.Avalonia.AvaloniaEdit, a closed-source
+        theme under a proprietary EULA that GPL-3.0 can't carry. The control templates come from AvaloniaEdit itself
+        (Base.xaml); only the colour keys they read are set here, from Glide's own palette (AppTheme.axaml).
+        The editor text and background are inherited from the window, as before.
+    -->
+    <Styles.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="SearchPanelFontSize">13</x:Double>
+            <Thickness x:Key="CompletionToolTipBorderThickness">1</Thickness>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="CompletionToolTipBackground" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="CompletionToolTipForeground" Color="#111827" />
+                    <SolidColorBrush x:Key="CompletionToolTipBorderBrush" Color="#E4E4EE" />
+                    <SolidColorBrush x:Key="OverloadViewerBackground" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="OverloadViewerForeground" Color="#111827" />
+                    <SolidColorBrush x:Key="OverloadViewerBorderBrush" Color="#E4E4EE" />
+                    <SolidColorBrush x:Key="SearchPanelBackgroundBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="SearchPanelBorderBrush" Color="#E4E4EE" />
+                    <SolidColorBrush x:Key="TextAreaSelectionBrush" Color="#404F46E5" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="CompletionToolTipBackground" Color="#0B0C13" />
+                    <SolidColorBrush x:Key="CompletionToolTipForeground" Color="#F3F4F8" />
+                    <SolidColorBrush x:Key="CompletionToolTipBorderBrush" Color="#1C1F2C" />
+                    <SolidColorBrush x:Key="OverloadViewerBackground" Color="#0B0C13" />
+                    <SolidColorBrush x:Key="OverloadViewerForeground" Color="#F3F4F8" />
+                    <SolidColorBrush x:Key="OverloadViewerBorderBrush" Color="#1C1F2C" />
+                    <SolidColorBrush x:Key="SearchPanelBackgroundBrush" Color="#0B0C13" />
+                    <SolidColorBrush x:Key="SearchPanelBorderBrush" Color="#1C1F2C" />
+                    <SolidColorBrush x:Key="TextAreaSelectionBrush" Color="#664F46E5" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://AvaloniaEdit/Themes/Base.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+</Styles>

@@ -1,0 +1,118 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<ApplicationIcon>Assets\v2rayN.ico</ApplicationIcon>
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<AssemblyName>Glide</AssemblyName>
+		<AssemblyTitle>Glide</AssemblyTitle>
+		<Product>Glide</Product>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<CETCompat>false</CETCompat>
+	</PropertyGroup>
+
+    <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64' Or '$(RuntimeIdentifier)' == 'osx-arm64'">
+        <RuntimeHostConfigurationOption Include="System.Net.Security.UseNetworkFramework" Value="true" />
+    </ItemGroup>
+    
+	<ItemGroup>
+		<PackageReference Include="Avalonia.AvaloniaEdit" />
+		<PackageReference Include="Avalonia.Desktop" />
+		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="AvaloniaUI.DiagnosticsSupport" />
+		<PackageReference Include="DialogHost.Avalonia" />
+		<PackageReference Include="ProDataGrid" />
+		<PackageReference Include="ReactiveUI.Avalonia" />
+		<PackageReference Include="Semi.Avalonia" />
+		<PackageReference Include="Semi.Avalonia.DataGrid">
+			<TreatAsUsed>true</TreatAsUsed>
+		</PackageReference>
+		<PackageReference Include="ReactiveUI">
+			<TreatAsUsed>true</TreatAsUsed>
+		</PackageReference>
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+	</ItemGroup>
+
+	<!-- Glide (P-10): SkiaSharp and HarfBuzz ship native .pdb files (~105 MB). CI deletes them after
+	     publishing; this does the same for local publishes, so a locally built zip/installer matches. -->
+	<Target Name="GlideRemoveNativePdbs" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+		<ItemGroup>
+			<_GlidePublishedPdb Include="$(PublishDir)*.pdb" />
+		</ItemGroup>
+		<Delete Files="@(_GlidePublishedPdb)" />
+	</Target>
+
+	<ItemGroup>
+		<ProjectCapability Include="Avalonia" />
+		<AvaloniaResource Include="Assets\**" />
+		<ProjectReference Include="..\GlobalHotKeys\src\GlobalHotKeys\GlobalHotKeys.csproj" />
+		<ProjectReference Include="..\ServiceLib\ServiceLib.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Assets\v2rayN.ico">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<Compile Update="Views\FullConfigTemplateWindow.axaml.cs">
+		  <DependentUpon>FullConfigTemplateWindow.axaml</DependentUpon>
+		</Compile>
+		<!-- Linux and macOS desktop icons; Glide is Windows-only, so they are not shipped in the Windows packages. -->
+		<None Update="v2rayN.png" Condition="!$(RuntimeIdentifier.StartsWith('win'))">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="v2rayN.icns" Condition="!$(RuntimeIdentifier.StartsWith('win'))">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Assets\Fonts\OFL.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\Manrope-OFL.txt</TargetPath>
+		</None>
+		<!-- Glide (R-21/R-22): ship the GPL and every bundled font's and library's licence with the binaries. -->
+		<None Include="..\..\LICENSE" Link="Licenses\Glide-GPL-3.0.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\Glide-GPL-3.0.txt</TargetPath>
+		</None>
+		<None Update="Assets\Fonts\OFL-JetBrainsMono.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\JetBrainsMono-OFL.txt</TargetPath>
+		</None>
+		<None Update="Assets\Fonts\OFL-Vazirmatn.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\Vazirmatn-OFL.txt</TargetPath>
+		</None>
+		<None Include="..\GlobalHotKeys\LICENSE" Link="Licenses\GlobalHotKeys-WTFPL.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\GlobalHotKeys-WTFPL.txt</TargetPath>
+		</None>
+		<None Update="Assets\Fonts\OFL-NotoSansSC.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\NotoSansSC-OFL.txt</TargetPath>
+		</None>
+		<!-- Glide (R-21/R-23): Glide's own notice, the third-party inventory, and the licence files it points to. -->
+		<None Include="..\..\NOTICE.md" Link="Licenses\NOTICE.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\NOTICE.md</TargetPath>
+		</None>
+		<None Include="..\..\THIRD_PARTY_NOTICES.md" Link="Licenses\THIRD_PARTY_NOTICES.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\THIRD_PARTY_NOTICES.md</TargetPath>
+		</None>
+		<None Include="..\..\licenses\third-party\*.txt" Link="Licenses\third-party\%(Filename)%(Extension)">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+			<TargetPath>Licenses\third-party\%(Filename)%(Extension)</TargetPath>
+		</None>
+	</ItemGroup>
+    
+    <ItemGroup>
+        <TrimmerRootDescriptor Include="TrimmerRoots.xml" />
+    </ItemGroup>
+</Project>

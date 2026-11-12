@@ -1,0 +1,188 @@
+name: release Glide for Windows
+
+# Builds Glide for 64-bit (x64) and 32-bit (x86) Windows.
+# Run it from the Actions tab with a release tag (e.g. 1.0.1) to build, sign and publish.
+#
+# The release is a DRAFT from the first job until the last: draft-release creates it, every upload goes to the draft,
+# verify-release-sources checks the assets, the signatures and the contents of the draft, and only then does publish
+# make it public. A failed run leaves a draft nobody can see, never a public release with some of its files.
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag, e.g. 1.0.1 (empty = build only)'
+        required: false
+        type: string
+      bundle_geolite_data:
+        description: 'Ship geoip.dat, Country.mmdb, geoip-only-cn-private.dat and geoip.metadb (off by decision: Glide downloads them in the app)'
+        required: false
+        type: boolean
+        default: false
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      arches: '["x64", "x86"]'
+      version: ${{ inputs.release_tag }}
+
+  # The one place the release is created (several jobs upload to it, and GitHub allows two drafts with one tag).
+  draft-release:
+    if: inputs.release_tag != ''
+    runs-on: ubuntu-latest
+    steps:
+    - name: Create the draft release
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        TAG: ${{ inputs.release_tag }}
+      run: |
+        set -euo pipefail
+        if gh release view "$TAG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+          [[ "$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" == true ]] || { echo "release $TAG is already published"; exit 1; }
+          # A draft left by an earlier run targets that run's commit, and the tag is created from it on publish: move it.
+          gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA"
+        else
+          gh release create "$TAG" -R "$GITHUB_REPOSITORY" --draft --target "$GITHUB_SHA" --title "$TAG" --notes ""
+        fi
+
+  public-key:
+    if: inputs.release_tag != ''
+    needs: draft-release
+    uses: ./.github/workflows/pub-key.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
+  # GPL-3.0 section 6: the source for the binaries is uploaded to the release before the binaries are, and the
+  # last job fails the run if the release page ends up with binaries but not all of their sources.
+  release-source:
+    if: inputs.release_tag != ''
+    needs: draft-release
+    uses: ./.github/workflows/package-source.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+  release-zip:
+    if: inputs.release_tag != ''
+    needs: [build, release-source]
+    uses: ./.github/workflows/package-zip.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+      arches: '["x64", "x86"]'
+      bundle_geolite_data: ${{ inputs.bundle_geolite_data }}
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      UPDATE_SIGNING_KEY: ${{ secrets.UPDATE_SIGNING_KEY }}
+
+  # Glide-setup-<arch>.exe from the same zips (per-machine install into Program Files, Start menu, uninstaller).
+  release-installer:
+    if: inputs.release_tag != ''
+    needs: release-zip
+    uses: ./.github/workflows/package-installer.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+      arches: '["x64", "x86"]'
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+  verify-release-sources:
+    if: inputs.release_tag != ''
+    needs: [draft-release, public-key, release-source, release-zip, release-installer]
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ inputs.release_tag }}
+      BUNDLE_GEO: ${{ inputs.bundle_geolite_data }}
+      # The one GPG release key (public information; see upload-sign.yml). Signatures must come from this key, not just any key the release carries.
+      GLIDE_GPG_FINGERPRINT: 218B01F25642A7A391BFCC867D63C285D10463CB
+    steps:
+    - name: Checkout the release commit
+      uses: actions/checkout@v7
+      with:
+        persist-credentials: false
+
+    - name: Release has every binary and all of its source
+      shell: bash
+      run: |
+        set -euo pipefail
+        [[ "$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" == true ]] || { echo "release $TAG is not a draft"; exit 1; }
+        # The tag will be made from the draft's target: it must be the commit these binaries and sources were built from.
+        [[ "$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json targetCommitish --jq .targetCommitish)" == "$GITHUB_SHA" ]] || { echo "release $TAG targets another commit than this build ($GITHUB_SHA)"; exit 1; }
+        gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name' | node scripts/source/check-release-assets.mjs --tag "$TAG" --require-binaries
+
+    # Read what was actually uploaded, not what the jobs say they uploaded.
+    - name: Signatures, source archives and zip contents of the draft
+      shell: bash
+      run: |
+        set -euo pipefail
+        mkdir dl src && gh release download "$TAG" -R "$GITHUB_REPOSITORY" -D dl
+        ls -l dl
+        # GPG: every asset except the signatures and the public key itself must have a valid detached signature.
+        export GNUPGHOME="$RUNNER_TEMP/verify-gnupg"; install -m 700 -d "$GNUPGHOME"
+        # The public key on the release must be the pinned Glide release key.
+        pubfpr="$(gpg --batch --with-colons --show-keys dl/Glide-public-key.asc | awk -F: '$1=="pub"{p=1;next} p&&$1=="fpr"{print $10;exit}')"
+        [[ "$pubfpr" == "$GLIDE_GPG_FINGERPRINT" ]] || { echo "Glide-public-key.asc is not the Glide release key (expected $GLIDE_GPG_FINGERPRINT, got ${pubfpr:-none})"; exit 1; }
+        gpg --batch --import dl/Glide-public-key.asc
+        for f in dl/*; do
+          case "$f" in *.sig|*.sig256|*/Glide-public-key.asc) continue ;; esac
+          [[ -s "$f.sig" ]] || { echo "no signature for $(basename "$f")"; exit 1; }
+          # A good signature made by the pinned key (the last VALIDSIG field is the primary key's fingerprint).
+          status="$(gpg --batch --status-fd 1 --verify "$f.sig" "$f")"
+          echo "$status" | awk -v fpr="$GLIDE_GPG_FINGERPRINT" '$2=="VALIDSIG" && $NF==fpr {ok=1} END {exit !ok}' || { echo "$(basename "$f"): not signed by the Glide release key"; exit 1; }
+        done
+        # Update signature (S-02): each zip against the key built into the app.
+        sed -n '/^[[:space:]]*-----BEGIN PUBLIC KEY-----/,/^[[:space:]]*-----END PUBLIC KEY-----/p' v2rayN/ServiceLib/Common/UpdateSignatureKey.cs | tr -d '\r' | sed 's/^[[:space:]]*//' > "$RUNNER_TEMP/pub.pem"
+        [[ -s "$RUNNER_TEMP/pub.pem" ]] || { echo "no embedded update public key"; exit 1; }
+        for z in dl/Glide-windows-x64.zip dl/Glide-windows-x86.zip; do
+          openssl dgst -sha256 -verify "$RUNNER_TEMP/pub.pem" -signature <(base64 -d "$z.sig256") "$z"
+          # Contents: the source notice is in, and no sing-box rule set (srss) ships.
+          unzip -Z1 "$z" > "$RUNNER_TEMP/list.txt"
+          grep -q '^Glide/Licenses/SOURCE.txt$' "$RUNNER_TEMP/list.txt" || { echo "$z: Licenses/SOURCE.txt missing"; exit 1; }
+          if grep -qi -e '[.]srs$' -e '/srss/' "$RUNNER_TEMP/list.txt"; then echo "$z: rule sets (srss) must not ship"; exit 1; fi
+          if grep -qi 'EnableLoopback' "$RUNNER_TEMP/list.txt"; then echo "$z: EnableLoopback.exe must not ship"; exit 1; fi
+          # Option B: unless this run was asked to bundle them, the GeoLite-derived data files are not in the package.
+          if [[ "$BUNDLE_GEO" != true ]] && grep -qiE '/(geoip[.]dat|Country[.]mmdb|geoip-only-cn-private[.]dat|geoip[.]metadb)$' "$RUNNER_TEMP/list.txt"; then echo "$z: GeoLite-derived data files must not ship in this build"; exit 1; fi
+        done
+        # The source archives that were uploaded are the ones the checksums and the manifest describe.
+        find dl -maxdepth 1 -type f \( -name '*-source*.tar.gz' -o -name 'SOURCES-*.json' -o -name 'SHA256SUMS-source-*.txt' \) ! -name '*.sig' -exec cp {} src/ \;
+        node scripts/source/verify-source-bundle.mjs --release --dir src --tag "$TAG" --commit "$GITHUB_SHA"
+
+  # Last: only a draft that passed every job above becomes public. The `release` environment is where an
+  # approval (required reviewers) can be asked for before that happens.
+  publish:
+    if: inputs.release_tag != ''
+    needs: verify-release-sources
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+    - name: Publish the release
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        TAG: ${{ inputs.release_tag }}
+      run: |
+        set -euo pipefail
+        # Exactly one release carries this tag (checked last: the release list lags right after creation).
+        n=$(gh api "repos/$GITHUB_REPOSITORY/releases" --paginate --jq "[.[] | select(.tag_name == \"$TAG\")] | length" | awk '{s+=$1} END {print s+0}')
+        [[ "$n" == 1 ]] || { echo "expected one release for $TAG, found $n"; exit 1; }
+        gh release edit "$TAG" -R "$GITHUB_REPOSITORY" --draft=false
+        echo "tag $TAG -> $(gh api "repos/$GITHUB_REPOSITORY/commits/$TAG" --jq .sha), build commit $GITHUB_SHA"
+        gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft,tagName,assets --jq '"isDraft=\(.isDraft) tag=\(.tagName) assets=\(.assets|length)"'

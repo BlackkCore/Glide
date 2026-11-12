@@ -1,0 +1,34 @@
+{
+  "_comment": "Exact upstream source commits for the cores in cores.lock.json. Regenerate with `node scripts/source/make-source-bundle.mjs --print-pins` after a core bump and review every commit against the upstream release page.",
+  "cores": {
+    "xray": {
+      "name": "Xray-core",
+      "repo": "XTLS/Xray-core",
+      "tag": "v26.10.31",
+      "commit": "a4a3dff5b20c2faae567b742c172c7b95e75c083",
+      "license": "MPL-2.0"
+    },
+    "singBox": {
+      "name": "sing-box",
+      "repo": "SagerNet/sing-box",
+      "tag": "v1.14.3",
+      "commit": "7054cac5124465ffdb145870d7c01885566711b1",
+      "license": "GPL-3.0-or-later with the upstream name clause"
+    },
+    "mihomo": {
+      "name": "mihomo",
+      "repo": "MetaCubeX/mihomo",
+      "tag": "v1.19.29",
+      "commit": "e26714a181ac0e2fa803453c0a8e9a9ce94e31cb",
+      "license": "GPL-3.0"
+    }
+  },
+  "libcronet": {
+    "license": "BSD-3-Clause (Chromium); Go bindings SagerNet/cronet-go are GPL-3.0",
+    "cronetGoRepo": "SagerNet/cronet-go",
+    "cronetGoCommit": "0d28acc44093df24b2526dea3d6ffefd6b0a54f0",
+    "naiveproxyRepo": "SagerNet/naiveproxy",
+    "naiveproxyCommit": "72a06c9fca0e2d228588c7f3074bf7efff3ff686",
+    "windowsAmd64GitBlob": "91268f1f6fbacf1f5a684428a3ff5b77a7f69527"
+  }
+}

@@ -1,0 +1,629 @@
+﻿<Window
+    x:Class="v2rayN.Desktop.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    Title="Glide"
+    Width="1360"
+    Height="820"
+    MinWidth="960"
+    MinHeight="600"
+    x:DataType="vms:MainWindowViewModel"
+    Design.DataContext="{x:Static dd:DesignData.MainWindow}"
+    Padding="0"
+    Background="{DynamicResource AppBgBrush}"
+    Icon="/Assets/NotifyIcon1.ico"
+    ShowInTaskbar="True"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Styles>
+        <!--  The log pane always shows its tabs (Activity, then the engine log); the mihomo-only tabs
+              (Proxies, Connections, the 3rd and 4th) appear only with that engine.  -->
+        <Style Selector="TabControl.logPane > TabItem:nth-child(n+3)">
+            <Setter Property="IsVisible" Value="{Binding ShowClashUI}" />
+        </Style>
+    </Window.Styles>
+    <dialogHost:DialogHost CloseOnClickAway="True" DisableOpeningAnimation="True">
+        <Grid
+            x:Name="gridRoot"
+            ColumnDefinitions="212,*"
+            RowDefinitions="Auto,*">
+
+            <!--  ===== Sidebar =====  -->
+            <Border
+                x:Name="bdSidebar"
+                Grid.Row="1"
+                Grid.Column="0"
+                ClipToBounds="True"
+                Classes="sidebar">
+                <DockPanel>
+                    <!--  The logo and version open About; the dot on the logo says a new version is ready.  -->
+                    <StackPanel
+                        x:Name="spBrand"
+                        Margin="6,0,6,18"
+                        Classes="brand"
+                        Cursor="Hand"
+                        DockPanel.Dock="Top"
+                        Orientation="Horizontal"
+                        Spacing="11"
+                        ToolTip.Tip="{x:Static resx:ResUI.TbAbout}">
+                        <Panel>
+                            <Border Classes="brandMark">
+                                <Image Source="/Assets/GlideMark.png" />
+                            </Border>
+                            <Ellipse
+                                x:Name="dotNewUpdate"
+                                Classes="updateDot brandDot"
+                                IsVisible="False" />
+                        </Panel>
+                        <StackPanel
+                            VerticalAlignment="Center"
+                            Classes="wideOnly"
+                            Spacing="1">
+                            <TextBlock
+                                FontSize="{DynamicResource AppFontTitle}"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource AppTextBrush}"
+                                LetterSpacing="-0.2"
+                                Text="Glide" />
+                            <TextBlock
+                                x:Name="txtVersion"
+                                Classes="faint"
+                                FontSize="{DynamicResource AppFontCaption}"
+                                FontWeight="Medium" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--  The bottom of the sidebar is about the app itself. Wide: one row with the theme
+                          switch (icons), About and Exit. Compact: the same three stacked as icons.
+                          Exit is last and set apart, so it isn't clicked by mistake.  -->
+                    <StackPanel DockPanel.Dock="Bottom" Spacing="0">
+                        <Border Classes="sidebarRule" />
+                        <DockPanel Classes="wideOnly sideFooter" LastChildFill="False">
+                            <Border Classes="themeSwitch" DockPanel.Dock="Left">
+                                <StackPanel Orientation="Horizontal" Spacing="2">
+                                    <Button
+                                        x:Name="btnThemeLight"
+                                        AutomationProperties.Name="{x:Static resx:ResUI.TbThemeLight}"
+                                        Classes="themeOpt"
+                                        ToolTip.Tip="{x:Static resx:ResUI.TbThemeLight}">
+                                        <PathIcon Data="{StaticResource IconSun}" />
+                                    </Button>
+                                    <Button
+                                        x:Name="btnThemeDark"
+                                        AutomationProperties.Name="{x:Static resx:ResUI.TbThemeDark}"
+                                        Classes="themeOpt"
+                                        ToolTip.Tip="{x:Static resx:ResUI.TbThemeDark}">
+                                        <PathIcon Data="{StaticResource IconMoon}" />
+                                    </Button>
+                                    <Button
+                                        x:Name="btnThemeAuto"
+                                        AutomationProperties.Name="{x:Static resx:ResUI.TbThemeAuto}"
+                                        Classes="themeOpt"
+                                        ToolTip.Tip="{x:Static resx:ResUI.TbThemeSystem}">
+                                        <PathIcon Data="{StaticResource IconMonitor}" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <Button
+                                x:Name="btnExit"
+                                Margin="6,0,0,0"
+                                AutomationProperties.Name="{x:Static resx:ResUI.menuExit}"
+                                Classes="sideIcon"
+                                DockPanel.Dock="Right"
+                                ToolTip.Tip="{x:Static resx:ResUI.menuExit}">
+                                <PathIcon Data="{StaticResource IconExit}" />
+                            </Button>
+                            <Button
+                                x:Name="btnAbout"
+                                AutomationProperties.Name="{x:Static resx:ResUI.TbAbout}"
+                                Classes="sideIcon"
+                                DockPanel.Dock="Right"
+                                ToolTip.Tip="{x:Static resx:ResUI.TbAbout}">
+                                <PathIcon Data="{StaticResource IconInfo}" />
+                            </Button>
+                        </DockPanel>
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            Classes="compactOnly"
+                            Spacing="4">
+                            <Button
+                                x:Name="btnThemeCompact"
+                                AutomationProperties.Name="{x:Static resx:ResUI.TbSettingsTheme}"
+                                Classes="sideIcon"
+                                ToolTip.Tip="{x:Static resx:ResUI.TbSettingsTheme}">
+                                <Panel>
+                                    <PathIcon x:Name="iconThemeCompactMoon" Data="{StaticResource IconMoon}" />
+                                    <PathIcon x:Name="iconThemeCompactSun" Data="{StaticResource IconSun}" />
+                                </Panel>
+                            </Button>
+                            <Button
+                                x:Name="btnAboutCompact"
+                                AutomationProperties.Name="{x:Static resx:ResUI.TbAbout}"
+                                Classes="sideIcon"
+                                ToolTip.Tip="{x:Static resx:ResUI.TbAbout}">
+                                <PathIcon Data="{StaticResource IconInfo}" />
+                            </Button>
+                            <Button
+                                x:Name="btnExitCompact"
+                                AutomationProperties.Name="{x:Static resx:ResUI.menuExit}"
+                                Classes="sideIcon"
+                                ToolTip.Tip="{x:Static resx:ResUI.menuExit}">
+                                <PathIcon Data="{StaticResource IconExit}" />
+                            </Button>
+                        </StackPanel>
+                        <!--  Holds the appearance popup (font size, language); opened from Settings.  -->
+                        <ContentControl
+                            x:Name="conTheme"
+                            Width="0"
+                            Height="0"
+                            ClipToBounds="True"
+                            IsHitTestVisible="False" />
+                    </StackPanel>
+
+                    <Menu
+                        x:Name="menuSidebar"
+                        VerticalAlignment="Top"
+                        Classes="sidebar">
+                        <MenuItem Classes="section first" Focusable="False" IsHitTestVisible="False">
+                            <MenuItem.Header>
+                                <Panel>
+                                    <TextBlock Classes="sectionText" Text="{x:Static resx:ResUI.TbNavSectionConnect}" />
+                                    <Border Classes="sectionLine" />
+                                </Panel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuNavServers">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconServers}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavServers}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                            <MenuItem x:Name="menuAddServerSheet" Header="{x:Static resx:ResUI.TbAddServer}" />
+                            <Separator />
+                            <MenuItem
+                                x:Name="menuAddServerViaClipboard"
+                                Header="{x:Static resx:ResUI.menuAddServerViaClipboard}"
+                                InputGesture="Ctrl+V" />
+                            <MenuItem
+                                x:Name="menuAddServerViaScan"
+                                Header="{x:Static resx:ResUI.menuAddServerViaScan}"
+                                InputGesture="Ctrl+S" />
+                            <MenuItem x:Name="menuAddServerViaImage" Header="{x:Static resx:ResUI.menuAddServerViaImage}" />
+                            <Separator />
+                            <MenuItem x:Name="menuAddCustomServer" Header="{x:Static resx:ResUI.menuAddCustomServer}" />
+                            <MenuItem x:Name="menuAddPolicyGroupServer" Header="{x:Static resx:ResUI.menuAddPolicyGroupServer}" />
+                            <MenuItem x:Name="menuAddProxyChainServer" Header="{x:Static resx:ResUI.menuAddProxyChainServer}" />
+                            <MenuItem x:Name="menuAddCustomOutboundServer" Header="{x:Static resx:ResUI.menuAddCustomOutboundServer}" />
+                            <Separator />
+                            <MenuItem x:Name="menuAddVmessServer" Header="{x:Static resx:ResUI.menuAddVmessServer}" />
+                            <MenuItem x:Name="menuAddVlessServer" Header="{x:Static resx:ResUI.menuAddVlessServer}" />
+                            <MenuItem x:Name="menuAddShadowsocksServer" Header="{x:Static resx:ResUI.menuAddShadowsocksServer}" />
+                            <MenuItem x:Name="menuAddTrojanServer" Header="{x:Static resx:ResUI.menuAddTrojanServer}" />
+                            <MenuItem x:Name="menuAddHysteria2Server" Header="{x:Static resx:ResUI.menuAddHysteria2Server}" />
+                            <MenuItem x:Name="menuAddWireguardServer" Header="{x:Static resx:ResUI.menuAddWireguardServer}" />
+                            <MenuItem x:Name="menuAddMasqueServer" Header="{x:Static resx:ResUI.menuAddMasqueServer}" />
+                            <MenuItem x:Name="menuAddSocksServer" Header="{x:Static resx:ResUI.menuAddSocksServer}" />
+                            <MenuItem x:Name="menuAddHttpServer" Header="{x:Static resx:ResUI.menuAddHttpServer}" />
+                            <Separator />
+                            <MenuItem x:Name="menuAddTuicServer" Header="{x:Static resx:ResUI.menuAddTuicServer}" />
+                            <MenuItem x:Name="menuAddAnytlsServer" Header="{x:Static resx:ResUI.menuAddAnytlsServer}" />
+                            <MenuItem x:Name="menuAddNaiveServer" Header="{x:Static resx:ResUI.menuAddNaiveServer}" />
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuNavSubscriptions">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconRss}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavSubscriptions}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                            <MenuItem x:Name="menuSubUpdate" Header="{x:Static resx:ResUI.TbSubUpdateAll}" />
+                            <MenuItem x:Name="menuSubGroupUpdate" Header="{x:Static resx:ResUI.TbSubUpdateThis}" />
+                            <Separator />
+                            <MenuItem
+                                x:Name="menuSubViaProxy"
+                                Header="{x:Static resx:ResUI.TbSubViaProxy}"
+                                StaysOpenOnClick="True"
+                                ToggleType="CheckBox" />
+                            <Separator />
+                            <MenuItem x:Name="menuSubSetting" Header="{x:Static resx:ResUI.menuSubSetting}" />
+                        </MenuItem>
+
+                        <MenuItem Classes="section" Focusable="False" IsHitTestVisible="False">
+                            <MenuItem.Header>
+                                <Panel>
+                                    <TextBlock Classes="sectionText" Text="{x:Static resx:ResUI.TbNavSectionManage}" />
+                                    <Border Classes="sectionLine" />
+                                </Panel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuRoutingSetting">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconRoute}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavRouting}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuDataUsage">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconChart}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbDataUsage}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <!--  The logs open large in a sheet, instead of a few lines under the server list.  -->
+                        <MenuItem x:Name="menuNavLogs">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconTerminal}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbLogs}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuNavTools">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconTools}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.TbNavTools}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                            <MenuItem x:Name="menuAppRouting" Header="{x:Static resx:ResUI.TbAppRouting}" />
+                            <MenuItem x:Name="menuExportDiagnostics" Header="{x:Static resx:ResUI.TbExportDiagnostics}" />
+                            <Separator />
+                            <MenuItem x:Name="menuBackupAndRestore" Header="{x:Static resx:ResUI.menuBackupAndRestore}" />
+                            <MenuItem x:Name="menuImportFromOriginal" Header="{x:Static resx:ResUI.menuImportFromOriginal}" />
+                            <MenuItem x:Name="menuOpenTheFileLocation" Header="{x:Static resx:ResUI.menuOpenTheFileLocation}" />
+                            <Separator />
+                            <!--  Restarts the proxy core: a troubleshooting tool (also F5 and Ctrl+K).  -->
+                            <MenuItem
+                                x:Name="menuReload"
+                                Header="{x:Static resx:ResUI.menuReload}"
+                                InputGesture="F5" />
+                        </MenuItem>
+
+                        <MenuItem x:Name="menuNavSettings">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconSettings}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuSetting}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                            <MenuItem x:Name="menuOptionSetting" Header="{x:Static resx:ResUI.menuOptionSetting}" />
+                            <MenuItem x:Name="menuDNSSetting" Header="{x:Static resx:ResUI.menuDNSSetting}" />
+                            <MenuItem x:Name="menuFullConfigTemplate" Header="{x:Static resx:ResUI.menuFullConfigTemplate}" />
+                            <MenuItem
+                                x:Name="menuGlobalHotkeySetting"
+                                Header="{x:Static resx:ResUI.menuGlobalHotkeySetting}"
+                                IsVisible="{Binding BlIsWindows}" />
+                            <MenuItem x:Name="menuAppearance" Header="{x:Static resx:ResUI.TbAppearanceMenu}" />
+                            <Separator />
+                            <MenuItem
+                                x:Name="menuRebootAsAdmin"
+                                Header="{x:Static resx:ResUI.menuRebootAsAdmin}"
+                                IsVisible="{Binding BlIsWindows}" />
+                            <MenuItem
+                                x:Name="menuSettingsSetUWP"
+                                Header="{x:Static resx:ResUI.TbSettingsSetUWP}"
+                                IsVisible="{Binding BlIsWindows}" />
+                            <MenuItem x:Name="menuClearServerStatistics" Header="{x:Static resx:ResUI.menuClearServerStatistics}" />
+                            <Separator />
+                            <MenuItem x:Name="menuRegionalPresets" Header="{x:Static resx:ResUI.menuRegionalPresets}">
+                                <MenuItem x:Name="menuRegionalPresetsDefault" Header="{x:Static resx:ResUI.menuRegionalPresetsDefault}" />
+                                <MenuItem x:Name="menuRegionalPresetsRussia" Header="{x:Static resx:ResUI.menuRegionalPresetsRussia}" />
+                                <MenuItem x:Name="menuRegionalPresetsIran" Header="{x:Static resx:ResUI.menuRegionalPresetsIran}" />
+                            </MenuItem>
+                        </MenuItem>
+
+                        <!--  Check update, Reload and About moved: About and the update dot to the logo and the
+                              bottom row, Reload into Tools. Upstream's promotion item stays hidden.  -->
+                        <MenuItem x:Name="menuPromotion" IsVisible="False">
+                            <MenuItem.Header>
+                                <DockPanel>
+                                    <PathIcon Classes="nav" Data="{StaticResource IconStar}" />
+                                    <TextBlock Classes="nav" Text="{x:Static resx:ResUI.menuPromotion}" />
+                                </DockPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </Menu>
+                </DockPanel>
+            </Border>
+
+            <!--  ===== Content =====  -->
+            <Grid
+                x:Name="gridContent"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0"
+                ColumnDefinitions="*,0,420">
+
+                <!--  Connection card (StatusBarView)  -->
+                <Grid
+                    x:Name="gridStage"
+                    Grid.Column="0"
+                    Margin="36,26,36,28"
+                    RowDefinitions="Auto,*">
+                    <!--  Top bar: the plan's data and expiry on one side, the quick switcher on the other.  -->
+                    <Grid
+                        Margin="0,0,0,14"
+                        ColumnDefinitions="*,Auto,Auto">
+                        <!--  The chosen subscription: name, how much of the plan is used and when it ends. Opens the list of subscriptions.
+                              It sits in the flexible column, so in a narrow window its text is cut with an ellipsis instead of pushing into the buttons.  -->
+                        <Button
+                            x:Name="bdTopSub"
+                            HorizontalAlignment="Left"
+                            HorizontalContentAlignment="Stretch"
+                            Padding="16,0"
+                            Classes="chip"
+                            IsVisible="False">
+                            <Grid ColumnDefinitions="Auto,Auto,Auto,*,Auto">
+                                <Ellipse
+                                    Width="8"
+                                    Height="8"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Fill="{DynamicResource AppGoodDotBrush}" />
+                                <TextBlock
+                                    x:Name="txtTopSubName"
+                                    Grid.Column="1"
+                                    MaxWidth="150"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="{DynamicResource AppFontBody}"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource AppTextBrush}"
+                                    TextTrimming="CharacterEllipsis" />
+                                <ProgressBar
+                                    x:Name="barTopSub"
+                                    Grid.Column="2"
+                                    Width="96"
+                                    Height="6"
+                                    MinWidth="0"
+                                    MinHeight="0"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Maximum="1" />
+                                <TextBlock
+                                    x:Name="txtTopSub"
+                                    Grid.Column="3"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Classes="muted"
+                                    FontSize="{DynamicResource AppFontSmall}"
+                                    TextTrimming="CharacterEllipsis" />
+                                <PathIcon
+                                    Grid.Column="4"
+                                    Width="10"
+                                    Height="10"
+                                    VerticalAlignment="Center"
+                                    Data="{StaticResource IconChevronRight}"
+                                    Foreground="{DynamicResource AppMutedBrush}">
+                                    <PathIcon.RenderTransform>
+                                        <RotateTransform Angle="90" />
+                                    </PathIcon.RenderTransform>
+                                </PathIcon>
+                            </Grid>
+                        </Button>
+                        <!--  Subscription actions: edit the chosen one, add another.  -->
+                        <StackPanel
+                            Grid.Column="1"
+                            Margin="8,0,0,0"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                        <Button
+                            x:Name="btnTopSubEdit"
+                            Width="48"
+                            Padding="0"
+                            Classes="chip"
+                            AutomationProperties.Name="{x:Static resx:ResUI.menuSubEdit}"
+                            ToolTip.Tip="{x:Static resx:ResUI.menuSubEdit}">
+                            <PathIcon Width="16" Height="16" Data="{StaticResource SemiIconEdit}" />
+                        </Button>
+                        <Button
+                            x:Name="btnTopSubAdd"
+                            Width="48"
+                            Padding="0"
+                            Classes="chip"
+                            AutomationProperties.Name="{x:Static resx:ResUI.menuSubAdd}"
+                            ToolTip.Tip="{x:Static resx:ResUI.menuSubAdd}">
+                            <PathIcon Width="16" Height="16" Data="{StaticResource SemiIconPlus}" />
+                        </Button>
+                        </StackPanel>
+                        <Button
+                            x:Name="btnTopSearch"
+                            Grid.Column="2"
+                            MinWidth="150"
+                            MaxWidth="300"
+                            Margin="8,0,0,0"
+                            HorizontalAlignment="Right"
+                            Padding="14,0"
+                            HorizontalContentAlignment="Stretch"
+                            AutomationProperties.Name="{x:Static resx:ResUI.TbSearchServers}"
+                            Classes="chip"
+                            ToolTip.Tip="Ctrl+K">
+                            <DockPanel>
+                                <Border
+                                    x:Name="bdTopSearchHint"
+                                    Padding="6,2"
+                                    VerticalAlignment="Center"
+                                    BorderBrush="{DynamicResource AppBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    DockPanel.Dock="Right">
+                                    <TextBlock
+                                        Classes="muted"
+                                        FlowDirection="LeftToRight"
+                                        FontFamily="{DynamicResource AppMonoFont}"
+                                        FontSize="{DynamicResource AppFontCaption}"
+                                        Text="Ctrl K" />
+                                </Border>
+                                <PathIcon
+                                    Width="16"
+                                    Height="16"
+                                    Margin="0,0,10,0"
+                                    VerticalAlignment="Center"
+                                    Data="{StaticResource IconSearch}"
+                                    DockPanel.Dock="Left"
+                                    Foreground="{DynamicResource AppMutedBrush}" />
+                                <TextBlock
+                                    x:Name="txtTopSearchText"
+                                    VerticalAlignment="Center"
+                                    Classes="muted"
+                                    FontSize="{DynamicResource AppFontBody}"
+                                    Text="{x:Static resx:ResUI.TbSearchServers}"
+                                    TextTrimming="CharacterEllipsis" />
+                            </DockPanel>
+                        </Button>
+                    </Grid>
+                    <ScrollViewer
+                        Grid.Row="1"
+                        AllowAutoHide="True"
+                        Margin="0,0,-8,0"
+                        Padding="0,0,8,0"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+                        <ContentControl x:Name="contentStatusBarView" />
+                    </ScrollViewer>
+                </Grid>
+
+                <!--  Servers + log: a flat side panel with a line down its inner edge, as in the design.  -->
+                <Border Grid.Column="2" Classes="sidePanel" />
+                <Grid
+                    x:Name="gridPanelHost"
+                    Grid.Column="2"
+                    Margin="18,18,18,18">
+                    <Grid
+                        x:Name="gridMain"
+                        ColumnDefinitions="1*,16,1*"
+                        IsVisible="False">
+                        <Border Padding="16,18,16,8" Classes="card">
+                            <ContentControl x:Name="tabProfiles" />
+                        </Border>
+                        <GridSplitter
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent" />
+                        <Border
+                            Grid.Column="2"
+                            Padding="16"
+                            Classes="card">
+                            <TabControl
+                                x:Name="tabMain"
+                                HorizontalContentAlignment="Left"
+                                Classes="logPane">
+                                <TabItem x:Name="tabActivity" Header="{x:Static resx:ResUI.TbActivity}" />
+                                <TabItem x:Name="tabMsgView" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                <TabItem x:Name="tabClashProxies" Header="{x:Static resx:ResUI.TbProxies}" />
+                                <TabItem x:Name="tabClashConnections" Header="{x:Static resx:ResUI.TbConnections}" />
+                            </TabControl>
+                        </Border>
+                    </Grid>
+                    <!--  The log pane keeps at least enough height for its filter row and a few lines of log.  -->
+                    <Grid
+                        x:Name="gridMain1"
+                        IsVisible="False">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" MinHeight="170" />
+                            <RowDefinition Height="16" />
+                            <RowDefinition Height="1*" MinHeight="270" />
+                        </Grid.RowDefinitions>
+                        <!--  The bottom padding leaves a strip for the Logs toggle, so it never covers the last server row.  -->
+                        <Border
+                            x:Name="bdProfiles1"
+                            Padding="16,18,16,10"
+                            Classes="card">
+                            <ContentControl x:Name="tabProfiles1" />
+                        </Border>
+                        <!--  Logs are for troubleshooting: they fold away to give the server list the room.  -->
+                        <Button
+                            x:Name="btnToggleLogs"
+                            Grid.RowSpan="3"
+                            IsVisible="False"
+                            Margin="0,0,14,6"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Classes="logsToggle"
+                            ZIndex="1" />
+                        <GridSplitter
+                            x:Name="splitLogs"
+                            Grid.Row="1"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent" />
+                        <Border
+                            x:Name="bdLogs"
+                            Grid.Row="2"
+                            Padding="16,16,16,34"
+                            Classes="card">
+                            <TabControl
+                                x:Name="tabMain1"
+                                Classes="logPane"
+                                TabStripPlacement="Top">
+                                <TabItem x:Name="tabActivity1" Header="{x:Static resx:ResUI.TbActivity}" />
+                                <TabItem x:Name="tabMsgView1" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                <TabItem x:Name="tabClashProxies1" Header="{x:Static resx:ResUI.TbProxies}" />
+                                <TabItem x:Name="tabClashConnections1" Header="{x:Static resx:ResUI.TbConnections}" />
+                            </TabControl>
+                        </Border>
+                    </Grid>
+                    <Grid x:Name="gridMain2" IsVisible="False">
+                        <Border Padding="16,10,16,8" Classes="card">
+                            <TabControl x:Name="tabMain2" TabStripPlacement="Top">
+                                <TabItem x:Name="tabProfiles2" Header="{x:Static resx:ResUI.menuServers}" />
+                                <TabItem x:Name="tabActivity2" Header="{x:Static resx:ResUI.TbActivity}" />
+                                <TabItem x:Name="tabMsgView2" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
+                                <TabItem x:Name="tabClashProxies2" Header="{x:Static resx:ResUI.TbProxies}" />
+                                <TabItem x:Name="tabClashConnections2" Header="{x:Static resx:ResUI.TbConnections}" />
+                            </TabControl>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!--  On Windows: Glide's own title bar across the whole window, "Glide" at the start, Windows'
+                  minimise / maximise / close drawn over its far end, and a line under it. It drags the
+                  window. It follows the window's flow direction: in Persian the buttons are drawn at the left,
+                  so the name moves to the right instead of sitting under them.  -->
+            <Border
+                x:Name="bdTitleBar"
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Height="36"
+                Background="{DynamicResource AppBgBrush}"
+                BorderBrush="{DynamicResource AppBorderBrush}"
+                BorderThickness="0,0,0,1"
+                IsVisible="False">
+                <TextBlock
+                    x:Name="txtTitleBar"
+                    Margin="16,0,16,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Classes="muted"
+                    FontSize="{DynamicResource AppFontSmall}"
+                    FontWeight="Medium"
+                    IsHitTestVisible="False" />
+            </Border>
+
+            <!--  Theme switch: a picture of the old theme that fades away over the new theme (MainWindow.PlayThemeReveal).  -->
+            <Image
+                x:Name="imgThemeSnapshot"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                IsHitTestVisible="False"
+                IsVisible="False"
+                Stretch="Fill" />
+        </Grid>
+    </dialogHost:DialogHost>
+</Window>

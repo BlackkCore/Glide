@@ -1,0 +1,83 @@
+name: package and release installer
+
+# Turns each release zip into Glide-setup-<arch>.exe (Inno Setup, per-machine install into Program Files, S-01), then signs and
+# uploads it to the release like the zips.
+
+on:
+  workflow_call:
+    inputs:
+      release_tag:
+        required: true
+        type: string
+      arches: # JSON list: x64 and/or x86
+        required: false
+        type: string
+        default: '["x64", "x86"]'
+    secrets:
+      GPG_PRIVATE_KEY:
+        required: true
+      GPG_PASSPHRASE: # passphrase of the GPG release key (the key is protected)
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  package:
+    name: installer ${{ matrix.arch }}
+    strategy:
+      matrix:
+        arch: ${{ fromJSON(inputs.arches) }}
+    runs-on: windows-latest
+    steps:
+    - name: Checkout installer script
+      uses: actions/checkout@v7
+      with:
+        sparse-checkout: installer
+
+    - name: Restore release zip
+      uses: actions/download-artifact@v8
+      with:
+        name: release-windows-${{ matrix.arch }}
+        path: zip
+
+    - name: Build installer
+      shell: pwsh
+      # S-11: inputs through env, not interpolated into the script.
+      env:
+        RELEASE_TAG: ${{ inputs.release_tag }}
+        ARCH: ${{ matrix.arch }}
+      run: |
+        $ErrorActionPreference = 'Stop'
+        Expand-Archive "zip/Glide-windows-$env:ARCH.zip" -DestinationPath unpacked
+        $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+        if (-not (Test-Path $iscc)) {
+          choco install innosetup -y --no-progress
+        }
+        $version = $env:RELEASE_TAG.TrimStart('v')
+        & $iscc "/DAppVersion=$version" "/DArch=$env:ARCH" "/DSourceDir=$PWD\unpacked\Glide" "/O$PWD\dist" installer\glide.iss
+        if ($LASTEXITCODE -ne 0) { throw "ISCC failed with $LASTEXITCODE" }
+        Get-ChildItem dist
+
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: release-installer-${{ matrix.arch }}
+        path: dist/Glide-setup-${{ matrix.arch }}.exe
+        if-no-files-found: error
+
+  release:
+    name: sign and upload installer ${{ matrix.arch }}
+    needs: package
+    strategy:
+      matrix:
+        arch: ${{ fromJSON(inputs.arches) }}
+    uses: ./.github/workflows/upload-sign.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+      artifact_name: release-installer-${{ matrix.arch }}
+      file_pattern: '*.exe'
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

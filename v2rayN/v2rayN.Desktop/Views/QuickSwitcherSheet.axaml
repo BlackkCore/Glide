@@ -1,0 +1,45 @@
+<UserControl
+    x:Class="v2rayN.Desktop.Views.QuickSwitcherSheet"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    Width="520"
+    mc:Ignorable="d">
+    <!--  Ctrl+K: type a few letters, Enter goes to that server or runs that action.  -->
+    <StackPanel Margin="18,16" Spacing="10">
+        <TextBox
+            x:Name="txtQuery"
+            AutomationProperties.Name="{x:Static resx:ResUI.TbQuickSwitcherHint}"
+            Classes="search"
+            PlaceholderText="{x:Static resx:ResUI.TbQuickSwitcherHint}">
+            <TextBox.InnerLeftContent>
+                <PathIcon Classes="searchIcon" Data="{StaticResource IconSearch}" />
+            </TextBox.InnerLeftContent>
+        </TextBox>
+        <ListBox
+            x:Name="lstResults"
+            MaxHeight="380"
+            Background="Transparent">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:CompileBindings="False">
+                    <StackPanel Margin="4,2" Spacing="1">
+                        <TextBlock FontWeight="Medium" Text="{Binding Title}" />
+                        <TextBlock
+                            Classes="muted"
+                            FontSize="{DynamicResource AppFontSmall}"
+                            Text="{Binding Subtitle}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--  Typed something that matches nothing: say so instead of an empty list.  -->
+        <TextBlock
+            x:Name="txtNoResults"
+            Margin="4,0,4,4"
+            Classes="muted"
+            IsVisible="False"
+            TextWrapping="Wrap" />
+    </StackPanel>
+</UserControl>

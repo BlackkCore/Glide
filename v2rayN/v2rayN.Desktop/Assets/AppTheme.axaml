@@ -1,0 +1,874 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:conv="using:Avalonia.Controls.Converters">
+    <!--  Redesign color tokens. Light and Dark; Semi's other variants inherit from one of these.  -->
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <!--  Surfaces and text (one cool-gray family)  -->
+            <SolidColorBrush x:Key="AppBgBrush" Color="#F4F4F8" />
+            <SolidColorBrush x:Key="AppPanelBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AppSurfaceBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AppBorderBrush" Color="#E4E4EE" />
+            <SolidColorBrush x:Key="AppBorderStrongBrush" Color="#D4D4E2" />
+            <SolidColorBrush x:Key="AppTextBrush" Color="#111827" />
+            <SolidColorBrush x:Key="AppMutedBrush" Color="#4B5563" />
+            <SolidColorBrush x:Key="AppFaintBrush" Color="#646B78" />
+            <SolidColorBrush x:Key="AppSubtleBrush" Color="#F4F4F8" />
+            <SolidColorBrush x:Key="AppSegmentSelectedBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AppLogBgBrush" Color="#F8F8FB" />
+            <SolidColorBrush x:Key="AppNavHoverBrush" Color="#EFEFF5" />
+            <!--  Rest state of hoverable rows: the hover colour at zero opacity, so the fade never passes through white.  -->
+            <SolidColorBrush x:Key="AppNavIdleBrush" Color="#00EFEFF5" />
+            <SolidColorBrush x:Key="AppNavActiveBgBrush" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="AppNavActiveFgBrush" Color="#4338CA" />
+            <!--  Accent  -->
+            <SolidColorBrush x:Key="AppAccentBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="AppAccentHoverBrush" Color="#4338CA" />
+            <SolidColorBrush x:Key="AppAccentPressedBrush" Color="#3730A3" />
+            <SolidColorBrush x:Key="AppOnAccentBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AppAccentSoftBrush" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="AppAccentSoftFgBrush" Color="#4338CA" />
+            <!--  Dropdown lists: app surface, soft accent for the chosen item (Semi's own keys).  -->
+            <SolidColorBrush x:Key="ComboBoxPopupBackground" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="ComboBoxPopupBorderBrush" Color="#E4E4EE" />
+            <SolidColorBrush x:Key="ComboBoxItemPointeroverBackground" Color="#F4F4F8" />
+            <SolidColorBrush x:Key="ComboBoxItemPressedBackground" Color="#F4F4F8" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedBackground" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedForeground" Color="#4338CA" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedPointeroverBackground" Color="#E0E3FF" />
+            <SolidColorBrush x:Key="AppAccentRingBrush" Color="#E0E3FF" />
+            <!--  Power button  -->
+            <LinearGradientBrush x:Key="AppPowerOnFill" StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Offset="0" Color="#5B54EE" />
+                <GradientStop Offset="1" Color="#4338CA" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="AppOffBgBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AppOffFgBrush" Color="#4B5563" />
+            <SolidColorBrush x:Key="AppOffRingBrush" Color="#EFEFF5" />
+            <SolidColorBrush x:Key="AppPillOffBgBrush" Color="#EFEFF5" />
+            <BoxShadows x:Key="AppPowerOnShadow">0 18 36 -12 #994F46E5, 0 2 6 0 #334F46E5</BoxShadows>
+            <BoxShadows x:Key="AppPowerOffShadow">0 10 24 -12 #33111827, 0 1 2 0 #14111827</BoxShadows>
+            <!--  Status  -->
+            <SolidColorBrush x:Key="AppGoodBgBrush" Color="#CFFAFE" />
+            <SolidColorBrush x:Key="AppGoodFgBrush" Color="#0E7490" />
+            <!--  Cyan / amber dots kept at 3:1 or more on white (they mark state).  -->
+            <SolidColorBrush x:Key="AppGoodDotBrush" Color="#0891B2" />
+            <SolidColorBrush x:Key="AppWarnBgBrush" Color="#FFF4DE" />
+            <SolidColorBrush x:Key="AppWarnFgBrush" Color="#8A5300" />
+            <SolidColorBrush x:Key="AppWarnDotBrush" Color="#C27C0E" />
+            <SolidColorBrush x:Key="AppBadBgBrush" Color="#FDECEC" />
+            <SolidColorBrush x:Key="AppBadFgBrush" Color="#A3262A" />
+            <SolidColorBrush x:Key="AppBadDotBrush" Color="#E5484D" />
+            <!--  Tables  -->
+            <SolidColorBrush x:Key="AppRowSelectedBrush" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="AppRowHoverBrush" Color="#F8F8FB" />
+            <SolidColorBrush x:Key="AppGridLineBrush" Color="#EFF0F3" />
+            <SolidColorBrush x:Key="AppFlagRingBrush" Color="#47111827" />
+            <!--  Elevation  -->
+            <BoxShadows x:Key="AppCardShadow">0 1 2 0 #0A111827, 0 8 24 -12 #1F111827</BoxShadows>
+            <BoxShadows x:Key="AppRaisedShadow">0 1 2 0 #1A111827, 0 1 1 0 #0D111827</BoxShadows>
+            <BoxShadows x:Key="AppToastShadow">0 12 32 -10 #33111827, 0 2 6 0 #14111827</BoxShadows>
+
+            <!--  Semi's own palette, re-tinted to the app accent so every control matches  -->
+            <!--  Shared neutral surfaces and status colors for Semi controls and dialogs.  -->
+            <SolidColorBrush x:Key="SemiColorBackground0" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="SemiColorBackground1" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="SemiColorBackground2" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="SemiColorBackground3" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="SemiColorBackground4" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="SemiColorText0" Color="#111827" />
+            <SolidColorBrush x:Key="SemiColorText1" Color="#4B5563" />
+            <SolidColorBrush x:Key="SemiColorText2" Color="#6B7280" />
+            <SolidColorBrush x:Key="SemiColorText3" Color="#6B7280" />
+            <SolidColorBrush x:Key="SemiColorFill0" Color="#F4F4F8" />
+            <SolidColorBrush x:Key="SemiColorFill1" Color="#EFEFF5" />
+            <SolidColorBrush x:Key="SemiColorFill2" Color="#E4E4EE" />
+            <SolidColorBrush x:Key="SemiColorBorder" Color="#E4E4EE" />
+            <SolidColorBrush x:Key="SemiColorSuccess" Color="#0E7490" />
+            <SolidColorBrush x:Key="SemiColorSuccessPointerover" Color="#155E75" />
+            <SolidColorBrush x:Key="SemiColorSuccessActive" Color="#164E63" />
+            <SolidColorBrush x:Key="SemiColorSuccessDisabled" Color="#9CCBD3" />
+            <SolidColorBrush x:Key="SemiColorSuccessLight" Color="#CFFAFE" />
+            <SolidColorBrush x:Key="SemiColorSuccessLightPointerover" Color="#B5EFF6" />
+            <SolidColorBrush x:Key="SemiColorSuccessLightActive" Color="#9CE2EC" />
+            <SolidColorBrush x:Key="SemiColorWarning" Color="#8A5300" />
+            <SolidColorBrush x:Key="SemiColorWarningPointerover" Color="#704300" />
+            <SolidColorBrush x:Key="SemiColorWarningActive" Color="#603700" />
+            <SolidColorBrush x:Key="SemiColorWarningLight" Color="#FFF4DE" />
+            <SolidColorBrush x:Key="SemiColorWarningLightPointerover" Color="#FFECC7" />
+            <SolidColorBrush x:Key="SemiColorWarningLightActive" Color="#FFE0A1" />
+            <SolidColorBrush x:Key="SemiColorDanger" Color="#A3262A" />
+            <SolidColorBrush x:Key="SemiColorDangerPointerover" Color="#8D2024" />
+            <SolidColorBrush x:Key="SemiColorDangerActive" Color="#76191D" />
+            <SolidColorBrush x:Key="SemiColorDangerLight" Color="#FDECEC" />
+            <SolidColorBrush x:Key="SemiColorDangerLightPointerover" Color="#FBDCDF" />
+            <SolidColorBrush x:Key="SemiColorDangerLightActive" Color="#F8CACE" />
+            <SolidColorBrush x:Key="SemiColorInformation" Color="#4F46E5" />
+            <SolidColorBrush x:Key="SemiColorInformationPointerover" Color="#4338CA" />
+            <SolidColorBrush x:Key="SemiColorInformationActive" Color="#3730A3" />
+            <SolidColorBrush x:Key="SemiColorInformationDisabled" Color="#C7C9F7" />
+            <SolidColorBrush x:Key="SemiColorInformationLight" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="SemiColorInformationLightPointerover" Color="#E4E7FF" />
+            <SolidColorBrush x:Key="SemiColorInformationLightActive" Color="#D3D7FE" />
+            <SolidColorBrush x:Key="SemiColorPrimary" Color="#4F46E5" />
+            <SolidColorBrush x:Key="SemiColorPrimaryPointerover" Color="#4338CA" />
+            <SolidColorBrush x:Key="SemiColorPrimaryActive" Color="#3730A3" />
+            <SolidColorBrush x:Key="SemiColorPrimaryDisabled" Color="#C7C9F7" />
+            <SolidColorBrush x:Key="SemiColorPrimaryLight" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="SemiColorPrimaryLightPointerover" Color="#E4E7FF" />
+            <SolidColorBrush x:Key="SemiColorPrimaryLightActive" Color="#D3D7FE" />
+            <SolidColorBrush x:Key="SemiColorFocusBorder" Color="#4F46E5" />
+            <SolidColorBrush x:Key="SemiColorLink" Color="#4F46E5" />
+            <SolidColorBrush x:Key="SemiColorLinkPointerover" Color="#4338CA" />
+            <SolidColorBrush x:Key="SemiColorLinkActive" Color="#3730A3" />
+            <SolidColorBrush x:Key="SemiColorLinkVisited" Color="#4F46E5" />
+            <SolidColorBrush x:Key="ToggleSwitchContainerCheckedDefaultBackground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="ToggleSwitchContainerCheckedPointeroverBackground" Color="#4338CA" />
+            <SolidColorBrush x:Key="ToggleSwitchContainerCheckedPressedBackground" Color="#3730A3" />
+            <!--  Semi controls read these keys directly, so they get the accent here too.  -->
+            <SolidColorBrush x:Key="ButtonSolidPrimaryBackground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryPointeroverBackground" Color="#4338CA" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryPointeroverBorderBrush" Color="#4338CA" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryPressedBackground" Color="#3730A3" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryPressedBorderBrush" Color="#3730A3" />
+            <SolidColorBrush x:Key="ButtonDefaultPrimaryForeground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="CheckBoxCheckedDefaultBackground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="CheckBoxCheckedDefaultBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="CheckBoxCheckedPointeroverBackground" Color="#4338CA" />
+            <SolidColorBrush x:Key="CheckBoxCheckedPointeroverBorderBrush" Color="#4338CA" />
+            <SolidColorBrush x:Key="CheckBoxCheckedPressedBackground" Color="#3730A3" />
+            <SolidColorBrush x:Key="CheckBoxCheckedPressedBorderBrush" Color="#3730A3" />
+            <SolidColorBrush x:Key="CheckBoxCardCheckedBackground" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="CheckBoxCardCheckedBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="CheckBoxCardCheckedPointeroverBorderBrush" Color="#4338CA" />
+            <SolidColorBrush x:Key="CheckBoxCardCheckedPressedBorderBrush" Color="#3730A3" />
+            <SolidColorBrush x:Key="TextBoxFocusBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="ComboBoxSelectorFocusBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="ComboBoxSelectorBorderedFocusBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="DataGridCellFocusBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="HyperlinkButtonForeground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="HyperlinkButtonPointeroverForeground" Color="#4338CA" />
+            <SolidColorBrush x:Key="HyperlinkButtonPressedForeground" Color="#3730A3" />
+            <SolidColorBrush x:Key="HyperlinkButtonVisitedForeground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="TabItemLinePipeSelectedBackground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="RadioButtonCardCheckedBackground" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="ProgressBarPrimaryForeground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="DataGridRowPointeroverBackground" Color="#F8F8FB" />
+            <SolidColorBrush x:Key="DataGridRowSelectedBackground" Color="#EEF0FF" />
+            <SolidColorBrush x:Key="DataGridRowSelectedPointeroverBackground" Color="#E6E8FF" />
+            <SolidColorBrush x:Key="DataGridCellCurrentBorderBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="DataGridColumnHeaderBackground" Color="Transparent" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="AppBgBrush" Color="#07080D" />
+            <SolidColorBrush x:Key="AppPanelBrush" Color="#0B0C13" />
+            <SolidColorBrush x:Key="AppSurfaceBrush" Color="#0E1018" />
+            <SolidColorBrush x:Key="AppBorderBrush" Color="#1C1F2C" />
+            <SolidColorBrush x:Key="AppBorderStrongBrush" Color="#2A2E40" />
+            <SolidColorBrush x:Key="AppTextBrush" Color="#F3F4F8" />
+            <SolidColorBrush x:Key="AppMutedBrush" Color="#A3A9B8" />
+            <SolidColorBrush x:Key="AppFaintBrush" Color="#868D9C" />
+            <SolidColorBrush x:Key="AppSubtleBrush" Color="#151826" />
+            <SolidColorBrush x:Key="AppSegmentSelectedBrush" Color="#2A2F40" />
+            <SolidColorBrush x:Key="AppLogBgBrush" Color="#0A0C12" />
+            <SolidColorBrush x:Key="AppNavHoverBrush" Color="#151826" />
+            <SolidColorBrush x:Key="AppNavIdleBrush" Color="#00151826" />
+            <SolidColorBrush x:Key="AppNavActiveBgBrush" Color="#1F2240" />
+            <SolidColorBrush x:Key="AppNavActiveFgBrush" Color="#C7D2FE" />
+            <SolidColorBrush x:Key="AppAccentBrush" Color="#5850EC" />
+            <SolidColorBrush x:Key="AppAccentHoverBrush" Color="#6366F1" />
+            <SolidColorBrush x:Key="AppAccentPressedBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="AppOnAccentBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AppAccentSoftBrush" Color="#1F2240" />
+            <SolidColorBrush x:Key="AppAccentSoftFgBrush" Color="#C7D2FE" />
+            <!--  Dropdown lists: app surface, soft accent for the chosen item (Semi's own keys).  -->
+            <SolidColorBrush x:Key="ComboBoxPopupBackground" Color="#121420" />
+            <SolidColorBrush x:Key="ComboBoxPopupBorderBrush" Color="#262A3A" />
+            <SolidColorBrush x:Key="ComboBoxItemPointeroverBackground" Color="#1B1E2D" />
+            <SolidColorBrush x:Key="ComboBoxItemPressedBackground" Color="#1B1E2D" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedBackground" Color="#262A52" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedForeground" Color="#C7D2FE" />
+            <SolidColorBrush x:Key="ComboBoxItemSelectedPointeroverBackground" Color="#2C3060" />
+            <SolidColorBrush x:Key="AppAccentRingBrush" Color="#1E2140" />
+            <LinearGradientBrush x:Key="AppPowerOnFill" StartPoint="0%,0%" EndPoint="0%,100%">
+                <GradientStop Offset="0" Color="#6D66F5" />
+                <GradientStop Offset="1" Color="#4F46E5" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="AppOffBgBrush" Color="#151826" />
+            <SolidColorBrush x:Key="AppOffFgBrush" Color="#B3B9C6" />
+            <SolidColorBrush x:Key="AppOffRingBrush" Color="#11131D" />
+            <SolidColorBrush x:Key="AppPillOffBgBrush" Color="#151826" />
+            <BoxShadows x:Key="AppPowerOnShadow">0 18 40 -10 #995850EC, 0 2 8 0 #405850EC</BoxShadows>
+            <BoxShadows x:Key="AppPowerOffShadow">0 10 24 -10 #80000000, inset 0 1 0 0 #0FFFFFFF</BoxShadows>
+            <SolidColorBrush x:Key="AppGoodBgBrush" Color="#0A2B2C" />
+            <SolidColorBrush x:Key="AppGoodFgBrush" Color="#5EF0E2" />
+            <SolidColorBrush x:Key="AppGoodDotBrush" Color="#2EE6D6" />
+            <SolidColorBrush x:Key="AppWarnBgBrush" Color="#33270D" />
+            <SolidColorBrush x:Key="AppWarnFgBrush" Color="#F5C26B" />
+            <SolidColorBrush x:Key="AppWarnDotBrush" Color="#F5B84A" />
+            <SolidColorBrush x:Key="AppBadBgBrush" Color="#3A1517" />
+            <SolidColorBrush x:Key="AppBadFgBrush" Color="#FFA3A6" />
+            <SolidColorBrush x:Key="AppBadDotBrush" Color="#F0585E" />
+            <SolidColorBrush x:Key="AppRowSelectedBrush" Color="#1F2240" />
+            <SolidColorBrush x:Key="AppRowHoverBrush" Color="#121420" />
+            <SolidColorBrush x:Key="AppGridLineBrush" Color="#181B28" />
+            <SolidColorBrush x:Key="AppFlagRingBrush" Color="#38FFFFFF" />
+            <BoxShadows x:Key="AppCardShadow">0 1 2 0 #40000000</BoxShadows>
+            <BoxShadows x:Key="AppRaisedShadow">0 1 2 0 #66000000, inset 0 1 0 0 #0DFFFFFF</BoxShadows>
+            <BoxShadows x:Key="AppToastShadow">0 12 32 -8 #A0000000, 0 1 2 0 #66000000</BoxShadows>
+
+            <!--  Shared neutral surfaces and status colors for Semi controls and dialogs.  -->
+            <SolidColorBrush x:Key="SemiColorBackground0" Color="#0E1018" />
+            <SolidColorBrush x:Key="SemiColorBackground1" Color="#151826" />
+            <SolidColorBrush x:Key="SemiColorBackground2" Color="#1C1F2C" />
+            <SolidColorBrush x:Key="SemiColorBackground3" Color="#24283A" />
+            <SolidColorBrush x:Key="SemiColorBackground4" Color="#2A2E40" />
+            <SolidColorBrush x:Key="SemiColorText0" Color="#F3F4F8" />
+            <SolidColorBrush x:Key="SemiColorText1" Color="#A3A9B8" />
+            <SolidColorBrush x:Key="SemiColorText2" Color="#7D8494" />
+            <SolidColorBrush x:Key="SemiColorText3" Color="#7D8494" />
+            <SolidColorBrush x:Key="SemiColorFill0" Color="#151826" />
+            <SolidColorBrush x:Key="SemiColorFill1" Color="#1C1F2C" />
+            <SolidColorBrush x:Key="SemiColorFill2" Color="#2A2E40" />
+            <SolidColorBrush x:Key="SemiColorBorder" Color="#1C1F2C" />
+            <SolidColorBrush x:Key="SemiColorSuccess" Color="#5EF0E2" />
+            <SolidColorBrush x:Key="SemiColorSuccessPointerover" Color="#7AF5E9" />
+            <SolidColorBrush x:Key="SemiColorSuccessActive" Color="#9AF9EF" />
+            <SolidColorBrush x:Key="SemiColorSuccessDisabled" Color="#235753" />
+            <SolidColorBrush x:Key="SemiColorSuccessLight" Color="#0A2B2C" />
+            <SolidColorBrush x:Key="SemiColorSuccessLightPointerover" Color="#123A3C" />
+            <SolidColorBrush x:Key="SemiColorSuccessLightActive" Color="#19484B" />
+            <SolidColorBrush x:Key="SemiColorWarning" Color="#F5C26B" />
+            <SolidColorBrush x:Key="SemiColorWarningPointerover" Color="#F9CE85" />
+            <SolidColorBrush x:Key="SemiColorWarningActive" Color="#FFDAA1" />
+            <SolidColorBrush x:Key="SemiColorWarningLight" Color="#33270D" />
+            <SolidColorBrush x:Key="SemiColorWarningLightPointerover" Color="#413215" />
+            <SolidColorBrush x:Key="SemiColorWarningLightActive" Color="#51401C" />
+            <SolidColorBrush x:Key="SemiColorDanger" Color="#FFA3A6" />
+            <SolidColorBrush x:Key="SemiColorDangerPointerover" Color="#FFB9BC" />
+            <SolidColorBrush x:Key="SemiColorDangerActive" Color="#FFCCCE" />
+            <SolidColorBrush x:Key="SemiColorDangerLight" Color="#3A1517" />
+            <SolidColorBrush x:Key="SemiColorDangerLightPointerover" Color="#4C1C20" />
+            <SolidColorBrush x:Key="SemiColorDangerLightActive" Color="#5D2529" />
+            <SolidColorBrush x:Key="SemiColorInformation" Color="#A5B4FC" />
+            <SolidColorBrush x:Key="SemiColorInformationPointerover" Color="#C7D2FE" />
+            <SolidColorBrush x:Key="SemiColorInformationActive" Color="#818CF8" />
+            <SolidColorBrush x:Key="SemiColorInformationDisabled" Color="#2E2C6E" />
+            <SolidColorBrush x:Key="SemiColorInformationLight" Color="#1F2240" />
+            <SolidColorBrush x:Key="SemiColorInformationLightPointerover" Color="#252957" />
+            <SolidColorBrush x:Key="SemiColorInformationLightActive" Color="#2D3266" />
+            <SolidColorBrush x:Key="SemiColorPrimary" Color="#5850EC" />
+            <SolidColorBrush x:Key="SemiColorPrimaryPointerover" Color="#6366F1" />
+            <SolidColorBrush x:Key="SemiColorPrimaryActive" Color="#4F46E5" />
+            <SolidColorBrush x:Key="SemiColorPrimaryDisabled" Color="#2E2C6E" />
+            <SolidColorBrush x:Key="SemiColorPrimaryLight" Color="#1F2240" />
+            <SolidColorBrush x:Key="SemiColorPrimaryLightPointerover" Color="#252957" />
+            <SolidColorBrush x:Key="SemiColorPrimaryLightActive" Color="#2D3266" />
+            <SolidColorBrush x:Key="SemiColorFocusBorder" Color="#5850EC" />
+            <SolidColorBrush x:Key="SemiColorLink" Color="#A5B4FC" />
+            <SolidColorBrush x:Key="SemiColorLinkPointerover" Color="#C7D2FE" />
+            <SolidColorBrush x:Key="SemiColorLinkActive" Color="#818CF8" />
+            <SolidColorBrush x:Key="SemiColorLinkVisited" Color="#A5B4FC" />
+            <SolidColorBrush x:Key="ToggleSwitchContainerCheckedDefaultBackground" Color="#5850EC" />
+            <SolidColorBrush x:Key="ToggleSwitchContainerCheckedPointeroverBackground" Color="#6366F1" />
+            <SolidColorBrush x:Key="ToggleSwitchContainerCheckedPressedBackground" Color="#4F46E5" />
+            <!--  Semi controls read these keys directly, so they get the accent here too.  -->
+            <SolidColorBrush x:Key="ButtonSolidPrimaryBackground" Color="#5850EC" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryBorderBrush" Color="#5850EC" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryPointeroverBackground" Color="#6366F1" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryPointeroverBorderBrush" Color="#6366F1" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryPressedBackground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="ButtonSolidPrimaryPressedBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="ButtonDefaultPrimaryForeground" Color="#A5B4FC" />
+            <SolidColorBrush x:Key="CheckBoxCheckedDefaultBackground" Color="#5850EC" />
+            <SolidColorBrush x:Key="CheckBoxCheckedDefaultBorderBrush" Color="#5850EC" />
+            <SolidColorBrush x:Key="CheckBoxCheckedPointeroverBackground" Color="#6366F1" />
+            <SolidColorBrush x:Key="CheckBoxCheckedPointeroverBorderBrush" Color="#6366F1" />
+            <SolidColorBrush x:Key="CheckBoxCheckedPressedBackground" Color="#4F46E5" />
+            <SolidColorBrush x:Key="CheckBoxCheckedPressedBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="CheckBoxCardCheckedBackground" Color="#1F2240" />
+            <SolidColorBrush x:Key="CheckBoxCardCheckedBorderBrush" Color="#5850EC" />
+            <SolidColorBrush x:Key="CheckBoxCardCheckedPointeroverBorderBrush" Color="#6366F1" />
+            <SolidColorBrush x:Key="CheckBoxCardCheckedPressedBorderBrush" Color="#4F46E5" />
+            <SolidColorBrush x:Key="TextBoxFocusBorderBrush" Color="#5850EC" />
+            <SolidColorBrush x:Key="ComboBoxSelectorFocusBorderBrush" Color="#5850EC" />
+            <SolidColorBrush x:Key="ComboBoxSelectorBorderedFocusBorderBrush" Color="#5850EC" />
+            <SolidColorBrush x:Key="DataGridCellFocusBorderBrush" Color="#5850EC" />
+            <SolidColorBrush x:Key="HyperlinkButtonForeground" Color="#A5B4FC" />
+            <SolidColorBrush x:Key="HyperlinkButtonPointeroverForeground" Color="#C7D2FE" />
+            <SolidColorBrush x:Key="HyperlinkButtonPressedForeground" Color="#818CF8" />
+            <SolidColorBrush x:Key="HyperlinkButtonVisitedForeground" Color="#A5B4FC" />
+            <SolidColorBrush x:Key="TabItemLinePipeSelectedBackground" Color="#5850EC" />
+            <SolidColorBrush x:Key="RadioButtonCardCheckedBackground" Color="#1F2240" />
+            <SolidColorBrush x:Key="ProgressBarPrimaryForeground" Color="#5850EC" />
+            <SolidColorBrush x:Key="MenuFlyoutBackground" Color="#151826" />
+            <SolidColorBrush x:Key="DataGridRowPointeroverBackground" Color="#121420" />
+            <SolidColorBrush x:Key="DataGridRowSelectedBackground" Color="#1F2240" />
+            <SolidColorBrush x:Key="DataGridRowSelectedPointeroverBackground" Color="#262A52" />
+            <SolidColorBrush x:Key="DataGridCellCurrentBorderBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="DataGridColumnHeaderBackground" Color="Transparent" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <CornerRadius x:Key="ComboBoxPopupBoxCornerRadius">12</CornerRadius>
+    <!--  Type scale. Everything in the app uses one of these five sizes; ThemeSettingViewModel
+          nudges them up or down when the user picks a different font size.  -->
+    <x:Double x:Key="AppFontCaption">11</x:Double>
+    <x:Double x:Key="AppFontSmall">12</x:Double>
+    <x:Double x:Key="AppFontBody">13</x:Double>
+    <x:Double x:Key="AppFontTitle">15</x:Double>
+    <x:Double x:Key="AppFontHeading">20</x:Double>
+    <!--  Large sizes for the connection headline and the live speed numbers.  -->
+    <x:Double x:Key="AppFontStat">26</x:Double>
+    <x:Double x:Key="AppFontDisplay">52</x:Double>
+
+    <!--  Vazirmatn follows JetBrains Mono so Persian digits (۰–۹) in timers and delays have proper glyphs.  -->
+    <FontFamily x:Key="AppMonoFont">avares://Glide/Assets/Fonts#JetBrains Mono, avares://Glide/Assets/Fonts#Vazirmatn, Cascadia Mono, Consolas, monospace</FontFamily>
+
+    <!--  Icons (24x24, filled shapes)  -->
+    <StreamGeometry x:Key="IconShield">M12 2.5l7.5 3.2v6.1c0 4.7-3.1 8-7.5 9.7-4.4-1.7-7.5-5-7.5-9.7V5.7zM12 4.7L6.5 7v4.8c0 3.6 2.3 6.2 5.5 7.6 3.2-1.4 5.5-4 5.5-7.6V7zM15.3 9l1.1 1.1-5.1 5.1-3.1-3.1 1.1-1.1 2 2z</StreamGeometry>
+    <StreamGeometry x:Key="IconShieldSolid">M12 2.5l7.5 3.2v6.1c0 4.7-3.1 8-7.5 9.7-4.4-1.7-7.5-5-7.5-9.7V5.7zM15.3 9l-4 4-2-2-1.1 1.1 3.1 3.1 5.1-5.1z</StreamGeometry>
+    <StreamGeometry x:Key="IconInfo">M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm-1 6h2v7h-2zm0-3.5h2v2h-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconGlider">M102 282 L429 134 L243 307 Z M429 134 L282 410 L251 315 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconPower">M11 2h2v10h-2zM6.3 5.6l1.4 1.4A7 7 0 1 0 16.3 7l1.4-1.4A9 9 0 1 1 6.3 5.6z</StreamGeometry>
+    <StreamGeometry x:Key="IconServers">M5 3h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm0 2v4h14V5zm0 8h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2zm0 2v4h14v-4zM6.5 6.2h2v1.6h-2zm0 10h2v1.6h-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconRss">M4 10.2a9.8 9.8 0 0 1 9.8 9.8h-2A7.8 7.8 0 0 0 4 12.2zM4 3.5A16.5 16.5 0 0 1 20.5 20h-2A14.5 14.5 0 0 0 4 5.5zM5.5 17a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z</StreamGeometry>
+    <StreamGeometry x:Key="IconSettings">M10.3 2h3.4l.5 2.6 1.6.9 2.5-.9 1.7 2.9-2 1.8v1.8l2 1.8-1.7 2.9-2.5-.9-1.6.9-.5 2.6h-3.4l-.5-2.6-1.6-.9-2.5.9-1.7-2.9 2-1.8V9.3l-2-1.8 1.7-2.9 2.5.9 1.6-.9zM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm0 2a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z</StreamGeometry>
+    <StreamGeometry x:Key="IconUpdate">M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm1 3v6.6l2.3-2.3 1.4 1.4L12 17.4l-4.7-4.7 1.4-1.4 2.3 2.3V7z</StreamGeometry>
+    <StreamGeometry x:Key="IconReload">M12 4a8 8 0 0 1 7.4 5H22l-3.5 4-3.5-4h2.2A6 6 0 1 0 18 14.6l1.7 1.1A8 8 0 1 1 12 4z</StreamGeometry>
+    <StreamGeometry x:Key="IconStar">M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9zm0 4.5L10.5 10.5l-3.5.5 2.5 2.4-.6 3.5L12 15.2l3.1 1.7-.6-3.5L17 11l-3.5-.5z</StreamGeometry>
+    <StreamGeometry x:Key="IconStarSolid">M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3-4.6-4.4 6.3-.9z</StreamGeometry>
+    <StreamGeometry x:Key="IconExit">M5 3h8v2H5v14h8v2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm11.6 4.6L21 12l-4.4 4.4-1.4-1.4 2-2H9v-2h8.2l-2-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconMoon">M12.3 3a7 7 0 0 0 8.7 8.7A9 9 0 1 1 12.3 3zM9.7 5.6a7 7 0 1 0 8.7 8.7A9 9 0 0 1 9.7 5.6z</StreamGeometry>
+    <StreamGeometry x:Key="IconSun">M11 1h2v3h-2zm0 19h2v3h-2zM1 11h3v2H1zm19 0h3v2h-3zM4.2 2.8l2.1 2.1-1.4 1.4-2.1-2.1zm14.9 14.9 2.1 2.1-1.4 1.4-2.1-2.1zM2.8 19.8l2.1-2.1 1.4 1.4-2.1 2.1zM17.7 4.9l2.1-2.1 1.4 1.4-2.1 2.1zM12 6a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z</StreamGeometry>
+    <StreamGeometry x:Key="IconMonitor">M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H7v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v9h16V6z</StreamGeometry>
+    <StreamGeometry x:Key="IconChart">M3 3h2v16h16v2H3zm4 9h3v5H7zm5-6h3v11h-3zm5 3h3v8h-3z</StreamGeometry>
+    <StreamGeometry x:Key="IconRoute">M6 3a3 3 0 0 1 1 5.8v6.4A3 3 0 1 1 5 15.2V8.8A3 3 0 0 1 6 3zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm0 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM18 3a3 3 0 0 1 1 5.8V10a4 4 0 0 1-4 4h-4a2 2 0 0 0-2 2H7a4 4 0 0 1 4-4h4a2 2 0 0 0 2-2V8.8A3 3 0 0 1 18 3zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconTools">M14.7 2.3a6 6 0 0 1 6.6 1.3l.6.7-3.6 3.6.7 2.1 2.1.7 3.6-3.6.3.7a6 6 0 0 1-7.6 7.9l-7.6 7.6a2.5 2.5 0 0 1-3.5-3.5l7.6-7.6a6 6 0 0 1 1.2-6.6zm1.6 1.7a4 4 0 0 0-2.6 5.2l.2.6-8.5 8.5a.5.5 0 0 0 .7.7l8.5-8.5.6.2a4 4 0 0 0 5.4-3l-1.6 1.6-4-1.3-1.3-4z</StreamGeometry>
+    <StreamGeometry x:Key="IconChevronRight">M9.3 5.3l1.4-1.4 8.1 8.1-8.1 8.1-1.4-1.4 6.7-6.7z</StreamGeometry>
+    <StreamGeometry x:Key="IconArrowUp">M11 20V7.8l-5.3 5.3-1.4-1.4L12 4l7.7 7.7-1.4 1.4L13 7.8V20z</StreamGeometry>
+    <StreamGeometry x:Key="IconArrowDown">M13 4v12.2l5.3-5.3 1.4 1.4L12 20l-7.7-7.7 1.4-1.4 5.3 5.3V4z</StreamGeometry>
+    <StreamGeometry x:Key="IconSearch">M10.5 3a7.5 7.5 0 0 1 5.9 12.1l4.8 4.8-1.4 1.4-4.8-4.8A7.5 7.5 0 1 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z</StreamGeometry>
+    <StreamGeometry x:Key="IconViewList">M4 5h2.5v2.5H4zm5 0h11v2.5H9zM4 10.75h2.5v2.5H4zm5 0h11v2.5H9zM4 16.5h2.5V19H4zm5 0h11V19H9z</StreamGeometry>
+    <StreamGeometry x:Key="IconViewTable">M4 4h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v3h4V6zm6 0v3h8V6zm-6 5v3h4v-3zm6 0v3h8v-3zm-6 5v2h4v-2zm6 0v2h8v-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconTerminal">M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 2v12h16V6zm2.3 2.3L10 12l-3.7 3.7-1.4-1.4 2.3-2.3-2.3-2.3zM11 15h6v2h-6z</StreamGeometry>
+
+    <!--  Sidebar menu item: like Semi's TopLevelMenuItem, but the submenu opens to the right.  -->
+    <ControlTheme x:Key="SidebarMenuItem" TargetType="MenuItem">
+        <Setter Property="Background" Value="{DynamicResource AppNavIdleBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Margin" Value="0,1" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="ItemContainerTheme" Value="{DynamicResource SidebarSubItem}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="PART_LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <Panel>
+                        <!--  Accent bar on the left edge; grows in while the item's menu is open.  -->
+                        <Border
+                            Name="PART_Indicator"
+                            Width="3"
+                            Height="18"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource AppAccentBrush}"
+                            CornerRadius="2"
+                            IsHitTestVisible="False"
+                            Opacity="0">
+                            <Border.RenderTransform>
+                                <ScaleTransform ScaleY="0.3" />
+                            </Border.RenderTransform>
+                        </Border>
+                        <Grid Margin="{TemplateBinding Padding}" ColumnDefinitions="*,Auto">
+                            <ContentPresenter
+                                Name="PART_HeaderPresenter"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                Foreground="{TemplateBinding Foreground}"
+                                RecognizesAccessKey="True" />
+                            <PathIcon
+                                Name="PART_Chevron"
+                                Grid.Column="1"
+                                Margin="8,0,0,0"
+                                Width="10"
+                                Height="10"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource IconChevronRight}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Opacity="0.55" />
+                        </Grid>
+                        <Popup
+                            Name="PART_Popup"
+                            HorizontalOffset="10"
+                            InheritsTransform="True"
+                            IsLightDismissEnabled="True"
+                            IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+                            OverlayInputPassThroughElement="{Binding $parent[Menu]}"
+                            Placement="RightEdgeAlignedTop"
+                            VerticalOffset="-8"
+                            WindowManagerAddShadowHint="False">
+                            <Border
+                                Name="PART_PopupBorder"
+                                MinWidth="232"
+                                MaxHeight="{DynamicResource MenuFlyoutMaxHeight}"
+                                Margin="8"
+                                Padding="5"
+                                Background="{DynamicResource AppSurfaceBrush}"
+                                BorderBrush="{DynamicResource AppBorderBrush}"
+                                BorderThickness="1"
+                                BoxShadow="0 12 32 -8 #59000000, 0 2 6 0 #1F000000"
+                                CornerRadius="12">
+                                <Border.RenderTransform>
+                                    <TranslateTransform />
+                                </Border.RenderTransform>
+                                <ScrollViewer IsScrollChainingEnabled="False" VerticalScrollBarVisibility="Auto">
+                                    <ItemsPresenter
+                                        Name="PART_ItemsPresenter"
+                                        Grid.IsSharedSizeScope="True"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}" />
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:empty /template/ PathIcon#PART_Chevron">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        </Style>
+        <!--  No ":selected" look: the menu keeps the last clicked item selected, which left it
+              looking stuck after a click. Hover and open are the only two states.  -->
+        <Style Selector="^:open">
+            <Setter Property="Background" Value="{DynamicResource AppNavActiveBgBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppNavActiveFgBrush}" />
+        </Style>
+        <Style Selector="^:open /template/ PathIcon#PART_Chevron">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:open /template/ Border#PART_Indicator">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+        <Style Selector="^:disabled">
+            <Setter Property="Opacity" Value="0.5" />
+        </Style>
+    </ControlTheme>
+
+    <!--  Rows inside the sidebar's popups: regular weight, one height, one hover look, a real
+          checkbox for toggles, and the shortcut on the far side in a quiet tone.  -->
+    <StreamGeometry x:Key="IconCheck">M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6L20.1 8.4 18.7 7z</StreamGeometry>
+    <conv:PlatformKeyGestureConverter x:Key="SidebarKeyGestureConverter" />
+    <!--  Icons for the rows inside the sidebar's popups (set from MainWindow).  -->
+    <StreamGeometry x:Key="IconPlus">M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z</StreamGeometry>
+    <StreamGeometry x:Key="IconClipboard">M9 2h6a1 1 0 0 1 1 1v1h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2V3a1 1 0 0 1 1-1zm1 2v2h4V4zM6 6v14h12V6h-2v2H8V6z</StreamGeometry>
+    <StreamGeometry x:Key="IconScan">M3 3h6v2H5v4H3zm12 0h6v6h-2V5h-4zM3 15h2v4h4v2H3zm16 0h2v6h-6v-2h4zM3 11h18v2H3z</StreamGeometry>
+    <StreamGeometry x:Key="IconImage">M3 4h18v16H3zm2 2v12h14V6zm1 10 4-5 3 3.5 2-2.5 3 4zm9-8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z</StreamGeometry>
+    <StreamGeometry x:Key="IconFileCode">M5 2h9l6 6v14H5zm2 2v16h11V9h-5V4zm3.6 8 1.4 1.4-1.6 1.6 1.6 1.6-1.4 1.4-3-3zm2.8 1.4 1.4-1.4 3 3-3 3-1.4-1.4 1.6-1.6z</StreamGeometry>
+    <StreamGeometry x:Key="IconLayers">M12 2 22 7l-10 5L2 7zm0 2.2L6.5 7 12 9.8 17.5 7zM4.2 11.1 12 15l7.8-3.9L22 12l-10 5-10-5zm0 5L12 20l7.8-3.9L22 17l-10 5-10-5z</StreamGeometry>
+    <StreamGeometry x:Key="IconChain">M5 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm7 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm7 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM7.5 11h2v2h-2zm7 0h2v2h-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconOutbound">M14 3h7v7h-2V6.4l-7.3 7.3-1.4-1.4L17.6 5H14zM5 5h6v2H6v11h11v-5h2v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z</StreamGeometry>
+    <StreamGeometry x:Key="IconSliders">M4 6h9v2H4zm13 0h3v2h-3zM15 4h2v6h-2zM4 16h3v2H4zm7 0h9v2h-9zM7 14h2v6H7z</StreamGeometry>
+    <StreamGeometry x:Key="IconApps">M4 4h6v6H4zm2 2v2h2V6zm8-2h6v6h-6zm2 2v2h2V6zM4 14h6v6H4zm2 2v2h2v-2zm10-2h2v3h3v2h-3v3h-2v-3h-3v-2h3z</StreamGeometry>
+    <StreamGeometry x:Key="IconArchive">M3 4h18v5h-1v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9H3zm2 2v1h14V6zm1 3v10h12V9zm4 2h4v2h-4z</StreamGeometry>
+    <StreamGeometry x:Key="IconDatabase">M12 3c4.4 0 8 1.3 8 3v12c0 1.7-3.6 3-8 3s-8-1.3-8-3V6c0-1.7 3.6-3 8-3zm0 2C8.3 5 6 6 6 6.5S8.3 8 12 8s6-1 6-1.5S15.7 5 12 5zM6 9v3c0 .5 2.3 1.5 6 1.5s6-1 6-1.5V9c-1.5.8-3.6 1-6 1s-4.5-.2-6-1zm0 6v3c0 .5 2.3 1.5 6 1.5s6-1 6-1.5v-3c-1.5.8-3.6 1-6 1s-4.5-.2-6-1z</StreamGeometry>
+    <StreamGeometry x:Key="IconImport">M11 3h2v9.6l3.3-3.3 1.4 1.4L12 16.4l-5.7-5.7 1.4-1.4 3.3 3.3zM4 15h2v4h12v-4h2v6H4z</StreamGeometry>
+    <StreamGeometry x:Key="IconFolder">M3 5a1 1 0 0 1 1-1h6l2 2h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm2 1v12h14V8h-7.8l-2-2z</StreamGeometry>
+    <StreamGeometry x:Key="IconGlobe">M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1.9 2.2A8 8 0 0 0 4.1 11h3.4c.1-2.5.9-4.9 2.6-6.8zm3.8 0c1.7 1.9 2.5 4.3 2.6 6.8h3.4a8 8 0 0 0-6-6.8zM12 4.6c-1.5 1.7-2.4 4-2.5 6.4h5c-.1-2.4-1-4.7-2.5-6.4zM4.1 13a8 8 0 0 0 6 6.8c-1.7-1.9-2.5-4.3-2.6-6.8zm5.4 0c.1 2.4 1 4.7 2.5 6.4 1.5-1.7 2.4-4 2.5-6.4zm7 0c-.1 2.5-.9 4.9-2.6 6.8a8 8 0 0 0 6-6.8z</StreamGeometry>
+    <StreamGeometry x:Key="IconKeyboard">M3 6h18a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm1 2v8h16V8zm2 1h2v2H6zm3 0h2v2H9zm3 0h2v2h-2zm3 0h2v2h-2zM7 13h10v2H7z</StreamGeometry>
+    <StreamGeometry x:Key="IconPalette">M12 2a10 10 0 0 0 0 20c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.4A4.6 4.6 0 0 0 22 10.8C22 5.9 17.5 2 12 2zM6.5 11a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm3-4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm3 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z</StreamGeometry>
+    <StreamGeometry x:Key="IconTrash">M9 3h6l1 1h4v2H4V4h4zM6 8h12l-1 13H7zm2.1 2 .8 9h6.2l.8-9z</StreamGeometry>
+    <ControlTheme x:Key="SidebarSubItem" TargetType="MenuItem">
+        <Setter Property="Background" Value="{DynamicResource AppNavIdleBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="ItemContainerTheme" Value="{DynamicResource SidebarSubItem}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="PART_LayoutRoot"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <Panel>
+                        <Grid
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="Center"
+                            ColumnDefinitions="Auto,*,Auto,Auto">
+                            <!--  Icon slot, always the same width so every label starts at the same place;
+                                  a toggle row shows its checkbox here instead.  -->
+                            <Panel
+                                Width="18"
+                                Margin="0,0,12,0"
+                                VerticalAlignment="Center">
+                                <ContentPresenter
+                                    Name="PART_IconPresenter"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Icon}"
+                                    Foreground="{DynamicResource AppMutedBrush}" />
+                                <Border
+                                    Name="PART_ToggleBox"
+                                    Width="16"
+                                    Height="16"
+                                    HorizontalAlignment="Center"
+                                    BorderBrush="{DynamicResource AppBorderStrongBrush}"
+                                    BorderThickness="1.5"
+                                    CornerRadius="4"
+                                    IsVisible="False">
+                                    <PathIcon
+                                        Name="PART_Check"
+                                        Width="11"
+                                        Height="11"
+                                        Data="{StaticResource IconCheck}"
+                                        Foreground="{DynamicResource AppOnAccentBrush}"
+                                        IsVisible="False" />
+                                </Border>
+                            </Panel>
+                            <ContentPresenter
+                                Name="PART_HeaderPresenter"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                RecognizesAccessKey="True" />
+                            <TextBlock
+                                Name="PART_Gesture"
+                                Grid.Column="2"
+                                Margin="18,0,0,0"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource AppFontSmall}"
+                                Foreground="{DynamicResource AppFaintBrush}"
+                                Text="{TemplateBinding InputGesture, Converter={StaticResource SidebarKeyGestureConverter}}" />
+                            <PathIcon
+                                Name="PART_Chevron"
+                                Grid.Column="3"
+                                Width="9"
+                                Height="9"
+                                Margin="14,0,0,0"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource IconChevronRight}"
+                                Foreground="{DynamicResource AppFaintBrush}" />
+                        </Grid>
+                        <Popup
+                            Name="PART_Popup"
+                            HorizontalOffset="4"
+                            IsLightDismissEnabled="False"
+                            IsOpen="{TemplateBinding IsSubMenuOpen, Mode=TwoWay}"
+                            Placement="RightEdgeAlignedTop"
+                            VerticalOffset="-14"
+                            WindowManagerAddShadowHint="False">
+                            <Border
+                                Name="PART_PopupBorder"
+                                MinWidth="200"
+                                Margin="8"
+                                Padding="5"
+                                Background="{DynamicResource AppSurfaceBrush}"
+                                BorderBrush="{DynamicResource AppBorderBrush}"
+                                BorderThickness="1"
+                                BoxShadow="0 12 32 -8 #59000000, 0 2 6 0 #1F000000"
+                                CornerRadius="12">
+                                <Border.RenderTransform>
+                                    <TranslateTransform />
+                                </Border.RenderTransform>
+                                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                            </Border>
+                        </Popup>
+                    </Panel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:empty /template/ PathIcon#PART_Chevron">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:pointerover, ^:open">
+            <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+        </Style>
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_IconPresenter, ^:open /template/ ContentPresenter#PART_IconPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        </Style>
+        <Style Selector="^:toggle /template/ Border#PART_ToggleBox">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^:checked /template/ Border#PART_ToggleBox">
+            <Setter Property="Background" Value="{DynamicResource AppAccentBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
+        </Style>
+        <Style Selector="^:checked /template/ PathIcon#PART_Check">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+        <Style Selector="^:disabled">
+            <Setter Property="Opacity" Value="0.45" />
+        </Style>
+    </ControlTheme>
+
+    <!--  Pill-shaped filter chips (subscription groups)  -->
+    <ControlTheme x:Key="ChipListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="999" />
+        <Setter Property="Padding" Value="14,0" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Margin" Value="0,0,6,6" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="PART_Bg"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <ContentPresenter
+                        Name="PART_ContentPresenter"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        Foreground="{TemplateBinding Foreground}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        </Style>
+        <Style Selector="^:selected">
+            <Setter Property="Background" Value="{DynamicResource AppAccentSoftBrush}" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource AppAccentSoftFgBrush}" />
+        </Style>
+    </ControlTheme>
+    <ControlTheme x:Key="ChipListBox" TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ItemContainerTheme" Value="{StaticResource ChipListBoxItem}" />
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <WrapPanel />
+            </ItemsPanelTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <!--  Subscription picker list: one row per subscription, chosen one tinted.  -->
+    <ControlTheme x:Key="SubPickerListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="CornerRadius" Value="9" />
+        <Setter Property="Padding" Value="10,7" />
+        <Setter Property="Margin" Value="0,1" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="PART_Bg"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <DockPanel>
+                        <PathIcon
+                            Name="PART_Check"
+                            Width="12"
+                            Height="12"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Data="{StaticResource IconCheck}"
+                            DockPanel.Dock="Right"
+                            Foreground="{DynamicResource AppAccentSoftFgBrush}"
+                            IsVisible="False" />
+                        <ContentPresenter
+                            Name="PART_ContentPresenter"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Foreground="{TemplateBinding Foreground}" />
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Background" Value="{DynamicResource AppNavHoverBrush}" />
+        </Style>
+        <Style Selector="^:focus-visible /template/ Border#PART_Bg">
+            <Setter Property="BorderBrush" Value="{DynamicResource AppAccentBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+        <Style Selector="^:selected">
+            <Setter Property="Background" Value="{DynamicResource AppAccentSoftBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppAccentSoftFgBrush}" />
+        </Style>
+        <Style Selector="^:selected /template/ PathIcon#PART_Check">
+            <Setter Property="IsVisible" Value="True" />
+        </Style>
+    </ControlTheme>
+    <ControlTheme x:Key="SubPickerListBox" TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ItemContainerTheme" Value="{StaticResource SubPickerListBoxItem}" />
+        <!--  Not virtualized: the list is short, and the search hides rows by their containers.  -->
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <StackPanel />
+            </ItemsPanelTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <ScrollViewer
+                    Name="PART_ScrollViewer"
+                    AllowAutoHide="True"
+                    HorizontalScrollBarVisibility="Disabled"
+                    VerticalScrollBarVisibility="Auto">
+                    <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                </ScrollViewer>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <!--  Segmented control (system proxy mode)  -->
+    <ControlTheme x:Key="SegmentListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource AppMutedBrush}" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="6,0" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontSmall}" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Name="PART_Bg"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <ContentPresenter
+                        Name="PART_ContentPresenter"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="Center"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        Foreground="{TemplateBinding Foreground}"
+                        TextTrimming="CharacterEllipsis" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        <Style Selector="^:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        </Style>
+        <Style Selector="^:selected">
+            <Setter Property="Background" Value="{DynamicResource AppSegmentSelectedBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        </Style>
+        <Style Selector="^:selected /template/ Border#PART_Bg">
+            <Setter Property="BoxShadow" Value="{DynamicResource AppRaisedShadow}" />
+        </Style>
+    </ControlTheme>
+    <ControlTheme x:Key="SegmentListBox" TargetType="ListBox">
+        <Setter Property="Background" Value="{DynamicResource AppSubtleBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="11" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="ItemContainerTheme" Value="{StaticResource SegmentListBoxItem}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <ItemsPresenter Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    <!--  Toasts: a small card with an accent badge, with a short fade managed by AppMotion.
+          Replaces Semi's grey pill so notices match the rest of the redesign.  -->
+    <ControlTheme x:Key="{x:Type NotificationCard}" TargetType="NotificationCard">
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="MinWidth" Value="260" />
+        <Setter Property="MaxWidth" Value="380" />
+        <Setter Property="Background" Value="{DynamicResource AppSurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Foreground" Value="{DynamicResource AppTextBrush}" />
+        <Setter Property="FontSize" Value="{DynamicResource AppFontBody}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="ContentTemplate">
+            <DataTemplate x:DataType="INotification">
+                <DockPanel>
+                    <Border
+                        Width="28"
+                        Height="28"
+                        Margin="0,0,12,0"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource AppAccentSoftBrush}"
+                        CornerRadius="9"
+                        DockPanel.Dock="Left">
+                        <PathIcon
+                            Width="14"
+                            Height="14"
+                            Data="{StaticResource SemiIconInfoCircle}"
+                            Foreground="{DynamicResource AppAccentSoftFgBrush}" />
+                    </Border>
+                    <StackPanel VerticalAlignment="Center" Spacing="2">
+                        <TextBlock
+                            FontWeight="Medium"
+                            IsVisible="{Binding Title, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                            Text="{Binding Title}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            FontWeight="Medium"
+                            Text="{Binding Message}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </DockPanel>
+            </DataTemplate>
+        </Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border
+                    Margin="8,4,8,10"
+                    Padding="12,10,16,10"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    BoxShadow="{DynamicResource AppToastShadow}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <ContentPresenter
+                        Name="PART_ContentPresenter"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

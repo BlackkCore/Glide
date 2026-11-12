@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <IsPackable>false</IsPackable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <PublishAot>true</PublishAot>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="TUnit" />
+        <PackageReference Include="TUnit.Assertions.Should" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ServiceLib\ServiceLib.csproj" />
+    </ItemGroup>
+
+    <!-- Glide: pure Desktop helpers tested here, since the Desktop project has no test project of its own. -->
+    <ItemGroup>
+        <Compile Include="..\v2rayN.Desktop\Converters\ServerNameDisplay.cs" Link="Desktop\ServerNameDisplay.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="TUnit.Assertions.Should" />
+        <Using Include="TUnit.Assertions.Should.Extensions" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+{
+  "_comment": "The only core binaries a release may ship. Regenerate with scripts/cores/make-lock.sh and review every digest against the upstream release page.",
+  "coreBin": { "commit": "bc603e1ee3c6eb90f16fe9123f7df80bc02f8435", "sha256": "94c2b1b7bf8045593fc82b4235fd995db5009034809649a22083dbdc5263d4c1" },
+  "x64": {
+    "xray": { "version": "26.10.31", "sha256": "2e04a9995a6f2ad1b28c0bb25c708ecb2695e43a1c9c7889c4b6ac2b48cf7a6a" },
+    "singBox": { "version": "1.14.3", "sha256": "d8b86ef58936dba9230ec6a57ffa4243933f3c14ef4809828b6c553440ed1518" },
+    "mihomo": { "version": "1.19.29", "sha256": "1a8520cfe425441eba3eba8623b27b985020031243fe1ecaa1af2b92358a03f9" }
+  },
+  "x86": {
+    "xray": { "version": "26.10.31", "sha256": "9ea3a5849463f155b2484f8f32a9e8fd2a5628886571579d0c75d7fd0d888881" },
+    "singBox": { "version": "1.14.3", "sha256": "8706eeca87cbca2fc9eee704948e8b5a27ea66056fedac0caa063ccedf1acab5" },
+    "mihomo": { "version": "1.19.29", "sha256": "ff4bd74e1c24e2e0af46874ab095714ea47bc3c52cfd061efd83e194d5b55073" }
+  }
+}

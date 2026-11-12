@@ -1,0 +1,40 @@
+name: Bug report / گزارش مشکل
+description: Something in Glide doesn't work or looks wrong.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! Please check you're on the [latest release](https://github.com/BlackkCore/Glide/releases/latest) and that the server itself works.
+        Problems with the proxy cores themselves (Xray, sing-box, mihomo) usually belong upstream at [2dust/v2rayN](https://github.com/2dust/v2rayN/issues).
+
+  - type: input
+    id: version
+    attributes:
+      label: Glide version / نسخه
+      description: Shown under the logo in the sidebar, e.g. 1.0.0.
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 11 24H2
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened? / چه اتفاقی افتاد؟
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or logs
+      description: Drag images here. For logs, copy the Information panel (remove server addresses and keys first).

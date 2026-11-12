@@ -1,0 +1,104 @@
+name: build
+
+# Builds Glide (the Avalonia desktop app) and its updater for Windows.
+
+on:
+  workflow_call:
+    inputs:
+      target: # kept for callers; only 'windows' is built
+        required: false
+        type: string
+        default: windows
+      arches: # JSON list of architectures to build
+        required: false
+        type: string
+        default: '["x64"]'
+      version: # release tag (e.g. 1.0.1); empty = the <Version> in Directory.Build.props
+        required: false
+        type: string
+        default: ''
+
+jobs:
+  build:
+    name: build ${{ matrix.arch }}
+    strategy:
+      matrix:
+        arch: ${{ fromJSON(inputs.arches) }}
+    runs-on: windows-latest
+    env:
+      RID: win-${{ matrix.arch }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+      with:
+        submodules: 'recursive'
+        fetch-depth: '0'
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v6
+      with:
+        global-json-file: global.json
+
+    - name: Set output folder
+      shell: bash
+      run: |
+        RAW_PATH="${{ github.workspace }}/${{ matrix.arch }}"
+        echo "OUTPUT=${RAW_PATH//\\//}" >> "$GITHUB_ENV"
+
+    # R-13: the app compares its own version with the latest release tag, so a release build must
+    # carry the tag's version. Passed through env, never interpolated into the script.
+    - name: Version from release tag
+      shell: bash
+      env:
+        RELEASE_TAG: ${{ inputs.version }}
+      run: |
+        if [ -n "$RELEASE_TAG" ]; then
+          V="${RELEASE_TAG#v}"
+          if [[ ! "$V" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Release tag '$RELEASE_TAG' is not N.N.N"; exit 1
+          fi
+          echo "VERSION_ARG=-p:Version=$V" >> "$GITHUB_ENV"
+        else
+          echo "VERSION_ARG=" >> "$GITHUB_ENV"
+        fi
+
+    # S-02: a release whose app has no update public key would refuse every later update.
+    - name: Update signing key is built in
+      if: inputs.version != ''
+      shell: bash
+      run: |
+        # The dashes matter: the file's doc comment also contains the words BEGIN PUBLIC KEY.
+        if ! grep -q -e '^[[:space:]]*-----BEGIN PUBLIC KEY-----' v2rayN/ServiceLib/Common/UpdateSignatureKey.cs; then
+          echo "UpdateSignatureKey.PublicKeyPem is empty; embed the release public key first (scripts/signing/new-update-signing-key.sh)"; exit 1
+        fi
+
+    - name: Build AmazTool
+      shell: bash
+      working-directory: ./v2rayN
+      run: dotnet publish ./AmazTool/AmazTool.csproj -c Release -r $RID -p:SelfContained=true -p:PublishTrimmed=true -p:EnableWindowsTargeting=true $VERSION_ARG -o "$OUTPUT"
+
+    - name: Build Glide
+      shell: bash
+      working-directory: ./v2rayN
+      run: dotnet publish ./v2rayN.Desktop/v2rayN.Desktop.csproj -c Release -r $RID -p:SelfContained=true -p:EnableWindowsTargeting=true $VERSION_ARG -o "$OUTPUT"
+
+    - name: Check built version
+      if: inputs.version != ''
+      shell: pwsh
+      env:
+        RELEASE_TAG: ${{ inputs.version }}
+      run: |
+        $want = $env:RELEASE_TAG.TrimStart('v')
+        $got = (Get-Item "$env:OUTPUT/Glide.exe").VersionInfo.ProductVersion -replace '\+.*$', ''
+        if ($got -ne $want) { throw "Glide.exe reports $got, release tag is $want" }
+
+    - name: Remove debug symbols
+      shell: bash
+      run: find "$OUTPUT" -type f -name '*.pdb' -delete
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{ matrix.arch }}
+        path: ${{ env.OUTPUT }}

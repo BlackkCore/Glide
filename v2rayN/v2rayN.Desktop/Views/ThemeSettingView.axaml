@@ -1,0 +1,56 @@
+<UserControl
+    x:Class="v2rayN.Desktop.Views.ThemeSettingView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:v2rayN.Desktop.ViewModels"
+    x:DataType="vms:ThemeSettingViewModel"
+    Design.DataContext="{x:Static dd:DesignData.ThemeSetting}"
+    mc:Ignorable="d">
+
+    <Button
+        x:Name="btnAppearance"
+        Margin="{StaticResource MarginLr8}"
+        Classes="IconButton"
+        ToolTip.Tip="{x:Static resx:ResUI.TbSettingsTheme}">
+        <Button.Content>
+            <PathIcon Data="{StaticResource SemiIconMore}">
+                <PathIcon.RenderTransform>
+                    <RotateTransform Angle="90" />
+                </PathIcon.RenderTransform>
+            </PathIcon>
+        </Button.Content>
+        <Button.Flyout>
+            <Flyout FlyoutPresenterClasses="appearance" Placement="TopEdgeAlignedLeft">
+                <!--  Labels sit above their controls, so long translations never get cut off.  -->
+                <!--  Wide enough for the three equal theme choices in the longest translation ("follow Windows" in Persian).  -->
+                <StackPanel Width="320" Spacing="14">
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="label" Text="{x:Static resx:ResUI.TbSettingsTheme}" />
+                        <ListBox x:Name="lstTheme" Theme="{StaticResource SegmentListBox}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="3" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBoxItem Content="{x:Static resx:ResUI.TbThemeSystem}" Tag="FollowSystem" />
+                            <ListBoxItem Content="{x:Static resx:ResUI.TbThemeLight}" Tag="Light" />
+                            <ListBoxItem Content="{x:Static resx:ResUI.TbThemeDark}" Tag="Dark" />
+                        </ListBox>
+                    </StackPanel>
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="label" Text="{x:Static resx:ResUI.TbSettingsFontSize}" />
+                        <ComboBox x:Name="cmbCurrentFontSize" HorizontalAlignment="Stretch" />
+                    </StackPanel>
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="label" Text="{x:Static resx:ResUI.TbSettingsLanguage}" />
+                        <ComboBox x:Name="cmbCurrentLanguage" HorizontalAlignment="Stretch" />
+                    </StackPanel>
+                </StackPanel>
+            </Flyout>
+        </Button.Flyout>
+    </Button>
+</UserControl>

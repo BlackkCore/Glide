@@ -1,0 +1,171 @@
+<UserControl
+    x:Class="v2rayN.Desktop.Views.CheckUpdateView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="using:v2rayN.Desktop.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dd="clr-namespace:v2rayN.Desktop.DesignData"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    d:DesignHeight="600"
+    d:DesignWidth="800"
+    x:DataType="vms:CheckUpdateViewModel"
+    Design.DataContext="{x:Static dd:DesignData.CheckUpdate}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <conv:UpdateItemNameConverter x:Key="UpdateItemNameConverter" />
+    </UserControl.Resources>
+
+    <DockPanel Margin="{StaticResource Margin8}">
+        <!--  Title, what the switches mean, and a visible way out.  -->
+        <Grid
+            Margin="12,8,4,4"
+            ColumnDefinitions="*,Auto"
+            DockPanel.Dock="Top">
+            <StackPanel Spacing="2">
+                <TextBlock Classes="h2" Text="{x:Static resx:ResUI.TbUpdatesTitle}" />
+                <TextBlock
+                    Classes="muted"
+                    FontSize="{DynamicResource AppFontSmall}"
+                    Text="{x:Static resx:ResUI.TipUpdatesIntro}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <Button
+                x:Name="btnCloseUpdates"
+                Grid.Column="1"
+                VerticalAlignment="Top"
+                Classes="IconButton"
+                ToolTip.Tip="{x:Static resx:ResUI.TbClose}">
+                <PathIcon Data="{StaticResource SemiIconClose}" />
+            </Button>
+        </Grid>
+        <Border
+            Margin="{StaticResource Margin4}"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Bottom"
+            Theme="{DynamicResource CardBorder}">
+
+            <StackPanel
+                Margin="{StaticResource Margin4}"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+
+                <TextBlock
+                    Margin="{StaticResource Margin4}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="{x:Static resx:ResUI.TbSettingsEnableUpdateViaProxy}" />
+                <ToggleSwitch
+                    x:Name="togEnableUpdateViaProxy"
+                    Margin="{StaticResource Margin4}"
+                    HorizontalAlignment="Left" />
+
+                <Button
+                    x:Name="btnCheckOnly"
+                    MinWidth="100"
+                    Margin="{StaticResource Margin4}"
+                    Content="{x:Static resx:ResUI.TbCheckForUpdates}" />
+
+                <!--  Checks and installs everything switched on above.  -->
+                <Button
+                    x:Name="btnCheckUpdate"
+                    MinWidth="120"
+                    Margin="{StaticResource Margin4}"
+                    Classes="Primary"
+                    Content="{x:Static resx:ResUI.TbUpdateAll}"
+                    Theme="{DynamicResource SolidButton}" />
+            </StackPanel>
+        </Border>
+
+        <Border
+            Margin="{StaticResource Margin4}"
+            VerticalAlignment="Center"
+            Theme="{DynamicResource CardBorder}">
+
+            <ListBox
+                x:Name="lstCheckUpdates"
+                BorderThickness="1"
+                Grid.IsSharedSizeScope="True"
+                ItemsSource="{Binding CheckUpdateModels}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!--  Switch (part of Update all), what it is, its status, and the pre-release option.  -->
+                        <!--  Same column widths on every row (the pre-release column is shared), so statuses line up and wrap alike.  -->
+                        <Grid
+                            Width="680"
+                            MinHeight="48"
+                            Margin="0,4"
+                            VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="190" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="UpdatePreRelease" />
+                            </Grid.ColumnDefinitions>
+                            <ToggleSwitch
+                                x:Name="togAutoRefresh"
+                                Margin="{StaticResource Margin4}"
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding IsSelected}"
+                                OffContent=""
+                                OnContent=""
+                                ToolTip.Tip="{x:Static resx:ResUI.TipIncludeInUpdateAll}" />
+
+                            <StackPanel
+                                Grid.Column="1"
+                                Margin="8,0"
+                                VerticalAlignment="Center"
+                                Spacing="1">
+                                <TextBlock FontWeight="Medium" Text="{Binding Converter={StaticResource UpdateItemNameConverter}}" />
+                                <TextBlock
+                                    Classes="muted"
+                                    FontSize="{DynamicResource AppFontSmall}"
+                                    Text="{Binding Converter={StaticResource UpdateItemNameConverter}, ConverterParameter=caption}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <!--  Left-aligned, wraps at words, three lines at most; the tooltip has the whole message.  -->
+                            <TextBlock
+                                Grid.Column="2"
+                                Margin="8,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="{DynamicResource AppFontSmall}"
+                                MaxLines="3"
+                                Text="{Binding Remarks}"
+                                TextAlignment="Start"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap"
+                                ToolTip.Tip="{Binding Remarks}" />
+
+                            <StackPanel
+                                Grid.Column="3"
+                                VerticalAlignment="Center"
+                                IsVisible="{Binding ShowCheckPreRelease}"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="{StaticResource Margin4}"
+                                    VerticalAlignment="Center"
+                                    Classes="muted"
+                                    FontSize="{DynamicResource AppFontSmall}"
+                                    Text="{x:Static resx:ResUI.TbSettingsEnableCheckPreReleaseUpdate}" />
+                                <ToggleSwitch
+                                    Margin="{StaticResource Margin4}"
+                                    VerticalAlignment="Center"
+                                    IsChecked="{Binding IsCheckPreRelease}"
+                                    OffContent=""
+                                    OnContent="" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </Border>
+    </DockPanel>
+</UserControl>

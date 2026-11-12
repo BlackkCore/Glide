@@ -1,0 +1,105 @@
+name: sign and upload release files
+
+# Signs the files of one artifact with the GPG key and adds them to the DRAFT release that build-windows-desktop.yml
+# created. It never creates a release and never publishes one.
+
+on:
+  workflow_call:
+    inputs:
+      release_tag:
+        required: true
+        type: string
+      artifact_name:
+        required: true
+        type: string
+      file_pattern:
+        required: false
+        type: string
+        default: '**/*'
+      content_type:
+        required: false
+        type: string
+        default: application/octet-stream
+    secrets:
+      GPG_PRIVATE_KEY:
+        required: true
+      GPG_PASSPHRASE: # the release key is protected by a passphrase
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+# The one GPG release key Glide signs with. Public information; it is also in README.md, README.fa.md and SECURITY.md,
+# and a test keeps them equal. Changing it is a key rotation.
+env:
+  GLIDE_GPG_FINGERPRINT: 218B01F25642A7A391BFCC867D63C285D10463CB
+
+jobs:
+  upload:
+    runs-on: ubuntu-26.04
+    # Holds GPG_PRIVATE_KEY and GPG_PASSPHRASE: both are secrets of the protected `release` environment (required reviewers, master only).
+    environment: release
+    steps:
+    - name: Download release artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: dist
+
+    - name: Import GPG private key
+      shell: bash
+      env:
+        GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      run: |
+        set -euo pipefail
+        install -m 700 -d ~/.gnupg
+        printf '%s' "$GPG_PRIVATE_KEY" | gpg --batch --import
+        # Only the Glide release key may sign: a wrong or old key stops here, before anything is signed.
+        [[ "$(gpg --batch --list-secret-keys --with-colons | grep -c '^sec:')" == 1 ]] || { echo "GPG_PRIVATE_KEY must hold exactly one secret key"; exit 1; }
+        got="$(gpg --batch --list-secret-keys --with-colons | awk -F: '$1=="sec"{s=1;next} s&&$1=="fpr"{print $10;exit}')"
+        [[ "$got" == "$GLIDE_GPG_FINGERPRINT" ]] || { echo "GPG_PRIVATE_KEY is not the Glide release key (expected $GLIDE_GPG_FINGERPRINT, got $got)"; exit 1; }
+
+    # S-11: inputs reach the shell through env, never interpolated into the script.
+    # The passphrase goes to gpg through a file (mode 600, removed when the step ends), never on the command line,
+    # and the agent that cached it is stopped. A missing or wrong passphrase makes gpg fail, so nothing is left unsigned.
+    - name: Sign release files
+      shell: bash
+      env:
+        PATTERN: ${{ inputs.file_pattern }}
+        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      run: |
+        set -euo pipefail
+        [[ -n "$GPG_PASSPHRASE" ]] || { echo "GPG_PASSPHRASE secret is missing"; exit 1; }
+        pf="$RUNNER_TEMP/gpg-passphrase"
+        (umask 077; printf '%s' "$GPG_PASSPHRASE" > "$pf")
+        trap 'rm -f "$pf"; gpgconf --kill gpg-agent || true' EXIT
+        cd dist
+        shopt -s globstar nullglob
+        files=( $PATTERN )
+        (( ${#files[@]} )) || { echo "No files matched: $PATTERN"; exit 1; }
+        for f in "${files[@]}"; do
+          [[ -f "$f" ]] || continue
+          gpg --batch --yes --pinentry-mode loopback --passphrase-file "$pf" --local-user "$GLIDE_GPG_FINGERPRINT" --armor --detach-sign --output "$f.sig" "$f"
+        done
+
+    # S-11: no third-party action runs in the job that holds the signing key; the preinstalled gh CLI
+    # uploads with this job's token. The release must already exist and still be a draft.
+    - name: Upload release files and signatures
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        TAG: ${{ inputs.release_tag }}
+        PATTERN: ${{ inputs.file_pattern }}
+      run: |
+        set -euo pipefail
+        cd dist
+        shopt -s globstar nullglob
+        [[ "$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" == true ]] || { echo "release $TAG is not an existing draft"; exit 1; }
+        for f in $PATTERN; do
+          [[ -f "$f" && "$f" != *.sig && "$f" != *.sig256 ]] || continue
+          extra=()
+          # S-02: the in-app updater's signature, made in package-zip.yml.
+          [[ -f "$f.sig256" ]] && extra+=("$f.sig256")
+          gh release upload "$TAG" "$f" "$f.sig" "${extra[@]}" -R "$GITHUB_REPOSITORY" --clobber
+        done

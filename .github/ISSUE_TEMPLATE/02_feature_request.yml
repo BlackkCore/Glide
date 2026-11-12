@@ -1,0 +1,18 @@
+name: Idea / پیشنهاد
+description: Suggest something that would make Glide better.
+title: "[Idea]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like? / چه چیزی می‌خواهید؟
+      description: Describe the problem it solves and how you imagine it working.
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else
+      description: Mockups, screenshots or apps that do it well.

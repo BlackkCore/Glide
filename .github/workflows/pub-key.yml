@@ -1,0 +1,58 @@
+name: publish GPG public key
+
+on:
+  workflow_call:
+    inputs:
+      release_tag:
+        required: true
+        type: string
+    secrets:
+      GPG_PRIVATE_KEY:
+        required: true
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+# The one GPG release key (public information; see upload-sign.yml).
+env:
+  GLIDE_GPG_FINGERPRINT: 218B01F25642A7A391BFCC867D63C285D10463CB
+
+jobs:
+  publish:
+    runs-on: ubuntu-26.04
+    # Holds GPG_PRIVATE_KEY (a secret of the protected `release` environment). It needs no passphrase: exporting the public half does not unlock the key.
+    environment: release
+    steps:
+    - name: Import GPG private key
+      shell: bash
+      env:
+        GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      run: |
+        set -euo pipefail
+        install -m 700 -d ~/.gnupg
+        printf '%s' "$GPG_PRIVATE_KEY" | gpg --batch --import
+        [[ "$(gpg --batch --list-secret-keys --with-colons | grep -c '^sec:')" == 1 ]] || { echo "GPG_PRIVATE_KEY must hold exactly one secret key"; exit 1; }
+
+    - name: Export GPG public key
+      shell: bash
+      run: |
+        set -euo pipefail
+        fingerprint="$(gpg --batch --list-secret-keys --with-colons | awk -F: '$1=="sec"{s=1;next} s&&$1=="fpr"{print $10;exit}')"
+        [[ "$fingerprint" == "$GLIDE_GPG_FINGERPRINT" ]] || { echo "GPG_PRIVATE_KEY is not the Glide release key (expected $GLIDE_GPG_FINGERPRINT, got ${fingerprint:-none})"; exit 1; }
+        gpg --batch --armor --export "$fingerprint" > Glide-public-key.asc
+
+    # S-11: no third-party action in the job that holds the signing key (see upload-sign.yml).
+    - name: Upload GPG public key to release
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        TAG: ${{ inputs.release_tag }}
+      run: |
+        set -euo pipefail
+        [[ "$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" == true ]] || { echo "release $TAG is not an existing draft"; exit 1; }
+        gh release upload "$TAG" Glide-public-key.asc -R "$GITHUB_REPOSITORY" --clobber

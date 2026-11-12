@@ -1,0 +1,236 @@
+name: package and release Zip
+
+# Packs each build with its proxy cores into Glide-windows-<arch>.zip.
+# Everything sits in a top-level "Glide" folder: the in-app updater strips that first folder.
+
+on:
+  workflow_call:
+    inputs:
+      release_tag:
+        required: true
+        type: string
+      arches: # JSON list: x64 and/or x86
+        required: false
+        type: string
+        default: '["x64", "x86"]'
+      bundle_geolite_data: # off by default: Glide downloads the data in the app (see THIRD_PARTY_NOTICES.md)
+        required: false
+        type: boolean
+        default: false
+    secrets:
+      GPG_PRIVATE_KEY:
+        required: true
+      GPG_PASSPHRASE: # passphrase of the GPG release key (the key is protected)
+        required: true
+      UPDATE_SIGNING_KEY: # PEM of the ECDSA P-256 update signing key (S-02)
+        required: false # checked in the signing step, so the error says what is missing
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  package:
+    name: package ${{ matrix.arch }}
+    strategy:
+      matrix:
+        arch: ${{ fromJSON(inputs.arches) }}
+    runs-on: ubuntu-latest
+    # Holds UPDATE_SIGNING_KEY; protect it in Settings > Environments (required reviewers).
+    environment: release
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PACKAGE_DIR: Glide
+      ZIP_NAME: Glide-windows-${{ matrix.arch }}.zip
+    steps:
+    - name: Restore build artifacts
+      uses: actions/download-artifact@v8
+      with:
+        name: ${{ matrix.arch }}
+        path: Glide
+
+    - name: Get the core lock file
+      uses: actions/checkout@v7
+      with:
+        sparse-checkout: |
+          /cores.lock.json
+          /cores.source.json
+          /scripts/source/
+          /v2rayN/ServiceLib/Common/UpdateSignatureKey.cs
+          /licenses/cores/
+        sparse-checkout-cone-mode: false
+        path: lock
+        persist-credentials: false
+
+    # The cores come from lock/cores.lock.json (pinned versions + SHA-256), never from a moving branch,
+    # "latest", or the binaries inside the core-bin bundle. An empty or mismatching entry fails the release.
+    - name: Add rule files from the pinned core-bin commit
+      shell: bash
+      run: |
+        set -euo pipefail
+        commit=$(jq -er '.coreBin.commit | select(test("^[0-9a-f]{40}$"))' lock/cores.lock.json) || { echo "cores.lock.json: coreBin.commit is missing"; exit 1; }
+        sha=$(jq -er '.coreBin.sha256 | select(test("^[0-9a-f]{64}$"))' lock/cores.lock.json) || { echo "cores.lock.json: coreBin.sha256 is missing"; exit 1; }
+        # 2dust's bundle at the pinned commit: geo files, sing-box rule sets and EnableLoopback.exe (the last two are dropped below).
+        wget -nv -O cores.zip "https://github.com/2dust/v2rayN-core-bin/raw/$commit/v2rayN-windows-64.zip"
+        echo "$sha  cores.zip" | sha256sum -c -
+        mkdir -p cores && unzip -q cores.zip -d cores
+        cp -r cores/v2rayN-windows-64/. "$PACKAGE_DIR/"
+        # The cores in the bundle are not used: they are replaced from their own releases in the next step.
+        rm -rf "$PACKAGE_DIR/bin/xray" "$PACKAGE_DIR/bin/sing_box" "$PACKAGE_DIR/bin/mihomo"
+        # The sing-box rule sets (srss) come from repositories with no licence, so they are not shipped.
+        # sing-box downloads a missing one on demand.
+        rm -rf "$PACKAGE_DIR/bin/srss"
+        [[ ! -e "$PACKAGE_DIR/bin/srss" ]] || { echo "srss must not ship"; exit 1; }
+        # EnableLoopback.exe (Progress Software, proprietary) is not shipped: no redistribution permission. Glide's
+        # "Allow Store apps to use the proxy" uses Windows' own CheckNetIsolation instead.
+        find "$PACKAGE_DIR" -iname 'EnableLoopback.exe' -delete
+        [[ -z "$(find "$PACKAGE_DIR" -iname 'EnableLoopback.exe')" ]] || { echo "EnableLoopback.exe must not ship"; exit 1; }
+
+    # GeoLite-derived data (see THIRD_PARTY_NOTICES.md). Off: the files are not shipped; Glide notices the
+    # missing lists and offers to download them from their upstreams (GeoDataCheck, UpdateGeoFileAll).
+    - name: Leave out the GeoLite-derived data files
+      if: ${{ !inputs.bundle_geolite_data }}
+      shell: bash
+      run: |
+        set -euo pipefail
+        for f in geoip.dat Country.mmdb geoip-only-cn-private.dat geoip.metadb; do find "$PACKAGE_DIR" -name "$f" -delete; done
+        left=$(find "$PACKAGE_DIR" \( -name geoip.dat -o -name Country.mmdb -o -name geoip-only-cn-private.dat -o -name geoip.metadb \) | head -n 5)
+        [[ -z "$left" ]] || { echo "GeoLite-derived files still in the package:"; echo "$left"; exit 1; }
+
+    - name: Add cores from their upstream releases
+      shell: bash
+      env:
+        ARCH: ${{ matrix.arch }}
+      run: |
+        set -euo pipefail
+        bin="$PACKAGE_DIR/bin"
+        mkdir -p "$bin/xray" "$bin/sing_box" "$bin/mihomo" dl
+        case "$ARCH" in
+          x64) xray_asset='Xray-windows-64.zip'; sb_asset='sing-box-%v-windows-amd64.zip'; mh_asset='mihomo-windows-amd64-v%v.zip' ;;
+          x86) xray_asset='Xray-windows-32.zip'; sb_asset='sing-box-%v-windows-386.zip'; mh_asset='mihomo-windows-386-v%v.zip' ;;
+          *) echo "unsupported arch: $ARCH"; exit 1 ;;
+        esac
+
+        # fetch <name> <repo> <asset file name, with %v for the version>: pinned version, hash from the lock.
+        fetch() {
+          local name="$1" repo="$2" asset="$3" ver sha file
+          ver=$(jq -er ".$ARCH.$name.version | select(test(\"^[0-9]+[.][0-9]+[.][0-9]+\$\"))" lock/cores.lock.json) || { echo "cores.lock.json: $ARCH.$name.version is missing"; exit 1; }
+          sha=$(jq -er ".$ARCH.$name.sha256 | select(test(\"^[0-9a-f]{64}\$\"))" lock/cores.lock.json) || { echo "cores.lock.json: $ARCH.$name.sha256 is missing"; exit 1; }
+          file="${asset//%v/$ver}"
+          gh release download "v$ver" -R "$repo" -p "$file" -D dl
+          echo "$sha  dl/$file" | sha256sum -c -
+          if [[ "$repo" == XTLS/Xray-core ]]; then
+            # Xray's maintainers publish their own digest file; it must agree with the lock.
+            gh release download "v$ver" -R "$repo" -p "$file.dgst" -D dl
+            grep -q "^SHA2-256= *$sha\$" "dl/$file.dgst" || { echo "$file: the lock disagrees with the maintainers' .dgst"; exit 1; }
+          fi
+          # GPL/MPL corresponding source: cores.source.json must pin this very version, so the source archives published
+          # with the release are the ones this binary was built from (package-source.yml builds them from the same pins).
+          [[ "$(jq -er ".cores.$name.tag" lock/cores.source.json)" == "v$ver" ]] || { echo "cores.source.json pins $name at another version than the lock ($ver); re-pin it (node scripts/source/make-source-bundle.mjs --print-pins)"; exit 1; }
+          if [[ "$repo" == SagerNet/sing-box ]]; then
+            # sing-box signs its builds (sigstore): the commit it was built from must be the pinned source commit.
+            built=$(gh attestation verify "dl/$file" -R "$repo" --format json | jq -er '.[0].verificationResult.signature.certificate.sourceRepositoryDigest')
+            [[ "$built" == "$(jq -er '.cores.singBox.commit' lock/cores.source.json)" ]] || { echo "$file was built from $built, not the pinned source commit"; exit 1; }
+          fi
+          mkdir -p "dl/$name" && unzip -q "dl/$file" -d "dl/$name"
+        }
+
+        fetch xray XTLS/Xray-core "$xray_asset"
+        find dl/xray -name 'xray.exe' -exec cp {} "$bin/xray/" \;
+        find dl/xray -name 'wintun.dll' -exec cp {} "$bin/xray/" \;
+
+        fetch singBox SagerNet/sing-box "$sb_asset"
+        find dl/singBox -name 'sing-box.exe' -exec cp {} "$bin/sing_box/" \;
+        find dl/singBox -name 'libcronet*.dll' -exec cp {} "$bin/sing_box/" \;
+        # libcronet.dll is prebuilt in SagerNet/cronet-go (windows-amd64 only); its git blob must be the one at the
+        # pinned cronet-go commit, so the origin recorded in the source manifest is the file that ships.
+        if [[ -f "$bin/sing_box/libcronet.dll" ]]; then
+          [[ "$(git hash-object "$bin/sing_box/libcronet.dll")" == "$(jq -er '.libcronet.windowsAmd64GitBlob' lock/cores.source.json)" ]] || { echo "libcronet.dll is not the pinned cronet-go build (cores.source.json)"; exit 1; }
+        elif [[ "$ARCH" == x64 ]]; then
+          echo "x64 sing-box zip has no libcronet.dll"; exit 1
+        fi
+
+        fetch mihomo MetaCubeX/mihomo "$mh_asset"
+        find dl/mihomo -name 'mihomo*.exe' -exec cp {} "$bin/mihomo/mihomo.exe" \;
+
+        for f in "$bin/xray/xray.exe" "$bin/xray/wintun.dll" "$bin/sing_box/sing-box.exe" "$bin/mihomo/mihomo.exe"; do
+          [[ -s "$f" ]] || { echo "missing after unpacking: $f"; exit 1; }
+        done
+        ls -R "$bin" | head -60
+
+        # S-03 / R-21: the licence text of every bundled core travels with it (committed, reviewed copies).
+        mkdir -p "$PACKAGE_DIR/Licenses/cores"
+        cp lock/licenses/cores/* "$PACKAGE_DIR/Licenses/cores/"
+        for f in Xray-core-MPL-2.0.txt Wintun-prebuilt-binaries.txt sing-box-GPL-3.0-with-name-clause.txt mihomo-GPL-3.0.txt libcronet-Chromium-BSD-3-Clause.txt; do
+          [[ -s "$PACKAGE_DIR/Licenses/cores/$f" ]] || { echo "missing licence file: $f"; exit 1; }
+        done
+        for f in Glide-GPL-3.0.txt NOTICE.md THIRD_PARTY_NOTICES.md NotoSansSC-OFL.txt; do
+          [[ -s "$PACKAGE_DIR/Licenses/$f" ]] || { echo "missing licence file in the build: Licenses/$f"; exit 1; }
+        done
+    # Tells whoever has the zip or the installer where the corresponding source is (published by package-source.yml).
+    - name: Write where the source is
+      shell: bash
+      env:
+        REPO: ${{ github.repository }}
+        COMMIT: ${{ github.sha }}
+        TAG: ${{ inputs.release_tag }}
+      run: |
+        set -euo pipefail
+        node lock/scripts/source/write-source-notice.mjs --root lock --tag "$TAG" --commit "$COMMIT" --repo "$REPO" --out "$PACKAGE_DIR/Licenses/SOURCE.txt"
+        [[ -s "$PACKAGE_DIR/Licenses/SOURCE.txt" ]] || { echo "missing Licenses/SOURCE.txt"; exit 1; }
+
+    # Backstop for the srss removal above: whatever layout a bundle has, no sing-box rule set ships.
+    - name: No unlicensed rule sets in the package
+      shell: bash
+      run: |
+        set -euo pipefail
+        found=$(find "$PACKAGE_DIR" \( -iname '*.srs' -o -iname srss \) | head -5)
+        [[ -z "$found" ]] || { echo "rule sets must not ship:"; echo "$found"; exit 1; }
+
+    - name: Package zip archive
+      shell: bash
+      run: 7z a -tZip "$ZIP_NAME" "$PACKAGE_DIR" -mx1
+
+    # The in-app updater installs only zips signed with this key (ECDSA P-256; scripts/signing/new-update-signing-key.sh
+    # makes the pair). No key means no release: the app would refuse the update.
+    - name: Sign zip for the in-app updater
+      shell: bash
+      env:
+        UPDATE_SIGNING_KEY: ${{ secrets.UPDATE_SIGNING_KEY }}
+      run: |
+        set -euo pipefail
+        [[ -n "$UPDATE_SIGNING_KEY" ]] || { echo "UPDATE_SIGNING_KEY secret is missing"; exit 1; }
+        key="$RUNNER_TEMP/update-signing-key.pem"
+        (umask 077; printf '%s\n' "$UPDATE_SIGNING_KEY" > "$key")
+        openssl dgst -sha256 -sign "$key" "$ZIP_NAME" | base64 -w0 > "$ZIP_NAME.sig256"
+        openssl ec -in "$key" -pubout 2>/dev/null > "$RUNNER_TEMP/pub.pem"
+        rm -f "$key"
+        # The secret must be the private half of the key built into the app and AmazTool. If not, this
+        # release would pass the check below and then be refused by every installed Glide.
+        embedded=$(sed -n '/^[[:space:]]*-----BEGIN PUBLIC KEY-----/,/^[[:space:]]*-----END PUBLIC KEY-----/p' lock/v2rayN/ServiceLib/Common/UpdateSignatureKey.cs | tr -d '\r' | sed 's/^[[:space:]]*//')
+        [[ -n "$embedded" && "$embedded" == "$(cat "$RUNNER_TEMP/pub.pem")" ]] || { echo "UPDATE_SIGNING_KEY is not the private half of UpdateSignatureKey.PublicKeyPem"; exit 1; }
+        openssl dgst -sha256 -verify "$RUNNER_TEMP/pub.pem" -signature <(base64 -d "$ZIP_NAME.sig256") "$ZIP_NAME"
+
+    - name: Upload zip artifact
+      uses: actions/upload-artifact@v7
+      with:
+        name: release-windows-${{ matrix.arch }}
+        path: |
+          ${{ env.ZIP_NAME }}
+          ${{ env.ZIP_NAME }}.sig256
+        if-no-files-found: error
+
+  release:
+    name: sign and upload zip ${{ matrix.arch }}
+    needs: package
+    strategy:
+      matrix:
+        arch: ${{ fromJSON(inputs.arches) }}
+    uses: ./.github/workflows/upload-sign.yml
+    with:
+      release_tag: ${{ inputs.release_tag }}
+      artifact_name: release-windows-${{ matrix.arch }}
+      file_pattern: '*.zip'
+    secrets:
+      GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

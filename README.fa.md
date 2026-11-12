@@ -1,138 +1,131 @@
+<!-- نسخه فارسی README گلاید | مطابق کامل با متن رسمی و طراحی g1ide.pages.dev -->
 <div align="center">
 
-[English](README.md) · **فارسی**
-
-<br>
+<a href="README.md">English</a> &nbsp;·&nbsp; <strong>فارسی</strong> &nbsp;&nbsp;|&nbsp;&nbsp; [**امکانات**](#features) · [**تصاویر برنامه**](#showcase) · [**تفاوت با v2rayN**](#glide-vs-v2rayn) · [**نصب و شروع کار**](#get-started) · [**بررسی اصالت**](#verify-your-download)
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/brand/glide-logo-dark.png">
-  <img alt="Glide" src="docs/brand/glide-logo-light.png" width="280">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-hero-header-dark.png">
+  <img src="docs/images/readme/fa-hero-header-light.png" alt="با یک کلیک وصل شو — قدرت v2rayN، با ظاهری جدید و کاربری ساده‌تر در ویندوز" width="100%">
 </picture>
 
-<div dir="rtl" align="right">
-
-<h3>قدرت v2rayN، با ظاهری جدید و کاربری ساده‌تر در ویندوز</h3>
-
-<p>Glide از هسته‌های Xray، sing-box و mihomo استفاده می‌کند،<br>اما همه‌چیز را در محیطی مرتب‌تر و راحت‌تر در اختیارتان می‌گذارد.</p>
-
-<p><b>سرورتان را انتخاب کنید، وصل شوید و راحت از اینترنت استفاده کنید.</b></p>
-
-</div>
-
-[![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&logo=github&label=Release&color=5850EC)](https://github.com/BlackkCore/Glide/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&logo=github&label=Downloads&color=5850EC)](https://github.com/BlackkCore/Glide/releases)
+[![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&logo=github&label=Release&color=5560F5)](https://github.com/BlackkCore/Glide/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&logo=github&label=Downloads&color=5560F5)](https://github.com/BlackkCore/Glide/releases)
 [![Windows 10/11](https://img.shields.io/badge/Windows-10%20%7C%2011-0078D6?style=flat-square&logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
-[![Languages](https://img.shields.io/badge/UI-EN%20%7C%20FA-5850EC?style=flat-square)](README.md)
+[![Languages](https://img.shields.io/badge/UI-EN%20%7C%20FA-5560F5?style=flat-square)](README.md)
 [![License](https://img.shields.io/badge/License-GPL--3.0-555?style=flat-square)](LICENSE)
 
 <br>
 
-<p dir="rtl" align="center">
-  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><strong>📥 دانلود نسخهٔ نصبی (x64)</strong></a>
-  &nbsp;&nbsp; | &nbsp;&nbsp;
-  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><strong>📦 دانلود نسخهٔ قابل‌حمل</strong></a>
-</p>
-
-<p dir="rtl" align="center">
-  🌐 <a href="https://g1ide.pages.dev/"><strong>بازدید از وب‌سایت رسمی Glide</strong></a>
+<p align="center">
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-installer-dark.png">
+      <img src="docs/images/readme/fa-cta-installer-light.png" alt="دانلود نسخهٔ نصبی (x64)" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-portable-dark.png">
+      <img src="docs/images/readme/fa-cta-portable-light.png" alt="دانلود نسخهٔ قابل‌حمل" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://g1ide.pages.dev/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-website-dark.png">
+      <img src="docs/images/readme/fa-cta-website-light.png" alt="بازدید از وب‌سایت رسمی Glide" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/BlackkCore/Glide/releases/latest">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-all-dark.png">
+      <img src="docs/images/readme/fa-cta-all-light.png" alt="فایل‌های ۳۲ بیتی و همه نسخه‌ها" height="46">
+    </picture>
+  </a>
 </p>
 
 <sub dir="rtl">ویندوز ۳۲ بیتی دارید؟ فایل مناسب را از <a href="https://github.com/BlackkCore/Glide/releases/latest">صفحهٔ دانلود</a> بگیرید.</sub>
 
 <br><br>
 
-<img alt="محیط اصلی Glide به زبان فارسی" src="docs/images/screenshots/glide-persian-rtl-dark.png" width="920">
+<a href="https://github.com/BlackkCore/Glide/releases/latest">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-hero-stage-dark.png">
+    <img src="docs/images/readme/fa-hero-stage-light.png" alt="محیط اصلی Glide به زبان فارسی" width="100%">
+  </picture>
+</a>
 
+<br>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-live-flow-dark.svg">
+  <img src="docs/images/readme/fa-live-flow-light.svg" alt="مسیر متحرک بررسی ترافیک گلاید" width="100%">
+</picture>
+
+</div>
+
+<br>
+
+<a id="features"></a>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-section-features-dark.png">
+    <img src="docs/images/readme/fa-section-features-light.png" alt="امکانات اصلی Glide" width="100%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-bento-features-dark.png">
+    <img src="docs/images/readme/fa-bento-features-light.png" alt="شبکه امکانات اصلی Glide" width="100%">
+  </picture>
+</div>
+
+<br>
+
+<a id="showcase"></a>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-section-showcase-dark.png">
+    <img src="docs/images/readme/fa-section-showcase-light.png" alt="تصاویر برنامه" width="100%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-showcase-curated-dark.png">
+    <img src="docs/images/readme/fa-showcase-curated-light.png" alt="گالری صفحات Glide" width="100%">
+  </picture>
+</div>
+
+<br>
+
+<a id="glide-vs-v2rayn"></a>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-section-architecture-dark.png">
+    <img src="docs/images/readme/fa-section-architecture-light.png" alt="تفاوت Glide با v2rayN" width="100%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-verify-flow-dark.png">
+    <img src="docs/images/readme/fa-verify-flow-light.png" alt="زنجیره بررسی اتصال Glide" width="100%">
+  </picture>
+  <br><br>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-upstream-diff-dark.png">
+    <img src="docs/images/readme/fa-upstream-diff-light.png" alt="امکانات حفظ‌شده از v2rayN و امکانات جدید Glide" width="100%">
+  </picture>
 </div>
 
 <br>
 
 <div dir="rtl" align="right">
 
-## ✨ امکانات اصلی
-
-<table dir="rtl">
-  <tr>
-    <td width="33%" valign="top">
-      <h4>⏻ اتصال با یک کلیک</h4>
-      کافی است دکمهٔ اتصال را بزنید. Glide قبل از نمایش وضعیت «متصل»، بررسی می‌کند که اینترنت واقعاً از سرور انتخابی عبور می‌کند.
-    </td>
-    <td width="33%" valign="top">
-      <h4>🩺 پیدا کردن مشکل اتصال</h4>
-      اگر وصل نشدید، بخش «چرا وصل نمی‌شوم؟» اینترنت، DNS، هسته و سرور را مرحله‌به‌مرحله بررسی می‌کند. امکان بررسی نشت DNS هم وجود دارد.
-    </td>
-    <td width="33%" valign="top">
-      <h4>⚡ انتخاب خودکار سریع‌ترین سرور</h4>
-      Glide سرعت سرورها را مرتب بررسی می‌کند و به بهترین سرور در دسترس وصل می‌شود. اگر آن سرور از کار بیفتد، به‌صورت خودکار سرور دیگری انتخاب می‌کند.
-    </td>
-  </tr>
-  <tr>
-    <td valign="top">
-      <h4>📋 افزودن راحت کانفیگ</h4>
-      لینک کانفیگ را کپی کنید و به Glide برگردید تا پیشنهاد افزودن آن را ببینید. قبل از وارد کردن هم می‌توانید محتوای لینک را بررسی کنید.
-    </td>
-    <td valign="top">
-      <h4>📊 مدیریت اشتراک‌ها</h4>
-      حجم مصرف‌شده و باقی‌مانده، تاریخ انقضا، زمان آپدیت بعدی و هشدارهای مربوط به اشتراک را یک‌جا ببینید.
-    </td>
-    <td valign="top">
-      <h4>🌙 پشتیبانی کامل از فارسی</h4>
-      محیط راست‌به‌چپ، ترجمهٔ فارسی و تنظیمات مسیریابی آماده برای کاربران ایران.
-    </td>
-  </tr>
-  <tr>
-    <td valign="top">
-      <h4>🌌 ظاهر Midnight Aurora</h4>
-      تم روشن و تاریک، رنگ‌های مشخص برای وضعیت اتصال، پرچم کشورها و نمایش پینگ با رنگ‌های مختلف.
-    </td>
-    <td valign="top">
-      <h4>🗂️ مدیریت چند اشتراک</h4>
-      هر تعداد اشتراک که دارید اضافه کنید، بین آن‌ها جستجو کنید و حتی اشتراک‌های هم‌نام را از روی آدرسشان تشخیص دهید.
-    </td>
-    <td valign="top">
-      <h4>🧭 دسترسی سریع کنار ساعت</h4>
-      از آیکون Glide کنار ساعت ویندوز، وضعیت اتصال را ببینید، وصل یا قطع شوید و بین سرورها جابه‌جا شوید.
-    </td>
-  </tr>
-</table>
-
-## 🔁 تفاوت Glide با v2rayN چیست؟
-
 Glide بر پایهٔ v2rayN ساخته شده و قابلیت‌های اصلی آن را حفظ کرده است. تفاوت اصلی در ظاهر برنامه و امکاناتی است که استفادهٔ روزمره را راحت‌تر می‌کنند.
 
-<table dir="rtl">
-  <tr>
-    <th width="50%">امکاناتی که از v2rayN حفظ شده‌اند</th>
-    <th width="50%">امکانات و تغییرات Glide</th>
-  </tr>
-  <tr>
-    <td valign="top">
-
-- هسته‌های Xray، sing-box و mihomo
-- پروتکل‌ها و روش‌های اتصال پشتیبانی‌شده در v2rayN
-- سازگاری با فایل‌های تنظیمات و سرورهای قبلی
-- قوانین مسیریابی، تنظیمات DNS و حالت TUN
-- دریافت و ادغام تغییرات پروژهٔ اصلی
-
-</td>
-    <td valign="top">
-
-- بررسی واقعی اتصال، قبل از نمایش وضعیت «متصل»
-- عیب‌یابی مرحله‌به‌مرحله و تست نشت DNS
-- انتخاب سریع‌ترین سرور و جابه‌جایی خودکار هنگام قطعی
-- نمایش حجم، تاریخ انقضا و هشدارهای اشتراک
-- پیش‌نمایش کانفیگ و شناسایی لینک‌های کپی‌شده
-- تنظیمات ساده و پیشرفته با امکان جستجو
-- محیط فارسی و کاملاً راست‌به‌چپ
-- تم Midnight Aurora، پرچم کشورها و پینگ رنگی
-- مدیریت آسان اشتراک‌ها و منوی سریع کنار ساعت
-- انتقال اطلاعات از v2rayN با یک کلیک
-
-</td>
-  </tr>
-</table>
-
-## 🧭 جزئیات امکانات Glide
+<a id="details"></a>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-section-details-dark.png">
+    <img src="docs/images/readme/fa-section-details-light.png" alt="جزئیات امکانات Glide" width="100%">
+  </picture>
+</div>
 
 <details open>
 <summary><b>اتصال و بررسی وضعیت</b></summary>
@@ -199,44 +192,42 @@ Glide بر پایهٔ v2rayN ساخته شده و قابلیت‌های اصلی
 
 </details>
 
-## 🖼️ تصاویر برنامه
-
 </div>
 
-<table dir="rtl">
-  <tr>
-    <td width="50%"><img src="docs/images/screenshots/glide-dashboard-dark.png" alt="تم تیره Glide"></td>
-    <td width="50%"><img src="docs/images/screenshots/glide-dashboard-light.png" alt="تم روشن Glide"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>نمای برنامه با تم تیره</sub></td>
-    <td align="center"><sub>نمای برنامه با تم روشن</sub></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/images/screenshots/glide-add-server.png" alt="افزودن سرور"></td>
-    <td width="50%"><img src="docs/images/screenshots/glide-updates.png" alt="پنجرهٔ به‌روزرسانی"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>افزودن سرور با لینک یا اشتراک</sub></td>
-    <td align="center"><sub>به‌روزرسانی‌ها زیر کنترل شماست</sub></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/images/screenshots/glide-settings.png" alt="تنظیمات Glide"></td>
-    <td width="50%"><img src="docs/images/screenshots/glide-store-apps.png" alt="اجازهٔ دسترسی برنامه‌های فروشگاه به پراکسی"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>تنظیمات مرتب با امکان جستجو</sub></td>
-    <td align="center"><sub>برنامه‌های فروشگاه ویندوز (فهرست در اینجا فیلتر شده است)</sub></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="docs/images/screenshots/glide-first-run-data.png" alt="دانلود داده‌های مسیریابی در اولین اجرا"></td>
-    <td width="50%"><img src="docs/images/screenshots/glide-language-selector.png" alt="تم، اندازهٔ قلم و زبان"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>داده‌های مسیریابی یک بار و با اجازهٔ شما دانلود می‌شوند</sub></td>
-    <td align="center"><sub>انتخاب زبان: English و فارسی</sub></td>
-  </tr>
-</table>
+<br>
+
+<a id="get-started"></a>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-section-download-dark.png">
+    <img src="docs/images/readme/fa-section-download-light.png" alt="نصب و شروع کار" width="100%">
+  </picture>
+
+  <br>
+
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-installer-dark.png">
+      <img src="docs/images/readme/fa-cta-installer-light.png" alt="دانلود نسخهٔ نصبی (x64)" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-portable-dark.png">
+      <img src="docs/images/readme/fa-cta-portable-light.png" alt="دانلود نسخهٔ قابل‌حمل" height="46">
+    </picture>
+  </a>
+
+  <br><br>
+
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-install-compare-dark.png">
+    <img src="docs/images/readme/fa-install-compare-light.png" alt="مقایسه نسخه نصبی و قابل‌حمل" width="100%">
+  </picture>
+</div>
+
+<br>
 
 <div dir="rtl" align="right">
 
@@ -285,6 +276,8 @@ Glide برای اتصال به سرورها و آپدیت سابسکریپشن�
 گاهی ویندوز برای برنامه‌های جدیدی که گواهی امضای کد تجاری ندارند هشدار نمایش می‌دهد. قبل از اجرا، مطمئن شوید فایل را از صفحهٔ رسمی پروژه دانلود کرده‌اید و در صورت تمایل امضای GPG آن را طبق راهنمای پایین بررسی کنید. اگر به فایل اعتماد دارید، می‌توانید از گزینه‌های *More info* و *Run anyway* استفاده کنید.
 
 </details>
+
+<a id="verify-your-download"></a>
 
 ## 🔐 بررسی اصالت فایل دانلودشده
 
@@ -356,11 +349,22 @@ dotnet publish -c Release -r win-x64 --self-contained true -o ../../out
 </section>
 </div>
 
-<div align="center" dir="rtl">
 <br>
+
+<div align="center" dir="rtl">
+<a href="https://github.com/BlackkCore/Glide/releases/latest">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-footer-dark.png">
+    <img src="docs/images/readme/fa-footer-light.png" alt="آماده مهاجرت به گلاید هستید؟ دریافت آخرین نسخه" width="100%">
+  </picture>
+</a>
+
+<br><br>
 
 اگر با مشکلی روبه‌رو شدید یا پیشنهادی دارید، از طریق [**بخش Issues**](https://github.com/BlackkCore/Glide/issues/new/choose) با ما در میان بگذارید.
 
 <sub>اگر Glide برایتان مفید بوده، با دادن ⭐ به مخزن GitHub کمک کنید افراد بیشتری آن را پیدا کنند.</sub>
+
+[دانلود](https://github.com/BlackkCore/Glide/releases/latest) · [Issues](https://github.com/BlackkCore/Glide/issues) · [وب‌سایت](https://g1ide.pages.dev/) · [English](README.md)
 
 </div>

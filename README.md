@@ -1,154 +1,145 @@
+<!-- Glide flagship landing-page README | Dual-theme (dark/light) 2x Retina assets + animated SVG flow -->
 <div align="center">
 
-<strong>English</strong> &nbsp;·&nbsp; <a href="README.fa.md">فارسی</a>
-
-<br><br>
+<strong>English</strong> &nbsp;·&nbsp; <a href="README.fa.md">فارسی</a> &nbsp;&nbsp;|&nbsp;&nbsp; [**Screenshots**](#a-closer-look) · [**All features**](#all-the-details) · [**Glide vs. v2rayN**](#glide-vs-v2rayn) · [**FAQ**](#frequently-asked-questions) · [**Verify**](#verify-your-download) · [**Build**](#build-from-source)
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/brand/glide-logo-dark.png">
-  <img src="docs/brand/glide-logo-light.png" alt="Glide" width="260">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/hero-header-dark.png">
+  <img src="docs/images/readme/hero-header-light.png" alt="Glide — Go anywhere. Quietly. A calm, modern Windows client built on the power of v2rayN." width="100%">
 </picture>
 
-### Go anywhere. Quietly.
-
-A calm, modern Windows client built on the power of **v2rayN**.<br>
-Pick a server, press one button, and know for sure when you're connected.
-
-[![Latest release](https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&label=release&color=5850EC)](https://github.com/BlackkCore/Glide/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&label=downloads&color=5850EC)](https://github.com/BlackkCore/Glide/releases)
+[![Latest release](https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&label=release&color=5560F5)](https://github.com/BlackkCore/Glide/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&label=downloads&color=5560F5)](https://github.com/BlackkCore/Glide/releases)
 [![Windows](https://img.shields.io/badge/Windows-10%20%2F%2011-0078D6?style=flat-square&logo=windows)](https://github.com/BlackkCore/Glide/releases/latest)
-[![Persian](https://img.shields.io/badge/UI-English%20%7C%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-5850EC?style=flat-square)](README.fa.md)
+[![Persian](https://img.shields.io/badge/UI-English%20%7C%20%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-5560F5?style=flat-square)](README.fa.md)
 [![License](https://img.shields.io/github/license/BlackkCore/Glide?style=flat-square&color=555)](LICENSE)
 
 <br>
 
+<p align="center">
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/cta-installer-dark.png">
+      <img src="docs/images/readme/cta-installer-light.png" alt="Download the Glide installer for Windows" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/cta-portable-dark.png">
+      <img src="docs/images/readme/cta-portable-light.png" alt="Download the portable zip" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://g1ide.pages.dev/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/cta-website-dark.png">
+      <img src="docs/images/readme/cta-website-light.png" alt="Visit the official Glide website" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/BlackkCore/Glide/releases/latest">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/cta-all-dark.png">
+      <img src="docs/images/readme/cta-all-light.png" alt="32-bit and all files" height="46">
+    </picture>
+  </a>
+</p>
 
-<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><img src="https://img.shields.io/badge/Download-Installer%20(x64)-5850EC?style=for-the-badge&logo=windows&logoColor=white" alt="Download the Glide installer for Windows"></a>
-<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><img src="https://img.shields.io/badge/Download-Portable%20zip-141722?style=for-the-badge&logo=files&logoColor=white" alt="Download the portable zip"></a>
+<sub>Windows 10 &amp; 11 · English &amp; فارسی · Powered by Xray, sing-box and mihomo · <a href="https://github.com/BlackkCore/Glide/releases/latest">32-bit and all files</a></sub>
 
 <br><br>
 
-<a href="https://g1ide.pages.dev/"><img src="https://img.shields.io/badge/Official_Website-Visit_Glide-5850EC?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Visit the official Glide website"></a>
+<a href="https://github.com/BlackkCore/Glide/releases/latest">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/hero-stage-dark.png">
+    <img src="docs/images/readme/hero-stage-light.png" alt="Glide main window" width="100%">
+  </picture>
+</a>
 
-<br><br>
-
-<sub>Windows 10 & 11 · English & فارسی · Powered by Xray, sing-box and mihomo · <a href="https://github.com/BlackkCore/Glide/releases/latest">32-bit and all files</a></sub>
-
-
-<br><br>
+<br>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/glide-dashboard-dark.png">
-  <img src="docs/images/screenshots/glide-dashboard-light.png" width="950" alt="Glide main window">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/live-flow-dark.svg">
+  <img src="docs/images/readme/live-flow-light.svg" alt="Animated packet verification flow: Your Apps -> Glide Tunnel -> Traffic Check -> Verified Exit" width="100%">
 </picture>
 
 </div>
 
----
+<br>
 
+<a id="features"></a>
 <div align="center">
-
-### Everything essential, nothing in your way.
-
-<sub>Built for the first connection, and the hundredth.</sub>
-
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/section-features-dark.png">
+    <img src="docs/images/readme/section-features-light.png" alt="Everything essential, nothing in your way." width="100%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/bento-features-dark.png">
+    <img src="docs/images/readme/bento-features-light.png" alt="Glide feature highlights" width="100%">
+  </picture>
 </div>
 
-<table>
-<tr>
-<td width="33%" valign="top">
-<h4>⏻ One button to connect</h4>
-Press it and you're online. Once traffic is verified, it lights up with a cyan "protected" halo.
-</td>
-<td width="33%" valign="top">
-<h4>✅ A status you can trust</h4>
-<i>Connected</i> appears only after Glide has checked that traffic really gets through, with the delay.
-</td>
-<td width="33%" valign="top">
-<h4>🩺 "Why can't I connect?"</h4>
-A step-by-step check of your internet, DNS, the engine and the server, ending in one plain answer.
-</td>
-</tr>
-<tr>
-<td valign="top">
-<h4>⚡ Auto: fastest server</h4>
-Glide keeps testing your servers, uses the fastest one that works and switches by itself when one fails.
-</td>
-<td valign="top">
-<h4>🗂️ Any number of subscriptions</h4>
-One picker with search. Subscriptions with the same name show their provider's address, so you can tell them apart.
-</td>
-<td valign="top">
-<h4>📋 Paste, preview, done</h4>
-Copy a link or subscription and Glide offers to add it. You see what was found before anything is imported.
-</td>
-</tr>
-<tr>
-<td valign="top">
-<h4>🌌 Midnight aurora design</h4>
-Indigo for what you choose, cyan only when you're protected. Round country flags and pings coloured by speed.
-</td>
-<td valign="top">
-<h4>🧭 A tray menu that informs</h4>
-Live status at the top, one Connect / Disconnect item, your favourite and recent servers.
-</td>
-<td valign="top">
-<h4>🌙 Made for Persian, too</h4>
-Natural, everyday Persian, a fully mirrored right-to-left window in Vazirmatn, and an Iran routing preset.
-</td>
-</tr>
-</table>
+<br>
 
+<a id="a-closer-look"></a>
 <div align="center">
-
-### A closer look
-
-<sub>Thoughtful details on every screen.</sub>
-
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/section-showcase-dark.png">
+    <img src="docs/images/readme/section-showcase-light.png" alt="A closer look — Thoughtful details on every screen" width="100%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/showcase-curated-dark.png">
+    <img src="docs/images/readme/showcase-curated-light.png" alt="Glide screenshots showcase" width="100%">
+  </picture>
 </div>
 
-<table>
-<tr>
-<td width="50%"><img src="docs/images/screenshots/glide-add-server.png" alt="Add a server by pasting a link"></td>
-<td width="50%"><img src="docs/images/screenshots/glide-updates.png" alt="The Updates window"></td>
-</tr>
-<tr>
-<td align="center"><b>Paste, preview, done</b><br><sub>Add servers from a link, a subscription or a QR code</sub></td>
-<td align="center"><b>Updates you control</b><br><sub>Choose what to check; the engines and rule files are listed separately</sub></td>
-</tr>
-<tr>
-<td><img src="docs/images/screenshots/glide-settings.png" alt="Settings"></td>
-<td><img src="docs/images/screenshots/glide-store-apps.png" alt="Allow Store apps to use the proxy"></td>
-</tr>
-<tr>
-<td align="center"><b>Settings that make sense</b><br><sub>Everyday options first, with search</sub></td>
-<td align="center"><b>Store apps, built in</b><br><sub>Windows' own tool, no extra helper (list filtered here)</sub></td>
-</tr>
-<tr>
-<td><img src="docs/images/screenshots/glide-first-run-data.png" alt="First-run routing data download"></td>
-<td><img src="docs/images/screenshots/glide-language-selector.png" alt="Theme, font size and language"></td>
-</tr>
-<tr>
-<td align="center"><b>Routing data on first run</b><br><sub>Downloaded once, with your say</sub></td>
-<td align="center"><b>English and فارسی</b><br><sub>Theme, font size and language in one place</sub></td>
-</tr>
-<tr>
-<td colspan="2" align="center"><img src="docs/images/screenshots/glide-persian-rtl-dark.png" width="800" alt="Glide in Persian, right to left"><br><b>A native-feeling Persian interface</b><br><sub>Right to left, from layout to typography</sub></td>
-</tr>
-</table>
+<br>
 
 > [!NOTE]
 > Glide is a redesigned desktop app **built on v2rayN**, not a separate proxy engine. A verified connection means traffic gets through your server; it doesn't make every app anonymous or protected.
 
----
+<br>
 
-## Get started
+<a id="get-started"></a>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/section-download-dark.png">
+    <img src="docs/images/readme/section-download-light.png" alt="Get started" width="100%">
+  </picture>
 
-| Download | Best for | Notes |
-| :--- | :--- | :--- |
-| [**Installer (x64)**](https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe) | Most people | Windows asks for administrator permission (it installs into `Program Files`). Adds a Start menu entry and an uninstaller; your servers and settings stay in `%LOCALAPPDATA%\Glide`. |
-| [**Portable zip (x64)**](https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip) | No installation | Extract to a folder you can write to, such as `C:\Glide` (not `Program Files`). |
-| [**32-bit files**](https://github.com/BlackkCore/Glide/releases/latest) | 32-bit Windows | Installer and zip are on the release page. |
+  <br>
+
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/cta-installer-dark.png">
+      <img src="docs/images/readme/cta-installer-light.png" alt="Download Installer x64" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/cta-portable-dark.png">
+      <img src="docs/images/readme/cta-portable-light.png" alt="Download Portable ZIP x64" height="46">
+    </picture>
+  </a>
+  &nbsp;&nbsp;
+  <a href="https://github.com/BlackkCore/Glide/releases/latest">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/cta-all-dark.png">
+      <img src="docs/images/readme/cta-all-light.png" alt="32-bit and all files" height="46">
+    </picture>
+  </a>
+
+  <br><br>
+
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/install-compare-dark.png">
+    <img src="docs/images/readme/install-compare-light.png" alt="Installer vs Portable ZIP comparison" width="100%">
+  </picture>
+</div>
+
+<br>
 
 The engines are included in every download.
 
@@ -162,7 +153,15 @@ The engines are included in every download.
 
 **Jump to:** [Screenshots](#a-closer-look) · [All features](#all-the-details) · [Glide vs. v2rayN](#glide-vs-v2rayn) · [FAQ](#frequently-asked-questions) · [Verify your download](#verify-your-download) · [Build from source](#build-from-source)
 
-## All the details
+<br>
+
+<a id="all-the-details"></a>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/section-details-dark.png">
+    <img src="docs/images/readme/section-details-light.png" alt="All the details" width="100%">
+  </picture>
+</div>
 
 <details open>
 <summary><strong>Connecting and troubleshooting</strong></summary>
@@ -208,17 +207,28 @@ The engines are included in every download.
 
 </details>
 
-## Glide vs. v2rayN
+<br>
+
+<a id="glide-vs-v2rayn"></a>
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/section-architecture-dark.png">
+    <img src="docs/images/readme/section-architecture-light.png" alt="Glide vs. v2rayN — Architecture and upstream foundations" width="100%">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/verify-flow-dark.png">
+    <img src="docs/images/readme/verify-flow-light.png" alt="End-to-end verification pipeline" width="100%">
+  </picture>
+  <br><br>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/upstream-diff-dark.png">
+    <img src="docs/images/readme/upstream-diff-light.png" alt="Foundations from v2rayN compared with Glide additions" width="100%">
+  </picture>
+</div>
+
+<br>
 
 **Glide is v2rayN underneath, with a new interface and some functional improvements.** It keeps upstream's protocols, transports, configuration format, engines, routing, DNS and TUN. On top of that it redesigns how you use them and adds a verified connection status, signed updates (Glide, the engines and the rule files), an installer for all users and a Persian interface.
-
-| From v2rayN | Added or redesigned in Glide |
-| :--- | :--- |
-| Xray, sing-box and mihomo | A modern interface in the Midnight aurora design |
-| Every protocol and transport v2rayN supports | A verified connection status and guided troubleshooting |
-| The same config files, so your servers carry over | One-click migration, import previews and a clipboard offer |
-| Routing rules, DNS settings and TUN mode | Plain-language routing, simpler settings with search |
-| Upstream updates, merged in as they come out | Subscription insights, a searchable subscription picker, an informative tray menu and a Persian RTL interface |
 
 Glide follows [2dust/v2rayN](https://github.com/2dust/v2rayN): new upstream versions are merged in and released here with the redesign on top.
 
@@ -229,6 +239,8 @@ Glide follows [2dust/v2rayN](https://github.com/2dust/v2rayN): new upstream vers
 
 > [!IMPORTANT]
 > Back up the `guiConfigs` folder before replacing files by hand.
+
+<a id="frequently-asked-questions"></a>
 
 ## Frequently asked questions
 
@@ -280,6 +292,8 @@ Windows caches icons. Run `ie4uinit.exe -show` and reopen Explorer, or restart W
 
 </details>
 
+<a id="verify-your-download"></a>
+
 ## Verify your download
 
 Every release file comes with a `.sig` signature and the public key `Glide-public-key.asc`. Check the key's fingerprint against this one before trusting it:
@@ -300,6 +314,8 @@ Use the name of the file you downloaded. Look for *Good signature from "BlackCor
 
 Each zip also has a `.sig256` file that Glide itself checks before it installs an update. The source code for Glide and the bundled engines is attached to every release as `*-source*.tar.gz` archives with `SHA256SUMS-source-<version>.txt`, so you can rebuild what you downloaded.
 
+<a id="build-from-source"></a>
+
 ## Build from source
 
 Requires the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
@@ -312,18 +328,11 @@ dotnet publish -c Release -r win-x64 --self-contained true -o ../../out
 
 Put a `bin` folder with the engines next to `Glide.exe`, or let **Check update** download them after the first start.
 
-
-
-
 ## Credits and License
 
-**Glide** is developed and maintained by
-[BlackCore](https://github.com/BlackkCore).
+**Glide** is developed and maintained by [BlackCore](https://github.com/BlackkCore).
 
-Built upon [v2rayN](https://github.com/2dust/v2rayN)
-by [2dust](https://github.com/2dust) and its contributors,
-Glide introduces a redesigned desktop experience
-while retaining the upstream networking capabilities.
+Built upon [v2rayN](https://github.com/2dust/v2rayN) by [2dust](https://github.com/2dust) and its contributors, Glide introduces a redesigned desktop experience while retaining the upstream networking capabilities.
 
 ### Development & Attribution
 
@@ -337,26 +346,30 @@ while retaining the upstream networking capabilities.
 
 ### License
 
-Glide is distributed under the
-[GNU General Public License v3.0](LICENSE).
+Glide is distributed under the [GNU General Public License v3.0](LICENSE).
 
-Redistribution and modification are permitted
-under GPL-3.0, provided all applicable license
-conditions and copyright notices are preserved.
+Redistribution and modification are permitted under GPL-3.0, provided all applicable license conditions and copyright notices are preserved.
 
-For copyright details and attribution information,
-see [NOTICE.md](NOTICE.md).
+For copyright details and attribution information, see [NOTICE.md](NOTICE.md).
 
 **Official Project:** [Glide by BlackCore](https://github.com/BlackkCore/Glide)
 
+<br>
 
 <div align="center">
-<br>
+<a href="https://github.com/BlackkCore/Glide/releases/latest">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/footer-dark.png">
+    <img src="docs/images/readme/footer-light.png" alt="Ready to switch to Glide? Download latest release" width="100%">
+  </picture>
+</a>
+
+<br><br>
 
 Found a bug or have an idea? [**Open an issue**](https://github.com/BlackkCore/Glide/issues/new/choose)
 
 <sub>If Glide makes your day a little easier, a ⭐ on the repo helps others find it.</sub>
 
-[Download](https://github.com/BlackkCore/Glide/releases/latest) · [Issues](https://github.com/BlackkCore/Glide/issues) · [فارسی](README.fa.md)
+[Download](https://github.com/BlackkCore/Glide/releases/latest) · [Issues](https://github.com/BlackkCore/Glide/issues) · [Website](https://g1ide.pages.dev/) · [فارسی](README.fa.md)
 
 </div>

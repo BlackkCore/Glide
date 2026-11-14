@@ -1,7 +1,7 @@
 <!-- Glide README V2 | Zero-Cloudflare Hybrid Animated SVG + Real Screenshot Edition -->
 <div align="center">
 
-<p><strong>English</strong> &nbsp;|&nbsp; <a href="#get-started"><strong>Download</strong></a> · <a href="#features"><strong>Features</strong></a> · <a href="#screenshots"><strong>Screenshots</strong></a> · <a href="#glide-vs-v2rayn"><strong>Glide vs. v2rayN</strong></a> · <a href="#frequently-asked-questions"><strong>FAQ</strong></a> · <a href="#verify-your-download"><strong>Verify</strong></a> · <a href="#build-from-source"><strong>Build</strong></a></p>
+<p><strong>English</strong> · <a href="README.fa.md"><strong>فارسی</strong></a> &nbsp;|&nbsp; <a href="#get-started"><strong>Download</strong></a> · <a href="#features"><strong>Features</strong></a> · <a href="#screenshots"><strong>Screenshots</strong></a> · <a href="#glide-vs-v2rayn"><strong>Glide vs. v2rayN</strong></a> · <a href="#frequently-asked-questions"><strong>FAQ</strong></a> · <a href="#verify-your-download"><strong>Verify</strong></a> · <a href="#build-from-source"><strong>Build</strong></a></p>
 
 <p>
 <picture>
@@ -297,6 +297,6 @@ For copyright details and attribution information, see [NOTICE.md](NOTICE.md).
 
 <p><sub>If Glide makes your day a little easier, a ⭐ on the repo helps others find it.</sub></p>
 
-<p><a href="https://github.com/BlackkCore/Glide/releases/latest">Download</a> · <a href="https://github.com/BlackkCore/Glide/issues">Issues</a> · <a href="https://g1ide.pages.dev/">Website</a></p>
+<p><a href="https://github.com/BlackkCore/Glide/releases/latest">Download</a> · <a href="https://github.com/BlackkCore/Glide/issues">Issues</a> · <a href="https://g1ide.pages.dev/">Website</a> · <a href="README.fa.md">فارسی</a></p>
 
 </div>

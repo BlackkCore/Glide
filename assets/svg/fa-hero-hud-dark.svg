@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="104" viewBox="0 0 1040 104" fill="none" role="img" aria-label="وضعیت زنده ترافیک و تأخیر گلاید">
+  <defs>
+    <linearGradient id="hudBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#191D2E"/>
+      <stop offset="100%" stop-color="#101320"/>
+    </linearGradient>
+    <linearGradient id="subCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1D2236"/>
+      <stop offset="100%" stop-color="#131726"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#5560F5" stop-opacity="0"/>
+      <stop offset="28%" stop-color="#5560F5"/>
+      <stop offset="56%" stop-color="#7B88FF"/>
+      <stop offset="82%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="miniGlobeGrad" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#353E82" stop-opacity="0.95"/>
+      <stop offset="65%" stop-color="#151932" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#7B88FF" stop-opacity="0.88"/>
+    </radialGradient>
+    <pattern id="miniDots" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="0.85" fill="#9AA4FF" fill-opacity="0.72"/>
+    </pattern>
+    <linearGradient id="dlArea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="hudClip"><rect x="1" y="4" width="1038" height="90" rx="24"/></clipPath>
+    <clipPath id="globeClip"><circle cx="0" cy="0" r="21"/></clipPath>
+    <clipPath id="nlClip"><circle cx="0" cy="0" r="14"/></clipPath>
+  </defs>
+  <style>
+    .sans { font-family: 'Vazirmatn', 'Manrope', 'Segoe UI', Tahoma, -apple-system, BlinkMacSystemFont, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+    @keyframes floatMini { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-2.5px); } }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    @keyframes scan { 0% { transform: translateX(1180px); } 100% { transform: translateX(-200px); } }
+    .fM { animation: floatMini 4.2s ease-in-out infinite; }
+    .dot { animation: dotPulse 2s ease-in-out infinite; }
+    .scan { animation: scan 6.4s linear infinite; }
+  </style>
+
+  <rect x="4" y="10" width="1032" height="90" rx="24" fill="#070911"/>
+  <rect x="1" y="4" width="1038" height="90" rx="24" fill="url(#hudBg)" stroke="#262C42" stroke-width="1.2"/>
+
+  <g clip-path="url(#hudClip)">
+    <rect class="scan" x="0" y="4" width="190" height="90" fill="url(#sheen)"/>
+  </g>
+  <line x1="28" y1="4.5" x2="1012" y2="4.5" stroke="url(#rim)" stroke-width="1.6"/>
+
+  <g transform="translate(992, 49)">
+    <g class="fM">
+      <circle cx="0" cy="0" r="24" fill="#5560F5" fill-opacity="0.16"/>
+      <circle cx="0" cy="0" r="21" fill="url(#miniGlobeGrad)"/>
+      <g clip-path="url(#globeClip)">
+        <circle cx="0" cy="0" r="21" fill="url(#miniDots)"/>
+        <path d="M -22 6 C -8 2 8 2 22 6 L 22 22 L -22 22 Z" fill="#0C0F1D" fill-opacity="0.58"/>
+      </g>
+      <circle cx="0" cy="0" r="21" stroke="#7B88FF" stroke-opacity="0.6" stroke-width="1.1"/>
+      <ellipse cx="0" cy="2" rx="26" ry="7.5" transform="rotate(-14)" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1" fill="none"/>
+      <path id="hudOrbit" d="M -26 2 A 26 7.5 -14 1 1 26 2 A 26 7.5 -14 1 1 -26 2 Z" fill="none"/>
+      <circle r="2.2" fill="#22D3EE"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#hudOrbit"/></animateMotion></circle>
+    </g>
+  </g>
+
+  <g transform="translate(958, 34)">
+    <circle class="dot" cx="-5" cy="7" r="4" fill="#34D399"/>
+    <text x="-16" y="11" text-anchor="end" class="sans" font-size="13" font-weight="700" fill="#EEF0F8">ترافیک واقعی تأیید شد</text>
+    <text x="0" y="30" text-anchor="end" class="mono" font-size="10.5" fill="#8C97B0">TUN · Direct Local DNS</text>
+  </g>
+
+  <line x1="794" y1="22" x2="794" y2="76" stroke="#252B40" stroke-width="1"/>
+
+  <g transform="translate(482, 21)">
+    <rect x="0" y="3" width="298" height="56" rx="16" fill="#0B0D18"/>
+    <rect x="0" y="0" width="298" height="56" rx="16" fill="url(#subCard)" stroke="#2A314A" stroke-width="1"/>
+    <g transform="translate(271, 28)">
+      <g clip-path="url(#nlClip)">
+        <rect x="-14" y="-14" width="28" height="9.4" fill="#AE1C28"/>
+        <rect x="-14" y="-4.6" width="28" height="9.2" fill="#FFFFFF"/>
+        <rect x="-14" y="4.6" width="28" height="9.4" fill="#21468B"/>
+      </g>
+      <circle cx="0" cy="0" r="14" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="1"/>
+    </g>
+    <text x="246" y="24" text-anchor="end" class="sans" font-size="13.5" font-weight="700" fill="#EEF0F8">هلند</text>
+    <text x="246" y="41" text-anchor="end" class="mono" font-size="10.5" fill="#8C97B0">Amsterdam · VLESS · tcp</text>
+
+    <rect x="14" y="13" width="66" height="30" rx="15" fill="#10252C" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1"/>
+    <text x="47" y="32" text-anchor="middle" class="mono" font-size="12" font-weight="700" fill="#22D3EE">38 ms</text>
+  </g>
+
+  <g transform="translate(216, 18)">
+    <text x="250" y="15" text-anchor="end" class="sans" font-size="11" font-weight="600" fill="#8C97B0">گذردهی زنده</text>
+    <text x="250" y="41" text-anchor="end" class="mono" font-size="15.5" font-weight="800" fill="#EEF0F8">412 <tspan font-size="11" font-weight="600" fill="#22D3EE">Mbps ↓</tspan></text>
+    <text x="250" y="57" text-anchor="end" class="mono" font-size="10" fill="#9AA4FF">↑ 148 Mbps · 0% loss</text>
+
+    <g transform="translate(0, 6)">
+      <rect x="0" y="14" width="3.5" height="22" rx="1.7" fill="#22D3EE">
+        <animate attributeName="height" values="16;28;12;24;16" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="20;8;24;12;20" dur="1.8s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="6" y="8" width="3.5" height="28" rx="1.7" fill="#7B88FF">
+        <animate attributeName="height" values="22;12;28;16;22" dur="1.4s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="14;24;8;20;14" dur="1.4s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="12" y="14" width="3.5" height="22" rx="1.7" fill="#5560F5">
+        <animate attributeName="height" values="10;26;14;22;10" dur="1.6s" repeatCount="indefinite"/>
+        <animate attributeName="y" values="26;10;22;14;26" dur="1.6s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+    <g transform="translate(26, 10)">
+      <path d="M 120 36 C 102 32 92 16 76 20 C 60 24 48 8 28 12 C 14 15 6 22 0 10 L 0 42 L 120 42 Z" fill="url(#dlArea)"/>
+      <path id="dlWave" d="M 120 36 C 102 32 92 16 76 20 C 60 24 48 8 28 12 C 14 15 6 22 0 10" stroke="#22D3EE" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M 120 39 C 98 36 82 28 64 30 C 44 32 26 23 12 25 L 0 22" stroke="#7B88FF" stroke-opacity="0.7" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+      <circle r="3" fill="#EEF0F8"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#dlWave"/></animateMotion></circle>
+    </g>
+  </g>
+
+  <line x1="202" y1="22" x2="202" y2="76" stroke="#252B40" stroke-width="1"/>
+
+  <g transform="translate(18, 23)">
+    <rect x="0" y="0" width="54" height="24" rx="7" fill="#1E2438" stroke="#313954" stroke-width="1"/>
+    <text x="27" y="15.5" text-anchor="middle" class="mono" font-size="10.5" font-weight="600" fill="#B9C3D9">Ctrl K</text>
+    <text x="170" y="15.5" text-anchor="end" class="sans" font-size="11.5" font-weight="600" fill="#8C97B0">تعویض سریع</text>
+
+    <rect x="0" y="31" width="170" height="22" rx="11" fill="#14192B" stroke="#5560F5" stroke-opacity="0.45" stroke-width="1"/>
+    <circle cx="157" cy="42" r="3" fill="#34D399"/>
+    <text x="148" y="45.5" text-anchor="end" class="sans" font-size="10" font-weight="600" fill="#D5DCFF">۳ هسته با امضای</text>
+    <text x="11" y="45.5" text-anchor="start" class="mono" font-size="9.5" font-weight="700" fill="#67E8F9">Ed25519</text>
+  </g>
+</svg>

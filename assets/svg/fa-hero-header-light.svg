@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 420" width="1040" height="420" role="img" aria-label="گلاید — در هر جا، آرام و بی‌صدا">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="55%" stop-color="#F7F8FD"/>
+      <stop offset="100%" stop-color="#EEF1FA"/>
+    </linearGradient>
+    <radialGradient id="auroraL" cx="16%" cy="46%" r="44%">
+      <stop offset="0%" stop-color="#0E7490" stop-opacity="0.11"/>
+      <stop offset="55%" stop-color="#4350F2" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#EEF1FA" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="auroraR" cx="84%" cy="34%" r="44%">
+      <stop offset="0%" stop-color="#4350F2" stop-opacity="0.13"/>
+      <stop offset="55%" stop-color="#5A67FF" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#EEF1FA" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cardG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F1F4FC"/>
+    </linearGradient>
+    <linearGradient id="badgeG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6975FF"/>
+      <stop offset="55%" stop-color="#4350F2"/>
+      <stop offset="100%" stop-color="#313CC9"/>
+    </linearGradient>
+    <linearGradient id="headText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0B0F1D"/>
+      <stop offset="55%" stop-color="#1E296B"/>
+      <stop offset="100%" stop-color="#0E7490"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#D9E0F2" stroke-width="0.65" stroke-opacity="0.55"/>
+    </pattern>
+    <clipPath id="stageClip">
+      <rect x="6" y="4" width="1028" height="408" rx="22"/>
+    </clipPath>
+    <style>
+      .sans { font-family: 'Vazirmatn', 'Manrope', 'Segoe UI', Tahoma, -apple-system, BlinkMacSystemFont, sans-serif; }
+      .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+      .floatA { animation: floatA 6.4s ease-in-out infinite; }
+      .floatB { animation: floatB 7.2s ease-in-out infinite; }
+      .spinSlow { transform-origin: 0px 0px; animation: spinSlow 24s linear infinite; }
+      .spinRev { transform-origin: 0px 0px; animation: spinRev 18s linear infinite; }
+      .dot { animation: dotP 2.6s ease-in-out infinite; }
+      .dot2 { animation: dotP 2.6s ease-in-out 1.2s infinite; }
+      .flowArc { stroke-dasharray: 7 7; animation: flowArc 2.8s linear infinite; }
+      @keyframes floatA { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+      @keyframes floatB { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(5px); } }
+      @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes spinRev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+      @keyframes dotP { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+      @keyframes flowArc { from { stroke-dashoffset: 28; } to { stroke-dashoffset: 0; } }
+    </style>
+  </defs>
+
+  <rect x="6" y="10" width="1028" height="406" rx="22" fill="#D5DCEF"/>
+  <rect x="6" y="4" width="1028" height="408" rx="22" fill="url(#bg)" stroke="#C8D0E6" stroke-width="1.3"/>
+
+  <g clip-path="url(#stageClip)">
+    <rect x="6" y="4" width="1028" height="408" fill="url(#grid)"/>
+    <rect x="6" y="4" width="1028" height="408" fill="url(#auroraL)"/>
+    <rect x="6" y="4" width="1028" height="408" fill="url(#auroraR)"/>
+    <line x1="34" y1="5" x2="1006" y2="5" stroke="#FFFFFF" stroke-width="1.2"/>
+  </g>
+
+  <g transform="translate(154, 174)">
+    <g class="floatB">
+      <circle cx="0" cy="0" r="88" fill="#FFFFFF" fill-opacity="0.72" stroke="#CFD7ED" stroke-width="1.1"/>
+      <ellipse cx="0" cy="0" rx="88" ry="26" fill="none" stroke="#BFC9E6" stroke-width="1" stroke-dasharray="3 4"/>
+      <ellipse cx="0" cy="0" rx="34" ry="88" fill="none" stroke="#BFC9E6" stroke-width="1" stroke-dasharray="3 4"/>
+      <g class="spinSlow">
+        <ellipse cx="0" cy="0" rx="108" ry="38" fill="none" stroke="#0E7490" stroke-opacity="0.45" stroke-width="1.2" stroke-dasharray="6 6"/>
+        <circle cx="108" cy="0" r="3.4" fill="#0E7490"/>
+        <circle cx="-108" cy="0" r="2.8" fill="#4350F2"/>
+      </g>
+      <g class="spinRev">
+        <ellipse cx="0" cy="0" rx="96" ry="34" fill="none" stroke="#4350F2" stroke-opacity="0.34" stroke-width="1" stroke-dasharray="4 7"/>
+      </g>
+      <path class="flowArc" d="M -52 18 Q -6 -48 60 -12" fill="none" stroke="#0E7490" stroke-width="1.7"/>
+      <path class="flowArc" d="M -38 -42 Q 16 -6 48 44" fill="none" stroke="#047857" stroke-width="1.4" stroke-opacity="0.85"/>
+
+      <circle cx="0" cy="-64" r="2" fill="#9AA7CC"/>
+      <circle cx="-24" cy="-58" r="2" fill="#8C99C2"/>
+      <circle cx="24" cy="-58" r="2" fill="#8C99C2"/>
+      <circle cx="-46" cy="-42" r="2.2" fill="#4350F2"/>
+      <circle cx="-18" cy="-40" r="2.4" fill="#5A67FF"/>
+      <circle cx="12" cy="-40" r="2.2" fill="#8C99C2"/>
+      <circle cx="44" cy="-40" r="2.2" fill="#0E7490"/>
+      <circle cx="-62" cy="-16" r="2.2" fill="#0E7490"/>
+      <circle cx="-32" cy="-16" r="2.4" fill="#5A67FF"/>
+      <circle cx="0" cy="-18" r="2.4" fill="#9AA7CC"/>
+      <circle cx="32" cy="-16" r="2.4" fill="#0E7490"/>
+      <circle cx="62" cy="-14" r="2.4" fill="#047857"/>
+      <circle cx="-68" cy="10" r="2" fill="#8C99C2"/>
+      <circle cx="-40" cy="14" r="2.6" fill="#0E7490"/>
+      <circle cx="-10" cy="12" r="2.2" fill="#5A67FF"/>
+      <circle cx="20" cy="14" r="2.2" fill="#4350F2"/>
+      <circle cx="52" cy="12" r="2.4" fill="#5A67FF"/>
+      <circle cx="-54" cy="36" r="2" fill="#8C99C2"/>
+      <circle cx="-24" cy="40" r="2.2" fill="#047857"/>
+      <circle cx="8" cy="40" r="2.2" fill="#8C99C2"/>
+      <circle cx="42" cy="38" r="2.4" fill="#0E7490"/>
+      <circle cx="-26" cy="60" r="2" fill="#9AA7CC"/>
+      <circle cx="18" cy="60" r="2" fill="#9AA7CC"/>
+
+      <circle class="dot" cx="56" cy="-14" r="5" fill="#0E7490" fill-opacity="0.24"/>
+      <circle cx="56" cy="-14" r="2.6" fill="#0E7490"/>
+      <circle class="dot2" cx="-50" cy="18" r="5" fill="#047857" fill-opacity="0.24"/>
+      <circle cx="-50" cy="18" r="2.6" fill="#047857"/>
+
+      <rect x="44" y="-38" width="40" height="18" rx="6" fill="#FFFFFF" stroke="#A7D8E5" stroke-width="1"/>
+      <text x="64" y="-26" text-anchor="middle" fill="#0E7490" font-size="9.5" font-weight="700" class="mono">AMS</text>
+
+      <rect x="-86" y="26" width="40" height="18" rx="6" fill="#FFFFFF" stroke="#A4DEC8" stroke-width="1"/>
+      <text x="-66" y="38" text-anchor="middle" fill="#047857" font-size="9.5" font-weight="700" class="mono">FRA</text>
+    </g>
+  </g>
+
+  <g transform="translate(744, 58)">
+    <g class="floatA">
+      <rect x="4" y="8" width="256" height="196" rx="16" fill="#CFD7EC"/>
+      <rect x="0" y="0" width="256" height="196" rx="16" fill="url(#cardG)" stroke="#C6CFE7" stroke-width="1.2"/>
+      <path d="M 1 16 Q 1 1 16 1 H 240 Q 255 1 255 16 V 32 H 1 Z" fill="#F2F5FC"/>
+      <line x1="1" y1="32" x2="255" y2="32" stroke="#D8DFEF" stroke-width="1"/>
+      <circle cx="16" cy="16" r="3" fill="#B9C4DF"/>
+      <circle cx="27" cy="16" r="3" fill="#B9C4DF"/>
+      <circle cx="38" cy="16" r="3" fill="#B9C4DF"/>
+
+      <rect x="64" y="8" width="76" height="17" rx="8.5" fill="#E6F8F1" stroke="#A7DEC9" stroke-width="1"/>
+      <circle class="dot" cx="74" cy="16.5" r="2.5" fill="#047857"/>
+      <text x="106" y="19.5" text-anchor="middle" fill="#047857" font-size="9" font-weight="700" class="mono">38 ms</text>
+      <text x="242" y="20" text-anchor="end" fill="#0B0F1D" font-size="10.5" font-weight="700" class="sans">گلاید</text>
+
+      <rect x="180" y="33" width="75" height="162" fill="#F4F6FC"/>
+      <line x1="180" y1="33" x2="180" y2="195" stroke="#DCE2F2" stroke-width="1"/>
+      <rect x="188" y="44" width="59" height="24" rx="7" fill="#E6E9FF" stroke="#B7C0FF" stroke-width="1"/>
+      <text x="239" y="60" text-anchor="end" fill="#323CD6" font-size="10" font-weight="700" class="sans">اتصال</text>
+      <text x="239" y="88" text-anchor="end" fill="#566079" font-size="9.5" font-weight="600" class="sans">سرورها</text>
+      <text x="239" y="112" text-anchor="end" fill="#566079" font-size="9.5" font-weight="600" class="sans">مسیریابی</text>
+      <text x="239" y="136" text-anchor="end" fill="#566079" font-size="9.5" font-weight="600" class="sans">لاگ‌ها</text>
+      <text x="239" y="160" text-anchor="end" fill="#566079" font-size="9.5" font-weight="600" class="sans">تنظیمات</text>
+
+      <g transform="translate(90, 96)">
+        <circle cx="0" cy="0" r="36" fill="#4350F2" fill-opacity="0.06" stroke="#C5CEEB" stroke-width="1" stroke-dasharray="3 3"/>
+        <circle cx="0" cy="0" r="24" fill="#EEF1FF" stroke="#5A67FF" stroke-width="1.5"/>
+        <path d="M 0 -9 V 0" stroke="#0B0F1D" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M -6.5 -5.5 A 9.5 9.5 0 1 0 6.5 -5.5" fill="none" stroke="#0E7490" stroke-width="2.2" stroke-linecap="round"/>
+      </g>
+
+      <rect x="26" y="142" width="128" height="24" rx="8" fill="#4350F2"/>
+      <text x="90" y="158" text-anchor="middle" fill="#FFFFFF" font-size="10.5" font-weight="700" class="sans">متصل به هلند</text>
+      <text x="90" y="182" text-anchor="middle" fill="#566079" font-size="9" font-weight="600" class="mono">VLESS · REALITY · TUN</text>
+    </g>
+  </g>
+
+  <g transform="translate(520, 62)">
+    <g class="floatA">
+      <rect x="-24" y="-20" width="48" height="48" rx="14" fill="#2B35B8" transform="translate(0, 4)"/>
+      <rect x="-24" y="-20" width="48" height="48" rx="14" fill="url(#badgeG)" stroke="#C6CDFF" stroke-width="1.2"/>
+      <path d="M -9 4 Q -1 -10 10 -8 Q 2 1 11 10 Q -2 11 -9 4 Z" fill="#FFFFFF"/>
+      <circle cx="11" cy="-9" r="3" fill="#67E8F9"/>
+    </g>
+  </g>
+
+  <g transform="translate(384, 114)">
+    <rect x="0" y="0" width="272" height="24" rx="12" fill="#FFFFFF" stroke="#CFD6EA" stroke-width="1"/>
+    <circle class="dot" cx="16" cy="12" r="2.6" fill="#0E7490"/>
+    <text x="142" y="15.5" text-anchor="middle" fill="#353F58" font-size="10" font-weight="600" class="mono">v2rayN FORK · XRAY · SING-BOX · MIHOMO</text>
+  </g>
+
+  <text x="520" y="198" text-anchor="middle" fill="url(#headText)" font-size="44" font-weight="800" class="sans">در هر جا، آرام و بی‌صدا</text>
+
+  <text x="520" y="236" text-anchor="middle" fill="#353F58" font-size="14" font-weight="500" class="sans">کلاینت دسکتاپ ویندوز بازطراحی‌شده با قوانین آماده، تأیید ترافیک واقعی و هسته‌های امضاشده</text>
+
+  <g transform="translate(274, 258)">
+    <rect x="336" y="0" width="156" height="28" rx="14" fill="#ECFDF5" stroke="#A7DEC9" stroke-width="1"/>
+    <circle class="dot" cx="477" cy="14" r="2.8" fill="#047857"/>
+    <text x="466" y="18" text-anchor="end" fill="#065F46" font-size="11" font-weight="700" class="sans">تضمین ترافیک واقعی</text>
+
+    <rect x="168" y="0" width="156" height="28" rx="14" fill="#EEF0FF" stroke="#C5CEFF" stroke-width="1"/>
+    <circle cx="309" cy="14" r="2.8" fill="#4350F2"/>
+    <text x="298" y="18" text-anchor="end" fill="#313CC9" font-size="11" font-weight="700" class="sans">نصب و استفادهٔ فوری</text>
+
+    <rect x="0" y="0" width="156" height="28" rx="14" fill="#ECFEFF" stroke="#A5E2EE" stroke-width="1"/>
+    <text x="142" y="18" text-anchor="end" fill="#0E7490" font-size="11" font-weight="700" class="sans">امضای دیجیتال</text>
+    <text x="14" y="17.5" text-anchor="start" fill="#0E7490" font-size="10.5" font-weight="700" class="mono">Ed25519</text>
+  </g>
+
+  <g transform="translate(46, 314)">
+    <rect x="644" y="4" width="304" height="72" rx="16" fill="#D4DCEF"/>
+    <rect x="644" y="0" width="304" height="72" rx="16" fill="#FFFFFF" stroke="#C8D0E6" stroke-width="1.1"/>
+    <text x="928" y="27" text-anchor="end" fill="#566079" font-size="11" font-weight="600" class="sans">مسیریابی هوشمند پیش‌فرض</text>
+    <text x="928" y="51" text-anchor="end" fill="#0B0F1D" font-size="14" font-weight="700" class="sans">فعال از لحظهٔ نخست</text>
+    <rect x="662" y="21" width="76" height="28" rx="9" fill="#ECFDF5" stroke="#A7DEC9" stroke-width="1"/>
+    <circle class="dot" cx="675" cy="35" r="3" fill="#047857"/>
+    <text x="708" y="39" text-anchor="middle" fill="#047857" font-size="10.5" font-weight="700" class="mono">Rule</text>
+
+    <rect x="322" y="4" width="304" height="72" rx="16" fill="#D4DCEF"/>
+    <rect x="322" y="0" width="304" height="72" rx="16" fill="#FFFFFF" stroke="#C8D0E6" stroke-width="1.1"/>
+    <text x="606" y="27" text-anchor="end" fill="#566079" font-size="11" font-weight="600" class="sans">بومی‌سازی کامل فارسی</text>
+    <text x="606" y="51" text-anchor="end" fill="#0B0F1D" font-size="14" font-weight="700" class="sans">راست‌به‌چپ + تقویم شمسی</text>
+    <rect x="340" y="21" width="66" height="28" rx="9" fill="#EEF0FF" stroke="#C5CEFF" stroke-width="1"/>
+    <text x="373" y="39" text-anchor="middle" fill="#4350F2" font-size="11" font-weight="700" class="mono">RTL</text>
+
+    <rect x="0" y="4" width="304" height="72" rx="16" fill="#D4DCEF"/>
+    <rect x="0" y="0" width="304" height="72" rx="16" fill="#FFFFFF" stroke="#C8D0E6" stroke-width="1.1"/>
+    <text x="284" y="27" text-anchor="end" fill="#566079" font-size="11" font-weight="600" class="sans">بازگردانی تنظیمات شبکه</text>
+    <text x="284" y="51" text-anchor="end" fill="#0B0F1D" font-size="14" font-weight="700" class="sans">پاک‌سازی با یک کلیک</text>
+    <rect x="18" y="21" width="104" height="28" rx="9" fill="#ECFEFF" stroke="#A5E2EE" stroke-width="1"/>
+    <text x="70" y="39" text-anchor="middle" fill="#0E7490" font-size="10" font-weight="700" class="mono">Reset Net</text>
+  </g>
+</svg>

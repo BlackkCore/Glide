@@ -1,26 +1,40 @@
-<!-- نسخهٔ فارسی README مربوط به Glide | ترتیب بخش‌ها و محتوا هم‌سان با README.md -->
+<!-- Glide README V2 (Persian RTL) | Zero-Cloudflare Hybrid Animated SVG + Real Screenshot Edition -->
 <div align="center" dir="rtl">
 
-<a href="README.md">English</a> &nbsp;·&nbsp; <strong>فارسی</strong> &nbsp;&nbsp;|&nbsp;&nbsp; [**دانلود**](#get-started) · [**امکانات**](#features) · [**تصاویر برنامه**](#screenshots) · [**تفاوت با v2rayN**](#glide-vs-v2rayn) · [**پرسش‌ها**](#faq) · [**بررسی اصالت**](#verify-your-download) · [**ساخت از سورس**](#build-from-source)
+<p><a href="README.md"><strong>English</strong></a> · <strong>فارسی</strong> &nbsp;|&nbsp; <a href="#get-started"><strong>دانلود</strong></a> · <a href="#features"><strong>امکانات</strong></a> · <a href="#screenshots"><strong>تصاویر برنامه</strong></a> · <a href="#glide-vs-v2rayn"><strong>تفاوت با v2rayN</strong></a> · <a href="#faq"><strong>پرسش‌ها</strong></a> · <a href="#verify-your-download"><strong>بررسی اصالت</strong></a> · <a href="#build-from-source"><strong>ساخت از سورس</strong></a></p>
 
+<p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-hero-header-dark.png">
-  <img src="docs/images/readme/fa-hero-header-light.png" alt="با یک کلیک وصل شو. قدرت v2rayN، با ظاهری جدید و کاربری ساده‌تر در ویندوز. سرورتان را انتخاب کنید، وصل شوید و راحت از اینترنت استفاده کنید." width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-hero-header-dark.svg">
+  <img src="assets/svg/fa-hero-header-light.svg" alt="Glide: در هر جا. آرام و بی‌صدا. تجربهٔ بازطراحی‌شدهٔ دسکتاپ v2rayN در ویندوز." width="100%">
 </picture>
+</p>
 
-[![Release](https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&label=release&color=5560F5)](https://github.com/BlackkCore/Glide/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&label=downloads&color=5560F5)](https://github.com/BlackkCore/Glide/releases)
+<p>
+<a href="https://github.com/BlackkCore/Glide/releases/latest"><img src="https://img.shields.io/github/v/release/BlackkCore/Glide?style=flat-square&label=release&color=5560F5" alt="آخرین نسخه"></a>&nbsp;
+<a href="https://github.com/BlackkCore/Glide/releases"><img src="https://img.shields.io/github/downloads/BlackkCore/Glide/total?style=flat-square&label=downloads&color=5560F5" alt="تعداد دانلود"></a>&nbsp;
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-22D3EE?style=flat-square" alt="مجوز"></a>
+</p>
 
-<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-installer-dark.png"><img src="docs/images/readme/fa-cta-installer-light.png" alt="دانلود نسخهٔ نصبی (x64)" height="46"></picture></a>&nbsp;&nbsp;<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-portable-dark.png"><img src="docs/images/readme/fa-cta-portable-light.png" alt="دانلود نسخهٔ قابل‌حمل (x64)" height="46"></picture></a>
+<p>
+<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-cta-installer-dark.svg"><img src="assets/svg/fa-cta-installer-light.svg" alt="دانلود نسخهٔ نصبی (x64)" height="52"></picture></a>&nbsp;&nbsp;<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-cta-portable-dark.svg"><img src="assets/svg/fa-cta-portable-light.svg" alt="دانلود نسخهٔ قابل‌حمل (x64)" height="52"></picture></a>
+</p>
 
-<sub>ویندوز ۱۰ و ۱۱ (x64) · <a href="https://github.com/BlackkCore/Glide/releases/latest">فایل‌های ۳۲ بیتی و همهٔ نسخه‌ها</a> · <a href="https://g1ide.pages.dev/">وب‌سایت</a></sub>
+<p><sub>ویندوز ۱۰ و ۱۱ (x64) · <a href="https://github.com/BlackkCore/Glide/releases/latest">فایل‌های ۳۲ بیتی و همهٔ نسخه‌ها</a> · <a href="https://g1ide.pages.dev/">وب‌سایت</a></sub></p>
 
-<br><br>
-
+<p>
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-hero-stage-dark.png">
   <img src="docs/images/readme/fa-hero-stage-light.png" alt="پنجرهٔ اصلی Glide به زبان فارسی: دکمهٔ اتصال، فهرست سرورها با پرچم و پینگ، و کارت‌های سرعت دانلود، آپلود و تأخیر" width="100%">
 </picture>
+</p>
+
+<p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-hero-hud-dark.svg">
+  <img src="assets/svg/fa-hero-hud-light.svg" alt="نوار وضعیت زنده: ترافیک واقعی تأیید شد، هلند ۳۸ میلی‌ثانیه، دسترسی سریع Ctrl+K، امضای Ed25519" width="100%">
+</picture>
+</p>
 
 </div>
 
@@ -35,8 +49,8 @@
 </div>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-bento-features-dark.png">
-  <img src="docs/images/readme/fa-bento-features-light.png" alt="امکانات اصلی: وضعیت تأییدشدهٔ اتصال با تأخیر زنده؛ به‌روزرسانی امضاشدهٔ برنامه، هسته‌ها و قوانین؛ بررسی «چرا وصل نمی‌شوم؟»؛ سریع‌ترین سرور برای هر اشتراک؛ مدیریت اشتراک‌ها با Ctrl+K و Ctrl+F؛ تم Midnight Aurora؛ کنترل از کنار ساعت؛ محیط کامل فارسی و راست‌به‌چپ" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-bento-features-dark.svg">
+  <img src="assets/svg/fa-bento-features-light.svg" alt="امکانات اصلی: وضعیت تأییدشدهٔ اتصال با تأخیر زنده؛ به‌روزرسانی امضاشده؛ عیب‌یابی مرحله‌به‌مرحله؛ سریع‌ترین سرور؛ دسترسی سریع Ctrl+K؛ کنترل از کنار ساعت؛ تم Midnight Aurora؛ فارسی و انگلیسی" width="100%">
 </picture>
 
 <p align="center" dir="rtl"><sub><b>وضعیت تأییدشده</b> · <b>به‌روزرسانی امضاشده</b> · <b>عیب‌یابی مرحله‌به‌مرحله</b> · <b>سریع‌ترین سرور</b> · <b>دسترسی سریع Ctrl+K</b> · <b>کنترل از کنار ساعت</b> · <b>Midnight Aurora</b> · <b>فارسی و راست‌به‌چپ</b></sub></p>
@@ -51,26 +65,27 @@
 
 </div>
 
-<div align="center">
+<div align="center" dir="rtl">
 
-<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-installer-dark.png"><img src="docs/images/readme/fa-cta-installer-light.png" alt="دانلود نسخهٔ نصبی (x64)" height="46"></picture></a>&nbsp;&nbsp;<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-cta-portable-dark.png"><img src="docs/images/readme/fa-cta-portable-light.png" alt="دانلود نسخهٔ قابل‌حمل (x64)" height="46"></picture></a>
+<p>
+<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-cta-installer-dark.svg"><img src="assets/svg/fa-cta-installer-light.svg" alt="دانلود نسخهٔ نصبی (x64)" height="52"></picture></a>&nbsp;&nbsp;<a href="https://github.com/BlackkCore/Glide/releases/latest/download/Glide-windows-x64.zip"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-cta-portable-dark.svg"><img src="assets/svg/fa-cta-portable-light.svg" alt="دانلود نسخهٔ قابل‌حمل (x64)" height="52"></picture></a>
+</p>
 
+<p>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-install-compare-dark.png">
-  <img src="docs/images/readme/fa-install-compare-light.png" alt="نسخهٔ نصبی (x64): نصب در Program Files، نگهداری داده‌ها در %LOCALAPPDATA%\Glide و درخواست دسترسی مدیر برای نصب و به‌روزرسانی محافظت‌شده. نسخهٔ قابل‌حمل ZIP (x64): اجرا از یک پوشهٔ قابل نوشتن مثل C:\Glide، نگهداری داده‌ها در همان پوشه و درخواست دسترسی مدیر فقط برای حالت TUN. هر دو هسته‌های Xray، sing-box و mihomo را دارند." width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-install-compare-dark.svg">
+  <img src="assets/svg/fa-install-compare-light.svg" alt="مقایسهٔ نسخهٔ نصبی (x64) و نسخهٔ قابل‌حمل (x64)" width="100%">
 </picture>
+</p>
 
 </div>
 
 <div dir="rtl">
 
-۱. **دانلود و نصب:** فایل [`Glide-setup-x64.exe`](https://github.com/BlackkCore/Glide/releases/latest/download/Glide-setup-x64.exe) را دانلود و اجرا کنید. ویندوز اجازهٔ مدیر می‌خواهد (Glide در `Program Files` نصب می‌شود). میان‌بر منوی Start و گزینهٔ حذف برنامه هم ساخته می‌شوند و سرورها و تنظیمات شما در `%LOCALAPPDATA%\Glide` می‌ماند.<br>
-<sub>اگر نسخهٔ قابل‌حمل می‌خواهید، فایل `Glide-windows-x64.zip` را دانلود کنید و در پوشه‌ای مثل `C:\Glide` از حالت فشرده خارج کنید؛ بهتر است از `Program Files` استفاده نکنید. نسخه‌های ۳۲ بیتی هم در صفحهٔ انتشار قرار دارند. هسته‌های موردنیاز داخل بسته هستند.</sub><br>
-۲. **خروج از v2rayN:** اگر v2rayN باز است، روی آیکون آن کنار ساعت راست‌کلیک کنید و گزینهٔ خروج را بزنید.<br>
-۳. **اجرای Glide:** اگر از v2rayN استفاده می‌کردید، می‌توانید اطلاعات قبلی را منتقل کنید. در غیر این صورت روی **افزودن سرور** بزنید و لینک کانفیگ یا لینک اشتراک را وارد کنید.<br>
-۴. **برقراری اتصال:** دکمهٔ اصلی را بزنید. بار اول ممکن است Glide بگوید به داده‌های مسیریابی نیاز دارد (حدود ۴۵ مگابایت) و دکمهٔ «دانلود فهرست سایت‌ها» را نشان دهد؛ این داده‌ها یک بار از منابع عمومی در GitHub دانلود می‌شوند و هنگام به‌روزرسانی حفظ می‌شوند. اگر وضعیت «متصل» نمایش داده شد، آماده‌اید. اگر نه، از بخش «چرا وصل نمی‌شوم؟» کمک بگیرید.
-
-**سیستم موردنیاز:** ویندوز ۱۰ یا ۱۱، نسخهٔ ۳۲ یا ۶۴ بیتی.
+۱. **خروج از v2rayN:** اگر v2rayN باز است، روی آیکون آن کنار ساعت راست‌کلیک کنید و گزینهٔ خروج را بزنید.
+۲. **اجرای Glide:** اگر از v2rayN استفاده می‌کردید، می‌توانید اطلاعات قبلی را منتقل کنید. در غیر این صورت روی **افزودن سرور** بزنید و لینک کانفیگ یا لینک اشتراک را وارد کنید.
+۳. **برقراری اتصال:** دکمهٔ پاور را بزنید. بار اول ممکن است Glide بگوید به داده‌های مسیریابی نیاز دارد (حدود ۴۵ مگابایت) و دکمهٔ **دانلود فهرست سایت‌ها** را نشان دهد؛ این داده‌ها یک بار از منابع عمومی در GitHub دانلود می‌شوند و هنگام به‌روزرسانی حفظ می‌شوند. وقتی وضعیت *متصل* نمایش داده شد، کار تمام است.
+۴. وصل نمی‌شوید؟ روی **چرا وصل نمی‌شوم؟** بزنید تا برنامه مرحله‌به‌مرحله بررسی کند.
 
 > [!TIP]
 > Glide و v2rayN می‌توانند کنار هم نصب بمانند، فقط هم‌زمان اجراشان نکنید؛ هر دو از یک پورت محلی و یک تنظیم پروکسی ویندوز استفاده می‌کنند.
@@ -111,13 +126,15 @@
 </div>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-upstream-diff-dark.png">
-  <img src="docs/images/readme/fa-upstream-diff-light.png" alt="پایه‌های برگرفته از v2rayN: هسته‌های Xray، sing-box و mihomo، همهٔ روش‌های انتقال، همان فرمت پیکربندی، مسیریابی، DNS و TUN. افزوده‌های Glide: تم روشن و تاریک، بررسی ترافیک واقعی و عیب‌یابی، به‌روزرسانی امضاشده، رابط فارسی راست‌به‌چپ." width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-upstream-diff-dark.svg">
+  <img src="assets/svg/fa-upstream-diff-light.svg" alt="پایه‌های برگرفته از v2rayN در برابر افزوده‌های اختصاصی Glide" width="100%">
 </picture>
 
+<br>
+
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-verify-flow-dark.png">
-  <img src="docs/images/readme/fa-verify-flow-light.png" alt="زنجیرهٔ بررسی اتصال: دریافت ترافیک برنامه‌ها یا TUN، اجرای هسته، اعمال DNS و قوانین، بررسی عبور واقعی ترافیک و نمایش خروجی تأییدشده با تأخیر" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-verify-flow-dark.svg">
+  <img src="assets/svg/fa-verify-flow-light.svg" alt="زنجیرهٔ بررسی اتصال: دریافت ترافیک برنامه‌ها یا TUN، اجرای هسته، اعمال DNS و قوانین، بررسی عبور واقعی ترافیک و نمایش خروجی تأییدشده با تأخیر" width="100%">
 </picture>
 
 <div dir="rtl">
@@ -129,59 +146,47 @@ Glide تغییرات پروژهٔ اصلی [2dust/v2rayN](https://github.com/2du
 ## همهٔ امکانات
 
 <details open>
-<summary><b>اتصال و بررسی وضعیت</b></summary>
+<summary><strong>اتصال و بررسی وضعیت</strong></summary>
 <br>
 
-- **اتصال با یک دکمه:** پروکسی ویندوز را با دکمهٔ اصلی روشن یا خاموش کنید. وقتی اتصال تأیید شود، دور دکمه یک هالهٔ فیروزه‌ای ظاهر می‌شود. نام و کشور سرور، پروتکل، مدت اتصال، سرعت دانلود و آپلود و در صورت تمایل نمودار سرعت هم نمایش داده می‌شوند.
-- **نمایش وضعیت واقعی اتصال:** Glide پیش از نمایش «متصل»، یک تست واقعی انجام می‌دهد و میزان تأخیر را نشان می‌دهد. اگر مشکلی وجود داشته باشد، پیام‌هایی مثل «در حال بررسی اتصال…»، «بدون اینترنت»، «پورت اشغال است» یا «موتور متوقف است» را می‌بینید. در صورت اشغال بودن پورت، نام برنامهٔ مربوط هم نمایش داده می‌شود و برای رفع مشکل راهکار دارید.
+- **اتصال با یک دکمه:** پروکسی ویندوز را با دکمهٔ اصلی روشن یا خاموش کنید. زیر دکمه، نام و پرچم سرور، پروتکل، مدت اتصال، سرعت دانلود و آپلود و نمودار سرعت نمایش داده می‌شوند.
+- **نمایش وضعیت واقعی اتصال:** Glide پیش از نمایش «متصل»، یک تست واقعی انجام می‌دهد و میزان تأخیر را نشان می‌دهد. اگر مشکلی وجود داشته باشد، پیام‌هایی مثل «در حال بررسی اتصال…»، «بدون اینترنت»، «پورت اشغال است» (همراه با نام برنامهٔ مربوط) یا «موتور متوقف است» را با دکمهٔ رفع مشکل می‌بینید.
 - **اعلان قطع و وصل:** وقتی اتصال قطع شود یا دوباره برقرار شود، Glide به شما خبر می‌دهد. تا وقتی مشکلی وجود دارد، یک نقطهٔ قرمز روی آیکون برنامه کنار ساعت دیده می‌شود.
-- **«چرا وصل نمی‌شوم؟»:** این ابزار اینترنت، DNS، هستهٔ برنامه، سرور، عبور ترافیک و IP خروجی را بررسی می‌کند و در پایان نتیجه را به زبان ساده توضیح می‌دهد.
-- **بررسی نشت DNS:** می‌توانید از داخل برنامه بررسی کنید که درخواست‌های DNS از مسیر موردنظر عبور می‌کنند یا نه.
-- **نمایش IP خروجی و کشور:** آی‌پی و کشور اتصال، پس از اجازهٔ شما، روی کارت وضعیت نمایش داده می‌شود. اگر سرویس اول پاسخ ندهد، Glide سرویس دیگری را امتحان می‌کند.
-- **انتخاب خودکار سریع‌ترین سرور:** برای هر اشتراک می‌توانید این حالت را فعال کنید. Glide ابتدا از بهترین سروری که قبلاً تست شده استفاده می‌کند تا اتصال سریع‌تر برقرار شود.
-- **تداخل نداشتن با برنامه‌های دیگر:** Glide تنظیمات پروکسی برنامه‌های دیگر را تغییر نمی‌دهد و اگر پورت موردنیاز قبلاً اشغال شده باشد، از همان پورت استفاده نمی‌کند.
-- **مسیریابی ساده‌تر:** حالت‌هایی مثل «عبور مستقیم سایت‌های چین»، «فقط سایت‌های مسدود فهرست‌شده» و «همهٔ ترافیک از پروکسی» در دسترس‌اند. اگر زبان برنامه فارسی باشد، در اولین اجرا تنظیمات پیشنهادی ایران نمایش داده می‌شود.
-- **حالت TUN برای همهٔ برنامه‌ها:** با توضیح کاربرد آن و مشخص کردن اینکه به دسترسی مدیر نیاز دارد.
-- **تنظیمات پیشرفته در جای مناسب:** حالت‌های پروکسی ویندوز (خاموش، روشن، بدون تغییر و PAC) و پورت‌های محلی در بخش پیشرفته قرار دارند. هنگام استفاده از PAC یا حالت «بدون تغییر»، این بخش خودکار باز می‌شود.
-- **منوی کنار ساعت:** وضعیت اتصال و نام سرور را ببینید، با یک گزینه وصل یا قطع شوید و سریع به سرورهای محبوب خود دسترسی داشته باشید.
+- **«چرا وصل نمی‌شوم؟»:** اینترنت، DNS، هستهٔ برنامه، سرور، عبور ترافیک و IP خروجی را بررسی می‌کند و نتیجه را به زبان ساده می‌گوید. **تست نشت DNS** نیز در دسترس است.
+- **نمایش IP خروجی و کشور:** آی‌پی و کشور اتصال، پس از اجازهٔ شما، روی کارت وضعیت نمایش داده می‌شود.
+- **انتخاب خودکار سریع‌ترین سرور:** برای هر اشتراک فعال می‌شود و از بهترین سرور شناخته‌شده شروع می‌کند تا ثانیه‌های اول خطا ندهد.
+- **تداخل نداشتن با برنامه‌های دیگر:** تنظیمات پروکسی برنامه‌های دیگر را تغییر نمی‌دهد و روی پورت اشغال‌شده اجرا نمی‌شود.
+- **مسیریابی ساده‌تر:** کلید **دریافت همهٔ برنامه‌ها (TUN)** با برچسب مدیر و امکان **انتخاب برنامه‌ها برای مسیریابی** برای تفکیک مستقیم و پروکسی. در رابط فارسی، تنظیمات پیشنهادی ایران در اولین اجرا نمایش داده می‌شود.
+- **منوی کنار ساعت:** وضعیت اتصال و سرور را ببینید، با یک کلیک وصل یا قطع شوید و به سرورهای محبوب دسترسی داشته باشید.
 
 </details>
 
 <details>
-<summary><b>سرورها و اشتراک‌ها</b></summary>
+<summary><strong>سرورها و اشتراک‌ها</strong></summary>
 <br>
 
-- **فهرست خوانای سرورها:** هر سرور در یک ردیف با نام، پرچم کشور، پروتکل، پینگ رنگی و منوی تنظیمات نمایش داده می‌شود. فیروزه‌ای یعنی سریع، کهربایی یعنی کند و قرمز یعنی تست ناموفق. اگر نمای جدولی را ترجیح می‌دهید، آن هم در دسترس است.
-- **جستجو و مرتب‌سازی:** سرورها را بر اساس نام یا سرعت مرتب کنید و هم‌زمان با تایپ، نتیجه را ببینید.
-- **سرورهای محبوب و اخیر:** سرورهای موردعلاقه بالای فهرست و در منوی کنار ساعت قرار می‌گیرند؛ سرورهای اخیراً استفاده‌شده هم جداگانه در دسترس‌اند.
-- **افزودن کانفیگ:** لینک سرور یا لینک اشتراک را وارد کنید و قبل از افزودن، پیش‌نمایش آن را ببینید. اسکن QR از روی صفحه یا تصویر و افزودن دستی برای ۱۲ پروتکل هم پشتیبانی می‌شود.
-- **شناسایی لینک کپی‌شده:** اگر لینک معتبری کپی کرده باشید، با برگشتن به Glide پیشنهاد افزودن آن را می‌بینید. این پیشنهاد برای هر لینک فقط یک‌بار نمایش داده می‌شود.
-- **مدیریت چند اشتراک:** با یک دکمه فهرست اشتراک‌ها را باز کنید و بینشان جستجو کنید. برای اشتراک‌های هم‌نام، آدرس ارائه‌دهنده هم نشان داده می‌شود.
-- **اطلاعات اشتراک:** حجم مصرف‌شده و باقی‌مانده، روزهای مانده تا انقضا و زمان آخرین و به‌روزرسانی بعدی را ببینید و قبل از تمام شدن اشتراک هشدار بگیرید.
-- **به‌روزرسانی اشتراک‌ها:** با راست‌کلیک، اشتراک را همان لحظه به‌روزرسانی کنید یا بازهٔ به‌روزرسانی خودکار را روی ۶، ۱۲ یا ۲۴ ساعت بگذارید؛ امکان غیرفعال کردنش هم وجود دارد.
-- **دسترسی سریع با `Ctrl+K`:** بدون گشتن در منوها، سرور موردنظر را پیدا کنید یا یک دستور را اجرا کنید.
-- **ارسال کانفیگ به گوشی:** برای یک سرور یا کل اشتراک کد QR بسازید.
+- **فهرست خوانای سرورها:** هر سرور در یک ردیف با پرچم دایره‌ای کشور، نام، پروتکل و پینگ رنگی (فیروزه‌ای سریع، کهربایی کند، قرمز ناموفق). نمای جدولی نیز یک کلیک فاصله دارد.
+- **مرتب‌سازی و جستجو:** مرتب‌سازی بر اساس سرعت یا نام، جستجو هم‌زمان با تایپ، و پین کردن **سرورهای محبوب** در بالا کنار **سرورهای اخیر**.
+- **مدیریت چند اشتراک:** انتخاب‌گر اشتراک با جستجو و نمایش آدرس ارائه‌دهنده برای اشتراک‌های هم‌نام.
+- **وضعیت اشتراک:** حجم مصرف‌شده و باقی‌مانده، روزهای مانده تا انقضا و به‌روزرسانی خودکار هر ۶، ۱۲ یا ۲۴ ساعت (یا دستی).
+- **افزودن آسان سرور:** چسباندن لینک یا آدرس اشتراک با پیش‌نمایش، اسکن QR از صفحه یا تصویر و فرم دستی برای ۱۲ پروتکل.
+- **شناسایی لینک کپی‌شده:** با برگشتن به Glide پیشنهاد افزودن لینک کپی‌شده را می‌دهد.
+- **دسترسی سریع (`Ctrl+K`)** برای جابه‌جایی فوری بین سرورها و **ارسال به گوشی** با QR کد.
 
 </details>
 
 <details>
-<summary><b>تنظیمات، ابزارها و ظاهر</b></summary>
+<summary><strong>تنظیمات، ابزارها و ظاهر</strong></summary>
 <br>
 
-- **منوی کناری مرتب:** بخش‌ها در سه گروه «اتصال»، «مدیریت» و «برنامه» قرار دارند. مسیریابی و مصرف داده دم‌دست هستند و ابزارهای دیگر در بخش‌های مربوط قرار گرفته‌اند.
-- **تنظیمات ساده و پیشرفته:** ابتدا گزینه‌های پرکاربرد را می‌بینید. برای بقیه، «نمایش تنظیمات پیشرفته» را فعال کنید. با `Ctrl+F` هم می‌توانید بین تنظیمات جستجو کنید.
-- **به‌روزرسانی همه‌چیز با یک دکمه:** Glide، هسته‌های پروکسی (فقط نسخه‌های موجود در فهرست امضاشدهٔ Glide) و فایل‌های قوانین را یک‌جا به‌روزرسانی کنید؛ در نسخهٔ نصبی و قابل‌حمل. هر کدام را می‌توانید خاموش کنید و «بررسی به‌روزرسانی» فقط بررسی می‌کند.
-- **انتخاب برنامه‌ها برای مسیریابی:** به‌جای نوشتن قوانین دستی، از فهرست برنامه‌های در حال اجرا انتخاب کنید کدام‌ها از پروکسی استفاده کنند و کدام‌ها مستقیم وصل شوند؛ مثلاً تلگرام با پروکسی و برنامهٔ بانکی بدون پروکسی.
-- **گزارش مصرف اینترنت:** مصرف امروز، این ماه، مصرف کل و مصرف هر سرور را ببینید. می‌توانید برای مصرف روزانه هم هشدار بگذارید.
-- **فایل عیب‌یابی برای پشتیبانی:** گزارش‌ها و تنظیمات اخیر را در یک فایل ZIP خروجی بگیرید؛ بدون رمزها، توکن‌ها و آدرس‌های حساس. آدرس سرورها و اشتراک‌ها در گزارش‌ها به نام کوتاه میزبان تبدیل می‌شوند.
-- **فرم سادهٔ افزودن سرور:** تنظیمات کم‌استفاده در بخش «نمایش فیلدهای پیشرفته» قرار دارند تا فرم اصلی شلوغ نشود.
-- **تم Midnight Aurora:** رنگ نیلی برای موارد انتخاب‌شده، فیروزه‌ای برای اتصال تأییدشده و کهربایی یا قرمز برای وضعیت‌های کند یا ناموفق. برنامه تم روشن و تاریک دارد و می‌تواند با تنظیمات ویندوز هماهنگ شود.
-- **آیکون اختصاصی Aurora:** آیکون برنامه، نسخهٔ نصبی و آیکون کنار ساعت با طراحی یکپارچه؛ با حالت‌های مختلف برای وضعیت پروکسی و PAC.
-- **فارسی و راست‌به‌چپ:** رابط کاربری فارسی، چیدمان کامل راست‌به‌چپ و فونت وزیرمتن. متن‌های فارسی در هر نسخه بررسی می‌شوند.
-- **مناسب پنجره‌های کوچک:** وقتی پنجره باریک شود، منوی کناری فقط آیکون‌ها را نمایش می‌دهد. بخش گزارش‌ها و نمودار سرعت هم قابل مخفی کردن هستند.
-- **هماهنگی با ویندوز ۱۱:** گوشه‌های گرد، نوار عنوان هماهنگ با تم و انیمیشن‌هایی که از تنظیمات ویندوز پیروی می‌کنند.
-- **انتقال آسان از v2rayN:** Glide هنگام اولین اجرا، v2rayN را پیدا می‌کند و پیشنهاد می‌دهد سرورها، اشتراک‌ها و تنظیمات را منتقل کنید. پیش از انتقال هم از تنظیمات خودش نسخهٔ پشتیبان می‌گیرد.
-- **دسترس‌پذیری:** دکمه‌های آیکونی برچسب قابل‌خواندن برای صفحه‌خوان‌ها دارند.
+- **منوی کناری مرتب** در سه گروه (اتصال، مدیریت، برنامه).
+- **تنظیمات ساده و پیشرفته:** گزینه‌های روزمره در ابتدا، گزینهٔ «نمایش تنظیمات پیشرفته» برای بقیه و جستجو با `Ctrl+F`.
+- **به‌روزرسانی همه:** به‌روزرسانی یک‌جای Glide، هسته‌های امضاشده و فایل‌های قوانین در نسخهٔ نصبی و قابل‌حمل.
+- **گزارش مصرف اینترنت** برای امروز، این ماه، کل و هر سرور، با هشدار محدودیت روزانه.
+- **خروجی عیب‌یابی** به صورت ZIP با حذف خودکار آدرس‌ها، رمزها و توکن‌ها.
+- **تم Midnight Aurora** در دو حالت تاریک و روشن (یا خودکار)، گوشه‌های گرد ویندوز ۱۱ و انیمیشن‌های هماهنگ با تنظیمات ویندوز.
+- **سازگار با پنجره‌های کوچک** و **انتقال آسان از v2rayN** بدون تغییر دادن فایل‌های اصلی v2rayN.
+- **دسترس‌پذیری:** نام‌گذاری دکمه‌های آیکونی برای صفحه‌خوان‌ها.
 
 </details>
 
@@ -189,8 +194,8 @@ Glide تغییرات پروژهٔ اصلی [2dust/v2rayN](https://github.com/2du
 
 ## به‌روزرسانی برنامه
 
-- **نسخهٔ نصبی:** در نوار کناری **بررسی به‌روزرسانی** را باز کنید و **به‌روزرسانی همه** را بزنید: Glide (امضا بررسی می‌شود)، هسته‌ها (فقط نسخه‌هایی که در فهرست امضاشدهٔ Glide آمده‌اند) و فایل‌های قوانین. هنگام نصب در `Program Files` ویندوز یک بار اجازهٔ مدیر می‌خواهد؛ خود Glide بدون آن اجرا می‌شود. اگر رد کنید، چیزی تغییر نمی‌کند.
-- **نسخهٔ قابل‌حمل:** **بررسی به‌روزرسانی** را باز کنید و **به‌روزرسانی همه** را بزنید تا برنامه، هسته‌ها (فقط نسخه‌هایی که نگهدارندگان Glide بررسی و امضا کرده‌اند) و فایل‌های قوانین با هم به‌روز شوند. یا ZIP جدید را روی پوشهٔ قبلی استخراج کنید؛ سرورها و تنظیمات شما در پوشهٔ `guiConfigs` نگهداری می‌شوند و حفظ می‌شوند.
+- **نسخهٔ نصبی:** در نوار کناری **بررسی به‌روزرسانی** را باز کنید و **به‌روزرسانی همه** را بزنید: Glide (امضا بررسی می‌شود)، هسته‌ها (فقط نسخه‌های موجود در فهرست امضاشدهٔ Glide) و فایل‌های قوانین. هنگام نصب در `Program Files` ویندوز یک بار اجازهٔ مدیر می‌خواهد؛ خود Glide بدون آن اجرا می‌شود. اگر رد کنید، چیزی تغییر نمی‌کند.
+- **نسخهٔ قابل‌حمل:** **بررسی به‌روزرسانی** را باز کنید و **به‌روزرسانی همه** را بزنید تا برنامه، هسته‌ها (فقط نسخه‌های امضاشدهٔ نگهدارندگان Glide) و فایل‌های قوانین با هم به‌روز شوند؛ یا ZIP جدید را روی پوشهٔ قبلی استخراج کنید (سرورها و تنظیمات شما در `guiConfigs` حفظ می‌شوند).
 
 > [!IMPORTANT]
 > پیش از جایگزین کردن دستی فایل‌ها، از پوشهٔ `guiConfigs` نسخهٔ پشتیبان بگیرید.
@@ -200,7 +205,7 @@ Glide تغییرات پروژهٔ اصلی [2dust/v2rayN](https://github.com/2du
 ## پرسش‌های متداول
 
 <details>
-<summary><b>می‌توانم سرورها و تنظیمات v2rayN را به Glide منتقل کنم؟</b></summary>
+<summary><strong>می‌توانم سرورها و تنظیمات v2rayN را به Glide منتقل کنم؟</strong></summary>
 <br>
 
 بله. Glide از همان فرمت تنظیمات v2rayN استفاده می‌کند و در اولین اجرا پیشنهاد می‌دهد سرورها و تنظیماتتان را منتقل کنید. پوشه و فایل‌های v2rayN تغییر نمی‌کنند.
@@ -208,7 +213,7 @@ Glide تغییرات پروژهٔ اصلی [2dust/v2rayN](https://github.com/2du
 </details>
 
 <details>
-<summary><b>چرا Glide بلافاصله «متصل» نشان نمی‌دهد؟</b></summary>
+<summary><strong>چرا Glide بلافاصله «متصل» نشان نمی‌دهد؟</strong></summary>
 <br>
 
 Glide اول بررسی می‌کند که ترافیک واقعاً از سرور انتخاب‌شده عبور می‌کند. اگر این بررسی ناموفق باشد، با **«چرا وصل نمی‌شوم؟»** علت را پیدا کنید.
@@ -216,7 +221,7 @@ Glide اول بررسی می‌کند که ترافیک واقعاً از سرو
 </details>
 
 <details>
-<summary><b>Glide به کجا وصل می‌شود؟</b></summary>
+<summary><strong>Glide به کجا وصل می‌شود؟</strong></summary>
 <br>
 
 Glide علاوه بر سرورها و آدرس‌های اشتراکی که خودتان وارد کرده‌اید، برای بررسی به‌روزرسانی به GitHub و برای تست اتصال به یک آدرس آزمایشی وصل می‌شود. نمایش IP خروجی پیش از فعال شدن از شما اجازه می‌گیرد و تست نشت DNS فقط زمانی اجرا می‌شود که خودتان آن را شروع کنید. آدرس‌ها و اطلاعات حساس از گزارش‌ها و فایل‌های عیب‌یابی حذف می‌شوند. کد منبع باز است و می‌توانید خودتان بررسی کنید.
@@ -224,7 +229,7 @@ Glide علاوه بر سرورها و آدرس‌های اشتراکی که خو
 </details>
 
 <details>
-<summary><b>چرا Glide بار اول داده‌های مسیریابی را دانلود می‌کند؟</b></summary>
+<summary><strong>چرا Glide بار اول داده‌های مسیریابی را دانلود می‌کند؟</strong></summary>
 <br>
 
 فهرست‌های IP به کشور که مسیریابی و پرچم سرورها از آن‌ها استفاده می‌کنند، از داده‌های MaxMind GeoLite ساخته شده‌اند و در فایل دانلودی قرار ندارند. منبع این داده‌ها ذکر شده است، اما هنوز تأیید نشده که روش بازنشر و دریافت این فهرست‌ها با شرایط MaxMind سازگار باشد (فایل THIRD_PARTY_NOTICES.md را ببینید). Glide پیشنهاد می‌دهد آن‌ها را یک بار از منابع عمومی‌شان (حدود ۴۵ مگابایت) دانلود کند و هنگام به‌روزرسانی نگهشان می‌دارد. بدون اینترنت هم Glide اجرا می‌شود و منتظر این دانلود می‌ماند.
@@ -232,7 +237,7 @@ Glide علاوه بر سرورها و آدرس‌های اشتراکی که خو
 </details>
 
 <details>
-<summary><b>چرا Windows SmartScreen هشدار می‌دهد؟</b></summary>
+<summary><strong>چرا Windows SmartScreen هشدار می‌دهد؟</strong></summary>
 <br>
 
 ویندوز برای برنامه‌های جدیدی که گواهی امضای کد تجاری ندارند این هشدار را نشان می‌دهد. فایل را فقط از صفحهٔ رسمی [Releases](https://github.com/BlackkCore/Glide/releases) دانلود کنید و [امضای آن را بررسی کنید](#verify-your-download)، سپس *More info* و بعد *Run anyway* را بزنید.
@@ -240,7 +245,7 @@ Glide علاوه بر سرورها و آدرس‌های اشتراکی که خو
 </details>
 
 <details>
-<summary><b>بعد از به‌روزرسانی، آیکون هنوز شکل قبلی است.</b></summary>
+<summary><strong>بعد از به‌روزرسانی، آیکون هنوز شکل قبلی است.</strong></summary>
 <br>
 
 ویندوز آیکون‌ها را ذخیره می‌کند. دستور `ie4uinit.exe -show` را اجرا کنید و Explorer را دوباره باز کنید، یا ویندوز را ری‌استارت کنید. ممکن است لازم باشد آیکون سنجاق‌شده در نوار وظیفه را برداشته و دوباره سنجاق کنید.
@@ -268,7 +273,7 @@ Glide علاوه بر سرورها و آدرس‌های اشتراکی که خو
 ```bash
 gpg --import Glide-public-key.asc
 gpg --fingerprint
-gpg --verify Glide-windows-x64.zip.sig Glide-windows-x64.zip
+gpg --verify Glide-setup-x64.exe.sig Glide-setup-x64.exe
 ```
 
 <div dir="rtl">
@@ -293,11 +298,11 @@ dotnet publish -c Release -r win-x64 --self-contained true -o ../../out
 
 <div dir="rtl">
 
-پوشهٔ `bin` که فایل‌های هسته‌ها داخل آن قرار دارند را کنار `Glide.exe` بگذارید. راه دیگر این است که هسته‌ها را پس از اولین اجرا از بخش **بررسی به‌روزرسانی** در خود برنامه دانلود کنید.
+پوشهٔ `bin` که فایل‌های هسته‌ها داخل آن قرار دارند را کنار `Glide.exe` بگذارید، یا اجازه دهید پس از اولین اجرا از بخش **بررسی به‌روزرسانی** دانلود شوند.
 
 ## سازندگان، حقوق نشر و مجوز
 
-نرم‌افزار Glide توسط [BlackCore](https://github.com/BlackkCore) توسعه داده شده و نگهداری می‌شود.
+**Glide** توسط [BlackCore](https://github.com/BlackkCore) توسعه داده شده و نگهداری می‌شود.
 
 این نرم‌افزار بر پایهٔ پروژهٔ متن‌باز [v2rayN](https://github.com/2dust/v2rayN)، ساخته‌شده توسط [2dust](https://github.com/2dust) و مشارکت‌کنندگان آن، توسعه یافته است. Glide رابط کاربری را بازطراحی کرده و قابلیت‌های شبکهٔ پروژهٔ اصلی را حفظ می‌کند.
 
@@ -336,19 +341,20 @@ Glide تحت [مجوز عمومی گنو نسخهٔ ۳ (GPL-3.0)](LICENSE) من�
 <br>
 
 <div align="center" dir="rtl">
+
+<p>
 <a href="https://github.com/BlackkCore/Glide/releases/latest">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme/fa-footer-dark.png">
-    <img src="docs/images/readme/fa-footer-light.png" alt="آماده مهاجرت به Glide هستید؟ دریافت آخرین نسخه" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/svg/fa-footer-dark.svg">
+    <img src="assets/svg/fa-footer-light.svg" alt="آماده مهاجرت به Glide هستید؟ دریافت آخرین نسخه" width="100%">
   </picture>
 </a>
+</p>
 
-<br><br>
+<p>اگر با مشکلی روبه‌رو شدید یا پیشنهادی دارید، از طریق <a href="https://github.com/BlackkCore/Glide/issues/new/choose"><strong>بخش Issues</strong></a> با ما در میان بگذارید.</p>
 
-اگر با مشکلی روبه‌رو شدید یا پیشنهادی دارید، از طریق [**بخش Issues**](https://github.com/BlackkCore/Glide/issues/new/choose) با ما در میان بگذارید.
+<p><sub>اگر Glide برایتان مفید بوده، با دادن ⭐ به مخزن GitHub کمک کنید افراد بیشتری آن را پیدا کنند.</sub></p>
 
-<sub>اگر Glide برایتان مفید بوده، با دادن ⭐ به مخزن GitHub کمک کنید افراد بیشتری آن را پیدا کنند.</sub>
-
-[دانلود](https://github.com/BlackkCore/Glide/releases/latest) · [Issues](https://github.com/BlackkCore/Glide/issues) · [وب‌سایت](https://g1ide.pages.dev/) · [English](README.md)
+<p><a href="https://github.com/BlackkCore/Glide/releases/latest">دانلود</a> · <a href="https://github.com/BlackkCore/Glide/issues">Issues</a> · <a href="https://g1ide.pages.dev/">وب‌سایت</a> · <a href="README.md">English</a></p>
 
 </div>

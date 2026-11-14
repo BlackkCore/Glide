@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 56" width="272" height="56" role="img" aria-label="دانلود نسخه نصبی x64">
+  <defs>
+    <linearGradient id="btnG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7681FF"/>
+      <stop offset="50%" stop-color="#5560F5"/>
+      <stop offset="100%" stop-color="#414AD6"/>
+    </linearGradient>
+    <linearGradient id="rimG" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A8B1FF" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="#3740C5" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="glintG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="btnClip">
+      <rect x="2" y="2" width="268" height="48" rx="14"/>
+    </clipPath>
+    <style>
+      .sans { font-family: 'Vazirmatn', 'Manrope', 'Segoe UI', Tahoma, -apple-system, BlinkMacSystemFont, sans-serif; }
+      .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+      .sheen { animation: sheen 4.8s ease-in-out infinite; }
+      .pulse { animation: pulse 2.8s ease-in-out infinite; }
+      @keyframes sheen { 0%, 15% { transform: translateX(-160px); } 55%, 100% { transform: translateX(320px); } }
+      @keyframes pulse { 0%, 100% { opacity: 0.78; } 50% { opacity: 1; } }
+    </style>
+  </defs>
+
+  <rect x="2" y="6" width="268" height="48" rx="14" fill="#23299A"/>
+  <rect x="2" y="2" width="268" height="48" rx="14" fill="url(#btnG)" stroke="url(#rimG)" stroke-width="1.2"/>
+
+  <g clip-path="url(#btnClip)">
+    <g class="sheen">
+      <polygon points="0,2 64,2 34,50 -30,50" fill="url(#glintG)"/>
+    </g>
+    <line x1="16" y1="3" x2="256" y2="3" stroke="#C7CDFF" stroke-opacity="0.45" stroke-width="1"/>
+  </g>
+
+  <g class="pulse" transform="translate(232, 14)">
+    <rect x="0" y="0" width="24" height="24" rx="7" fill="#0B0C13" fill-opacity="0.22" stroke="#C7CDFF" stroke-opacity="0.32" stroke-width="1"/>
+    <path d="M12 6 V14 M8.5 11 L12 14.5 L15.5 11 M7 17.5 H17" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="220" y="31" text-anchor="end" fill="#FFFFFF" font-size="14" font-weight="700" class="sans">دانلود نسخهٔ نصبی</text>
+
+  <g transform="translate(14, 14)">
+    <rect x="0" y="0" width="52" height="24" rx="12" fill="#0B0C13" fill-opacity="0.32" stroke="#B6BFFF" stroke-opacity="0.36" stroke-width="1"/>
+    <text x="26" y="16" text-anchor="middle" fill="#E8ECFF" font-size="11" font-weight="700" class="mono">x64</text>
+  </g>
+</svg>

@@ -1,0 +1,333 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="808" viewBox="0 0 1040 808" fill="none" role="img" aria-label="۸ ویژگی کلیدی گلاید به زبان فارسی">
+  <defs>
+    <linearGradient id="cardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F6F7FC"/>
+    </linearGradient>
+    <linearGradient id="subBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EFF2FA"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#4350F2" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#4350F2"/>
+      <stop offset="60%" stop-color="#5A67FF"/>
+      <stop offset="85%" stop-color="#0E7490"/>
+      <stop offset="100%" stop-color="#0E7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rimTeal" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#0E7490" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#0E7490"/>
+      <stop offset="75%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="connectGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6B77FF"/>
+      <stop offset="100%" stop-color="#4350F2"/>
+    </linearGradient>
+    <radialGradient id="bGlobe" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#EEF1FF"/>
+      <stop offset="68%" stop-color="#D4DCFA"/>
+      <stop offset="100%" stop-color="#5A67FF"/>
+    </radialGradient>
+    <pattern id="bDots" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="0.85" fill="#4350F2" fill-opacity="0.55"/>
+    </pattern>
+    <linearGradient id="scanBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#047857" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#047857" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="bGlobeClip"><circle cx="0" cy="0" r="24"/></clipPath>
+    <clipPath id="nlClip"><circle cx="0" cy="0" r="10"/></clipPath>
+    <clipPath id="deClip"><circle cx="0" cy="0" r="10"/></clipPath>
+    <clipPath id="seClip"><circle cx="0" cy="0" r="10"/></clipPath>
+    <clipPath id="sigClip"><rect x="0" y="0" width="398" height="88" rx="14"/></clipPath>
+  </defs>
+  <style>
+    .sans { font-family: 'Vazirmatn', 'Manrope', 'Segoe UI', Tahoma, -apple-system, BlinkMacSystemFont, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+    @keyframes floatA { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
+    @keyframes floatB { 0%,100% { transform: translateY(1px); } 50% { transform: translateY(-3px); } }
+    @keyframes floatC { 0%,100% { transform: translateY(-1px); } 50% { transform: translateY(-5px); } }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes sweepSig { 0% { transform: translateX(460px); } 100% { transform: translateX(-90px); } }
+    .fA { animation: floatA 4.4s ease-in-out infinite; }
+    .fB { animation: floatB 4.4s ease-in-out -1.5s infinite; }
+    .fC { animation: floatC 4.4s ease-in-out -2.8s infinite; }
+    .dot { animation: dotPulse 2s ease-in-out infinite; }
+    .sweep { animation: sweepSig 4.2s linear infinite; }
+  </style>
+
+  <rect x="470" y="13" width="564" height="208" rx="22" fill="#DCE1F0"/>
+  <rect x="465" y="6" width="574" height="208" rx="22" fill="url(#cardBg)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="492" y1="6.5" x2="1012" y2="6.5" stroke="url(#rim)" stroke-width="1.7"/>
+
+  <rect x="854" y="24" width="162" height="22" rx="11" fill="#ECFDF5" stroke="#98DAC2" stroke-width="1"/>
+  <circle class="dot" cx="1004" cy="35" r="3" fill="#047857"/>
+  <text x="994" y="38.5" text-anchor="end" class="sans" font-size="10.5" font-weight="700" fill="#065F46">۰۱ · تأیید ترافیک واقعی</text>
+
+  <text x="1016" y="76" text-anchor="end" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">اثبات عبور ترافیک واقعی،</text>
+  <text x="1016" y="100" text-anchor="end" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">نه فقط پینگِ نمایشی</text>
+  <text x="1016" y="128" text-anchor="end" class="sans" font-size="12.5" fill="#566079">پیش از سبز شدن نشانگر، عبور بسته</text>
+  <text x="1016" y="147" text-anchor="end" class="sans" font-size="12.5" fill="#566079">از مسیر خروجی واقعی آزموده می‌شود</text>
+  <rect x="804" y="166" width="212" height="26" rx="13" fill="#ECFEFF" stroke="#A5E2EE" stroke-width="1"/>
+  <circle cx="818" cy="179" r="3" fill="#0E7490"/>
+  <text x="914" y="182.5" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#0E7490">HTTPS Exit Probe · 0% blind</text>
+
+  <g transform="translate(616, 118)">
+    <g class="fA">
+      <path id="c1Flow" d="M 98 0 L -92 0" stroke="#4350F2" stroke-opacity="0.45" stroke-width="2" fill="none"/>
+      <circle r="3.2" fill="#0E7490"><animateMotion dur="2.1s" repeatCount="indefinite"><mpath href="#c1Flow"/></animateMotion></circle>
+
+      <rect x="50" y="-13" width="76" height="30" rx="15" fill="#2B35B8"/>
+      <rect x="50" y="-16" width="76" height="30" rx="15" fill="url(#connectGrad)" stroke="#C6CDFF" stroke-width="1"/>
+      <text x="88" y="3" text-anchor="middle" class="sans" font-size="11.5" font-weight="700" fill="#FFFFFF">اتصال ⏻</text>
+
+      <circle cx="0" cy="0" r="24" fill="url(#bGlobe)"/>
+      <g clip-path="url(#bGlobeClip)"><circle cx="0" cy="0" r="24" fill="url(#bDots)"/></g>
+      <circle cx="0" cy="0" r="24" stroke="#4350F2" stroke-width="1.2"/>
+      <ellipse cx="0" cy="0" rx="34" ry="10" transform="rotate(15)" stroke="#0E7490" stroke-opacity="0.5" stroke-width="1" fill="none"/>
+
+      <rect x="-128" y="-15" width="84" height="34" rx="17" fill="#C7E4D8"/>
+      <rect x="-128" y="-18" width="84" height="34" rx="17" fill="#ECFDF5" stroke="#047857" stroke-width="1.1"/>
+      <text x="-86" y="3" text-anchor="middle" class="mono" font-size="11.5" font-weight="800" fill="#047857">✓ 38 ms</text>
+    </g>
+  </g>
+
+  <rect x="6" y="13" width="436" height="208" rx="22" fill="#DCE1F0"/>
+  <rect x="1" y="6" width="446" height="208" rx="22" fill="url(#cardBg)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="28" y1="6.5" x2="422" y2="6.5" stroke="url(#rimTeal)" stroke-width="1.7"/>
+
+  <rect x="276" y="24" width="148" height="22" rx="11" fill="#EEF0FF" stroke="#B7C0FF" stroke-width="1"/>
+  <text x="412" y="38.5" text-anchor="end" class="sans" font-size="10.5" font-weight="700" fill="#313CC9">۰۲ · امضای</text>
+  <text x="288" y="38.5" text-anchor="start" class="mono" font-size="10" font-weight="700" fill="#0E7490">Ed25519</text>
+
+  <text x="424" y="72" text-anchor="end" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">به‌روزرسانی امضاشده</text>
+  <text x="424" y="92" text-anchor="end" class="sans" font-size="12.5" fill="#566079">بررسی اصالت تمامی فایل‌های هسته پیش از اجرا</text>
+
+  <g transform="translate(25, 108)">
+    <g clip-path="url(#sigClip)">
+      <rect x="0" y="0" width="398" height="88" rx="14" fill="#EFF2FA" stroke="#D4DCF0" stroke-width="1"/>
+      <rect class="sweep" x="0" y="0" width="76" height="88" fill="url(#scanBar)"/>
+
+      <g transform="translate(270, 14)">
+        <rect x="0" y="3" width="114" height="58" rx="12" fill="#D5DCEF"/>
+        <rect x="0" y="0" width="114" height="58" rx="12" fill="url(#subBg)" stroke="#A7B5F8" stroke-width="1"/>
+        <text x="102" y="24" text-anchor="end" class="sans" font-size="13" font-weight="800" fill="#0B0F1D">Glide</text>
+        <text x="102" y="42" text-anchor="end" class="mono" font-size="9.5" font-weight="700" fill="#047857">✓ .sig256</text>
+        <rect x="12" y="13" width="28" height="15" rx="7.5" fill="#4350F2"/>
+        <circle cx="32" cy="20.5" r="5" fill="#FFFFFF"/>
+      </g>
+
+      <g transform="translate(142, 14)">
+        <rect x="0" y="3" width="114" height="58" rx="12" fill="#D5DCEF"/>
+        <rect x="0" y="0" width="114" height="58" rx="12" fill="url(#subBg)" stroke="#A7B5F8" stroke-width="1"/>
+        <text x="102" y="24" text-anchor="end" class="sans" font-size="13" font-weight="800" fill="#0B0F1D">Xray</text>
+        <text x="102" y="42" text-anchor="end" class="mono" font-size="9.5" font-weight="700" fill="#047857">✓ .sig256</text>
+        <rect x="12" y="13" width="28" height="15" rx="7.5" fill="#4350F2"/>
+        <circle cx="32" cy="20.5" r="5" fill="#FFFFFF"/>
+      </g>
+
+      <g transform="translate(14, 14)">
+        <rect x="0" y="3" width="114" height="58" rx="12" fill="#D5DCEF"/>
+        <rect x="0" y="0" width="114" height="58" rx="12" fill="url(#subBg)" stroke="#9ADBE8" stroke-width="1"/>
+        <text x="102" y="24" text-anchor="end" class="sans" font-size="13" font-weight="800" fill="#0B0F1D">mihomo</text>
+        <text x="102" y="42" text-anchor="end" class="mono" font-size="9.5" font-weight="700" fill="#047857">✓ .sig256</text>
+        <rect x="12" y="13" width="28" height="15" rx="7.5" fill="#4350F2"/>
+        <circle cx="32" cy="20.5" r="5" fill="#FFFFFF"/>
+      </g>
+    </g>
+  </g>
+
+  <rect x="710" y="241" width="324" height="184" rx="22" fill="#DCE1F0"/>
+  <rect x="705" y="234" width="334" height="184" rx="22" fill="url(#cardBg)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="730" y1="234.5" x2="1014" y2="234.5" stroke="url(#rim)" stroke-width="1.5"/>
+
+  <text x="1016" y="260" text-anchor="end" class="sans" font-size="10.5" font-weight="700" fill="#4350F2">۰۳ · بررسی سلامت اتصال</text>
+  <text x="1016" y="284" text-anchor="end" class="sans" font-size="18.5" font-weight="800" fill="#0B0F1D">عیب‌یابی داخلی</text>
+
+  <g transform="translate(727, 298)">
+    <g class="fB">
+      <rect x="0" y="0" width="290" height="100" rx="14" fill="url(#subBg)" stroke="#D4DCF0" stroke-width="1"/>
+      <text x="276" y="24" text-anchor="end" class="sans" font-size="11" font-weight="700" fill="#047857">✓ اینترنت</text>
+      <text x="154" y="24" text-anchor="middle" class="sans" font-size="11" font-weight="700" fill="#047857">✓ سامانهٔ نام</text>
+      <text x="16" y="24" text-anchor="start" class="sans" font-size="11" font-weight="700" fill="#047857">✓ هسته</text>
+
+      <text x="276" y="46" text-anchor="end" class="sans" font-size="11" font-weight="700" fill="#0E7490">✓ گذر خروجی</text>
+      <text x="148" y="46" text-anchor="middle" class="sans" font-size="11" font-weight="700" fill="#0E7490">· تونل فعال</text>
+      <text x="16" y="46" text-anchor="start" class="mono" font-size="10.5" font-weight="700" fill="#0E7490">38 ms</text>
+
+      <rect x="164" y="60" width="112" height="26" rx="13" fill="#4350F2"/>
+      <text x="220" y="77" text-anchor="middle" class="sans" font-size="11" font-weight="700" fill="#FFFFFF">اجرای بررسی</text>
+      <text x="16" y="77" text-anchor="start" class="sans" font-size="10.5" fill="#566079">۶ گام با موفقیت گذشت</text>
+    </g>
+  </g>
+
+  <rect x="358" y="241" width="324" height="184" rx="22" fill="#DCE1F0"/>
+  <rect x="353" y="234" width="334" height="184" rx="22" fill="url(#cardBg)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="378" y1="234.5" x2="662" y2="234.5" stroke="url(#rimTeal)" stroke-width="1.5"/>
+
+  <text x="664" y="260" text-anchor="end" class="sans" font-size="10.5" font-weight="700" fill="#0E7490">۰۴ · رتبه‌بندی هوشمند</text>
+  <text x="664" y="284" text-anchor="end" class="sans" font-size="18.5" font-weight="800" fill="#0B0F1D">انتخاب سریع‌ترین مسیر</text>
+
+  <g transform="translate(375, 298)">
+    <rect x="0" y="0" width="290" height="30" rx="10" fill="#ECFEFF" stroke="#9ADBE8" stroke-width="1"/>
+    <g transform="translate(272, 15)">
+      <g clip-path="url(#nlClip)">
+        <rect x="-10" y="-10" width="20" height="6.7" fill="#AE1C28"/>
+        <rect x="-10" y="-3.3" width="20" height="6.6" fill="#FFFFFF"/>
+        <rect x="-10" y="3.3" width="20" height="6.7" fill="#21468B"/>
+      </g>
+    </g>
+    <text x="254" y="19" text-anchor="end" class="sans" font-size="12" font-weight="700" fill="#0B0F1D">هلند</text>
+    <rect x="74" y="11" width="76" height="8" rx="4" fill="#0E7490"/>
+    <text x="12" y="19" text-anchor="start" class="mono" font-size="11" font-weight="700" fill="#0E7490">38 ms</text>
+
+    <rect x="0" y="36" width="290" height="30" rx="10" fill="url(#subBg)" stroke="#D4DCF0" stroke-width="1"/>
+    <g transform="translate(272, 51)">
+      <g clip-path="url(#deClip)">
+        <rect x="-10" y="-10" width="20" height="6.7" fill="#111111"/>
+        <rect x="-10" y="-3.3" width="20" height="6.6" fill="#DD0000"/>
+        <rect x="-10" y="3.3" width="20" height="6.7" fill="#FFCE00"/>
+      </g>
+    </g>
+    <text x="254" y="55" text-anchor="end" class="sans" font-size="12" font-weight="600" fill="#353F58">آلمان</text>
+    <rect x="92" y="47" width="58" height="8" rx="4" fill="#5A67FF"/>
+    <text x="12" y="55" text-anchor="start" class="mono" font-size="11" font-weight="600" fill="#4350F2">52 ms</text>
+
+    <rect x="0" y="72" width="290" height="30" rx="10" fill="url(#subBg)" stroke="#D4DCF0" stroke-width="1"/>
+    <g transform="translate(272, 87)">
+      <g clip-path="url(#seClip)">
+        <rect x="-10" y="-10" width="20" height="20" fill="#006AA7"/>
+        <rect x="-4" y="-10" width="4" height="20" fill="#FECC02"/>
+        <rect x="-10" y="-2" width="20" height="4" fill="#FECC02"/>
+      </g>
+    </g>
+    <text x="254" y="91" text-anchor="end" class="sans" font-size="12" font-weight="600" fill="#353F58">سوئد</text>
+    <rect x="106" y="83" width="44" height="8" rx="4" fill="#8C99D6"/>
+    <text x="12" y="91" text-anchor="start" class="mono" font-size="11" fill="#566079">61 ms</text>
+  </g>
+
+  <rect x="6" y="241" width="324" height="184" rx="22" fill="#DCE1F0"/>
+  <rect x="1" y="234" width="334" height="184" rx="22" fill="url(#cardBg)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="26" y1="234.5" x2="310" y2="234.5" stroke="url(#rim)" stroke-width="1.5"/>
+
+  <text x="312" y="260" text-anchor="end" class="sans" font-size="10.5" font-weight="700" fill="#4350F2">۰۵ · فرمان سریع</text>
+  <text x="312" y="284" text-anchor="end" class="sans" font-size="18.5" font-weight="800" fill="#0B0F1D">جستجوی سرور و پیوند</text>
+
+  <g transform="translate(23, 298)">
+    <rect x="0" y="54" width="290" height="42" rx="12" fill="#EFF2FA" stroke="#D4DCF0" stroke-width="1"/>
+    <text x="14" y="79" text-anchor="start" class="mono" font-size="10.5" fill="#566079">vless://amsterdam.glide…</text>
+    <rect x="218" y="64" width="60" height="22" rx="11" fill="#EEF0FF" stroke="#B7C0FF" stroke-width="1"/>
+    <text x="248" y="78.5" text-anchor="middle" class="sans" font-size="10" font-weight="700" fill="#4350F2">افزودن</text>
+
+    <g class="fC">
+      <rect x="0" y="4" width="290" height="40" rx="14" fill="#CBD5EC"/>
+      <rect x="0" y="0" width="290" height="40" rx="14" fill="#FFFFFF" stroke="#5A67FF" stroke-width="1.2"/>
+      <circle cx="270" cy="20" r="6" stroke="#4350F2" stroke-width="1.5" fill="none"/>
+      <line x1="265.5" y1="24.5" x2="262" y2="28" stroke="#4350F2" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="252" y="24" text-anchor="end" class="sans" font-size="12" font-weight="600" fill="#0B0F1D">جستجوی سرور…</text>
+      <rect x="12" y="9" width="50" height="22" rx="7" fill="#EFF2FA" stroke="#C8D0E6" stroke-width="1"/>
+      <text x="37" y="23.5" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#353F58">Ctrl K</text>
+    </g>
+  </g>
+
+  <rect x="533" y="445" width="501" height="174" rx="22" fill="#DCE1F0"/>
+  <rect x="528" y="438" width="511" height="174" rx="22" fill="url(#cardBg)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="555" y1="438.5" x2="1014" y2="438.5" stroke="url(#rim)" stroke-width="1.6"/>
+
+  <rect x="866" y="456" width="150" height="22" rx="11" fill="#EEF0FF" stroke="#B7C0FF" stroke-width="1"/>
+  <text x="941" y="470.5" text-anchor="middle" class="sans" font-size="10.5" font-weight="700" fill="#313CC9">۰۶ · پوستهٔ شب و روز</text>
+  <text x="1016" y="506" text-anchor="end" class="sans" font-size="19" font-weight="800" fill="#0B0F1D">نمای شفق نیمه‌شب و روشن</text>
+  <text x="1016" y="530" text-anchor="end" class="sans" font-size="12.5" fill="#566079">شیشهٔ تیرهٔ نیلی و سفیدی سرامیکی روز،</text>
+  <text x="1016" y="549" text-anchor="end" class="sans" font-size="12.5" fill="#566079">ساخته‌شده از یک سامانهٔ رنگ واحد</text>
+  <text x="1016" y="582" text-anchor="end" class="mono" font-size="10.5" fill="#4350F2">#0B0C13 Dark  ·  #F5F6FA Light</text>
+
+  <g transform="translate(646, 522)">
+    <g transform="translate(-26, -24)">
+      <rect x="-64" y="-34" width="138" height="72" rx="14" fill="#CBD5E8"/>
+      <rect x="-64" y="-38" width="138" height="72" rx="14" fill="#FFFFFF" stroke="#B6C2DE" stroke-width="1.1"/>
+      <circle cx="52" cy="-16" r="7" fill="#4350F2"/>
+      <rect x="-24" y="-21" width="60" height="10" rx="5" fill="#E2E8F0"/>
+      <rect x="14" y="4" width="44" height="14" rx="7" fill="#ECFDF5"/>
+      <text x="36" y="14" text-anchor="middle" class="mono" font-size="8.5" font-weight="700" fill="#047857">38 ms</text>
+    </g>
+    <g class="fA">
+      <rect x="-48" y="-8" width="150" height="76" rx="14" fill="#060810"/>
+      <rect x="-48" y="-12" width="150" height="76" rx="14" fill="#161A2E" stroke="#5A67FF" stroke-width="1.2"/>
+      <circle cx="80" cy="10" r="8" fill="#5560F5"/>
+      <text x="64" y="14" text-anchor="end" class="sans" font-size="11" font-weight="700" fill="#EEF0F8">شفق تیره</text>
+      <rect x="-32" y="28" width="56" height="18" rx="9" fill="#5560F5"/>
+      <text x="-4" y="40" text-anchor="middle" class="sans" font-size="9.5" font-weight="700" fill="#FFFFFF">فعال</text>
+      <rect x="32" y="28" width="54" height="18" rx="9" fill="#102924" stroke="#34D399" stroke-opacity="0.5" stroke-width="1"/>
+      <text x="59" y="40" text-anchor="middle" class="mono" font-size="9" font-weight="700" fill="#6EE7B7">38 ms</text>
+    </g>
+  </g>
+
+  <rect x="6" y="445" width="501" height="174" rx="22" fill="#DCE1F0"/>
+  <rect x="1" y="438" width="511" height="174" rx="22" fill="url(#cardBg)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="28" y1="438.5" x2="486" y2="438.5" stroke="url(#rimTeal)" stroke-width="1.6"/>
+
+  <rect x="348" y="456" width="140" height="22" rx="11" fill="#ECFEFF" stroke="#9ADBE8" stroke-width="1"/>
+  <text x="418" y="470.5" text-anchor="middle" class="sans" font-size="10.5" font-weight="700" fill="#0E7490">۰۷ · منوی سینی سیستم</text>
+  <text x="488" y="506" text-anchor="end" class="sans" font-size="19" font-weight="800" fill="#0B0F1D">کنترل آرام از سینی سیستم</text>
+  <text x="488" y="530" text-anchor="end" class="sans" font-size="12.5" fill="#566079">تعویض سرورهای منتخب یا قطع اتصال</text>
+  <text x="488" y="549" text-anchor="end" class="sans" font-size="12.5" fill="#566079">از نوار وظیفه بدون باز کردن پنجره</text>
+  <text x="488" y="582" text-anchor="end" class="sans" font-size="11" font-weight="600" fill="#0E7490">★ برگزیده‌ها · نشانگر اتصال · اجرای خودکار</text>
+
+  <g transform="translate(106, 520)">
+    <g class="fB">
+      <rect x="-78" y="-56" width="154" height="106" rx="14" fill="#CBD5EC"/>
+      <rect x="-78" y="-60" width="154" height="106" rx="14" fill="#FFFFFF" stroke="#9ADBE8" stroke-width="1.1"/>
+      <circle class="dot" cx="56" cy="-41" r="4" fill="#047857"/>
+      <text x="44" y="-37" text-anchor="end" class="sans" font-size="11.5" font-weight="700" fill="#0B0F1D">هلند · آمستردام</text>
+      <text x="-1" y="-17" text-anchor="middle" class="mono" font-size="9.5" fill="#566079">★ NL 38ms · ★ DE 52ms</text>
+      <line x1="-64" y1="-6" x2="62" y2="-6" stroke="#DCE2F2" stroke-width="1"/>
+      <rect x="-64" y="6" width="126" height="24" rx="12" fill="#4350F2"/>
+      <text x="-1" y="21.5" text-anchor="middle" class="sans" font-size="10.5" font-weight="700" fill="#FFFFFF">قطع اتصال ⏻</text>
+    </g>
+    <rect x="-56" y="54" width="110" height="12" rx="6" fill="#EFF2FA" stroke="#C8D0E6" stroke-width="1"/>
+    <circle cx="0" cy="60" r="3" fill="#0E7490"/>
+  </g>
+
+  <rect x="6" y="639" width="1028" height="162" rx="22" fill="#DCE1F0"/>
+  <rect x="1" y="632" width="1038" height="162" rx="22" fill="url(#cardBg)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="28" y1="632.5" x2="1012" y2="632.5" stroke="url(#rim)" stroke-width="1.7"/>
+
+  <rect x="816" y="650" width="200" height="22" rx="11" fill="#EEF0FF" stroke="#B7C0FF" stroke-width="1"/>
+  <text x="1004" y="664.5" text-anchor="end" class="sans" font-size="10.5" font-weight="700" fill="#313CC9">۰۸ · رابط دوزبانه</text>
+  <text x="828" y="664.5" text-anchor="start" class="mono" font-size="10" font-weight="700" fill="#0E7490">RTL + EN</text>
+
+  <text x="1016" y="700" text-anchor="end" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">رابط کاربری دوزبانه با قرینه‌سازی کامل</text>
+  <text x="1016" y="724" text-anchor="end" class="sans" font-size="12.5" fill="#566079">بومی‌سازی کامل فارسی و انگلیسی که در آن نوار کناری،</text>
+  <text x="1016" y="743" text-anchor="end" class="sans" font-size="12.5" fill="#566079">پرچم‌ها و جهت جریان عناصر به‌درستی آینه‌ای می‌شوند</text>
+  <text x="1016" y="772" text-anchor="end" class="mono" font-size="10.5" font-weight="600" fill="#0E7490">RTL Sidebar Right  ⇄  LTR Sidebar Left</text>
+
+  <g transform="translate(34, 654)">
+    <rect x="0" y="3" width="234" height="114" rx="16" fill="#D5DCEF"/>
+    <rect x="0" y="0" width="234" height="114" rx="16" fill="#FFFFFF" stroke="#B7C0FF" stroke-width="1.1"/>
+    <rect x="10" y="10" width="44" height="94" rx="10" fill="#EFF2FA"/>
+    <circle cx="32" cy="26" r="8" fill="#4350F2"/>
+    <rect x="20" y="44" width="24" height="5" rx="2.5" fill="#5A67FF"/>
+    <rect x="20" y="56" width="24" height="5" rx="2.5" fill="#C8D0E6"/>
+    <text x="68" y="28" class="sans" font-size="11.5" font-weight="700" fill="#0B0F1D">English · LTR</text>
+    <text x="68" y="46" class="mono" font-size="9.5" fill="#566079">Amsterdam · 38 ms</text>
+    <rect x="68" y="64" width="144" height="32" rx="16" fill="#4350F2"/>
+    <text x="140" y="84" text-anchor="middle" class="sans" font-size="11" font-weight="700" fill="#FFFFFF">⏻ Connect</text>
+
+    <path id="ltrRtl" d="M 308 57 L 244 57" stroke="#0E7490" stroke-opacity="0.55" stroke-width="1.8" stroke-dasharray="4 4"/>
+    <circle r="3.2" fill="#0E7490"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#ltrRtl"/></animateMotion></circle>
+
+    <rect x="318" y="3" width="234" height="114" rx="16" fill="#D5DCEF"/>
+    <rect x="318" y="0" width="234" height="114" rx="16" fill="#FFFFFF" stroke="#9ADBE8" stroke-width="1.1"/>
+    <rect x="498" y="10" width="44" height="94" rx="10" fill="#EFF2FA"/>
+    <circle cx="520" cy="26" r="8" fill="#0E7490"/>
+    <rect x="508" y="44" width="24" height="5" rx="2.5" fill="#0E7490"/>
+    <rect x="508" y="56" width="24" height="5" rx="2.5" fill="#C8D0E6"/>
+    <text x="484" y="28" text-anchor="end" class="sans" font-size="12" font-weight="700" fill="#0B0F1D">چیدمان فارسی</text>
+    <text x="484" y="46" text-anchor="end" class="sans" font-size="10.5" fill="#566079">هلند · ۳۸ میلی‌ثانیه</text>
+    <rect x="340" y="64" width="144" height="32" rx="16" fill="#4350F2"/>
+    <text x="412" y="84" text-anchor="middle" class="sans" font-size="11.5" font-weight="700" fill="#FFFFFF">اتصال ⏻</text>
+  </g>
+</svg>

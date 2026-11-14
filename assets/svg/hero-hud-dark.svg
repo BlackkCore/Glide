@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="104" viewBox="0 0 1040 104" fill="none">
+  <defs>
+    <linearGradient id="hudBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#191D2E"/>
+      <stop offset="100%" stop-color="#101320"/>
+    </linearGradient>
+    <linearGradient id="subCard" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1D2236"/>
+      <stop offset="100%" stop-color="#131726"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5560F5" stop-opacity="0"/>
+      <stop offset="28%" stop-color="#5560F5"/>
+      <stop offset="56%" stop-color="#7B88FF"/>
+      <stop offset="82%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="miniGlobeGrad" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#353E82" stop-opacity="0.95"/>
+      <stop offset="65%" stop-color="#151932" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#7B88FF" stop-opacity="0.88"/>
+    </radialGradient>
+    <pattern id="miniDots" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="0.85" fill="#9AA4FF" fill-opacity="0.72"/>
+    </pattern>
+    <linearGradient id="dlArea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="hudClip"><rect x="1" y="4" width="1038" height="90" rx="24"/></clipPath>
+    <clipPath id="globeClip"><circle cx="0" cy="0" r="21"/></clipPath>
+    <clipPath id="nlClip"><circle cx="0" cy="0" r="14"/></clipPath>
+  </defs>
+  <style>
+    .sans { font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+    @keyframes floatMini { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-2.5px); } }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    @keyframes scan { 0% { transform: translateX(-200px); } 100% { transform: translateX(1180px); } }
+    .fM { animation: floatMini 4.2s ease-in-out infinite; }
+    .dot { animation: dotPulse 2s ease-in-out infinite; }
+    .scan { animation: scan 6.4s linear infinite; }
+  </style>
+
+  <!-- 3D Extruded Capsule Base -->
+  <rect x="4" y="10" width="1032" height="90" rx="24" fill="#070911"/>
+  <rect x="1" y="4" width="1038" height="90" rx="24" fill="url(#hudBg)" stroke="#262C42" stroke-width="1.2"/>
+
+  <!-- Specular Sweep Clipped to Capsule -->
+  <g clip-path="url(#hudClip)">
+    <rect class="scan" x="0" y="4" width="190" height="90" fill="url(#sheen)"/>
+  </g>
+
+  <!-- Top Midnight Aurora Rim Highlight -->
+  <line x1="28" y1="4.5" x2="1012" y2="4.5" stroke="url(#rim)" stroke-width="1.6"/>
+
+  <!-- Zone 1: Mini 3D Dotted Aurora Globe + Live Verification -->
+  <g transform="translate(48, 49)">
+    <g class="fM">
+      <circle cx="0" cy="0" r="24" fill="#5560F5" fill-opacity="0.16"/>
+      <circle cx="0" cy="0" r="21" fill="url(#miniGlobeGrad)"/>
+      <g clip-path="url(#globeClip)">
+        <circle cx="0" cy="0" r="21" fill="url(#miniDots)"/>
+        <path d="M -22 6 C -8 2 8 2 22 6 L 22 22 L -22 22 Z" fill="#0C0F1D" fill-opacity="0.58"/>
+      </g>
+      <circle cx="0" cy="0" r="21" stroke="#7B88FF" stroke-opacity="0.6" stroke-width="1.1"/>
+      <ellipse cx="0" cy="2" rx="26" ry="7.5" transform="rotate(-14)" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1" fill="none"/>
+      <path id="hudOrbit" d="M -26 2 A 26 7.5 -14 1 1 26 2 A 26 7.5 -14 1 1 -26 2 Z" fill="none"/>
+      <circle r="2.2" fill="#22D3EE"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#hudOrbit"/></animateMotion></circle>
+    </g>
+  </g>
+
+  <g transform="translate(82, 34)">
+    <circle class="dot" cx="5" cy="7" r="4" fill="#34D399"/>
+    <text x="16" y="11" class="sans" font-size="13.5" font-weight="700" fill="#EEF0F8">Traffic Verified</text>
+    <text x="0" y="30" class="mono" font-size="10.5" fill="#8C97B0">TUN · Direct Local DNS</text>
+  </g>
+
+  <line x1="234" y1="22" x2="234" y2="76" stroke="#252B40" stroke-width="1"/>
+
+  <!-- Zone 2: Glide Active Server Row Card (Circular NL Flag + Cyan 38 ms) -->
+  <g transform="translate(248, 21)">
+    <rect x="0" y="3" width="298" height="56" rx="16" fill="#0B0D18"/>
+    <rect x="0" y="0" width="298" height="56" rx="16" fill="url(#subCard)" stroke="#2A314A" stroke-width="1"/>
+    <!-- Circular NL Flag -->
+    <g transform="translate(27, 28)">
+      <g clip-path="url(#nlClip)">
+        <rect x="-14" y="-14" width="28" height="9.4" fill="#AE1C28"/>
+        <rect x="-14" y="-4.6" width="28" height="9.2" fill="#FFFFFF"/>
+        <rect x="-14" y="4.6" width="28" height="9.4" fill="#21468B"/>
+      </g>
+      <circle cx="0" cy="0" r="14" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="1"/>
+    </g>
+    <text x="52" y="24" class="sans" font-size="13.5" font-weight="700" fill="#EEF0F8">Netherlands</text>
+    <text x="52" y="41" class="mono" font-size="10.5" fill="#8C97B0">Amsterdam · VLESS · tcp</text>
+
+    <!-- 38 ms Emerald/Cyan Pill -->
+    <rect x="218" y="13" width="66" height="30" rx="15" fill="#10252C" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1"/>
+    <text x="251" y="32" text-anchor="middle" class="mono" font-size="12" font-weight="700" fill="#22D3EE">38 ms</text>
+  </g>
+
+  <!-- Zone 3: Smooth Aurora Throughput Curve & Equalizer -->
+  <g transform="translate(564, 18)">
+    <text x="0" y="15" class="mono" font-size="10" letter-spacing="0.8" fill="#8C97B0">LIVE THROUGHPUT</text>
+    <text x="0" y="41" class="sans" font-size="15.5" font-weight="800" fill="#EEF0F8">412 <tspan font-size="11" font-weight="600" fill="#22D3EE">Mbps ↓</tspan></text>
+    <text x="0" y="57" class="mono" font-size="10" fill="#9AA4FF">↑ 148 Mbps  ·  0% loss</text>
+
+    <!-- Mini Aurora Curve -->
+    <g transform="translate(104, 10)">
+      <path d="M 0 36 C 18 32 28 16 44 20 C 60 24 72 8 92 12 C 108 15 118 22 132 10 L 132 42 L 0 42 Z" fill="url(#dlArea)"/>
+      <path id="dlWave" d="M 0 36 C 18 32 28 16 44 20 C 60 24 72 8 92 12 C 108 15 118 22 132 10" stroke="#22D3EE" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M 0 39 C 22 36 38 28 56 30 C 76 32 94 23 114 25 L 132 22" stroke="#7B88FF" stroke-opacity="0.7" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+      <circle r="3" fill="#EEF0F8"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#dlWave"/></animateMotion></circle>
+      <!-- Mini Equalizer Bars -->
+      <g transform="translate(142, 6)">
+        <rect x="0" y="14" width="3.5" height="22" rx="1.7" fill="#5560F5">
+          <animate attributeName="height" values="10;26;14;22;10" dur="1.6s" repeatCount="indefinite"/>
+          <animate attributeName="y" values="26;10;22;14;26" dur="1.6s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="6" y="8" width="3.5" height="28" rx="1.7" fill="#7B88FF">
+          <animate attributeName="height" values="22;12;28;16;22" dur="1.4s" repeatCount="indefinite"/>
+          <animate attributeName="y" values="14;24;8;20;14" dur="1.4s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="12" y="18" width="3.5" height="18" rx="1.7" fill="#22D3EE">
+          <animate attributeName="height" values="16;28;12;24;16" dur="1.8s" repeatCount="indefinite"/>
+          <animate attributeName="y" values="20;8;24;12;20" dur="1.8s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+    </g>
+  </g>
+
+  <line x1="836" y1="22" x2="836" y2="76" stroke="#252B40" stroke-width="1"/>
+
+  <!-- Zone 4: Ctrl K Keycap + Signed 3 Engines Pill -->
+  <g transform="translate(852, 23)">
+    <rect x="0" y="0" width="54" height="24" rx="7" fill="#1E2438" stroke="#313954" stroke-width="1"/>
+    <text x="27" y="15.5" text-anchor="middle" class="mono" font-size="10.5" font-weight="600" fill="#B9C3D9">Ctrl K</text>
+    <text x="64" y="15.5" class="sans" font-size="11.5" font-weight="600" fill="#8C97B0">Quick Switch</text>
+
+    <rect x="0" y="31" width="170" height="22" rx="11" fill="#14192B" stroke="#5560F5" stroke-opacity="0.45" stroke-width="1"/>
+    <circle cx="13" cy="42" r="3" fill="#34D399"/>
+    <text x="23" y="45.5" class="mono" font-size="10" font-weight="600" fill="#D5DCFF">3 Engines · Ed25519 Signed</text>
+  </g>
+</svg>

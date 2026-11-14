@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="308" viewBox="0 0 1040 308" fill="none">
+  <defs>
+    <linearGradient id="outerBgL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F6F7FC"/>
+    </linearGradient>
+    <linearGradient id="stageBgL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EFF2FA"/>
+    </linearGradient>
+    <linearGradient id="stageWinBgL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ECFDF5"/>
+      <stop offset="100%" stop-color="#DFF7EE"/>
+    </linearGradient>
+    <linearGradient id="rimL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4350F2" stop-opacity="0"/>
+      <stop offset="28%" stop-color="#4350F2"/>
+      <stop offset="56%" stop-color="#5A67FF"/>
+      <stop offset="82%" stop-color="#0E7490"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="pipeGradL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4350F2"/>
+      <stop offset="50%" stop-color="#0E7490"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <radialGradient id="engSphereL" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="68%" stop-color="#DFE5FF"/>
+      <stop offset="100%" stop-color="#4350F2" stop-opacity="0.82"/>
+    </radialGradient>
+    <pattern id="engDotsL" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="0.8" fill="#4350F2" fill-opacity="0.52"/>
+    </pattern>
+    <clipPath id="engClipL"><circle cx="0" cy="0" r="21"/></clipPath>
+  </defs>
+  <style>
+    .sans { font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+    @keyframes floatSoft { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .f1 { animation: floatSoft 4.2s ease-in-out 0s infinite; }
+    .f2 { animation: floatSoft 4.2s ease-in-out -0.8s infinite; }
+    .f3 { animation: floatSoft 4.2s ease-in-out -1.6s infinite; }
+    .f4 { animation: floatSoft 4.2s ease-in-out -2.4s infinite; }
+    .f5 { animation: floatSoft 4.2s ease-in-out -3.2s infinite; }
+    .dot { animation: dotPulse 2s ease-in-out infinite; }
+  </style>
+
+  <!-- Outer Light Ceramic Card -->
+  <rect x="6" y="12" width="1028" height="288" rx="24" fill="#DCE1F0"/>
+  <rect x="1" y="4" width="1038" height="288" rx="24" fill="url(#outerBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="28" y1="4.5" x2="1012" y2="4.5" stroke="url(#rimL)" stroke-width="1.8"/>
+
+  <text x="26" y="40" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">Live Tunnel Verification</text>
+  <text x="26" y="63" class="sans" font-size="13" fill="#566079">Every connection passes local TUN capture, engine routing, GeoSite rules, and real exit reachability before green status.</text>
+
+  <rect x="814" y="24" width="200" height="26" rx="13" fill="#ECFDF5" stroke="#047857" stroke-opacity="0.38" stroke-width="1"/>
+  <circle class="dot" cx="829" cy="37" r="3.5" fill="#047857"/>
+  <text x="841" y="41" class="mono" font-size="10.5" font-weight="700" fill="#047857">END-TO-END · 38 MS</text>
+
+  <path id="vPipeL" d="M 114 178 L 926 178" stroke="url(#pipeGradL)" stroke-opacity="0.35" stroke-width="2.5" stroke-linecap="round"/>
+  <circle r="4" fill="#4350F2"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#vPipeL"/></animateMotion></circle>
+  <circle r="4" fill="#0E7490"><animateMotion dur="3.4s" begin="1.15s" repeatCount="indefinite"><mpath href="#vPipeL"/></animateMotion></circle>
+  <circle r="4" fill="#047857"><animateMotion dur="3.4s" begin="2.3s" repeatCount="indefinite"><mpath href="#vPipeL"/></animateMotion></circle>
+
+  <!-- STAGE 01 -->
+  <g transform="translate(24, 92)">
+    <rect x="3" y="6" width="180" height="176" rx="18" fill="#D5DCEF"/>
+    <rect x="0" y="0" width="186" height="176" rx="18" fill="url(#stageBgL)" stroke="#CFD6EA" stroke-width="1.1"/>
+    <g transform="translate(93, 52)">
+      <g class="f1">
+        <rect x="-24" y="-17" width="48" height="34" rx="10" fill="#C7D2FE"/>
+        <rect x="-24" y="-21" width="48" height="34" rx="10" fill="#EEF2FF" stroke="#4350F2" stroke-width="1.3"/>
+        <path d="M -10 -4 L 0 -10 L 10 -4 L 10 3 C 10 8 0 11 0 11 C 0 11 -10 8 -10 3 Z" fill="#4350F2" stroke="#818CF8" stroke-width="1"/>
+        <circle class="dot" cx="0" cy="0" r="2.5" fill="#A5F3FC"/>
+      </g>
+    </g>
+    <text x="93" y="108" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#4350F2">01 · CAPTURE</text>
+    <text x="93" y="130" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#0B0F1D">TUN / Proxy</text>
+    <text x="93" y="150" text-anchor="middle" class="sans" font-size="11.5" fill="#566079">App &amp; DNS intercept</text>
+  </g>
+
+  <!-- STAGE 02 -->
+  <g transform="translate(225, 92)">
+    <rect x="3" y="6" width="180" height="176" rx="18" fill="#D5DCEF"/>
+    <rect x="0" y="0" width="186" height="176" rx="18" fill="url(#stageBgL)" stroke="#CFD6EA" stroke-width="1.1"/>
+    <g transform="translate(93, 52)">
+      <g class="f2">
+        <circle cx="0" cy="0" r="21" fill="url(#engSphereL)"/>
+        <g clip-path="url(#engClipL)"><circle cx="0" cy="0" r="21" fill="url(#engDotsL)"/></g>
+        <circle cx="0" cy="0" r="21" stroke="#4350F2" stroke-width="1.2"/>
+        <ellipse cx="0" cy="0" rx="30" ry="9" transform="rotate(-16)" stroke="#0E7490" stroke-opacity="0.65" stroke-width="1.1" fill="none"/>
+        <path id="s2orbL" d="M -30 0 A 30 9 -16 1 1 30 0 A 30 9 -16 1 1 -30 0 Z" fill="none"/>
+        <circle r="2.4" fill="#0B0F1D"><animateMotion dur="3.5s" repeatCount="indefinite"><mpath href="#s2orbL"/></animateMotion></circle>
+      </g>
+    </g>
+    <text x="93" y="108" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#4350F2">02 · ENGINE</text>
+    <text x="93" y="130" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#0B0F1D">Core Router</text>
+    <text x="93" y="150" text-anchor="middle" class="sans" font-size="11.5" fill="#566079">Xray · sing-box · mihomo</text>
+  </g>
+
+  <!-- STAGE 03 -->
+  <g transform="translate(426, 92)">
+    <rect x="3" y="6" width="180" height="176" rx="18" fill="#D5DCEF"/>
+    <rect x="0" y="0" width="186" height="176" rx="18" fill="url(#stageBgL)" stroke="#CFD6EA" stroke-width="1.1"/>
+    <g transform="translate(93, 52)">
+      <g class="f3">
+        <rect x="-26" y="-20" width="44" height="24" rx="7" fill="#EEF2FF" stroke="#4350F2" stroke-opacity="0.45" stroke-width="1"/>
+        <rect x="-20" y="-12" width="44" height="24" rx="7" fill="#F8FAFC" stroke="#5A67FF" stroke-opacity="0.55" stroke-width="1"/>
+        <rect x="-14" y="-4" width="44" height="24" rx="7" fill="#FFFFFF" stroke="#0E7490" stroke-width="1.2"/>
+        <circle cx="-4" cy="8" r="2.5" fill="#0E7490"/>
+        <line x1="4" y1="8" x2="21" y2="8" stroke="#0E7490" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </g>
+    <text x="93" y="108" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#0E7490">03 · ROUTE</text>
+    <text x="93" y="130" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#0B0F1D">GeoSite Policy</text>
+    <text x="93" y="150" text-anchor="middle" class="sans" font-size="11.5" fill="#566079">Direct local · Tunnel proxy</text>
+  </g>
+
+  <!-- STAGE 04 -->
+  <g transform="translate(627, 92)">
+    <rect x="3" y="6" width="180" height="176" rx="18" fill="#D5DCEF"/>
+    <rect x="0" y="0" width="186" height="176" rx="18" fill="url(#stageBgL)" stroke="#CFD6EA" stroke-width="1.1"/>
+    <g transform="translate(93, 52)">
+      <g class="f4">
+        <circle cx="0" cy="0" r="22" stroke="#0E7490" stroke-opacity="0.22" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="14" stroke="#0E7490" stroke-opacity="0.5" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="8" fill="#E6F6F9" stroke="#0E7490" stroke-width="1.5">
+          <animate attributeName="r" values="8;23" dur="2.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.85;0" dur="2.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="0" cy="0" r="5" fill="#0E7490"/>
+      </g>
+    </g>
+    <text x="93" y="108" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#0E7490">04 · PROBE</text>
+    <text x="93" y="130" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#0B0F1D">Exit Handshake</text>
+    <text x="93" y="150" text-anchor="middle" class="sans" font-size="11.5" fill="#566079">Real TLS payload test</text>
+  </g>
+
+  <!-- STAGE 05 -->
+  <g transform="translate(828, 92)">
+    <rect x="3" y="6" width="180" height="176" rx="18" fill="#BFEAD8"/>
+    <rect x="0" y="0" width="186" height="176" rx="18" fill="url(#stageWinBgL)" stroke="#047857" stroke-opacity="0.45" stroke-width="1.2"/>
+    <g transform="translate(93, 52)">
+      <g class="f5">
+        <circle cx="0" cy="0" r="22" fill="#D1FAE5" stroke="#047857" stroke-opacity="0.35" stroke-width="1.2">
+          <animate attributeName="r" values="18;26" dur="2.4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.7;0" dur="2.4s" repeatCount="indefinite"/>
+        </circle>
+        <rect x="-32" y="-14" width="64" height="32" rx="16" fill="#065F46"/>
+        <rect x="-32" y="-17" width="64" height="32" rx="16" fill="#059669" stroke="#34D399" stroke-width="1.1"/>
+        <text x="0" y="3" text-anchor="middle" class="mono" font-size="12" font-weight="800" fill="#FFFFFF">38 ms</text>
+      </g>
+    </g>
+    <text x="93" y="108" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#047857">05 · VERIFIED</text>
+    <text x="93" y="130" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#0B0F1D">Traffic Verified</text>
+    <text x="93" y="150" text-anchor="middle" class="sans" font-size="11.5" fill="#047857">Ready for desktop apps</text>
+  </g>
+</svg>

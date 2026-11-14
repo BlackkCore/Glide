@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="244" height="56" viewBox="0 0 244 56" fill="none">
+  <defs>
+    <linearGradient id="pillBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F6FD"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .sans { font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .dot { animation: dotPulse 2s ease-in-out infinite; }
+  </style>
+  <rect x="2" y="7" width="240" height="46" rx="23" fill="#D5DCEB"/>
+  <rect x="2.75" y="2.75" width="238.5" height="44.5" rx="22.25" fill="url(#pillBg)" stroke="#CBD5E1" stroke-width="1.3"/>
+  <rect x="21" y="17" width="14" height="16" rx="3.5" stroke="#0E7490" stroke-width="1.8"/>
+  <line x1="25" y1="22" x2="31" y2="22" stroke="#0E7490" stroke-width="1.6"/>
+  <circle class="dot" cx="28" cy="28" r="1.6" fill="#0E7490"/>
+  <text x="45" y="30" class="sans" font-size="14.5" font-weight="700" fill="#0B0F1D">Portable zip (x64)</text>
+</svg>

@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="420" viewBox="0 0 1040 420" fill="none">
+  <defs>
+    <radialGradient id="auroraHero" cx="50%" cy="38%" r="52%">
+      <stop offset="0%" stop-color="#5560F5" stop-opacity="0.30"/>
+      <stop offset="48%" stop-color="#22D3EE" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="#0D1117" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="globeSphere" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#2A3063" stop-opacity="0.85"/>
+      <stop offset="62%" stop-color="#14172E" stop-opacity="0.95"/>
+      <stop offset="88%" stop-color="#4F46E5" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#818CF8" stop-opacity="0.90"/>
+    </radialGradient>
+    <pattern id="dotMap" width="5" height="5" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.05" fill="#9AA4FF" fill-opacity="0.72"/>
+    </pattern>
+    <clipPath id="globeClip"><circle cx="0" cy="0" r="66"/></clipPath>
+    <linearGradient id="quietGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5D6CFF">
+        <animate attributeName="stop-color" values="#5D6CFF;#7B88FF;#22D3EE;#5D6CFF" dur="8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#7B88FF">
+        <animate attributeName="stop-color" values="#7B88FF;#22D3EE;#5D6CFF;#7B88FF" dur="8s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#22D3EE">
+        <animate attributeName="stop-color" values="#22D3EE;#5D6CFF;#7B88FF;#22D3EE" dur="8s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5560F5" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#5560F5"/>
+      <stop offset="55%" stop-color="#7B88FF"/>
+      <stop offset="80%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="pillBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#191D2E"/>
+      <stop offset="100%" stop-color="#111421"/>
+    </linearGradient>
+    <linearGradient id="wingA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A5B4FC"/>
+      <stop offset="50%" stop-color="#5560F5"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="wingB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#313A8E"/>
+      <stop offset="100%" stop-color="#0E4A5C"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="dockClip"><rect x="130" y="336" width="780" height="50" rx="25"/></clipPath>
+  </defs>
+  <style>
+    .sans { font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .serif { font-family: Georgia, 'Times New Roman', serif; }
+    .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+    @keyframes floatA { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-6px); } }
+    @keyframes floatB { 0%,100% { transform: translateY(2px); } 50% { transform: translateY(-4px); } }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    @keyframes ping { 0% { opacity: 0.85; r: 4; } 100% { opacity: 0; r: 16; } }
+    @keyframes glint { 0% { transform: translateX(-220px); } 100% { transform: translateX(880px); } }
+    .fA { animation: floatA 4.6s ease-in-out infinite; }
+    .fB { animation: floatB 4.6s ease-in-out -1.4s infinite; }
+    .dot { animation: dotPulse 2s ease-in-out infinite; }
+    .ping { animation: ping 2.4s ease-out infinite; }
+    .glint { animation: glint 5s ease-in-out infinite; }
+  </style>
+
+  <!-- Seamless Midnight Aurora Aura -->
+  <ellipse cx="520" cy="172" rx="480" ry="155" fill="url(#auroraHero)"/>
+
+  <!-- Center 3D Gimbal Rings (Back Arcs) -->
+  <g transform="translate(520, 152)">
+    <g transform="rotate(-13)">
+      <path d="M -276 0 A 276 48 0 0 1 276 0" stroke="#5560F5" stroke-opacity="0.30" stroke-width="1.3" stroke-dasharray="10 10" fill="none"/>
+      <path id="hOrbA" d="M -276 0 A 276 48 0 1 1 276 0 A 276 48 0 1 1 -276 0 Z" fill="none"/>
+      <circle r="3.4" fill="#7B88FF"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#hOrbA"/></animateMotion></circle>
+    </g>
+    <g transform="rotate(11)">
+      <path d="M -242 0 A 242 42 0 0 1 242 0" stroke="#22D3EE" stroke-opacity="0.28" stroke-width="1.2" fill="none"/>
+      <path id="hOrbB" d="M 242 0 A 242 42 0 1 1 -242 0 A 242 42 0 1 1 242 0 Z" fill="none"/>
+      <circle r="3.4" fill="#22D3EE"><animateMotion dur="7s" repeatCount="indefinite"><mpath href="#hOrbB"/></animateMotion></circle>
+    </g>
+  </g>
+
+  <!-- LEFT 3D FLOATING GLASS WINDOW STACK (Matches Glide App Cards) -->
+  <g transform="translate(96, 176)">
+    <!-- Soft 3D Ambient Shadow on Canvas -->
+    <ellipse cx="0" cy="74" rx="64" ry="14" fill="#07080F" opacity="0.7"/>
+    <!-- Back Tilted App Layer (Routing / Settings Sheet) -->
+    <g transform="translate(-10, -8) skewY(-10) scale(0.92, 0.94)">
+      <g class="fB">
+        <rect x="-62" y="-56" width="124" height="104" rx="16" fill="#131624" stroke="#282F47" stroke-width="1.2"/>
+        <rect x="-50" y="-42" width="38" height="8" rx="4" fill="#232A42"/>
+        <rect x="-50" y="-26" width="100" height="22" rx="8" fill="#1A1E30"/>
+        <rect x="24" y="-20" width="18" height="10" rx="5" fill="#5560F5"/>
+      </g>
+    </g>
+    <!-- Front Floating 3D Mini Glide App Window -->
+    <g transform="translate(8, 10) skewY(-10)">
+      <g class="fA">
+        <!-- Extruded 3D bottom card thickness -->
+        <rect x="-64" y="-52" width="128" height="108" rx="16" fill="#0A0C16"/>
+        <rect x="-64" y="-56" width="128" height="108" rx="16" fill="#141724" stroke="#303856" stroke-width="1.3"/>
+        <line x1="-48" y1="-55.2" x2="48" y2="-55.2" stroke="url(#rim)" stroke-width="1.3"/>
+        <!-- Mini Sidebar -->
+        <rect x="-58" y="-48" width="24" height="92" rx="8" fill="#0F111B"/>
+        <circle cx="-46" cy="-36" r="5" fill="#5560F5"/>
+        <rect x="-52" y="-22" width="12" height="3" rx="1.5" fill="#3B456B"/>
+        <rect x="-52" y="-13" width="10" height="3" rx="1.5" fill="#282F4A"/>
+        <!-- Mini "Connect" Pill Matching Glide UI -->
+        <rect x="-26" y="-8" width="52" height="18" rx="9" fill="#5560F5"/>
+        <circle cx="-16" cy="1" r="3" stroke="#FFFFFF" stroke-width="1.3" fill="none"/>
+        <rect x="-9" y="-1" width="24" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.9"/>
+        <!-- Mini Dotted Globe Inside Window -->
+        <circle cx="42" cy="-2" r="14" fill="#1C214A" stroke="#6366F1" stroke-width="1"/>
+        <!-- Mini Telemetry Strip (38ms) -->
+        <rect x="-26" y="20" width="76" height="20" rx="6" fill="#0F121D" stroke="#222940"/>
+        <circle class="dot" cx="-16" cy="30" r="2.5" fill="#34D399"/>
+        <text x="14" y="34" text-anchor="middle" class="mono" font-size="9.5" font-weight="700" fill="#22D3EE">38 ms</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- RIGHT 3D DOTTED AURORA GLOBE (Exact Signature Glide Hero Globe) -->
+  <g transform="translate(944, 174)">
+    <ellipse cx="0" cy="82" rx="68" ry="12" fill="#07080F" opacity="0.65"/>
+    <!-- Back Tilted Globe Orbital Arc -->
+    <g transform="rotate(-18)">
+      <path d="M -86 0 A 86 24 0 0 1 86 0" stroke="#7B88FF" stroke-opacity="0.38" stroke-width="1.2" fill="none"/>
+      <path id="gOrb" d="M -86 0 A 86 24 0 1 1 86 0 A 86 24 0 1 1 -86 0 Z" fill="none"/>
+    </g>
+    <g class="fA">
+      <!-- Globe Base + Violet Rim Halo -->
+      <circle cx="0" cy="0" r="66" fill="url(#globeSphere)" stroke="#7B88FF" stroke-opacity="0.72" stroke-width="1.4"/>
+      <g clip-path="url(#globeClip)">
+        <!-- Dotted Continent Silhouettes matching Glide's dotted world globe -->
+        <path d="M -34 -36 C -14 -42, 10 -46, 36 -38 C 46 -26, 52 -10, 44 10 C 30 22, 18 46, 4 50 C -14 42, -16 14, -8 -4 C -24 -12, -38 -20, -34 -36 Z" fill="url(#dotMap)"/>
+        <path d="M -56 -16 C -48 -24, -36 -18, -32 0 C -36 18, -42 36, -54 38 C -62 24, -62 2, -56 -16 Z" fill="url(#dotMap)" opacity="0.8"/>
+        <!-- Subtle Latitude Meridian Curves -->
+        <ellipse cx="0" cy="0" rx="66" ry="22" stroke="#6366F1" stroke-opacity="0.18" fill="none"/>
+        <ellipse cx="0" cy="0" rx="28" ry="66" stroke="#6366F1" stroke-opacity="0.18" fill="none"/>
+        <!-- Subtle GLIDE Watermark Inside Horizon -->
+        <text x="-44" y="6" class="sans" font-size="13" font-weight="800" fill="#818CF8" fill-opacity="0.22" letter-spacing="1.2">GLIDE</text>
+      </g>
+      <!-- Glowing Europe / Amsterdam Exit Beacon on Globe -->
+      <circle class="ping" cx="12" cy="-14" r="4" stroke="#22D3EE" stroke-width="1.3" fill="none"/>
+      <circle class="dot" cx="12" cy="-14" r="4" fill="#67E8F9"/>
+      <circle cx="12" cy="-14" r="2" fill="#FFFFFF"/>
+    </g>
+    <!-- Front Tilted Orbital Arc Crossing in Front of Globe -->
+    <g transform="rotate(-18)">
+      <path d="M 86 0 A 86 24 0 0 1 -86 0" stroke="#22D3EE" stroke-opacity="0.62" stroke-width="1.4" fill="none"/>
+      <circle r="3.4" fill="#67E8F9"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#gOrb"/></animateMotion></circle>
+    </g>
+  </g>
+
+  <!-- Floating Glide App Icon + Eyebrow Pill -->
+  <g transform="translate(520, 44)">
+    <g transform="translate(-148, 0)"><g class="fB">
+      <rect x="-15" y="-15" width="30" height="30" rx="9" fill="#141724" stroke="#313B63"/>
+      <polygon points="-9,-3 9,-8 -1,1" fill="url(#wingA)"/>
+      <polygon points="-1,1 9,-8 3,9" fill="url(#wingB)" stroke="#818CF8" stroke-width="0.6"/>
+      <polygon points="-9,-3 -1,1 -4,6" fill="#22D3EE" opacity="0.9"/>
+    </g></g>
+    <rect x="-122" y="-15" width="256" height="30" rx="15" fill="#141724" stroke="#2A324D" stroke-width="1.2"/>
+    <line x1="-102" y1="-14.6" x2="114" y2="-14.6" stroke="url(#rim)" stroke-width="1.2"/>
+    <circle class="dot" cx="-103" cy="0" r="3.5" fill="#22D3EE"/>
+    <text x="14" y="4" text-anchor="middle" class="mono" font-size="11" font-weight="700" fill="#EEF0F8" letter-spacing="1.4">BLACKCORE · GLIDE FOR WINDOWS</text>
+  </g>
+
+  <!-- Flagship Editorial Headline -->
+  <text x="520" y="164" text-anchor="middle" class="sans" font-size="68" font-weight="800" fill="#090B14" opacity="0.65" letter-spacing="-2.4">Go anywhere. Quietly.</text>
+  <text x="520" y="160" text-anchor="middle" class="sans" font-size="68" font-weight="800" fill="#EEF0F8" letter-spacing="-2.4">Go anywhere. <tspan class="serif" font-style="italic" font-weight="400" font-size="76" letter-spacing="-1" fill="url(#quietGrad)">Quietly.</tspan></text>
+
+  <!-- Front Gimbal Arcs Framing Headline Above Subhead -->
+  <g transform="translate(520, 152)">
+    <g transform="rotate(-13)"><path d="M 276 0 A 276 48 0 0 1 -276 0" stroke="#5560F5" stroke-opacity="0.42" stroke-width="1.5" fill="none"/></g>
+    <g transform="rotate(11)"><path d="M 242 0 A 242 42 0 0 1 -242 0" stroke="#22D3EE" stroke-opacity="0.45" stroke-width="1.5" fill="none"/></g>
+  </g>
+
+  <!-- 2-Line Value Proposition Matching Glide Copy -->
+  <text x="520" y="232" text-anchor="middle" class="sans" font-size="18.5" font-weight="500" fill="#B9C3D9">A redesigned v2rayN desktop experience crafted in Midnight Aurora.</text>
+  <text x="520" y="259" text-anchor="middle" class="sans" font-size="17.5" fill="#8C97B0">Pick a server, press Connect, and verify live exit traffic before calling it online.</text>
+
+  <!-- Bottom 3D Rounded Glass Telemetry Pill (Matches hero-stage Floating Badges) -->
+  <rect x="130" y="341" width="780" height="50" rx="25" fill="#090B13" stroke="#1E2438"/>
+  <g clip-path="url(#dockClip)">
+    <rect x="130" y="336" width="780" height="50" rx="25" fill="url(#pillBg)"/>
+    <rect class="glint" x="130" y="336" width="180" height="50" fill="url(#sheen)"/>
+  </g>
+  <rect x="130.7" y="336.7" width="778.6" height="48.6" rx="24.3" stroke="#29314A" stroke-width="1.3" fill="none"/>
+  <line x1="166" y1="336.7" x2="874" y2="336.7" stroke="url(#rim)" stroke-width="1.5"/>
+
+  <circle class="dot" cx="164" cy="361" r="4" fill="#34D399"/>
+  <text x="178" y="365" class="mono" font-size="11.5" font-weight="700" fill="#34D399">Traffic Verified · 38 ms</text>
+  <line x1="364" y1="348" x2="364" y2="374" stroke="#252C44"/>
+
+  <text x="382" y="365" class="sans" font-size="12.5" font-weight="700" fill="#EEF0F8">Ctrl+K Quick Switch</text>
+  <line x1="538" y1="348" x2="538" y2="374" stroke="#252C44"/>
+
+  <text x="556" y="365" class="mono" font-size="11.5" font-weight="600" fill="#22D3EE">Xray · sing-box · mihomo</text>
+  <line x1="744" y1="348" x2="744" y2="374" stroke="#252C44"/>
+
+  <text x="762" y="365" class="sans" font-size="12.5" font-weight="700" fill="#B9C3D9">EN &amp; فارسی</text>
+  <line x1="846" y1="348" x2="846" y2="374" stroke="#252C44"/>
+
+  <text x="878" y="365" text-anchor="middle" class="mono" font-size="11.5" font-weight="700" fill="#7B88FF">GPL-3</text>
+</svg>

@@ -1,0 +1,336 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="808" viewBox="0 0 1040 808" fill="none">
+  <defs>
+    <linearGradient id="cardBgL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F6F7FC"/>
+    </linearGradient>
+    <linearGradient id="subBgL" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EFF2FA"/>
+    </linearGradient>
+    <linearGradient id="rimL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4350F2" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#4350F2"/>
+      <stop offset="60%" stop-color="#5A67FF"/>
+      <stop offset="85%" stop-color="#0E7490"/>
+      <stop offset="100%" stop-color="#0E7490" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rimTealL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0E7490" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#0E7490"/>
+      <stop offset="75%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="connectGradL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5A67FF"/>
+      <stop offset="100%" stop-color="#3541E0"/>
+    </linearGradient>
+    <radialGradient id="bGlobeL" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="68%" stop-color="#DFE5FF"/>
+      <stop offset="100%" stop-color="#4350F2" stop-opacity="0.82"/>
+    </radialGradient>
+    <pattern id="bDotsL" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="1.6" cy="1.6" r="0.85" fill="#4350F2" fill-opacity="0.5"/>
+    </pattern>
+    <linearGradient id="scanBarL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#047857" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#047857" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="bGlobeClipL"><circle cx="0" cy="0" r="24"/></clipPath>
+    <clipPath id="nlClipL"><circle cx="0" cy="0" r="10"/></clipPath>
+    <clipPath id="deClipL"><circle cx="0" cy="0" r="10"/></clipPath>
+    <clipPath id="seClipL"><circle cx="0" cy="0" r="10"/></clipPath>
+    <clipPath id="sigClipL"><rect x="0" y="0" width="398" height="88" rx="14"/></clipPath>
+  </defs>
+  <style>
+    .sans { font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+    @keyframes floatA { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
+    @keyframes floatB { 0%,100% { transform: translateY(1px); } 50% { transform: translateY(-3px); } }
+    @keyframes floatC { 0%,100% { transform: translateY(-1px); } 50% { transform: translateY(-5px); } }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    @keyframes sweepSig { 0% { transform: translateX(-90px); } 100% { transform: translateX(460px); } }
+    .fA { animation: floatA 4.4s ease-in-out infinite; }
+    .fB { animation: floatB 4.4s ease-in-out -1.5s infinite; }
+    .fC { animation: floatC 4.4s ease-in-out -2.8s infinite; }
+    .dot { animation: dotPulse 2s ease-in-out infinite; }
+    .sweep { animation: sweepSig 4.2s linear infinite; }
+  </style>
+
+  <!-- ==================== ROW 1 ==================== -->
+  <!-- CARD 01 -->
+  <rect x="6" y="13" width="564" height="208" rx="22" fill="#DCE1F0"/>
+  <rect x="1" y="6" width="574" height="208" rx="22" fill="url(#cardBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="28" y1="6.5" x2="548" y2="6.5" stroke="url(#rimL)" stroke-width="1.7"/>
+
+  <rect x="24" y="24" width="154" height="22" rx="11" fill="#ECFDF5" stroke="#047857" stroke-opacity="0.35" stroke-width="1"/>
+  <circle class="dot" cx="36" cy="35" r="3" fill="#047857"/>
+  <text x="46" y="38.5" class="mono" font-size="10" font-weight="700" fill="#047857">01 · TRAFFIC VERIFIED</text>
+
+  <text x="24" y="76" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">Real traffic proof,</text>
+  <text x="24" y="100" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">not empty pings</text>
+  <text x="24" y="128" class="sans" font-size="12.5" fill="#566079">Verifies actual exit data passes end-to-end</text>
+  <text x="24" y="147" class="sans" font-size="12.5" fill="#566079">before lighting the tunnel badge green.</text>
+  <rect x="24" y="166" width="212" height="26" rx="13" fill="#E6F6F9" stroke="#0E7490" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="36" y="182.5" class="mono" font-size="10.5" font-weight="600" fill="#0E7490">● HTTPS Exit Probe  ·  0% blind ping</text>
+
+  <g transform="translate(426, 118)">
+    <g class="fA">
+      <path id="c1FlowL" d="M -98 0 L 92 0" stroke="#4350F2" stroke-opacity="0.45" stroke-width="2" fill="none"/>
+      <circle r="3.2" fill="#0E7490"><animateMotion dur="2.1s" repeatCount="indefinite"><mpath href="#c1FlowL"/></animateMotion></circle>
+
+      <rect x="-126" y="-13" width="76" height="30" rx="15" fill="#1E278E"/>
+      <rect x="-126" y="-16" width="76" height="30" rx="15" fill="url(#connectGradL)" stroke="#818CF8" stroke-width="1"/>
+      <text x="-88" y="3" text-anchor="middle" class="sans" font-size="11" font-weight="700" fill="#FFFFFF">⏻ Connect</text>
+
+      <circle cx="0" cy="0" r="24" fill="url(#bGlobeL)"/>
+      <g clip-path="url(#bGlobeClipL)"><circle cx="0" cy="0" r="24" fill="url(#bDotsL)"/></g>
+      <circle cx="0" cy="0" r="24" stroke="#4350F2" stroke-width="1.2"/>
+      <ellipse cx="0" cy="0" rx="34" ry="10" transform="rotate(-15)" stroke="#0E7490" stroke-opacity="0.5" stroke-width="1" fill="none"/>
+
+      <rect x="44" y="-15" width="84" height="34" rx="17" fill="#BFEAD8"/>
+      <rect x="44" y="-18" width="84" height="34" rx="17" fill="#ECFDF5" stroke="#047857" stroke-width="1.1"/>
+      <text x="86" y="3" text-anchor="middle" class="mono" font-size="11.5" font-weight="800" fill="#047857">✓ 38 ms</text>
+    </g>
+  </g>
+
+  <!-- CARD 02 -->
+  <rect x="598" y="13" width="436" height="208" rx="22" fill="#DCE1F0"/>
+  <rect x="593" y="6" width="446" height="208" rx="22" fill="url(#cardBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="620" y1="6.5" x2="1014" y2="6.5" stroke="url(#rimTealL)" stroke-width="1.7"/>
+
+  <rect x="616" y="24" width="136" height="22" rx="11" fill="#ECEFFF" stroke="#4350F2" stroke-opacity="0.38" stroke-width="1"/>
+  <text x="684" y="38.5" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#2B37B8">02 · ED25519 SIGNED</text>
+  <text x="616" y="72" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">Signed updates</text>
+  <text x="616" y="92" class="sans" font-size="12.5" fill="#566079">Every core binary verified before launch.</text>
+
+  <g transform="translate(617, 108)">
+    <g clip-path="url(#sigClipL)">
+      <rect x="0" y="0" width="398" height="88" rx="14" fill="#EFF2FA" stroke="#D5DCEF" stroke-width="1"/>
+      <rect class="sweep" x="0" y="0" width="76" height="88" fill="url(#scanBarL)"/>
+
+      <g transform="translate(14, 14)">
+        <rect x="0" y="3" width="114" height="58" rx="12" fill="#CFD6EA"/>
+        <rect x="0" y="0" width="114" height="58" rx="12" fill="#FFFFFF" stroke="#4350F2" stroke-opacity="0.45" stroke-width="1"/>
+        <text x="12" y="24" class="sans" font-size="13" font-weight="800" fill="#0B0F1D">Glide</text>
+        <text x="12" y="42" class="mono" font-size="9.5" font-weight="600" fill="#047857">✓ .sig256</text>
+        <rect x="74" y="13" width="28" height="15" rx="7.5" fill="#4350F2"/>
+        <circle cx="94" cy="20.5" r="5" fill="#FFFFFF"/>
+      </g>
+
+      <g transform="translate(142, 14)">
+        <rect x="0" y="3" width="114" height="58" rx="12" fill="#CFD6EA"/>
+        <rect x="0" y="0" width="114" height="58" rx="12" fill="#FFFFFF" stroke="#5A67FF" stroke-opacity="0.45" stroke-width="1"/>
+        <text x="12" y="24" class="sans" font-size="13" font-weight="800" fill="#0B0F1D">Xray</text>
+        <text x="12" y="42" class="mono" font-size="9.5" font-weight="600" fill="#047857">✓ .sig256</text>
+        <rect x="74" y="13" width="28" height="15" rx="7.5" fill="#4350F2"/>
+        <circle cx="94" cy="20.5" r="5" fill="#FFFFFF"/>
+      </g>
+
+      <g transform="translate(270, 14)">
+        <rect x="0" y="3" width="114" height="58" rx="12" fill="#CFD6EA"/>
+        <rect x="0" y="0" width="114" height="58" rx="12" fill="#FFFFFF" stroke="#0E7490" stroke-opacity="0.45" stroke-width="1"/>
+        <text x="12" y="24" class="sans" font-size="13" font-weight="800" fill="#0B0F1D">mihomo</text>
+        <text x="12" y="42" class="mono" font-size="9.5" font-weight="600" fill="#047857">✓ .sig256</text>
+        <rect x="74" y="13" width="28" height="15" rx="7.5" fill="#4350F2"/>
+        <circle cx="94" cy="20.5" r="5" fill="#FFFFFF"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== ROW 2 ==================== -->
+  <!-- CARD 03 -->
+  <rect x="6" y="241" width="324" height="184" rx="22" fill="#DCE1F0"/>
+  <rect x="1" y="234" width="334" height="184" rx="22" fill="url(#cardBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="26" y1="234.5" x2="310" y2="234.5" stroke="url(#rimL)" stroke-width="1.5"/>
+
+  <text x="22" y="260" class="mono" font-size="10" font-weight="700" fill="#4350F2">03 · HEALTH CHECK</text>
+  <text x="22" y="284" class="sans" font-size="18.5" font-weight="800" fill="#0B0F1D">Built-in diagnostics</text>
+
+  <g transform="translate(22, 298)">
+    <g class="fB">
+      <rect x="0" y="0" width="290" height="100" rx="14" fill="url(#subBgL)" stroke="#D5DCEF" stroke-width="1"/>
+      <text x="14" y="24" class="mono" font-size="10.5" font-weight="600" fill="#047857">✓ Internet    ✓ Local DNS    ✓ Engine</text>
+      <text x="14" y="46" class="mono" font-size="10.5" font-weight="600" fill="#0E7490">✓ Exit TLS    · TUN Up       · 38 ms</text>
+      <rect x="14" y="60" width="112" height="26" rx="13" fill="#4350F2"/>
+      <text x="70" y="77" text-anchor="middle" class="sans" font-size="11" font-weight="700" fill="#FFFFFF">Run check</text>
+      <text x="140" y="77" class="mono" font-size="10" fill="#566079">6 steps passed</text>
+    </g>
+  </g>
+
+  <!-- CARD 04 -->
+  <rect x="358" y="241" width="324" height="184" rx="22" fill="#DCE1F0"/>
+  <rect x="353" y="234" width="334" height="184" rx="22" fill="url(#cardBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="378" y1="234.5" x2="662" y2="234.5" stroke="url(#rimTealL)" stroke-width="1.5"/>
+
+  <text x="374" y="260" class="mono" font-size="10" font-weight="700" fill="#0E7490">04 · SMART RANKING</text>
+  <text x="374" y="284" class="sans" font-size="18.5" font-weight="800" fill="#0B0F1D">Fastest route match</text>
+
+  <g transform="translate(374, 298)">
+    <rect x="0" y="0" width="290" height="30" rx="10" fill="#E6F6F9" stroke="#0E7490" stroke-opacity="0.35" stroke-width="1"/>
+    <g transform="translate(18, 15)">
+      <g clip-path="url(#nlClipL)">
+        <rect x="-10" y="-10" width="20" height="6.7" fill="#AE1C28"/>
+        <rect x="-10" y="-3.3" width="20" height="6.6" fill="#FFFFFF"/>
+        <rect x="-10" y="3.3" width="20" height="6.7" fill="#21468B"/>
+      </g>
+    </g>
+    <text x="36" y="19" class="sans" font-size="12" font-weight="700" fill="#0B0F1D">Netherlands</text>
+    <rect x="150" y="11" width="76" height="8" rx="4" fill="#0E7490" fill-opacity="0.78"/>
+    <text x="278" y="19" text-anchor="end" class="mono" font-size="11" font-weight="700" fill="#0E7490">38 ms</text>
+
+    <rect x="0" y="36" width="290" height="30" rx="10" fill="url(#subBgL)" stroke="#D5DCEF" stroke-width="1"/>
+    <g transform="translate(18, 51)">
+      <g clip-path="url(#deClipL)">
+        <rect x="-10" y="-10" width="20" height="6.7" fill="#111111"/>
+        <rect x="-10" y="-3.3" width="20" height="6.6" fill="#DD0000"/>
+        <rect x="-10" y="3.3" width="20" height="6.7" fill="#FFCE00"/>
+      </g>
+    </g>
+    <text x="36" y="55" class="sans" font-size="12" font-weight="600" fill="#0B0F1D">Germany</text>
+    <rect x="150" y="47" width="58" height="8" rx="4" fill="#4350F2" fill-opacity="0.72"/>
+    <text x="278" y="55" text-anchor="end" class="mono" font-size="11" fill="#4350F2">52 ms</text>
+
+    <rect x="0" y="72" width="290" height="30" rx="10" fill="url(#subBgL)" stroke="#D5DCEF" stroke-width="1"/>
+    <g transform="translate(18, 87)">
+      <g clip-path="url(#seClipL)">
+        <rect x="-10" y="-10" width="20" height="20" fill="#006AA7"/>
+        <rect x="-4" y="-10" width="4" height="20" fill="#FECC02"/>
+        <rect x="-10" y="-2" width="20" height="4" fill="#FECC02"/>
+      </g>
+    </g>
+    <text x="36" y="91" class="sans" font-size="12" font-weight="600" fill="#0B0F1D">Sweden</text>
+    <rect x="150" y="83" width="44" height="8" rx="4" fill="#5A67FF" fill-opacity="0.65"/>
+    <text x="278" y="91" text-anchor="end" class="mono" font-size="11" fill="#566079">61 ms</text>
+  </g>
+
+  <!-- CARD 05 -->
+  <rect x="710" y="241" width="324" height="184" rx="22" fill="#DCE1F0"/>
+  <rect x="705" y="234" width="334" height="184" rx="22" fill="url(#cardBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="730" y1="234.5" x2="1014" y2="234.5" stroke="url(#rimL)" stroke-width="1.5"/>
+
+  <text x="726" y="260" class="mono" font-size="10" font-weight="700" fill="#4350F2">05 · QUICK SWITCH</text>
+  <text x="726" y="284" class="sans" font-size="18.5" font-weight="800" fill="#0B0F1D">Ctrl + K palette</text>
+
+  <g transform="translate(726, 298)">
+    <rect x="0" y="54" width="290" height="42" rx="12" fill="#EFF2FA" stroke="#D5DCEF" stroke-width="1"/>
+    <text x="14" y="79" class="mono" font-size="10.5" fill="#566079">vless://amsterdam.glide…</text>
+    <rect x="218" y="64" width="60" height="22" rx="11" fill="#ECEFFF" stroke="#4350F2" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="248" y="78.5" text-anchor="middle" class="sans" font-size="10" font-weight="700" fill="#2B37B8">Import</text>
+
+    <g class="fC">
+      <rect x="0" y="4" width="290" height="40" rx="14" fill="#CFD6EA"/>
+      <rect x="0" y="0" width="290" height="40" rx="14" fill="#FFFFFF" stroke="#4350F2" stroke-width="1.2"/>
+      <circle cx="20" cy="20" r="6" stroke="#4350F2" stroke-width="1.5" fill="none"/>
+      <line x1="24.5" y1="24.5" x2="28" y2="28" stroke="#4350F2" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="38" y="24" class="sans" font-size="12" font-weight="600" fill="#0B0F1D">Search servers…</text>
+      <rect x="228" y="9" width="50" height="22" rx="7" fill="#F1F4FA" stroke="#C5CFE6" stroke-width="1"/>
+      <text x="253" y="23.5" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#353F58">Ctrl K</text>
+    </g>
+  </g>
+
+  <!-- ==================== ROW 3 ==================== -->
+  <!-- CARD 06 -->
+  <rect x="6" y="445" width="501" height="174" rx="22" fill="#DCE1F0"/>
+  <rect x="1" y="438" width="511" height="174" rx="22" fill="url(#cardBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="28" y1="438.5" x2="486" y2="438.5" stroke="url(#rimL)" stroke-width="1.6"/>
+
+  <rect x="24" y="456" width="136" height="22" rx="11" fill="#ECEFFF" stroke="#4350F2" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="92" y="470.5" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#2B37B8">06 · DUAL THEMES</text>
+  <text x="24" y="506" class="sans" font-size="19" font-weight="800" fill="#0B0F1D">Midnight Aurora &amp; Light</text>
+  <text x="24" y="530" class="sans" font-size="12.5" fill="#566079">Dark glass indigo &amp; ceramic daylight UI,</text>
+  <text x="24" y="549" class="sans" font-size="12.5" fill="#566079">crafted from one semantic token system.</text>
+  <text x="24" y="582" class="mono" font-size="10.5" font-weight="600" fill="#4350F2">#0B0C13 Dark  ·  #F5F6FA Light</text>
+
+  <g transform="translate(394, 522)">
+    <g transform="translate(-26, -24)">
+      <rect x="-64" y="-34" width="138" height="72" rx="14" fill="#070911"/>
+      <rect x="-64" y="-38" width="138" height="72" rx="14" fill="#14182B" stroke="#5560F5" stroke-width="1.1"/>
+      <circle cx="-44" cy="-16" r="7" fill="#7B88FF"/>
+      <rect x="-28" y="-21" width="66" height="10" rx="5" fill="#283052"/>
+      <rect x="-48" y="4" width="44" height="14" rx="7" fill="#102924"/>
+      <text x="-26" y="14" text-anchor="middle" class="mono" font-size="8.5" font-weight="700" fill="#6EE7B7">38 ms</text>
+    </g>
+    <g class="fA">
+      <rect x="-48" y="-8" width="150" height="76" rx="14" fill="#C7D1E8"/>
+      <rect x="-48" y="-12" width="150" height="76" rx="14" fill="#FFFFFF" stroke="#4350F2" stroke-width="1.2"/>
+      <circle cx="-28" cy="10" r="8" fill="#4350F2"/>
+      <text x="-12" y="14" class="sans" font-size="11" font-weight="700" fill="#0B0F1D">Ceramic Light</text>
+      <rect x="-32" y="28" width="54" height="18" rx="9" fill="#ECFDF5" stroke="#047857" stroke-opacity="0.35" stroke-width="1"/>
+      <text x="-5" y="40" text-anchor="middle" class="mono" font-size="9" font-weight="700" fill="#047857">38 ms</text>
+      <rect x="30" y="28" width="56" height="18" rx="9" fill="#4350F2"/>
+      <text x="58" y="40" text-anchor="middle" class="sans" font-size="9" font-weight="700" fill="#FFFFFF">Active</text>
+    </g>
+  </g>
+
+  <!-- CARD 07 -->
+  <rect x="533" y="445" width="501" height="174" rx="22" fill="#DCE1F0"/>
+  <rect x="528" y="438" width="511" height="174" rx="22" fill="url(#cardBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="555" y1="438.5" x2="1014" y2="438.5" stroke="url(#rimTealL)" stroke-width="1.6"/>
+
+  <rect x="552" y="456" width="134" height="22" rx="11" fill="#E6F6F9" stroke="#0E7490" stroke-opacity="0.35" stroke-width="1"/>
+  <text x="619" y="470.5" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#0E7490">07 · TRAY FLYOUT</text>
+  <text x="552" y="506" class="sans" font-size="19" font-weight="800" fill="#0B0F1D">Quiet tray control</text>
+  <text x="552" y="530" class="sans" font-size="12.5" fill="#566079">Switch pinned favourites or disconnect from</text>
+  <text x="552" y="549" class="sans" font-size="12.5" fill="#566079">Windows taskbar without opening the window.</text>
+  <text x="552" y="582" class="mono" font-size="10.5" font-weight="600" fill="#0E7490">★ Favourites · Connected dot · Autostart</text>
+
+  <g transform="translate(938, 520)">
+    <g class="fB">
+      <rect x="-78" y="-56" width="154" height="106" rx="14" fill="#CBD5E8"/>
+      <rect x="-78" y="-60" width="154" height="106" rx="14" fill="#FFFFFF" stroke="#0E7490" stroke-opacity="0.55" stroke-width="1.1"/>
+      <circle class="dot" cx="-58" cy="-41" r="4" fill="#047857"/>
+      <text x="-47" y="-37" class="sans" font-size="11.5" font-weight="700" fill="#0B0F1D">Amsterdam</text>
+      <text x="-62" y="-17" class="mono" font-size="9.5" fill="#566079">★ NL 38ms   ★ DE 52ms</text>
+      <line x1="-64" y1="-6" x2="62" y2="-6" stroke="#DCE1F0" stroke-width="1"/>
+      <rect x="-64" y="6" width="126" height="24" rx="12" fill="#4350F2"/>
+      <text x="-1" y="21.5" text-anchor="middle" class="sans" font-size="10.5" font-weight="700" fill="#FFFFFF">⏻ Disconnect</text>
+    </g>
+    <rect x="-56" y="54" width="110" height="12" rx="6" fill="#E2E8F0" stroke="#C5CFE6" stroke-width="1"/>
+    <circle cx="0" cy="60" r="3" fill="#0E7490"/>
+  </g>
+
+  <!-- ==================== ROW 4 ==================== -->
+  <!-- CARD 08 -->
+  <rect x="6" y="639" width="1028" height="162" rx="22" fill="#DCE1F0"/>
+  <rect x="1" y="632" width="1038" height="162" rx="22" fill="url(#cardBgL)" stroke="#CFD6EA" stroke-width="1.2"/>
+  <line x1="28" y1="632.5" x2="1012" y2="632.5" stroke="url(#rimL)" stroke-width="1.7"/>
+
+  <rect x="24" y="650" width="194" height="22" rx="11" fill="#ECEFFF" stroke="#4350F2" stroke-opacity="0.4" stroke-width="1"/>
+  <text x="121" y="664.5" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#2B37B8">08 · EN LTR + فارسی RTL</text>
+  <text x="24" y="700" class="sans" font-size="20" font-weight="800" fill="#0B0F1D">Full mirrored bilingual interface</text>
+  <text x="24" y="724" class="sans" font-size="12.5" fill="#566079">Complete English &amp; Persian localization where rails,</text>
+  <text x="24" y="743" class="sans" font-size="12.5" fill="#566079">sidebars, flags, and directional flow flip cleanly.</text>
+  <text x="24" y="772" class="mono" font-size="10.5" font-weight="600" fill="#0E7490">LTR Sidebar Left  ⇄  RTL Sidebar Right</text>
+
+  <g transform="translate(454, 654)">
+    <!-- EN (LTR) Window -->
+    <rect x="0" y="3" width="234" height="114" rx="16" fill="#CBD5E8"/>
+    <rect x="0" y="0" width="234" height="114" rx="16" fill="#FFFFFF" stroke="#4350F2" stroke-opacity="0.45" stroke-width="1.1"/>
+    <rect x="10" y="10" width="44" height="94" rx="10" fill="#EFF2FA"/>
+    <circle cx="32" cy="26" r="8" fill="#4350F2"/>
+    <rect x="20" y="44" width="24" height="5" rx="2.5" fill="#4350F2"/>
+    <rect x="20" y="56" width="24" height="5" rx="2.5" fill="#CBD5E1"/>
+    <text x="68" y="28" class="sans" font-size="11.5" font-weight="700" fill="#0B0F1D">English (LTR)</text>
+    <text x="68" y="46" class="mono" font-size="9.5" fill="#566079">Amsterdam · 38 ms</text>
+    <rect x="68" y="64" width="144" height="32" rx="16" fill="#4350F2"/>
+    <text x="140" y="84" text-anchor="middle" class="sans" font-size="11" font-weight="700" fill="#FFFFFF">⏻ Connect</text>
+
+    <path id="ltrRtlL" d="M 244 57 L 308 57" stroke="#0E7490" stroke-opacity="0.55" stroke-width="1.8" stroke-dasharray="4 4"/>
+    <circle r="3.2" fill="#0E7490"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#ltrRtlL"/></animateMotion></circle>
+
+    <!-- فارسی (RTL) Window -->
+    <rect x="318" y="3" width="234" height="114" rx="16" fill="#CBD5E8"/>
+    <rect x="318" y="0" width="234" height="114" rx="16" fill="#FFFFFF" stroke="#0E7490" stroke-opacity="0.45" stroke-width="1.1"/>
+    <rect x="498" y="10" width="44" height="94" rx="10" fill="#EFF2FA"/>
+    <circle cx="520" cy="26" r="8" fill="#0E7490"/>
+    <rect x="508" y="44" width="24" height="5" rx="2.5" fill="#0E7490"/>
+    <rect x="508" y="56" width="24" height="5" rx="2.5" fill="#CBD5E1"/>
+    <text x="484" y="28" text-anchor="end" class="sans" font-size="12" font-weight="700" fill="#0B0F1D">فارسی (RTL)</text>
+    <text x="484" y="46" text-anchor="end" class="sans" font-size="10.5" fill="#566079">هلند · ۳۸ میلی‌ثانیه</text>
+    <rect x="340" y="64" width="144" height="32" rx="16" fill="#4350F2"/>
+    <text x="412" y="84" text-anchor="middle" class="sans" font-size="11.5" font-weight="700" fill="#FFFFFF">اتصال ⏻</text>
+  </g>
+</svg>

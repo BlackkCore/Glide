@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="296" viewBox="0 0 1040 296" fill="none">
+  <defs>
+    <linearGradient id="cardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#191D2E"/>
+      <stop offset="100%" stop-color="#101320"/>
+    </linearGradient>
+    <linearGradient id="chipBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E2339"/>
+      <stop offset="100%" stop-color="#141827"/>
+    </linearGradient>
+    <linearGradient id="rimIndigo" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5560F5" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#5560F5"/>
+      <stop offset="75%" stop-color="#7B88FF"/>
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="rimAurora" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7B88FF" stop-opacity="0"/>
+      <stop offset="35%" stop-color="#7B88FF"/>
+      <stop offset="70%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#34D399" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="coreGlobe" cx="38%" cy="32%" r="68%">
+      <stop offset="0%" stop-color="#3B4594"/>
+      <stop offset="68%" stop-color="#151932"/>
+      <stop offset="100%" stop-color="#7B88FF"/>
+    </radialGradient>
+    <pattern id="coreDots" width="4.5" height="4.5" patternUnits="userSpaceOnUse">
+      <circle cx="1.8" cy="1.8" r="0.9" fill="#A5B4FC" fill-opacity="0.72"/>
+    </pattern>
+    <clipPath id="coreGlobeClip"><circle cx="0" cy="0" r="34"/></clipPath>
+  </defs>
+  <style>
+    .sans { font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace; }
+    @keyframes floatMid { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-5px); } }
+    @keyframes dotPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .fMid { animation: floatMid 4.2s ease-in-out infinite; }
+    .dot { animation: dotPulse 2.2s ease-in-out infinite; }
+  </style>
+
+  <!-- Smooth Bezier Aurora Fusion Conduits Behind Cards & Globe -->
+  <path id="fuseA" d="M 442 104 C 482 104 488 148 520 148 C 552 148 558 104 598 104" stroke="#5560F5" stroke-opacity="0.45" stroke-width="1.8" fill="none"/>
+  <path id="fuseB" d="M 442 148 L 598 148" stroke="#7B88FF" stroke-opacity="0.65" stroke-width="2.2" fill="none"/>
+  <path id="fuseC" d="M 442 192 C 482 192 488 148 520 148 C 552 148 558 192 598 192" stroke="#22D3EE" stroke-opacity="0.50" stroke-width="1.8" fill="none"/>
+
+  <circle r="3.2" fill="#7B88FF"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#fuseA"/></animateMotion></circle>
+  <circle r="3.6" fill="#EEF0F8"><animateMotion dur="2.1s" repeatCount="indefinite"><mpath href="#fuseB"/></animateMotion></circle>
+  <circle r="3.2" fill="#22D3EE"><animateMotion dur="2.8s" begin="0.8s" repeatCount="indefinite"><mpath href="#fuseC"/></animateMotion></circle>
+
+  <!-- LEFT CARD: UPSTREAM v2rayN ENGINE FOUNDATION -->
+  <rect x="6" y="12" width="438" height="278" rx="22" fill="#070911"/>
+  <rect x="1" y="4" width="448" height="278" rx="22" fill="url(#cardBg)" stroke="#29304B" stroke-width="1.2"/>
+  <line x1="28" y1="4.5" x2="422" y2="4.5" stroke="url(#rimIndigo)" stroke-width="1.8"/>
+
+  <rect x="24" y="22" width="174" height="24" rx="12" fill="#1E2444" stroke="#5560F5" stroke-opacity="0.55" stroke-width="1"/>
+  <circle cx="37" cy="34" r="3.5" fill="#7B88FF"/>
+  <text x="48" y="37.5" class="mono" font-size="10.5" font-weight="700" fill="#D5DCFF">UPSTREAM FOUNDATION</text>
+
+  <text x="24" y="72" class="sans" font-size="20" font-weight="800" fill="#EEF0F8">v2rayN Routing Core</text>
+  <text x="24" y="93" class="sans" font-size="12.5" fill="#8C97B0">Proven multi-protocol plumbing preserved intact.</text>
+
+  <!-- Upstream Chips -->
+  <g transform="translate(24, 112)">
+    <rect x="0" y="0" width="402" height="36" rx="10" fill="url(#chipBg)" stroke="#262D45" stroke-width="1"/>
+    <circle cx="16" cy="18" r="3.5" fill="#7B88FF"/>
+    <text x="30" y="22" class="sans" font-size="12.5" font-weight="600" fill="#EEF0F8">Three engines: Xray, sing-box, mihomo</text>
+
+    <rect x="0" y="44" width="402" height="36" rx="10" fill="url(#chipBg)" stroke="#262D45" stroke-width="1"/>
+    <circle cx="16" cy="62" r="3.5" fill="#7B88FF"/>
+    <text x="30" y="66" class="sans" font-size="12.5" font-weight="600" fill="#EEF0F8">System proxy hooks &amp; full-device TUN mode</text>
+
+    <rect x="0" y="88" width="402" height="36" rx="10" fill="url(#chipBg)" stroke="#262D45" stroke-width="1"/>
+    <circle cx="16" cy="106" r="3.5" fill="#7B88FF"/>
+    <text x="30" y="110" class="sans" font-size="12.5" font-weight="600" fill="#EEF0F8">Subscriptions, routing rules &amp; Windows tray core</text>
+
+    <rect x="0" y="132" width="402" height="24" rx="8" fill="#131727" stroke="#22283E" stroke-width="1"/>
+    <text x="201" y="148" text-anchor="middle" class="mono" font-size="10.5" fill="#8C97B0">GPL-3.0 upstream sync · upstream protocols untouched</text>
+  </g>
+
+  <!-- RIGHT CARD: GLIDE ADDITIONS -->
+  <rect x="596" y="12" width="438" height="278" rx="22" fill="#070911"/>
+  <rect x="591" y="4" width="448" height="278" rx="22" fill="url(#cardBg)" stroke="#2A334D" stroke-width="1.2"/>
+  <line x1="618" y1="4.5" x2="1012" y2="4.5" stroke="url(#rimAurora)" stroke-width="1.8"/>
+
+  <rect x="614" y="22" width="194" height="24" rx="12" fill="#112630" stroke="#22D3EE" stroke-opacity="0.55" stroke-width="1"/>
+  <circle class="dot" cx="627" cy="34" r="3.5" fill="#22D3EE"/>
+  <text x="638" y="37.5" class="mono" font-size="10.5" font-weight="700" fill="#A5F3FC">GLIDE LAYER · REBUILT UX</text>
+
+  <text x="614" y="72" class="sans" font-size="20" font-weight="800" fill="#EEF0F8">What Glide Rebuilds</text>
+  <text x="614" y="93" class="sans" font-size="12.5" fill="#8C97B0">Calm desktop craft layered cleanly over the core.</text>
+
+  <!-- Glide Addition Chips -->
+  <g transform="translate(614, 112)">
+    <rect x="0" y="0" width="402" height="36" rx="10" fill="url(#chipBg)" stroke="#26324A" stroke-width="1"/>
+    <circle cx="16" cy="18" r="3.5" fill="#34D399"/>
+    <text x="30" y="22" class="sans" font-size="12.5" font-weight="600" fill="#EEF0F8">Real-traffic verification (Traffic Verified · 38 ms)</text>
+
+    <rect x="0" y="44" width="402" height="36" rx="10" fill="url(#chipBg)" stroke="#26324A" stroke-width="1"/>
+    <circle cx="16" cy="62" r="3.5" fill="#22D3EE"/>
+    <text x="30" y="66" class="sans" font-size="12.5" font-weight="600" fill="#EEF0F8">Midnight Aurora &amp; Light UI + full EN / فارسی RTL</text>
+
+    <rect x="0" y="88" width="402" height="36" rx="10" fill="url(#chipBg)" stroke="#26324A" stroke-width="1"/>
+    <circle cx="16" cy="106" r="3.5" fill="#7B88FF"/>
+    <text x="30" y="110" class="sans" font-size="12.5" font-weight="600" fill="#EEF0F8">Ctrl+K command search, favourites &amp; tray flyout</text>
+
+    <rect x="0" y="132" width="402" height="24" rx="8" fill="#102129" stroke="#22D3EE" stroke-opacity="0.35" stroke-width="1"/>
+    <text x="201" y="148" text-anchor="middle" class="mono" font-size="10.5" fill="#A5F3FC">Ed25519 manifest verification + built-in health check</text>
+  </g>
+
+  <!-- CENTER 3D DOTTED AURORA FUSION GLOBE HUB -->
+  <g transform="translate(520, 148)">
+    <g class="fMid">
+      <circle cx="0" cy="0" r="44" fill="#5560F5" fill-opacity="0.16"/>
+      <!-- Back Arc -->
+      <path d="M -52 0 A 52 15 0 0 1 52 0" transform="rotate(-16)" stroke="#22D3EE" stroke-opacity="0.35" stroke-width="1.3" fill="none"/>
+      <!-- 3D Dotted Globe -->
+      <circle cx="0" cy="0" r="34" fill="url(#coreGlobe)"/>
+      <g clip-path="url(#coreGlobeClip)">
+        <circle cx="0" cy="0" r="34" fill="url(#coreDots)"/>
+        <path d="M -36 10 C -14 3 14 3 36 10 L 36 36 L -36 36 Z" fill="#0B0E1A" fill-opacity="0.58"/>
+      </g>
+      <circle cx="0" cy="0" r="34" stroke="#818CF8" stroke-width="1.5"/>
+      <!-- Front Arc -->
+      <path d="M -52 0 A 52 15 0 0 0 52 0" transform="rotate(-16)" stroke="#22D3EE" stroke-opacity="0.88" stroke-width="1.6" fill="none"/>
+      <!-- Center + Fusion Emblem -->
+      <circle cx="0" cy="0" r="14" fill="#12162A" stroke="#7B88FF" stroke-width="1.2"/>
+      <line x1="-6" y1="0" x2="6" y2="0" stroke="#EEF0F8" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="0" y1="-6" x2="0" y2="6" stroke="#22D3EE" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

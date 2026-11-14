@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="272" height="56" viewBox="0 0 272 56" fill="none">
+  <defs>
+    <linearGradient id="btnBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4350F2"/>
+      <stop offset="55%" stop-color="#5560F5"/>
+      <stop offset="100%" stop-color="#6B76FF"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="pill"><rect x="2" y="2" width="268" height="46" rx="23"/></clipPath>
+  </defs>
+  <style>
+    .sans { font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+    @keyframes sweep { 0% { transform: translateX(-140px); } 100% { transform: translateX(320px); } }
+    @keyframes hop { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(2px); } }
+    .sh { animation: sweep 3.6s ease-in-out infinite; }
+    .arr { animation: hop 2s ease-in-out infinite; }
+  </style>
+  <rect x="2" y="7" width="268" height="46" rx="23" fill="#2A329E"/>
+  <g clip-path="url(#pill)">
+    <rect x="2" y="2" width="268" height="46" rx="23" fill="url(#btnBg)"/>
+    <rect class="sh" x="2" y="2" width="88" height="46" fill="url(#sheen)"/>
+  </g>
+  <rect x="2.75" y="2.75" width="266.5" height="44.5" rx="22.25" stroke="#818CF8" stroke-width="1.3"/>
+  <path d="M 24 3.4 L 248 3.4" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="1.1"/>
+  <g transform="translate(29, 25)">
+    <path class="arr" d="M0 -7v9m0 0l-4-4m4 4l4-4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-6 7h12" stroke="#A5F3FC" stroke-width="1.9" stroke-linecap="round"/>
+  </g>
+  <text x="47" y="30" class="sans" font-size="14.5" font-weight="700" fill="#FFFFFF">Download Installer (x64)</text>
+</svg>

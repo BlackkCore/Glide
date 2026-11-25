@@ -2,7 +2,7 @@
 
 All notable changes to Glide. The format follows [Keep a Changelog](https://keepachangelog.com/); versions follow the release tags. Glide is built on [v2rayN](https://github.com/2dust/v2rayN); upstream's own changes are merged in and are not listed here.
 
-## [1.1.1] - Unreleased
+## [1.1.1] - 2026-11-25
 
 ### Fixed
 - With Windows display scaling above 100 %, the home screen globe no longer appears zoomed in and cut off, and switching between light and dark theme no longer shows a stray, oversized Connect button during the fade.

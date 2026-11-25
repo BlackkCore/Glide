@@ -37,7 +37,8 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # Glide is Windows-only and some tests check Windows paths (AppData, backslashes); they cannot pass on Linux.
+    runs-on: windows-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v7
@@ -50,6 +51,7 @@ jobs:
 
     # The signed engine index generator (offline: synthetic releases, a stub gh, throwaway keys).
     - name: Engine index tool self-tests
+      shell: bash
       run: node --test scripts/cores/*.test.mjs
 
     - name: Test Code
@@ -57,7 +59,7 @@ jobs:
 
     - name: Comment PR with results
       if: always()
-      uses: EnricoMi/publish-unit-test-result-action@v2
+      uses: EnricoMi/publish-unit-test-result-action/windows@v2
       with:
         files: ./TestResults/*.trx
         comment_mode: failures

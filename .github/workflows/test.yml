@@ -57,9 +57,27 @@ jobs:
     - name: Test Code
       run: dotnet test --project ./v2rayN/ServiceLib.Tests -c Release --results-directory ./TestResults -- --report-trx
 
-    - name: Comment PR with results
+    - name: Upload test results
       if: always()
-      uses: EnricoMi/publish-unit-test-result-action/windows@v2
+      uses: actions/upload-artifact@v7
+      with:
+        name: test-results
+        path: ./TestResults/*.trx
+
+  # The results action allowed in this repository runs on Linux only, so it reads the Windows job's results here.
+  publish-results:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download test results
+      uses: actions/download-artifact@v8
+      with:
+        name: test-results
+        path: ./TestResults
+
+    - name: Comment PR with results
+      uses: EnricoMi/publish-unit-test-result-action@v2
       with:
         files: ./TestResults/*.trx
         comment_mode: failures

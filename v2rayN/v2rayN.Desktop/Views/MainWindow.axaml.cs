@@ -536,10 +536,11 @@ public partial class MainWindow : WindowBase<MainWindowViewModel>
 
         // Clicked again mid-reveal: picture exactly what is on screen now and start a fresh fade.
         var wasDark = IsDarkTheme();
-        var scaling = RenderScaling;
+        // Pictured at 100 % and stretched over the window: rendered at the screen's own scale (above 100 %)
+        // the picture came back zoomed and some parts, like the Connect button, were drawn twice as a ghost.
+        // Slightly soft for the quarter second it fades, but it lines up at every scale.
         var snapshot = new RenderTargetBitmap(
-            new PixelSize((int)Math.Ceiling(bounds.Width * scaling), (int)Math.Ceiling(bounds.Height * scaling)),
-            new Vector(96 * scaling, 96 * scaling));
+            new PixelSize((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)), new Vector(96, 96));
         snapshot.Render(gridRoot);
         var previous = _revealSnapshot;
         imgThemeSnapshot.Transitions = null;

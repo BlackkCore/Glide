@@ -455,7 +455,7 @@ public class GlobeView : Control
         }
         if (_static != null)
         {
-            context.DrawImage(_static, bounds);
+            context.DrawImage(_static, new Rect(_static.Size), bounds);
         }
         else
         {
@@ -563,9 +563,13 @@ public class GlobeView : Control
         {
             bitmap = new RenderTargetBitmap(
                 new PixelSize(Math.Max(1, (int)Math.Ceiling(size.Width * scale)), Math.Max(1, (int)Math.Ceiling(size.Height * scale))),
-                new Vector(96 * scale, 96 * scale));
+                new Vector(96, 96));
+            // Scale by hand at 96 DPI: a high-DPI bitmap was drawn back zoomed and clipped above 100 % scaling.
             using var ctx = bitmap.CreateDrawingContext();
-            render(ctx);
+            using (ctx.PushTransform(Matrix.CreateScale(scale, scale)))
+            {
+                render(ctx);
+            }
             return bitmap;
         }
         catch (Exception ex)
